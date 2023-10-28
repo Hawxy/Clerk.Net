@@ -19,7 +19,7 @@ public static class ClerkApiClientFactory
     {
         ArgumentNullException.ThrowIfNull(secretKey);
         
-        var authProvider = new ApiKeyAuthenticationProvider(secretKey, "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
+        var authProvider = new ApiKeyAuthenticationProvider($"Bearer {secretKey}", "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
         var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
         return new ClerkApiClient(adapter);
     }
