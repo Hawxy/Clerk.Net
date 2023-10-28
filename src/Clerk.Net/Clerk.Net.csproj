@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>Clerk.Net</PackageId>
+    <Description>Clerk Backend API Wrapper for .NET. This package includes the OpenAPI-generated client.</Description>
+    <PackageTags>clerk,auth</PackageTags>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,4 +18,9 @@
     <PackageReference Include="Microsoft.Kiota.Serialization.Text" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <Import Project="../../Package.Build.props" />
 </Project>

@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+      <PackageId>Clerk.Net.DependencyInjection</PackageId>
+      <Description>Clerk Backend API Wrapper for .NET. This package includes dependency injection extensions.</Description>
+      <PackageTags>clerk,auth</PackageTags>
+      <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,4 +18,9 @@
       <ProjectReference Include="..\Clerk.Net\Clerk.Net.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All" />
+    </ItemGroup>
+
+    <Import Project="../../Package.Build.props" />
 </Project>
