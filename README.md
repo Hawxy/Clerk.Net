@@ -52,6 +52,13 @@ If you want to use the client by itself, install `Clerk.Net` and call `ClerkApiC
 
 The returned client should be treated as a singleton and created once for the lifetime of your application.
 
+### HttpClient Customization
+
+If you need to configure the underlying `HttpClient` used by the client, you can do in one of two ways:
+
+- Configure the `IHttpClientBuilder` returned by `AddClerkApiClient`.
+- Pass in a custom `HttpClient` instance to `ClerkApiClientFactory.Create`
+
 ### Testing
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
