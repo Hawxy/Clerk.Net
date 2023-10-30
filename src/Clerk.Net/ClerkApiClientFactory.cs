@@ -13,8 +13,8 @@ public static class ClerkApiClientFactory
     /// Creates a new <see cref="ClerkApiClient"/> with the provided configuration. For performance, you should treat this client as a singleton.
     /// </summary>
     /// <param name="secretKey">The Secret Key from your Clerk instance.</param>
-    /// <param name="httpClient">An optional <see cref="HttpClient"/> if you wish to customize it outside of the client.</param>
-    /// <returns></returns>
+    /// <param name="httpClient">An optional <see cref="HttpClient"/> for advanced use.</param>
+    /// <returns>The <see cref="ClerkApiClient"/></returns>
     public static ClerkApiClient Create(string secretKey, HttpClient? httpClient = default)
     {
         ArgumentNullException.ThrowIfNull(secretKey);

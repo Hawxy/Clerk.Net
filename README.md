@@ -1,14 +1,14 @@
 ## Clerk API Client for .NET
 
-[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Fga.Net.DependencyInjection)
-[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Fga.Net.AspNetCore)
-
-#### Note: This project is currently in alpha. Breaking changes may occur before release.
+[![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Fga.Net.DependencyInjection)
+[![Nuget](https://img.shields.io/nuget/v/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Fga.Net.AspNetCore)
 
 ### Packages
 **`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec.
 
-**`Clerk.Net.DependencyInjection`**: Dependency Injection extensions to register the `ClerkApiClient` into your container.
+**`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container.
+
+These libraries support .NET 6 onwards and are configured as native AoT compatible for .NET 8+ consumers.
 
 ## Getting Started
 
@@ -36,22 +36,25 @@ public class MyBackgroundWorker : BackgroundService
         _clerkApiClient = clerkApiClient;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        // Do work with the client
+        var invites = await _clerkApiClient.Organizations["org_abc1234"].Invitations.GetAsync(x =>
+        {
+            x.QueryParameters.Status = "pending";
+        });
     }
 }
 ```
 
-## Standalone Client
+### Standalone Client
 
 If you want to use the client by itself, install `Clerk.Net` and call `ClerkApiClientFactory.Create`, passing in your secret key. 
 
 The returned client should be treated as a singleton and created once for the lifetime of your application.
 
-## Testing
+### Testing
 
-(To be written)
+For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
 
 ## Disclaimer
 
