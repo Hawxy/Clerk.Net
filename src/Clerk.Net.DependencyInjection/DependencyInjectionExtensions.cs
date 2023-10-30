@@ -16,11 +16,12 @@ public static class DependencyInjectionExtensions
     /// </summary>
     /// <param name="collection">The service collection.</param>
     /// <param name="options">The lambda that configures the client.</param>
-    public static void AddClerkApiClient(this IServiceCollection collection, Action<ClerkApiClientOptions> options)
+    /// <returns>A <see cref="IHttpClientBuilder"/> instance that can be used to additionally configure the underlying <see cref="HttpClient"/>.</returns>
+    public static IHttpClientBuilder AddClerkApiClient(this IServiceCollection collection, Action<ClerkApiClientOptions> options)
     {
         ArgumentNullException.ThrowIfNull(options);
         
-        collection.AddHttpClient(ClerkHttpClient)
+        var clientBuilder = collection.AddHttpClient(ClerkHttpClient)
             .ConfigurePrimaryHttpMessageHandler(() => 
                 new SocketsHttpHandler()
                 {
@@ -38,5 +39,6 @@ public static class DependencyInjectionExtensions
             return ClerkApiClientFactory.Create(clientOptions.Value.SecretKey, httpClient);
         });
 
+        return clientBuilder;
     }
 }
