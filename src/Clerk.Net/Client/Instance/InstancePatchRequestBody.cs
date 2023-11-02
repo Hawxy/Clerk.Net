@@ -60,7 +60,7 @@ namespace Clerk.Net.Client.Instance {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"allowed_origins", n => { AllowedOrigins = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"clerk_js_version", n => { ClerkJsVersion = n.GetStringValue(); } },
@@ -77,7 +77,7 @@ namespace Clerk.Net.Client.Instance {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("allowed_origins", AllowedOrigins);
             writer.WriteStringValue("clerk_js_version", ClerkJsVersion);

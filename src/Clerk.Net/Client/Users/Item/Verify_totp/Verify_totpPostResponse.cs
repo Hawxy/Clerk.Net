@@ -21,7 +21,7 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"code_type", n => { CodeType = n.GetEnumValue<Verify_totpPostResponse_code_type>(); } },
                 {"verified", n => { Verified = n.GetBoolValue(); } },
@@ -31,7 +31,7 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteEnumValue<Verify_totpPostResponse_code_type>("code_type", CodeType);
             writer.WriteBoolValue("verified", Verified);
