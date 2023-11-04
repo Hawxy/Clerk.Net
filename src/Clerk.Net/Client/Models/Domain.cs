@@ -85,7 +85,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"accounts_portal_url", n => { AccountsPortalUrl = n.GetStringValue(); } },
                 {"cname_targets", n => { CnameTargets = n.GetCollectionOfObjectValues<CNameTarget>(CNameTarget.CreateFromDiscriminatorValue)?.ToList(); } },
@@ -102,7 +102,7 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("accounts_portal_url", AccountsPortalUrl);
             writer.WriteCollectionOfObjectValues<CNameTarget>("cname_targets", CnameTargets);

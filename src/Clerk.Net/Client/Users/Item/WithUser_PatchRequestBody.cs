@@ -147,7 +147,7 @@ namespace Clerk.Net.Client.Users.Item {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"backup_codes", n => { BackupCodes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"create_organization_enabled", n => { CreateOrganizationEnabled = n.GetBoolValue(); } },
@@ -175,7 +175,7 @@ namespace Clerk.Net.Client.Users.Item {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("backup_codes", BackupCodes);
             writer.WriteStringValue("created_at", CreatedAt);

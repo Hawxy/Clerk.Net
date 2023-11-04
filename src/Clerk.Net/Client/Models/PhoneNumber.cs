@@ -65,7 +65,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"backup_codes", n => { BackupCodes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"default_second_factor", n => { DefaultSecondFactor = n.GetBoolValue(); } },
@@ -82,7 +82,7 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("backup_codes", BackupCodes);
             writer.WriteBoolValue("default_second_factor", DefaultSecondFactor);
@@ -133,7 +133,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// The deserialization information for the current model
             /// </summary>
-            public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
                 if(Admin != null) {
                     return Admin.GetFieldDeserializers();
                 }
@@ -146,7 +146,7 @@ namespace Clerk.Net.Client.Models {
             /// Serializes information the current object
             /// </summary>
             /// <param name="writer">Serialization writer to use to serialize this model</param>
-            public void Serialize(ISerializationWriter writer) {
+            public virtual void Serialize(ISerializationWriter writer) {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
                 if(Admin != null) {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Admin>(null, Admin);

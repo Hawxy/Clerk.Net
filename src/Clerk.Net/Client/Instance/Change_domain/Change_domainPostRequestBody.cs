@@ -25,7 +25,7 @@ namespace Clerk.Net.Client.Instance.Change_domain {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
-        public IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"home_url", n => { HomeUrl = n.GetStringValue(); } },
             };
@@ -34,7 +34,7 @@ namespace Clerk.Net.Client.Instance.Change_domain {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("home_url", HomeUrl);
         }
