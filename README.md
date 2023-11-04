@@ -1,7 +1,9 @@
-## Clerk API Client for .NET
+## Clerk SDK for .NET
 
-[![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Clerk.Net)
+[![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
+
+_Looking for ASP.NET Core w/ Clerk JWTs? [See below](#what-about-jwt-auth)._
 
 ### Packages
 **`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec.
@@ -62,6 +64,50 @@ If you need to configure the underlying `HttpClient` used by the client, you can
 ### Testing
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
+
+## What about JWT Auth?
+
+You might have stumbled upon this repo looking for a solution for validating Clerk JWTs, so I'll include the answer here for completion. Configuring JWT auth for Clerk is a tad _unusual_ as they want you to validate the `azp` parameter instead of specifying an `audience`.
+This claim isn't normally validated at the authentication layer, and so you'll need some extra code to get things working:
+
+```cs
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x =>
+    {
+        // Authority is the URL of your clerk instance
+        x.Authority = builder.Configuration["Clerk:Authority"];
+        x.TokenValidationParameters = new TokenValidationParameters()
+        {
+            // Disable audience validation as we aren't using it
+            ValidateAudience = false,
+            NameClaimType = ClaimTypes.NameIdentifier 
+        };
+        x.Events = new JwtBearerEvents()
+        {
+            // Additional validation for AZP claim
+            OnTokenValidated = context =>
+            {
+                var azp = context.Principal?.FindFirstValue("azp");
+                // AuthorizedParty is the base URL of your frontend.
+                if (string.IsNullOrEmpty(azp) || !azp.Equals(builder.Configuration["Clerk:AuthorizedParty"]))
+                    context.Fail("AZP Claim is invalid or missing");
+
+                return Task.CompletedTask;
+            }
+        };
+    });
+```
+
+Your frontend should call Clerk-JS's `getToken` as part of its HTTP middleware and append the token (prefixed with `Bearer`) to the `Authorization` header, for example:
+```ts
+async onRequestInit({ requestInit }) {
+    requestInit.headers = {
+        ...requestInit.headers,
+        Authorization: `Bearer ${await getToken()}`
+    }
+}
+```
+
 
 ## Disclaimer
 
