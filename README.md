@@ -1,4 +1,4 @@
-## Clerk SDK for .NET
+# Clerk SDK for .NET
 
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Clerk.Net)
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
@@ -65,7 +65,7 @@ If you need to configure the underlying `HttpClient` used by the client, you can
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
 
-## What about JWT Auth?
+### What about JWT Auth?
 
 You might have stumbled upon this repo looking for a solution for validating Clerk JWTs, so I'll include the answer here for completion. Configuring JWT auth for Clerk is a tad _unusual_ as they want you to validate the `azp` parameter instead of specifying an `audience`.
 This claim isn't normally validated at the authentication layer, and so you'll need some extra code to get things working:
@@ -108,7 +108,6 @@ async onRequestInit({ requestInit }) {
 }
 ```
 
-
-## Disclaimer
+### Disclaimer
 
 I am not affiliated with nor represent Clerk. All support queries regarding the underlying service should go to [Clerk Support](https://clerk.com/support).
