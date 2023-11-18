@@ -2,7 +2,7 @@
   "descriptionHash": "1CB45ABA17BCF1A6E27087E3DE36FA9EFAD095685E278810E5E47AD48F21411C56D0128EEE925B7CD59F8C1F78E5D2EC467974A7ED367AF010D744617CAF9880",
   "descriptionLocation": "..\\swagger.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.8.1",
+  "kiotaVersion": "1.8.2",
   "clientClassName": "ClerkApiClient",
   "clientNamespaceName": "Clerk.Net.Client",
   "language": "CSharp",
@@ -21,10 +21,10 @@
     "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
   ],
   "structuredMimeTypes": [
-    "application/json;q=1",
-    "text/plain;q=1",
-    "application/x-www-form-urlencoded;q=1",
-    "multipart/form-data;q=1"
+    "application/json",
+    "text/plain",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
   ],
   "includePatterns": [],
   "excludePatterns": [],
