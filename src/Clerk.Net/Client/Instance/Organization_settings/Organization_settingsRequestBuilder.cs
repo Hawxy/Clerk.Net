@@ -43,6 +43,8 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+                {"402", ClerkErrors.CreateFromDiscriminatorValue},
+                {"404", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<OrganizationSettings>(requestInfo, OrganizationSettings.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);

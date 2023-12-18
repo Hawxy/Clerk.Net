@@ -14,6 +14,10 @@ namespace Clerk.Net.Client.Invitations {
 #else
         public string EmailAddress { get; set; }
 #endif
+        /// <summary>Whether an invitation should be created if there is already an existing invitation for this email address, or it&apos;s claimed by another user.</summary>
+        public bool? IgnoreExisting { get; set; }
+        /// <summary>Optional flag which denotes whether an email invitation should be sent to the given email address.Defaults to true.</summary>
+        public bool? Notify { get; set; }
         /// <summary>Metadata that will be attached to the newly created invitation.The value of this property should be a well-formed JSON object.Once the user accepts the invitation and signs up, these metadata will end up in the user&apos;s public metadata.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -44,6 +48,8 @@ namespace Clerk.Net.Client.Invitations {
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"email_address", n => { EmailAddress = n.GetStringValue(); } },
+                {"ignore_existing", n => { IgnoreExisting = n.GetBoolValue(); } },
+                {"notify", n => { Notify = n.GetBoolValue(); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<InvitationsPostRequestBody_public_metadata>(InvitationsPostRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
                 {"redirect_url", n => { RedirectUrl = n.GetStringValue(); } },
             };
@@ -55,6 +61,8 @@ namespace Clerk.Net.Client.Invitations {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("email_address", EmailAddress);
+            writer.WriteBoolValue("ignore_existing", IgnoreExisting);
+            writer.WriteBoolValue("notify", Notify);
             writer.WriteObjectValue<InvitationsPostRequestBody_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("redirect_url", RedirectUrl);
         }

@@ -31,14 +31,14 @@ namespace Clerk.Net.Client.Users {
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,limit*,offset*,order_by*}", pathParameters) {
+        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,last_active_at_since*,limit*,offset*,order_by*}", pathParameters) {
         }
         /// <summary>
         /// Instantiates a new UsersRequestBuilder and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,limit*,offset*,order_by*}", rawUrl) {
+        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,last_active_at_since*,limit*,offset*,order_by*}", rawUrl) {
         }
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
@@ -62,7 +62,7 @@ namespace Clerk.Net.Client.Users {
             return collectionResult?.ToList();
         }
         /// <summary>
-        /// Creates a new user. Your user management settings determine how you should setup your user model.Any email address and phone number created using this method will be marked as verified.Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/import-users).A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+        /// Creates a new user. Your user management settings determine how you should setup your user model.Any email address and phone number created using this method will be marked as verified.Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -111,7 +111,7 @@ namespace Clerk.Net.Client.Users {
             return requestInfo;
         }
         /// <summary>
-        /// Creates a new user. Your user management settings determine how you should setup your user model.Any email address and phone number created using this method will be marked as verified.Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/import-users).A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+        /// Creates a new user. Your user management settings determine how you should setup your user model.Any email address and phone number created using this method will be marked as verified.Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -170,13 +170,16 @@ namespace Clerk.Net.Client.Users {
             [QueryParameter("external_id")]
             public string[] ExternalId { get; set; }
 #endif
+            /// <summary>Returns users that had session activity since the given date, with day precision.Providing a value with higher precision than day will result in an error.Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.</summary>
+            [QueryParameter("last_active_at_since")]
+            public int? LastActiveAtSince { get; set; }
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public double? Offset { get; set; }
-            /// <summary>Allows to return users in a particular order.At the moment, you can order the returned users either by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`.In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.If you don&apos;t use `+` or `-`, then `+` is implied.We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.</summary>
+            /// <summary>Allows to return users in a particular order.At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.If you don&apos;t use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("order_by")]

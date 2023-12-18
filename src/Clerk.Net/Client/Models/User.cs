@@ -82,6 +82,8 @@ namespace Clerk.Net.Client.Models {
 #else
         public string ImageUrl { get; set; }
 #endif
+        /// <summary>Unix timestamp of the latest session activity, with day precision.</summary>
+        public long? LastActiveAt { get; set; }
         /// <summary>The last_name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -94,6 +96,8 @@ namespace Clerk.Net.Client.Models {
         public long? LastSignInAt { get; set; }
         /// <summary>Flag to denote whether user is currently locked, i.e. restricted from signing in or not.</summary>
         public bool? Locked { get; set; }
+        /// <summary>The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.</summary>
+        public long? LockoutExpiresInSeconds { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public User_object? Object { get; set; }
         /// <summary>The password_enabled property</summary>
@@ -185,6 +189,8 @@ namespace Clerk.Net.Client.Models {
 #else
         public string Username { get; set; }
 #endif
+        /// <summary>The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.</summary>
+        public long? VerificationAttemptsRemaining { get; set; }
         /// <summary>The web3_wallets property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -220,9 +226,11 @@ namespace Clerk.Net.Client.Models {
                 {"has_image", n => { HasImage = n.GetBoolValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"image_url", n => { ImageUrl = n.GetStringValue(); } },
+                {"last_active_at", n => { LastActiveAt = n.GetLongValue(); } },
                 {"last_name", n => { LastName = n.GetStringValue(); } },
                 {"last_sign_in_at", n => { LastSignInAt = n.GetLongValue(); } },
                 {"locked", n => { Locked = n.GetBoolValue(); } },
+                {"lockout_expires_in_seconds", n => { LockoutExpiresInSeconds = n.GetLongValue(); } },
                 {"object", n => { Object = n.GetEnumValue<User_object>(); } },
                 {"password_enabled", n => { PasswordEnabled = n.GetBoolValue(); } },
                 {"phone_numbers", n => { PhoneNumbers = n.GetCollectionOfObjectValues<PhoneNumber>(PhoneNumber.CreateFromDiscriminatorValue)?.ToList(); } },
@@ -238,6 +246,7 @@ namespace Clerk.Net.Client.Models {
                 {"unsafe_metadata", n => { UnsafeMetadata = n.GetObjectValue<User_unsafe_metadata>(User_unsafe_metadata.CreateFromDiscriminatorValue); } },
                 {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 {"username", n => { Username = n.GetStringValue(); } },
+                {"verification_attempts_remaining", n => { VerificationAttemptsRemaining = n.GetLongValue(); } },
                 {"web3_wallets", n => { Web3Wallets = n.GetCollectionOfObjectValues<Web3Wallet>(Web3Wallet.CreateFromDiscriminatorValue)?.ToList(); } },
             };
         }
@@ -261,9 +270,11 @@ namespace Clerk.Net.Client.Models {
             writer.WriteBoolValue("has_image", HasImage);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("image_url", ImageUrl);
+            writer.WriteLongValue("last_active_at", LastActiveAt);
             writer.WriteStringValue("last_name", LastName);
             writer.WriteLongValue("last_sign_in_at", LastSignInAt);
             writer.WriteBoolValue("locked", Locked);
+            writer.WriteLongValue("lockout_expires_in_seconds", LockoutExpiresInSeconds);
             writer.WriteEnumValue<User_object>("object", Object);
             writer.WriteBoolValue("password_enabled", PasswordEnabled);
             writer.WriteCollectionOfObjectValues<PhoneNumber>("phone_numbers", PhoneNumbers);
@@ -279,6 +290,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteObjectValue<User_unsafe_metadata>("unsafe_metadata", UnsafeMetadata);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteStringValue("username", Username);
+            writer.WriteLongValue("verification_attempts_remaining", VerificationAttemptsRemaining);
             writer.WriteCollectionOfObjectValues<Web3Wallet>("web3_wallets", Web3Wallets);
         }
     }

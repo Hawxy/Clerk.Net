@@ -8,6 +8,22 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
     public class Organization_settingsPatchRequestBody : IParsable {
         /// <summary>The admin_delete_enabled property</summary>
         public bool? AdminDeleteEnabled { get; set; }
+        /// <summary>Specify what the default organization role is for an organization creator.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? CreatorRoleId { get; set; }
+#nullable restore
+#else
+        public string CreatorRoleId { get; set; }
+#endif
+        /// <summary>Specify what the default organization role is for the organization domains.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DomainsDefaultRoleId { get; set; }
+#nullable restore
+#else
+        public string DomainsDefaultRoleId { get; set; }
+#endif
         /// <summary>The domains_enabled property</summary>
         public bool? DomainsEnabled { get; set; }
         /// <summary>Specify which enrollment modes to enable for your Organization Domains.Supported modes are &apos;automatic_invitation&apos; &amp; &apos;automatic_suggestion&apos;.</summary>
@@ -36,6 +52,8 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"admin_delete_enabled", n => { AdminDeleteEnabled = n.GetBoolValue(); } },
+                {"creator_role_id", n => { CreatorRoleId = n.GetStringValue(); } },
+                {"domains_default_role_id", n => { DomainsDefaultRoleId = n.GetStringValue(); } },
                 {"domains_enabled", n => { DomainsEnabled = n.GetBoolValue(); } },
                 {"domains_enrollment_modes", n => { DomainsEnrollmentModes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"enabled", n => { Enabled = n.GetBoolValue(); } },
@@ -49,6 +67,8 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("admin_delete_enabled", AdminDeleteEnabled);
+            writer.WriteStringValue("creator_role_id", CreatorRoleId);
+            writer.WriteStringValue("domains_default_role_id", DomainsDefaultRoleId);
             writer.WriteBoolValue("domains_enabled", DomainsEnabled);
             writer.WriteCollectionOfPrimitiveValues<string>("domains_enrollment_modes", DomainsEnrollmentModes);
             writer.WriteBoolValue("enabled", Enabled);

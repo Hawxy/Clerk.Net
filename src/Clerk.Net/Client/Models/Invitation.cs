@@ -40,6 +40,14 @@ namespace Clerk.Net.Client.Models {
         public Invitation_status? Status { get; set; }
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
+        /// <summary>The url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Url { get; set; }
+#nullable restore
+#else
+        public string Url { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -61,6 +69,7 @@ namespace Clerk.Net.Client.Models {
                 {"revoked", n => { Revoked = n.GetBoolValue(); } },
                 {"status", n => { Status = n.GetEnumValue<Invitation_status>(); } },
                 {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
+                {"url", n => { Url = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -77,6 +86,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteBoolValue("revoked", Revoked);
             writer.WriteEnumValue<Invitation_status>("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);
+            writer.WriteStringValue("url", Url);
         }
     }
 }

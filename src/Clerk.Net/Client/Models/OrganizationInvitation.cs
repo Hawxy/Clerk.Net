@@ -56,7 +56,13 @@ namespace Clerk.Net.Client.Models {
         public OrganizationInvitation_public_metadata PublicMetadata { get; set; }
 #endif
         /// <summary>The role property</summary>
-        public OrganizationInvitation_role? Role { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Role { get; set; }
+#nullable restore
+#else
+        public string Role { get; set; }
+#endif
         /// <summary>The status property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -93,7 +99,7 @@ namespace Clerk.Net.Client.Models {
                 {"organization_id", n => { OrganizationId = n.GetStringValue(); } },
                 {"private_metadata", n => { PrivateMetadata = n.GetObjectValue<OrganizationInvitation_private_metadata>(OrganizationInvitation_private_metadata.CreateFromDiscriminatorValue); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<OrganizationInvitation_public_metadata>(OrganizationInvitation_public_metadata.CreateFromDiscriminatorValue); } },
-                {"role", n => { Role = n.GetEnumValue<OrganizationInvitation_role>(); } },
+                {"role", n => { Role = n.GetStringValue(); } },
                 {"status", n => { Status = n.GetStringValue(); } },
                 {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
             };
@@ -111,7 +117,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("organization_id", OrganizationId);
             writer.WriteObjectValue<OrganizationInvitation_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<OrganizationInvitation_public_metadata>("public_metadata", PublicMetadata);
-            writer.WriteEnumValue<OrganizationInvitation_role>("role", Role);
+            writer.WriteStringValue("role", Role);
             writer.WriteStringValue("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);

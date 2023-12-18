@@ -49,7 +49,13 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         public string RedirectUrl { get; set; }
 #endif
         /// <summary>The role of the new member in the organization</summary>
-        public InvitationsPostRequestBody_role? Role { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Role { get; set; }
+#nullable restore
+#else
+        public string Role { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new invitationsPostRequestBody and sets the default values.
         /// </summary>
@@ -74,7 +80,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
                 {"private_metadata", n => { PrivateMetadata = n.GetObjectValue<InvitationsPostRequestBody_private_metadata>(InvitationsPostRequestBody_private_metadata.CreateFromDiscriminatorValue); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<InvitationsPostRequestBody_public_metadata>(InvitationsPostRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
                 {"redirect_url", n => { RedirectUrl = n.GetStringValue(); } },
-                {"role", n => { Role = n.GetEnumValue<InvitationsPostRequestBody_role>(); } },
+                {"role", n => { Role = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -88,7 +94,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
             writer.WriteObjectValue<InvitationsPostRequestBody_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<InvitationsPostRequestBody_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("redirect_url", RedirectUrl);
-            writer.WriteEnumValue<InvitationsPostRequestBody_role>("role", Role);
+            writer.WriteStringValue("role", Role);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

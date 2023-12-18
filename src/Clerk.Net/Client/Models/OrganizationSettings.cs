@@ -5,23 +5,41 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class OrganizationSettings : IAdditionalDataHolder, IParsable {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
+    public class OrganizationSettings : IParsable {
         /// <summary>The default for whether an admin can delete an organization with the Frontend API.</summary>
         public bool? AdminDeleteEnabled { get; set; }
+        /// <summary>The role key that a user will be assigned after creating an organization.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? CreatorRole { get; set; }
+#nullable restore
+#else
+        public string CreatorRole { get; set; }
+#endif
+        /// <summary>The role key that it will be used in order to create an organization invitation or suggestion.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DomainsDefaultRole { get; set; }
+#nullable restore
+#else
+        public string DomainsDefaultRole { get; set; }
+#endif
+        /// <summary>The domains_enabled property</summary>
+        public bool? DomainsEnabled { get; set; }
+        /// <summary>The domains_enrollment_modes property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<OrganizationSettings_domains_enrollment_modes?>? DomainsEnrollmentModes { get; set; }
+#nullable restore
+#else
+        public List<OrganizationSettings_domains_enrollment_modes?> DomainsEnrollmentModes { get; set; }
+#endif
         /// <summary>The enabled property</summary>
         public bool? Enabled { get; set; }
         /// <summary>The max_allowed_memberships property</summary>
         public int? MaxAllowedMemberships { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public OrganizationSettings_object? Object { get; set; }
-        /// <summary>
-        /// Instantiates a new OrganizationSettings and sets the default values.
-        /// </summary>
-        public OrganizationSettings() {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -36,6 +54,10 @@ namespace Clerk.Net.Client.Models {
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"admin_delete_enabled", n => { AdminDeleteEnabled = n.GetBoolValue(); } },
+                {"creator_role", n => { CreatorRole = n.GetStringValue(); } },
+                {"domains_default_role", n => { DomainsDefaultRole = n.GetStringValue(); } },
+                {"domains_enabled", n => { DomainsEnabled = n.GetBoolValue(); } },
+                {"domains_enrollment_modes", n => { DomainsEnrollmentModes = n.GetCollectionOfEnumValues<OrganizationSettings_domains_enrollment_modes>()?.ToList(); } },
                 {"enabled", n => { Enabled = n.GetBoolValue(); } },
                 {"max_allowed_memberships", n => { MaxAllowedMemberships = n.GetIntValue(); } },
                 {"object", n => { Object = n.GetEnumValue<OrganizationSettings_object>(); } },
@@ -48,10 +70,13 @@ namespace Clerk.Net.Client.Models {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("admin_delete_enabled", AdminDeleteEnabled);
+            writer.WriteStringValue("creator_role", CreatorRole);
+            writer.WriteStringValue("domains_default_role", DomainsDefaultRole);
+            writer.WriteBoolValue("domains_enabled", DomainsEnabled);
+            writer.WriteCollectionOfEnumValues<OrganizationSettings_domains_enrollment_modes>("domains_enrollment_modes", DomainsEnrollmentModes);
             writer.WriteBoolValue("enabled", Enabled);
             writer.WriteIntValue("max_allowed_memberships", MaxAllowedMemberships);
             writer.WriteEnumValue<OrganizationSettings_object>("object", Object);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

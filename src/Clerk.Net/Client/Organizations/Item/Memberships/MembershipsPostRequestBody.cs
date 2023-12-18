@@ -9,7 +9,13 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The role that the new member will have in the organization.</summary>
-        public MembershipsPostRequestBody_role? Role { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Role { get; set; }
+#nullable restore
+#else
+        public string Role { get; set; }
+#endif
         /// <summary>The ID of the user that will be added as a member in the organization.The user needs to exist in the same instance as the organization and must not be a member of the given organization already.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -37,7 +43,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships {
         /// </summary>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
-                {"role", n => { Role = n.GetEnumValue<MembershipsPostRequestBody_role>(); } },
+                {"role", n => { Role = n.GetStringValue(); } },
                 {"user_id", n => { UserId = n.GetStringValue(); } },
             };
         }
@@ -47,7 +53,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships {
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<MembershipsPostRequestBody_role>("role", Role);
+            writer.WriteStringValue("role", Role);
             writer.WriteStringValue("user_id", UserId);
             writer.WriteAdditionalData(AdditionalData);
         }
