@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Actor_tokens {
     /// </summary>
     public class Actor_tokensRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.actor_tokens.item collection</summary>
-        /// <param name="position">Unique identifier of the item</param>
+        /// <param name="position">The ID of the actor token to be revoked.</param>
         public WithActor_token_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("actor_token_id", position);
@@ -70,18 +70,8 @@ namespace Clerk.Net.Client.Actor_tokens {
         public RequestInformation ToPostRequestInformation(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.POST,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<DefaultQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;

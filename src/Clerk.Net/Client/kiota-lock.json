@@ -2,7 +2,7 @@
   "descriptionHash": "E23F57FBF8BA13BC2724ED0D289514B5DA9F2E704EDB1701ECB6B266AEAE00342666FAFA9328F67F875CD024DC2DD204003F69EEB86C81048EE0FCEEA95DF4E0",
   "descriptionLocation": "..\\swagger.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.8.2",
+  "kiotaVersion": "1.9.1",
   "clientClassName": "ClerkApiClient",
   "clientNamespaceName": "Clerk.Net.Client",
   "language": "CSharp",
