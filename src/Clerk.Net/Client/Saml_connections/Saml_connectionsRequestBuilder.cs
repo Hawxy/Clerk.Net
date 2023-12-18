@@ -36,7 +36,7 @@ namespace Clerk.Net.Client.Saml_connections {
         public Saml_connectionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*}", rawUrl) {
         }
         /// <summary>
-        /// This request returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -56,7 +56,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return await RequestAdapter.SendAsync<SAMLConnections>(requestInfo, SAMLConnections.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates a new SAML Connection. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -78,7 +78,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This request returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -88,23 +88,13 @@ namespace Clerk.Net.Client.Saml_connections {
 #else
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>> requestConfiguration = default) {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
-        /// Creates a new SAML Connection. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -116,18 +106,8 @@ namespace Clerk.Net.Client.Saml_connections {
         public RequestInformation ToPostRequestInformation(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.POST,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<DefaultQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
@@ -140,7 +120,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return new Saml_connectionsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// This request returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         public class Saml_connectionsRequestBuilderGetQueryParameters {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>

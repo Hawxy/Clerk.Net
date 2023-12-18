@@ -21,7 +21,6 @@ using Clerk.Net.Client.Saml_connections;
 using Clerk.Net.Client.Sessions;
 using Clerk.Net.Client.Sign_in_tokens;
 using Clerk.Net.Client.Sign_ups;
-using Clerk.Net.Client.Sms_messages;
 using Clerk.Net.Client.Templates;
 using Clerk.Net.Client.Users;
 using Clerk.Net.Client.Webhooks;
@@ -128,10 +127,6 @@ namespace Clerk.Net.Client {
         /// <summary>The sign_ups property</summary>
         public Sign_upsRequestBuilder Sign_ups { get =>
             new Sign_upsRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The sms_messages property</summary>
-        public Sms_messagesRequestBuilder Sms_messages { get =>
-            new Sms_messagesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The templates property</summary>
         public TemplatesRequestBuilder Templates { get =>

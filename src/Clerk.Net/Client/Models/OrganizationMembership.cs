@@ -31,6 +31,14 @@ namespace Clerk.Net.Client.Models {
 #else
         public OrganizationMembership_organization Organization { get; set; }
 #endif
+        /// <summary>The permissions property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? Permissions { get; set; }
+#nullable restore
+#else
+        public List<string> Permissions { get; set; }
+#endif
         /// <summary>Metadata saved on the organization membership, accessible only from the Backend API</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -56,7 +64,13 @@ namespace Clerk.Net.Client.Models {
         public OrganizationMembership_public_user_data PublicUserData { get; set; }
 #endif
         /// <summary>The role property</summary>
-        public OrganizationMembership_role? Role { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Role { get; set; }
+#nullable restore
+#else
+        public string Role { get; set; }
+#endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
         /// <summary>
@@ -82,10 +96,11 @@ namespace Clerk.Net.Client.Models {
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<OrganizationMembership_object>(); } },
                 {"organization", n => { Organization = n.GetObjectValue<OrganizationMembership_organization>(OrganizationMembership_organization.CreateFromDiscriminatorValue); } },
+                {"permissions", n => { Permissions = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"private_metadata", n => { PrivateMetadata = n.GetObjectValue<OrganizationMembership_private_metadata>(OrganizationMembership_private_metadata.CreateFromDiscriminatorValue); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<OrganizationMembership_public_metadata>(OrganizationMembership_public_metadata.CreateFromDiscriminatorValue); } },
                 {"public_user_data", n => { PublicUserData = n.GetObjectValue<OrganizationMembership_public_user_data>(OrganizationMembership_public_user_data.CreateFromDiscriminatorValue); } },
-                {"role", n => { Role = n.GetEnumValue<OrganizationMembership_role>(); } },
+                {"role", n => { Role = n.GetStringValue(); } },
                 {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
             };
         }
@@ -99,10 +114,11 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("id", Id);
             writer.WriteEnumValue<OrganizationMembership_object>("object", Object);
             writer.WriteObjectValue<OrganizationMembership_organization>("organization", Organization);
+            writer.WriteCollectionOfPrimitiveValues<string>("permissions", Permissions);
             writer.WriteObjectValue<OrganizationMembership_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<OrganizationMembership_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteObjectValue<OrganizationMembership_public_user_data>("public_user_data", PublicUserData);
-            writer.WriteEnumValue<OrganizationMembership_role>("role", Role);
+            writer.WriteStringValue("role", Role);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }

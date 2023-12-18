@@ -28,7 +28,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         public WithSaml_connection_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections/{saml_connection_id}", rawUrl) {
         }
         /// <summary>
-        /// Deletes the given SAML Connection. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Deletes the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -48,7 +48,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<DeletedObject>(requestInfo, DeletedObject.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Fetches the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -68,7 +68,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Updates an existing SAML Connection &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Updates the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -91,7 +91,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Deletes the given SAML Connection. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Deletes the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -101,23 +101,13 @@ namespace Clerk.Net.Client.Saml_connections.Item {
 #else
         public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.DELETE,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<DefaultQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
-        /// Fetches the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -127,23 +117,13 @@ namespace Clerk.Net.Client.Saml_connections.Item {
 #else
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<DefaultQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
-        /// Updates an existing SAML Connection &lt;br/&gt;&lt;br/&gt;Note: This is a &lt;b&gt;Private Beta&lt;/b&gt; feature and it is currently &lt;b&gt;hidden behind a feature flag&lt;/b&gt;. Reach out to us via Intercom to try it out.
+        /// Updates the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -155,18 +135,8 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         public RequestInformation ToPatchRequestInformation(WithSaml_connection_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.PATCH,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new RequestConfiguration<DefaultQueryParameters>();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;

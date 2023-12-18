@@ -9,7 +9,13 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships.Item {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The new role of the given membership.</summary>
-        public WithUser_PatchRequestBody_role? Role { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Role { get; set; }
+#nullable restore
+#else
+        public string Role { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new WithUser_PatchRequestBody and sets the default values.
         /// </summary>
@@ -29,7 +35,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships.Item {
         /// </summary>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
-                {"role", n => { Role = n.GetEnumValue<WithUser_PatchRequestBody_role>(); } },
+                {"role", n => { Role = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -38,7 +44,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships.Item {
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteEnumValue<WithUser_PatchRequestBody_role>("role", Role);
+            writer.WriteStringValue("role", Role);
             writer.WriteAdditionalData(AdditionalData);
         }
     }
