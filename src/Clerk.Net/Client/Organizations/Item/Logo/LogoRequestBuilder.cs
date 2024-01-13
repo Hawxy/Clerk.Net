@@ -46,7 +46,7 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
             return await RequestAdapter.SendAsync<Organization>(requestInfo, Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.Only &quot;admin&quot; members can upload an organization logo.
+        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -85,7 +85,7 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
             return requestInfo;
         }
         /// <summary>
-        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.Only &quot;admin&quot; members can upload an organization logo.
+        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

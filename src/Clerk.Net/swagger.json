@@ -233,12 +233,13 @@
     },
     "/clients": {
       "get": {
+        "deprecated": true,
         "operationId": "GetClientList",
         "tags": [
           "Clients"
         ],
         "summary": "List all clients",
-        "description": "Returns a list of all clients. The clients are returned sorted by creation date,\nwith the newest clients appearing first.",
+        "description": "Returns a list of all clients. The clients are returned sorted by creation date,\nwith the newest clients appearing first.\nWarning: the endpoint is being deprecated and will be removed in future versions.",
         "parameters": [
           {
             "$ref": "#/components/parameters/LimitParameter"
@@ -256,6 +257,9 @@
           },
           "401": {
             "$ref": "#/components/responses/AuthenticationInvalid"
+          },
+          "410": {
+            "$ref": "#/components/responses/DeprecatedEndpoint"
           },
           "422": {
             "$ref": "#/components/responses/UnprocessableEntity"
@@ -726,7 +730,7 @@
           "Sessions"
         ],
         "summary": "List all sessions",
-        "description": "Returns a list of all sessions.\nThe sessions are returned sorted by creation date, with the newest sessions appearing first.",
+        "description": "Returns a list of all sessions.\nThe sessions are returned sorted by creation date, with the newest sessions appearing first.\n**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however\nmoving forward at least one of `client_id` or `user_id` parameters should be provided.",
         "parameters": [
           {
             "name": "client_id",
@@ -865,7 +869,7 @@
           "Sessions"
         ],
         "summary": "Verify a session",
-        "description": "Returns the session if it is authenticated, otherwise returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens, \n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).",
+        "description": "Returns the session if it is authenticated, otherwise returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,\n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).",
         "parameters": [
           {
             "name": "session_id",
@@ -2102,6 +2106,36 @@
           },
           "401": {
             "$ref": "#/components/responses/ClerkErrors"
+          },
+          "404": {
+            "$ref": "#/components/responses/ClerkErrors"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteUserProfileImage",
+        "summary": "Delete user profile image",
+        "description": "Delete a user's profile image",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user to delete the profile image for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/User"
+          },
+          "404": {
+            "$ref": "#/components/responses/ClerkErrors"
           }
         }
       }
@@ -3109,6 +3143,9 @@
           "400": {
             "$ref": "#/components/responses/ClerkErrors"
           },
+          "402": {
+            "$ref": "#/components/responses/ClerkErrors"
+          },
           "422": {
             "$ref": "#/components/responses/UnprocessableEntity"
           }
@@ -3921,6 +3958,9 @@
           "200": {
             "$ref": "#/components/responses/Organization"
           },
+          "402": {
+            "$ref": "#/components/responses/ResourceNotFound"
+          },
           "404": {
             "$ref": "#/components/responses/ResourceNotFound"
           },
@@ -4020,7 +4060,7 @@
       "put": {
         "operationId": "UploadOrganizationLogo",
         "summary": "Upload a logo for the organization",
-        "description": "Set or replace an organization's logo, by uploading an image file.\nThis endpoint uses the `multipart/form-data` request content type and accepts a file of image type.\nThe file size cannot exceed 10MB.\nOnly the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.\nOnly \"admin\" members can upload an organization logo.",
+        "description": "Set or replace an organization's logo, by uploading an image file.\nThis endpoint uses the `multipart/form-data` request content type and accepts a file of image type.\nThe file size cannot exceed 10MB.\nOnly the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.",
         "tags": [
           "Organizations"
         ],
@@ -4043,7 +4083,7 @@
                 "properties": {
                   "uploader_user_id": {
                     "type": "string",
-                    "description": "Should be the ID of a member with an \"admin\" role in the organization."
+                    "description": "The ID of the user that will be credited with the image upload."
                   },
                   "file": {
                     "type": "string",
@@ -6949,6 +6989,12 @@
           "max_allowed_memberships": {
             "type": "integer"
           },
+          "max_allowed_roles": {
+            "type": "integer"
+          },
+          "max_allowed_permissions": {
+            "type": "integer"
+          },
           "creator_role": {
             "type": "string",
             "description": "The role key that a user will be assigned after creating an organization."
@@ -7641,6 +7687,16 @@
           }
         }
       },
+      "DeprecatedEndpoint": {
+        "description": "The endpoint is considered deprecated and is pending removal.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ClerkErrors"
+            }
+          }
+        }
+      },
       "UnprocessableEntity": {
         "description": "Invalid request parameters",
         "content": {
@@ -7730,16 +7786,6 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Session"
-            }
-          }
-        }
-      },
-      "DeprecatedEndpoint": {
-        "description": "The endpoint is considered deprecated and is pending removal.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ClerkErrors"
             }
           }
         }

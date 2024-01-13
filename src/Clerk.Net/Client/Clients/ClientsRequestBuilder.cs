@@ -16,6 +16,7 @@ namespace Clerk.Net.Client.Clients {
     /// </summary>
     public class ClientsRequestBuilder : BaseRequestBuilder {
         /// <summary>The verify property</summary>
+        [Obsolete("")]
         public VerifyRequestBuilder Verify { get =>
             new VerifyRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -41,10 +42,11 @@ namespace Clerk.Net.Client.Clients {
         public ClientsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", rawUrl) {
         }
         /// <summary>
-        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.
+        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<Clerk.Net.Client.Models.Client>?> GetAsync(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -56,15 +58,17 @@ namespace Clerk.Net.Client.Clients {
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
+                {"410", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<Clerk.Net.Client.Models.Client>(requestInfo, Clerk.Net.Client.Models.Client.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.ToList();
         }
         /// <summary>
-        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.
+        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
@@ -81,11 +85,12 @@ namespace Clerk.Net.Client.Clients {
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
+        [Obsolete("")]
         public ClientsRequestBuilder WithUrl(string rawUrl) {
             return new ClientsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.
+        /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
         public class ClientsRequestBuilderGetQueryParameters {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>

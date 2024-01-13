@@ -36,7 +36,7 @@ namespace Clerk.Net.Client.Sessions {
         public SessionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,user_id*,status*,limit*,offset*}", rawUrl) {
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -57,7 +57,7 @@ namespace Clerk.Net.Client.Sessions {
             return collectionResult?.ToList();
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -80,7 +80,7 @@ namespace Clerk.Net.Client.Sessions {
             return new SessionsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
         public class SessionsRequestBuilderGetQueryParameters {
             /// <summary>List sessions for the given client</summary>

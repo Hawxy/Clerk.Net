@@ -67,6 +67,7 @@ namespace Clerk.Net.Client.Domains {
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
+                {"402", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<Clerk.Net.Client.Models.Domain>(requestInfo, Clerk.Net.Client.Models.Domain.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);

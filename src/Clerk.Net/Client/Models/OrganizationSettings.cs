@@ -38,6 +38,10 @@ namespace Clerk.Net.Client.Models {
         public bool? Enabled { get; set; }
         /// <summary>The max_allowed_memberships property</summary>
         public int? MaxAllowedMemberships { get; set; }
+        /// <summary>The max_allowed_permissions property</summary>
+        public int? MaxAllowedPermissions { get; set; }
+        /// <summary>The max_allowed_roles property</summary>
+        public int? MaxAllowedRoles { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public OrganizationSettings_object? Object { get; set; }
         /// <summary>
@@ -60,6 +64,8 @@ namespace Clerk.Net.Client.Models {
                 {"domains_enrollment_modes", n => { DomainsEnrollmentModes = n.GetCollectionOfEnumValues<OrganizationSettings_domains_enrollment_modes>()?.ToList(); } },
                 {"enabled", n => { Enabled = n.GetBoolValue(); } },
                 {"max_allowed_memberships", n => { MaxAllowedMemberships = n.GetIntValue(); } },
+                {"max_allowed_permissions", n => { MaxAllowedPermissions = n.GetIntValue(); } },
+                {"max_allowed_roles", n => { MaxAllowedRoles = n.GetIntValue(); } },
                 {"object", n => { Object = n.GetEnumValue<OrganizationSettings_object>(); } },
             };
         }
@@ -76,6 +82,8 @@ namespace Clerk.Net.Client.Models {
             writer.WriteCollectionOfEnumValues<OrganizationSettings_domains_enrollment_modes>("domains_enrollment_modes", DomainsEnrollmentModes);
             writer.WriteBoolValue("enabled", Enabled);
             writer.WriteIntValue("max_allowed_memberships", MaxAllowedMemberships);
+            writer.WriteIntValue("max_allowed_permissions", MaxAllowedPermissions);
+            writer.WriteIntValue("max_allowed_roles", MaxAllowedRoles);
             writer.WriteEnumValue<OrganizationSettings_object>("object", Object);
         }
     }
