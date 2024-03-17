@@ -58,14 +58,10 @@
     },
     {
       "name": "Email Addresses",
-      "description": "A user can be associated with one or more email addresses and allows them to be contacted via email.",
+      "description": "A user can be associated with one or more email addresses, which allows them to be contacted via email.",
       "externalDocs": {
         "url": "https://clerk.com/docs/reference/clerkjs/emailaddress"
       }
-    },
-    {
-      "name": "Emails",
-      "description": "The email object represents an email that has been sent to an email address.\nYou can only send an email to email addresses that have been verified by a user.\nOnly recommended for transactional emails."
     },
     {
       "name": "Email & SMS Templates",
@@ -123,7 +119,7 @@
     },
     {
       "name": "Phone Numbers",
-      "description": "A user can be associated with one or more email addresses and allows them to be contacted via SMS.",
+      "description": "A user can be associated with one or more phone numbers, which allows them to be contacted via SMS.",
       "externalDocs": {
         "url": "https://clerk.com/docs/reference/clerkjs/phonenumber"
       }
@@ -233,12 +229,13 @@
     },
     "/clients": {
       "get": {
+        "deprecated": true,
         "operationId": "GetClientList",
         "tags": [
           "Clients"
         ],
         "summary": "List all clients",
-        "description": "Returns a list of all clients. The clients are returned sorted by creation date,\nwith the newest clients appearing first.",
+        "description": "Returns a list of all clients. The clients are returned sorted by creation date,\nwith the newest clients appearing first.\nWarning: the endpoint is being deprecated and will be removed in future versions.",
         "parameters": [
           {
             "$ref": "#/components/parameters/LimitParameter"
@@ -256,6 +253,9 @@
           },
           "401": {
             "$ref": "#/components/responses/AuthenticationInvalid"
+          },
+          "410": {
+            "$ref": "#/components/responses/DeprecatedEndpoint"
           },
           "422": {
             "$ref": "#/components/responses/UnprocessableEntity"
@@ -560,6 +560,11 @@
                     "type": "boolean",
                     "description": "Create this phone number as the primary phone number for the user.\nDefault: false, unless it is the first phone number.",
                     "nullable": true
+                  },
+                  "reserved_for_second_factor": {
+                    "type": "boolean",
+                    "description": "Create this phone number as reserved for multi-factor authentication.\nThe phone number must also be verified.\nIf there are no other reserved second factors, the phone number will be set as the default second factor.",
+                    "nullable": true
                   }
                 }
               }
@@ -694,6 +699,11 @@
                     "type": "boolean",
                     "description": "Set this phone number as the primary phone number for the user.",
                     "nullable": true
+                  },
+                  "reserved_for_second_factor": {
+                    "type": "boolean",
+                    "description": "Set this phone number as reserved for multi-factor authentication.\nThe phone number must also be verified.\nIf there are no other reserved second factors, the phone number will be set as the default second factor.",
+                    "nullable": true
                   }
                 }
               }
@@ -726,7 +736,7 @@
           "Sessions"
         ],
         "summary": "List all sessions",
-        "description": "Returns a list of all sessions.\nThe sessions are returned sorted by creation date, with the newest sessions appearing first.",
+        "description": "Returns a list of all sessions.\nThe sessions are returned sorted by creation date, with the newest sessions appearing first.\n**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however\nmoving forward at least one of `client_id` or `user_id` parameters should be provided.",
         "parameters": [
           {
             "name": "client_id",
@@ -865,7 +875,7 @@
           "Sessions"
         ],
         "summary": "Verify a session",
-        "description": "Returns the session if it is authenticated, otherwise returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens, \n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).",
+        "description": "Returns the session if it is authenticated, otherwise returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,\n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).",
         "parameters": [
           {
             "name": "session_id",
@@ -1838,6 +1848,27 @@
                     "description": "The plaintext password to give the user.\nMust be at least 8 characters long, and can not be in any list of hacked passwords.",
                     "nullable": true
                   },
+                  "password_digest": {
+                    "type": "string",
+                    "description": "In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.\nThe digests should be generated with one of the supported algorithms.\nThe hashing algorithm can be specified using the `password_hasher` property."
+                  },
+                  "password_hasher": {
+                    "type": "string",
+                    "description": "The hashing algorithm that was used to generate the password digest.\nThe algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),\n[sha256](https://en.wikipedia.org/wiki/SHA-2)\nand the [argon2](https://argon2.online/) variants argon2i and argon2id.\n\nIf you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).\n\nNote: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.\nInsecure schemes are marked with `(insecure)` in the list below.\n\nEach of the supported hashers expects the incoming digest to be in a particular format. Specifically:\n\n**bcrypt:** The digest should be of the following form:\n\n`$<algorithm version>$<cost>$<salt & hash>`\n\n**bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):\n\n`bcrypt_sha256$$<algorithm version>$<cost>$<salt & hash>`\n\n**md5** (insecure): The digest should follow the regular form e.g.:\n\n`5f4dcc3b5aa765d61d8327deb882cf99`\n\n**pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: Both the salt and the hash are expected to be base64-encoded.\n\n**pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: The salt is expected to be un-encoded, the hash is expected base64-encoded.\n\n**pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:\n1. uses sha1 instead of sha256\n2. accepts the hash as a hex-encoded string\n\nThe format is the following:\n\n`pbkdf2_sha1$<iterations>$<salt>$<hash-as-hex-string>`\n\n**phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:\n\nThe format is the following:\n\n`$P$<rounds><salt><encoded-checksum>`\n\n- $P$ is the prefix used to identify phpass hashes.\n- rounds is a single character encoding a 6-bit integer representing the number of rounds used.\n- salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.\n- checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.\n\n**scrypt_firebase:** The Firebase-specific variant of scrypt.\nThe value is expected to have 6 segments separated by the $ character and include the following information:\n\n_hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.\n_salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.\n_signer key:_ The base64 encoded signer key.\n_salt separator:_ The base64 encoded salt separator.\n_rounds:_ The number of rounds the algorithm needs to run.\n_memory cost:_ The cost of the algorithm run\n\nThe first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.\nThe other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.\n\nOnce you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:\n\n`<hash>$<salt>$<signer key>$<salt separator>$<rounds>$<memory cost>`\n\n**argon2i:** Algorithms in the argon2 family generate digests that encode the following information:\n\n_version (v):_ The argon version, version 19 is assumed\n_memory (m):_ The memory used by the algorithm (in kibibytes)\n_iterations (t):_ The number of iterations to perform\n_parallelism (p):_ The number of threads to use\n\nParts are demarcated by the `$` character, with the first part identifying the algorithm variant.\nThe middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).\nThe final part is the actual digest.\n\n`$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`\n\n**argon2id:** See the previous algorithm for an explanation of the formatting.\n\nFor the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:\n\n`$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`\n\n**sha256** (insecure): The digest should be a 64-length hex string, e.g.:\n\n`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`",
+                    "enum": [
+                      "argon2i",
+                      "argon2id",
+                      "bcrypt",
+                      "bcrypt_sha256_django",
+                      "md5",
+                      "pbkdf2_sha256",
+                      "pbkdf2_sha256_django",
+                      "pbkdf2_sha1",
+                      "phpass",
+                      "scrypt_firebase",
+                      "sha256"
+                    ]
+                  },
                   "skip_password_checks": {
                     "type": "boolean",
                     "description": "Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.",
@@ -2101,6 +2132,36 @@
             "$ref": "#/components/responses/ClerkErrors"
           },
           "401": {
+            "$ref": "#/components/responses/ClerkErrors"
+          },
+          "404": {
+            "$ref": "#/components/responses/ClerkErrors"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteUserProfileImage",
+        "summary": "Delete user profile image",
+        "description": "Delete a user's profile image",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user to delete the profile image for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/User"
+          },
+          "404": {
             "$ref": "#/components/responses/ClerkErrors"
           }
         }
@@ -2479,68 +2540,6 @@
         }
       }
     },
-    "/emails": {
-      "post": {
-        "operationId": "CreateEmail",
-        "summary": "Create an email",
-        "description": "Create and send an email to the supplied email address ID.",
-        "tags": [
-          "Emails"
-        ],
-        "requestBody": {
-          "description": "Required parameters",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "from_email_name": {
-                    "type": "string",
-                    "description": "The email name portion of the sending email address.\n<br/>e.g.: `from_email_name=info` will send from info@example.com"
-                  },
-                  "subject": {
-                    "type": "string",
-                    "description": "The subject of the email.",
-                    "nullable": false
-                  },
-                  "body": {
-                    "type": "string",
-                    "description": "The body of the email.",
-                    "nullable": false
-                  },
-                  "email_address_id": {
-                    "type": "string",
-                    "nullable": true,
-                    "description": "The ID of the email address to send to."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/Email"
-          },
-          "400": {
-            "$ref": "#/components/responses/ClerkErrors"
-          },
-          "401": {
-            "$ref": "#/components/responses/AuthenticationInvalid"
-          },
-          "403": {
-            "$ref": "#/components/responses/AuthorizationInvalid"
-          },
-          "404": {
-            "$ref": "#/components/responses/ResourceNotFound"
-          },
-          "422": {
-            "$ref": "#/components/responses/UnprocessableEntity"
-          }
-        }
-      }
-    },
     "/invitations": {
       "post": {
         "operationId": "CreateInvitation",
@@ -2606,6 +2605,12 @@
         "description": "Returns all non-revoked invitations for your application, sorted by creation date",
         "operationId": "ListInvitations",
         "parameters": [
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
+          },
           {
             "in": "query",
             "name": "status",
@@ -3107,6 +3112,9 @@
             "$ref": "#/components/responses/Domain"
           },
           "400": {
+            "$ref": "#/components/responses/ClerkErrors"
+          },
+          "402": {
             "$ref": "#/components/responses/ClerkErrors"
           },
           "422": {
@@ -3921,6 +3929,9 @@
           "200": {
             "$ref": "#/components/responses/Organization"
           },
+          "402": {
+            "$ref": "#/components/responses/ResourceNotFound"
+          },
           "404": {
             "$ref": "#/components/responses/ResourceNotFound"
           },
@@ -4020,7 +4031,7 @@
       "put": {
         "operationId": "UploadOrganizationLogo",
         "summary": "Upload a logo for the organization",
-        "description": "Set or replace an organization's logo, by uploading an image file.\nThis endpoint uses the `multipart/form-data` request content type and accepts a file of image type.\nThe file size cannot exceed 10MB.\nOnly the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.\nOnly \"admin\" members can upload an organization logo.",
+        "description": "Set or replace an organization's logo, by uploading an image file.\nThis endpoint uses the `multipart/form-data` request content type and accepts a file of image type.\nThe file size cannot exceed 10MB.\nOnly the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.",
         "tags": [
           "Organizations"
         ],
@@ -4043,7 +4054,7 @@
                 "properties": {
                   "uploader_user_id": {
                     "type": "string",
-                    "description": "Should be the ID of a member with an \"admin\" role in the organization."
+                    "description": "The ID of the user that will be credited with the image upload."
                   },
                   "file": {
                     "type": "string",
@@ -5299,6 +5310,16 @@
                     "type": "string",
                     "description": "The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection."
                   },
+                  "provider": {
+                    "type": "string",
+                    "description": "The IdP provider of the connection.",
+                    "enum": [
+                      "saml_custom",
+                      "saml_okta",
+                      "saml_google",
+                      "saml_microsoft"
+                    ]
+                  },
                   "idp_entity_id": {
                     "type": "string",
                     "description": "The Entity ID as provided by the IdP",
@@ -5313,11 +5334,37 @@
                     "type": "string",
                     "description": "The X.509 certificate as provided by the IdP",
                     "nullable": true
+                  },
+                  "idp_metadata_url": {
+                    "type": "string",
+                    "description": "The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties",
+                    "nullable": true
+                  },
+                  "attribute_mapping": {
+                    "type": "object",
+                    "description": "Define the attribute name mapping between Identity Provider and Clerk's user properties",
+                    "nullable": true,
+                    "additionalProperties": false,
+                    "properties": {
+                      "user_id": {
+                        "type": "string"
+                      },
+                      "email_address": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      }
+                    }
                   }
                 },
                 "required": [
                   "name",
-                  "domain"
+                  "domain",
+                  "provider"
                 ]
               }
             }
@@ -5424,6 +5471,31 @@
                     "description": "The x509 certificated as provided by the IdP",
                     "nullable": true
                   },
+                  "idp_metadata_url": {
+                    "type": "string",
+                    "description": "The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them",
+                    "nullable": true
+                  },
+                  "attribute_mapping": {
+                    "type": "object",
+                    "description": "Define the atrtibute name mapping between Identity Provider and Clerk's user properties",
+                    "nullable": true,
+                    "additionalProperties": false,
+                    "properties": {
+                      "user_id": {
+                        "type": "string"
+                      },
+                      "email_address": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      }
+                    }
+                  },
                   "active": {
                     "type": "boolean",
                     "description": "Activate or de-activate the SAML Connection",
@@ -5432,6 +5504,16 @@
                   "sync_user_attributes": {
                     "type": "boolean",
                     "description": "Controls whether to update the user's attributes in each sign-in",
+                    "nullable": true
+                  },
+                  "allow_subdomains": {
+                    "type": "boolean",
+                    "description": "Allow users with an email address subdomain to use this connection in order to authenticate",
+                    "nullable": true
+                  },
+                  "allow_idp_initiated": {
+                    "type": "boolean",
+                    "description": "Enable or deactivate IdP-initiated flows",
                     "nullable": true
                   }
                 }
@@ -5720,7 +5802,8 @@
             "type": "string",
             "enum": [
               "phone_code",
-              "email_code"
+              "email_code",
+              "reset_password_email_code"
             ]
           },
           "attempts": {
@@ -5765,6 +5848,53 @@
         "required": [
           "status",
           "strategy"
+        ]
+      },
+      "Oauth": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "unverified",
+              "verified",
+              "failed",
+              "expired",
+              "transferable"
+            ]
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "oauth_google",
+              "oauth_mock"
+            ]
+          },
+          "external_verification_redirect_url": {
+            "type": "string"
+          },
+          "error": {
+            "type": "object",
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ClerkError"
+              }
+            ]
+          },
+          "expire_at": {
+            "type": "integer"
+          },
+          "attempts": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status",
+          "strategy",
+          "expire_at"
         ]
       },
       "IdentificationLink": {
@@ -5817,6 +5947,9 @@
               },
               {
                 "$ref": "#/components/schemas/Admin"
+              },
+              {
+                "$ref": "#/components/schemas/Oauth"
               }
             ]
           },
@@ -6246,14 +6379,6 @@
           "unsafe_metadata": {
             "type": "object"
           },
-          "gender": {
-            "nullable": true,
-            "type": "string"
-          },
-          "birthday": {
-            "nullable": true,
-            "type": "string"
-          },
           "email_addresses": {
             "type": "array",
             "items": {
@@ -6534,70 +6659,6 @@
         "required": [
           "data",
           "total_count"
-        ]
-      },
-      "Email": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "object": {
-            "type": "string",
-            "enum": [
-              "email"
-            ]
-          },
-          "id": {
-            "type": "string"
-          },
-          "slug": {
-            "type": "string",
-            "nullable": true
-          },
-          "from_email_name": {
-            "type": "string"
-          },
-          "email_address_id": {
-            "type": "string",
-            "nullable": true
-          },
-          "to_email_address": {
-            "type": "string"
-          },
-          "user_id": {
-            "type": "string",
-            "nullable": true
-          },
-          "subject": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "body_plain": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "nullable": true
-          },
-          "delivered_by_clerk": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "object",
-          "id",
-          "from_email_name",
-          "email_address_id",
-          "to_email_address",
-          "subject",
-          "body",
-          "status",
-          "delivered_by_clerk"
         ]
       },
       "Invitation": {
@@ -6947,6 +7008,12 @@
             "type": "boolean"
           },
           "max_allowed_memberships": {
+            "type": "integer"
+          },
+          "max_allowed_roles": {
+            "type": "integer"
+          },
+          "max_allowed_permissions": {
             "type": "integer"
           },
           "creator_role": {
@@ -7538,11 +7605,36 @@
             "type": "string",
             "nullable": true
           },
+          "idp_metadata_url": {
+            "type": "string",
+            "nullable": true
+          },
           "acs_url": {
             "type": "string"
           },
           "sp_entity_id": {
             "type": "string"
+          },
+          "sp_metadata_url": {
+            "type": "string"
+          },
+          "attribute_mapping": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user_id": {
+                "type": "string"
+              },
+              "email_address": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              }
+            }
           },
           "active": {
             "type": "boolean"
@@ -7554,6 +7646,12 @@
             "type": "integer"
           },
           "sync_user_attributes": {
+            "type": "boolean"
+          },
+          "allow_subdomains": {
+            "type": "boolean"
+          },
+          "allow_idp_initiated": {
             "type": "boolean"
           },
           "created_at": {
@@ -7577,6 +7675,7 @@
           "idp_certificate",
           "acs_url",
           "sp_entity_id",
+          "sp_metadata_url",
           "active",
           "provider",
           "user_count",
@@ -7633,6 +7732,16 @@
       },
       "AuthenticationInvalid": {
         "description": "Authentication invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ClerkErrors"
+            }
+          }
+        }
+      },
+      "DeprecatedEndpoint": {
+        "description": "The endpoint is considered deprecated and is pending removal.",
         "content": {
           "application/json": {
             "schema": {
@@ -7734,16 +7843,6 @@
           }
         }
       },
-      "DeprecatedEndpoint": {
-        "description": "The endpoint is considered deprecated and is pending removal.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ClerkErrors"
-            }
-          }
-        }
-      },
       "Template.List": {
         "description": "Success",
         "content": {
@@ -7816,16 +7915,6 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/OrganizationMemberships"
-            }
-          }
-        }
-      },
-      "Email": {
-        "description": "Success",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Email"
             }
           }
         }

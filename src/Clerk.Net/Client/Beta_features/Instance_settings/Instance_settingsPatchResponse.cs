@@ -33,7 +33,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>The restricted_to_allowlist property</summary>
         public bool? RestrictedToAllowlist { get; set; }
         /// <summary>
-        /// Instantiates a new instance_settingsPatchResponse and sets the default values.
+        /// Instantiates a new <see cref="Instance_settingsPatchResponse"/> and sets the default values.
         /// </summary>
         public Instance_settingsPatchResponse() {
             AdditionalData = new Dictionary<string, object>();
@@ -41,6 +41,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="Instance_settingsPatchResponse"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static Instance_settingsPatchResponse CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -49,6 +50,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"enhanced_email_deliverability", n => { EnhancedEmailDeliverability = n.GetBoolValue(); } },

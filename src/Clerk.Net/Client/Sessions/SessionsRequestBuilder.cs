@@ -16,30 +16,35 @@ namespace Clerk.Net.Client.Sessions {
     public class SessionsRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.sessions.item collection</summary>
         /// <param name="position">The ID of the session</param>
+        /// <returns>A <see cref="WithSession_ItemRequestBuilder"/></returns>
         public WithSession_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("session_id", position);
             return new WithSession_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new SessionsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="SessionsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SessionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,user_id*,status*,limit*,offset*}", pathParameters) {
+        public SessionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,status*,user_id*}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new SessionsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="SessionsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SessionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,user_id*,status*,limit*,offset*}", rawUrl) {
+        public SessionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,status*,user_id*}", rawUrl) {
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
+        /// <returns>A List&lt;Session&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<List<Session>?> GetAsync(Action<RequestConfiguration<SessionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -57,8 +62,9 @@ namespace Clerk.Net.Client.Sessions {
             return collectionResult?.ToList();
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -75,12 +81,13 @@ namespace Clerk.Net.Client.Sessions {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="SessionsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public SessionsRequestBuilder WithUrl(string rawUrl) {
             return new SessionsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.
+        /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
         public class SessionsRequestBuilderGetQueryParameters {
             /// <summary>List sessions for the given client</summary>

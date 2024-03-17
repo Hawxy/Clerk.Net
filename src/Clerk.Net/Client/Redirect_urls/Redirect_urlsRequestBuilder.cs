@@ -16,20 +16,21 @@ namespace Clerk.Net.Client.Redirect_urls {
     public class Redirect_urlsRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.redirect_urls.item collection</summary>
         /// <param name="position">The ID of the redirect URL</param>
+        /// <returns>A <see cref="Redirect_urlsItemRequestBuilder"/></returns>
         public Redirect_urlsItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("id", position);
             return new Redirect_urlsItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new Redirect_urlsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Redirect_urlsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Redirect_urlsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Redirect_urlsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Redirect_urlsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -38,6 +39,7 @@ namespace Clerk.Net.Client.Redirect_urls {
         /// <summary>
         /// Lists all whitelisted redirect_urls for the instance
         /// </summary>
+        /// <returns>A List&lt;RedirectURL&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -54,9 +56,12 @@ namespace Clerk.Net.Client.Redirect_urls {
         /// <summary>
         /// Create a redirect URL
         /// </summary>
+        /// <returns>A <see cref="RedirectURL"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<RedirectURL?> PostAsync(Redirect_urlsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -75,6 +80,7 @@ namespace Clerk.Net.Client.Redirect_urls {
         /// <summary>
         /// Lists all whitelisted redirect_urls for the instance
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -91,6 +97,7 @@ namespace Clerk.Net.Client.Redirect_urls {
         /// <summary>
         /// Create a redirect URL
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -110,6 +117,7 @@ namespace Clerk.Net.Client.Redirect_urls {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Redirect_urlsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Redirect_urlsRequestBuilder WithUrl(string rawUrl) {
             return new Redirect_urlsRequestBuilder(rawUrl, RequestAdapter);

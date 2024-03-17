@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
     /// </summary>
     public class LogoRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new LogoRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="LogoRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public LogoRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/logo", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new LogoRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="LogoRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,8 +30,10 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
         /// <summary>
         /// Delete the organization&apos;s logo.
         /// </summary>
+        /// <returns>A <see cref="Organization"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Organization?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -46,11 +48,16 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
             return await RequestAdapter.SendAsync<Organization>(requestInfo, Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.Only &quot;admin&quot; members can upload an organization logo.
+        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
         /// </summary>
+        /// <returns>A <see cref="OrganizationWithLogo"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 413 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<OrganizationWithLogo?> PutAsync(MultipartBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -71,6 +78,7 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
         /// <summary>
         /// Delete the organization&apos;s logo.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -85,8 +93,9 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
             return requestInfo;
         }
         /// <summary>
-        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.Only &quot;admin&quot; members can upload an organization logo.
+        /// Set or replace an organization&apos;s logo, by uploading an image file.This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.The file size cannot exceed 10MB.Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -106,6 +115,7 @@ namespace Clerk.Net.Client.Organizations.Item.Logo {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="LogoRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public LogoRequestBuilder WithUrl(string rawUrl) {
             return new LogoRequestBuilder(rawUrl, RequestAdapter);

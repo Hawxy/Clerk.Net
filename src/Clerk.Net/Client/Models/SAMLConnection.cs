@@ -18,6 +18,18 @@ namespace Clerk.Net.Client.Models {
         public bool? Active { get; set; }
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The allow_idp_initiated property</summary>
+        public bool? AllowIdpInitiated { get; set; }
+        /// <summary>The allow_subdomains property</summary>
+        public bool? AllowSubdomains { get; set; }
+        /// <summary>The attribute_mapping property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public SAMLConnection_attribute_mapping? AttributeMapping { get; set; }
+#nullable restore
+#else
+        public SAMLConnection_attribute_mapping AttributeMapping { get; set; }
+#endif
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
         /// <summary>The domain property</summary>
@@ -51,6 +63,14 @@ namespace Clerk.Net.Client.Models {
 #nullable restore
 #else
         public string IdpEntityId { get; set; }
+#endif
+        /// <summary>The idp_metadata_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? IdpMetadataUrl { get; set; }
+#nullable restore
+#else
+        public string IdpMetadataUrl { get; set; }
 #endif
         /// <summary>The idp_sso_url property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -86,6 +106,14 @@ namespace Clerk.Net.Client.Models {
 #else
         public string SpEntityId { get; set; }
 #endif
+        /// <summary>The sp_metadata_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? SpMetadataUrl { get; set; }
+#nullable restore
+#else
+        public string SpMetadataUrl { get; set; }
+#endif
         /// <summary>The sync_user_attributes property</summary>
         public bool? SyncUserAttributes { get; set; }
         /// <summary>Unix timestamp of last update.</summary>
@@ -93,7 +121,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>The user_count property</summary>
         public int? UserCount { get; set; }
         /// <summary>
-        /// Instantiates a new SAMLConnection and sets the default values.
+        /// Instantiates a new <see cref="SAMLConnection"/> and sets the default values.
         /// </summary>
         public SAMLConnection() {
             AdditionalData = new Dictionary<string, object>();
@@ -101,6 +129,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="SAMLConnection"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static SAMLConnection CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -109,20 +138,26 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"acs_url", n => { AcsUrl = n.GetStringValue(); } },
                 {"active", n => { Active = n.GetBoolValue(); } },
+                {"allow_idp_initiated", n => { AllowIdpInitiated = n.GetBoolValue(); } },
+                {"allow_subdomains", n => { AllowSubdomains = n.GetBoolValue(); } },
+                {"attribute_mapping", n => { AttributeMapping = n.GetObjectValue<SAMLConnection_attribute_mapping>(SAMLConnection_attribute_mapping.CreateFromDiscriminatorValue); } },
                 {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"domain", n => { Domain = n.GetStringValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 {"idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
+                {"idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 {"idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<SAMLConnection_object>(); } },
                 {"provider", n => { Provider = n.GetStringValue(); } },
                 {"sp_entity_id", n => { SpEntityId = n.GetStringValue(); } },
+                {"sp_metadata_url", n => { SpMetadataUrl = n.GetStringValue(); } },
                 {"sync_user_attributes", n => { SyncUserAttributes = n.GetBoolValue(); } },
                 {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 {"user_count", n => { UserCount = n.GetIntValue(); } },
@@ -136,16 +171,21 @@ namespace Clerk.Net.Client.Models {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("acs_url", AcsUrl);
             writer.WriteBoolValue("active", Active);
+            writer.WriteBoolValue("allow_idp_initiated", AllowIdpInitiated);
+            writer.WriteBoolValue("allow_subdomains", AllowSubdomains);
+            writer.WriteObjectValue<SAMLConnection_attribute_mapping>("attribute_mapping", AttributeMapping);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("domain", Domain);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
+            writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<SAMLConnection_object>("object", Object);
             writer.WriteStringValue("provider", Provider);
             writer.WriteStringValue("sp_entity_id", SpEntityId);
+            writer.WriteStringValue("sp_metadata_url", SpMetadataUrl);
             writer.WriteBoolValue("sync_user_attributes", SyncUserAttributes);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteIntValue("user_count", UserCount);

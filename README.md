@@ -6,11 +6,11 @@
 _Looking for ASP.NET Core w/ Clerk JWTs? [See below](#what-about-jwt-auth)._
 
 ### Packages
-**`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec.
+**`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
 
-**`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container.
+**`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container. Compatible with .NET 6+.
 
-These libraries support .NET 6 onwards and are configured as native AoT compatible for .NET 8+ consumers.
+These libraries are configured as native AoT compatible for .NET 8+ consumers.
 
 ## Getting Started
 

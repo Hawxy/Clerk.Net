@@ -10,14 +10,6 @@ namespace Clerk.Net.Client.Models {
         public bool? BackupCodeEnabled { get; set; }
         /// <summary>Flag to denote whether user is banned or not.</summary>
         public bool? Banned { get; set; }
-        /// <summary>The birthday property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Birthday { get; set; }
-#nullable restore
-#else
-        public string Birthday { get; set; }
-#endif
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
         /// <summary>If enabled, user can create organizations via FAPI.</summary>
@@ -55,14 +47,6 @@ namespace Clerk.Net.Client.Models {
 #nullable restore
 #else
         public string FirstName { get; set; }
-#endif
-        /// <summary>The gender property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Gender { get; set; }
-#nullable restore
-#else
-        public string Gender { get; set; }
 #endif
         /// <summary>The has_image property</summary>
         public bool? HasImage { get; set; }
@@ -202,6 +186,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="User"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static User CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -210,11 +195,11 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"backup_code_enabled", n => { BackupCodeEnabled = n.GetBoolValue(); } },
                 {"banned", n => { Banned = n.GetBoolValue(); } },
-                {"birthday", n => { Birthday = n.GetStringValue(); } },
                 {"create_organization_enabled", n => { CreateOrganizationEnabled = n.GetBoolValue(); } },
                 {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"delete_self_enabled", n => { DeleteSelfEnabled = n.GetBoolValue(); } },
@@ -222,7 +207,6 @@ namespace Clerk.Net.Client.Models {
                 {"external_accounts", n => { ExternalAccounts = n.GetCollectionOfObjectValues<User_external_accounts>(User_external_accounts.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"external_id", n => { ExternalId = n.GetStringValue(); } },
                 {"first_name", n => { FirstName = n.GetStringValue(); } },
-                {"gender", n => { Gender = n.GetStringValue(); } },
                 {"has_image", n => { HasImage = n.GetBoolValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"image_url", n => { ImageUrl = n.GetStringValue(); } },
@@ -258,7 +242,6 @@ namespace Clerk.Net.Client.Models {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("backup_code_enabled", BackupCodeEnabled);
             writer.WriteBoolValue("banned", Banned);
-            writer.WriteStringValue("birthday", Birthday);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteBoolValue("create_organization_enabled", CreateOrganizationEnabled);
             writer.WriteBoolValue("delete_self_enabled", DeleteSelfEnabled);
@@ -266,7 +249,6 @@ namespace Clerk.Net.Client.Models {
             writer.WriteCollectionOfObjectValues<User_external_accounts>("external_accounts", ExternalAccounts);
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteStringValue("first_name", FirstName);
-            writer.WriteStringValue("gender", Gender);
             writer.WriteBoolValue("has_image", HasImage);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("image_url", ImageUrl);

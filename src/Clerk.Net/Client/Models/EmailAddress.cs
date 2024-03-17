@@ -45,6 +45,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="EmailAddress"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static EmailAddress CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -53,6 +54,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"email_address", n => { EmailAddressProp = n.GetStringValue(); } },
@@ -77,10 +79,10 @@ namespace Clerk.Net.Client.Models {
             writer.WriteObjectValue<EmailAddress_verification>("verification", Verification);
         }
         /// <summary>
-        /// Composed type wrapper for classes Admin, OTP
+        /// Composed type wrapper for classes <see cref="Admin"/>, <see cref="Oauth"/>, <see cref="OTP"/>
         /// </summary>
         public class EmailAddress_verification : IComposedTypeWrapper, IParsable {
-            /// <summary>Composed type representation for type Admin</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Admin"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.Admin? Admin { get; set; }
@@ -88,7 +90,15 @@ namespace Clerk.Net.Client.Models {
 #else
             public Clerk.Net.Client.Models.Admin Admin { get; set; }
 #endif
-            /// <summary>Composed type representation for type OTP</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Oauth"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public Clerk.Net.Client.Models.Oauth? Oauth { get; set; }
+#nullable restore
+#else
+            public Clerk.Net.Client.Models.Oauth Oauth { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.OTP"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.OTP? OTP { get; set; }
@@ -99,6 +109,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// Creates a new instance of the appropriate class based on discriminator value
             /// </summary>
+            /// <returns>A <see cref="EmailAddress_verification"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
             public static EmailAddress_verification CreateFromDiscriminatorValue(IParseNode parseNode) {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -110,14 +121,21 @@ namespace Clerk.Net.Client.Models {
                 else if("OTP".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
                     result.OTP = new Clerk.Net.Client.Models.OTP();
                 }
+                else if("Oauth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                    result.Oauth = new Clerk.Net.Client.Models.Oauth();
+                }
                 return result;
             }
             /// <summary>
             /// The deserialization information for the current model
             /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
             public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
                 if(Admin != null) {
                     return Admin.GetFieldDeserializers();
+                }
+                else if(Oauth != null) {
+                    return Oauth.GetFieldDeserializers();
                 }
                 else if(OTP != null) {
                     return OTP.GetFieldDeserializers();
@@ -132,6 +150,9 @@ namespace Clerk.Net.Client.Models {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
                 if(Admin != null) {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Admin>(null, Admin);
+                }
+                else if(Oauth != null) {
+                    writer.WriteObjectValue<Clerk.Net.Client.Models.Oauth>(null, Oauth);
                 }
                 else if(OTP != null) {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.OTP>(null, OTP);

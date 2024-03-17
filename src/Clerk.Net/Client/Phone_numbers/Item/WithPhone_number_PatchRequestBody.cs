@@ -10,10 +10,12 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Set this phone number as the primary phone number for the user.</summary>
         public bool? Primary { get; set; }
+        /// <summary>Set this phone number as reserved for multi-factor authentication.The phone number must also be verified.If there are no other reserved second factors, the phone number will be set as the default second factor.</summary>
+        public bool? ReservedForSecondFactor { get; set; }
         /// <summary>The phone number will be marked as verified.</summary>
         public bool? Verified { get; set; }
         /// <summary>
-        /// Instantiates a new WithPhone_number_PatchRequestBody and sets the default values.
+        /// Instantiates a new <see cref="WithPhone_number_PatchRequestBody"/> and sets the default values.
         /// </summary>
         public WithPhone_number_PatchRequestBody() {
             AdditionalData = new Dictionary<string, object>();
@@ -21,6 +23,7 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="WithPhone_number_PatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static WithPhone_number_PatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -29,9 +32,11 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"primary", n => { Primary = n.GetBoolValue(); } },
+                {"reserved_for_second_factor", n => { ReservedForSecondFactor = n.GetBoolValue(); } },
                 {"verified", n => { Verified = n.GetBoolValue(); } },
             };
         }
@@ -42,6 +47,7 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("primary", Primary);
+            writer.WriteBoolValue("reserved_for_second_factor", ReservedForSecondFactor);
             writer.WriteBoolValue("verified", Verified);
             writer.WriteAdditionalData(AdditionalData);
         }

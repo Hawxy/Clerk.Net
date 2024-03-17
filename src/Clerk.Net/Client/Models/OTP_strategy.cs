@@ -7,5 +7,7 @@ namespace Clerk.Net.Client.Models {
         Phone_code,
         [EnumMember(Value = "email_code")]
         Email_code,
+        [EnumMember(Value = "reset_password_email_code")]
+        Reset_password_email_code,
     }
 }

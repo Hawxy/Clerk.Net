@@ -57,6 +57,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="PhoneNumber"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static PhoneNumber CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -65,6 +66,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"backup_codes", n => { BackupCodes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
@@ -95,10 +97,10 @@ namespace Clerk.Net.Client.Models {
             writer.WriteObjectValue<PhoneNumber_verification>("verification", Verification);
         }
         /// <summary>
-        /// Composed type wrapper for classes Admin, OTP
+        /// Composed type wrapper for classes <see cref="Admin"/>, <see cref="OTP"/>
         /// </summary>
         public class PhoneNumber_verification : IComposedTypeWrapper, IParsable {
-            /// <summary>Composed type representation for type Admin</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Admin"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.Admin? Admin { get; set; }
@@ -106,7 +108,7 @@ namespace Clerk.Net.Client.Models {
 #else
             public Clerk.Net.Client.Models.Admin Admin { get; set; }
 #endif
-            /// <summary>Composed type representation for type OTP</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.OTP"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.OTP? OTP { get; set; }
@@ -117,6 +119,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// Creates a new instance of the appropriate class based on discriminator value
             /// </summary>
+            /// <returns>A <see cref="PhoneNumber_verification"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
             public static PhoneNumber_verification CreateFromDiscriminatorValue(IParseNode parseNode) {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -133,6 +136,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// The deserialization information for the current model
             /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
             public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
                 if(Admin != null) {
                     return Admin.GetFieldDeserializers();

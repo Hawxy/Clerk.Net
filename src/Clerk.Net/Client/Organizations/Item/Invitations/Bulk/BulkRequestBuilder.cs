@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
     /// </summary>
     public class BulkRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new BulkRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="BulkRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public BulkRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/bulk", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new BulkRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="BulkRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,9 +30,14 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// <summary>
         /// Creates new organization invitations in bulk and sends out emails to the provided email addresses with a link to accept the invitation and join the organization.You can specify a different `role` for each invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter for each invitation.When the invited user clicks the link to accept the invitation, they will be redirected to the provided URL.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitationcan have a different inviter user.Inviter users must be members with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for each organization invitation. The public metadata are visibleby both the Frontend and the Backend, whereas the private metadata are only visible by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
+        /// <returns>A <see cref="OrganizationInvitations"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<OrganizationInvitations?> PostAsync(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -53,6 +58,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// <summary>
         /// Creates new organization invitations in bulk and sends out emails to the provided email addresses with a link to accept the invitation and join the organization.You can specify a different `role` for each invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter for each invitation.When the invited user clicks the link to accept the invitation, they will be redirected to the provided URL.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitationcan have a different inviter user.Inviter users must be members with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for each organization invitation. The public metadata are visibleby both the Frontend and the Backend, whereas the private metadata are only visible by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -72,6 +78,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="BulkRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public BulkRequestBuilder WithUrl(string rawUrl) {
             return new BulkRequestBuilder(rawUrl, RequestAdapter);

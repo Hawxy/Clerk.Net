@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
     /// </summary>
     public class PendingRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new PendingRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PendingRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public PendingRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/pending{?limit*,offset*}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new PendingRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PendingRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,8 +30,11 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         /// <summary>
         /// This request returns the list of organization invitations with &quot;pending&quot; status.These are the organization invitations that can still be used to join the organization, but have not been accepted by the invited user yet.Results can be paginated using the optional `limit` and `offset` query parameters.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
+        /// <returns>A <see cref="OrganizationInvitations"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -50,6 +53,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         /// <summary>
         /// This request returns the list of organization invitations with &quot;pending&quot; status.These are the organization invitations that can still be used to join the organization, but have not been accepted by the invited user yet.Results can be paginated using the optional `limit` and `offset` query parameters.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -67,6 +71,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="PendingRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         [Obsolete("")]
         public PendingRequestBuilder WithUrl(string rawUrl) {

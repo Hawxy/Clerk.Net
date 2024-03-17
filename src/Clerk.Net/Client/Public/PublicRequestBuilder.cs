@@ -16,14 +16,14 @@ namespace Clerk.Net.Client.Public {
             new InterstitialRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new PublicRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PublicRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public PublicRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new PublicRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PublicRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>

@@ -16,20 +16,21 @@ namespace Clerk.Net.Client.Sign_in_tokens {
     public class Sign_in_tokensRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.sign_in_tokens.item collection</summary>
         /// <param name="position">The ID of the sign-in token to be revoked</param>
+        /// <returns>A <see cref="WithSign_in_token_ItemRequestBuilder"/></returns>
         public WithSign_in_token_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("sign_in_token_id", position);
             return new WithSign_in_token_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new Sign_in_tokensRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Sign_in_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Sign_in_tokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Sign_in_tokensRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Sign_in_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -38,9 +39,12 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// <summary>
         /// Creates a new sign-in token and associates it with the given user.By default, sign-in tokens expire in 30 days.You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
         /// </summary>
+        /// <returns>A <see cref="SignInToken"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<SignInToken?> PostAsync(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -59,6 +63,7 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// <summary>
         /// Creates a new sign-in token and associates it with the given user.By default, sign-in tokens expire in 30 days.You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -78,6 +83,7 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Sign_in_tokensRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Sign_in_tokensRequestBuilder WithUrl(string rawUrl) {
             return new Sign_in_tokensRequestBuilder(rawUrl, RequestAdapter);
