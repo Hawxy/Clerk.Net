@@ -26,20 +26,21 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         }
         /// <summary>Gets an item from the Clerk.Net.Client.organizations.item.invitations.item collection</summary>
         /// <param name="position">The organization invitation ID.</param>
+        /// <returns>A <see cref="WithInvitation_ItemRequestBuilder"/></returns>
         public WithInvitation_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("invitation_id", position);
             return new WithInvitation_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new InvitationsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="InvitationsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public InvitationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations{?limit*,offset*,status*}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new InvitationsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="InvitationsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -48,8 +49,11 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         /// <summary>
         /// This request returns the list of organization invitations.Results can be paginated using the optional `limit` and `offset` query parameters.You can filter them by providing the &apos;status&apos; query parameter, that accepts multiple values.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
+        /// <returns>A <see cref="OrganizationInvitations"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<OrganizationInvitations?> GetAsync(Action<RequestConfiguration<InvitationsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -67,9 +71,14 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         /// <summary>
         /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
+        /// <returns>A <see cref="OrganizationInvitation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<OrganizationInvitation?> PostAsync(InvitationsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -90,6 +99,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         /// <summary>
         /// This request returns the list of organization invitations.Results can be paginated using the optional `limit` and `offset` query parameters.You can filter them by providing the &apos;status&apos; query parameter, that accepts multiple values.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -106,6 +116,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         /// <summary>
         /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -116,7 +127,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         public RequestInformation ToPostRequestInformation(InvitationsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, "{+baseurl}/organizations/{organization_id}/invitations", PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
@@ -125,6 +136,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="InvitationsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public InvitationsRequestBuilder WithUrl(string rawUrl) {
             return new InvitationsRequestBuilder(rawUrl, RequestAdapter);

@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
     /// </summary>
     public class Instance_settingsRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new Instance_settingsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Instance_settingsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Instance_settingsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/beta_features/instance_settings", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Instance_settingsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Instance_settingsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,9 +30,12 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>
         /// Updates the settings of an instance
         /// </summary>
+        /// <returns>A <see cref="Instance_settingsPatchResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 402 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Instance_settingsPatchResponse?> PatchAsync(Instance_settingsPatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -51,6 +54,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>
         /// Updates the settings of an instance
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -70,6 +74,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Instance_settingsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Instance_settingsRequestBuilder WithUrl(string rawUrl) {
             return new Instance_settingsRequestBuilder(rawUrl, RequestAdapter);

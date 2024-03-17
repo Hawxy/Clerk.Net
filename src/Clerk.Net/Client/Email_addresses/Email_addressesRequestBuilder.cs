@@ -16,20 +16,21 @@ namespace Clerk.Net.Client.Email_addresses {
     public class Email_addressesRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.email_addresses.item collection</summary>
         /// <param name="position">The ID of the email address to retrieve</param>
+        /// <returns>A <see cref="WithEmail_address_ItemRequestBuilder"/></returns>
         public WithEmail_address_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("email_address_id", position);
             return new WithEmail_address_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new Email_addressesRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Email_addressesRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Email_addressesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/email_addresses", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Email_addressesRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Email_addressesRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -38,9 +39,15 @@ namespace Clerk.Net.Client.Email_addresses {
         /// <summary>
         /// Create a new email address
         /// </summary>
+        /// <returns>A <see cref="EmailAddress"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<EmailAddress?> PostAsync(Email_addressesPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -62,6 +69,7 @@ namespace Clerk.Net.Client.Email_addresses {
         /// <summary>
         /// Create a new email address
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -81,6 +89,7 @@ namespace Clerk.Net.Client.Email_addresses {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Email_addressesRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Email_addressesRequestBuilder WithUrl(string rawUrl) {
             return new Email_addressesRequestBuilder(rawUrl, RequestAdapter);

@@ -35,6 +35,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="Web3Wallet"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static Web3Wallet CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -43,6 +44,7 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"id", n => { Id = n.GetStringValue(); } },
@@ -63,10 +65,10 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("web3_wallet", Web3WalletProp);
         }
         /// <summary>
-        /// Composed type wrapper for classes Admin, Web3Signature
+        /// Composed type wrapper for classes <see cref="Admin"/>, <see cref="Web3Signature"/>
         /// </summary>
         public class Web3Wallet_verification : IComposedTypeWrapper, IParsable {
-            /// <summary>Composed type representation for type Admin</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Admin"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.Admin? Admin { get; set; }
@@ -74,7 +76,7 @@ namespace Clerk.Net.Client.Models {
 #else
             public Clerk.Net.Client.Models.Admin Admin { get; set; }
 #endif
-            /// <summary>Composed type representation for type Web3Signature</summary>
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Web3Signature"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             public Clerk.Net.Client.Models.Web3Signature? Web3Signature { get; set; }
@@ -85,6 +87,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// Creates a new instance of the appropriate class based on discriminator value
             /// </summary>
+            /// <returns>A <see cref="Web3Wallet_verification"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
             public static Web3Wallet_verification CreateFromDiscriminatorValue(IParseNode parseNode) {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -101,6 +104,7 @@ namespace Clerk.Net.Client.Models {
             /// <summary>
             /// The deserialization information for the current model
             /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
             public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
                 if(Admin != null) {
                     return Admin.GetFieldDeserializers();

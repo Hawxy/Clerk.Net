@@ -16,14 +16,14 @@ namespace Clerk.Net.Client.Sign_in_tokens.Item {
             new RevokeRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new WithSign_in_token_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithSign_in_token_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public WithSign_in_token_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens/{sign_in_token_id}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new WithSign_in_token_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithSign_in_token_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>

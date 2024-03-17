@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Domains.Item {
     /// </summary>
     public class WithDomain_ItemRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new WithDomain_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithDomain_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public WithDomain_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/domains/{domain_id}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new WithDomain_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithDomain_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,8 +30,11 @@ namespace Clerk.Net.Client.Domains.Item {
         /// <summary>
         /// Deletes a satellite domain for the instance.It is currently not possible to delete the instance&apos;s primary domain.
         /// </summary>
+        /// <returns>A <see cref="DeletedObject"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -49,9 +52,13 @@ namespace Clerk.Net.Client.Domains.Item {
         /// <summary>
         /// The `proxy_url` can be updated only for production instances.Update one of the instance&apos;s domains. Both primary and satellite domains can be updated.If you choose to use Clerk via proxy, use this endpoint to specify the `proxy_url`.Whenever you decide you&apos;d rather switch to DNS setup for Clerk, simply set `proxy_url`to `null` for the domain. When you update a production instance&apos;s primary domain name,you have to make sure that you&apos;ve completed all the necessary setup steps for DNS andemails to work. Expect downtime otherwise. Updating a primary domain&apos;s name will alsoupdate the instance&apos;s home origin, affecting the default application paths.
         /// </summary>
+        /// <returns>A <see cref="Clerk.Net.Client.Models.Domain"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Clerk.Net.Client.Models.Domain?> PatchAsync(WithDomain_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -71,6 +78,7 @@ namespace Clerk.Net.Client.Domains.Item {
         /// <summary>
         /// Deletes a satellite domain for the instance.It is currently not possible to delete the instance&apos;s primary domain.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -87,6 +95,7 @@ namespace Clerk.Net.Client.Domains.Item {
         /// <summary>
         /// The `proxy_url` can be updated only for production instances.Update one of the instance&apos;s domains. Both primary and satellite domains can be updated.If you choose to use Clerk via proxy, use this endpoint to specify the `proxy_url`.Whenever you decide you&apos;d rather switch to DNS setup for Clerk, simply set `proxy_url`to `null` for the domain. When you update a production instance&apos;s primary domain name,you have to make sure that you&apos;ve completed all the necessary setup steps for DNS andemails to work. Expect downtime otherwise. Updating a primary domain&apos;s name will alsoupdate the instance&apos;s home origin, affecting the default application paths.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -106,6 +115,7 @@ namespace Clerk.Net.Client.Domains.Item {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="WithDomain_ItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public WithDomain_ItemRequestBuilder WithUrl(string rawUrl) {
             return new WithDomain_ItemRequestBuilder(rawUrl, RequestAdapter);

@@ -29,6 +29,7 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="Actor_tokensPostRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static Actor_tokensPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -37,6 +38,7 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"actor", n => { Actor = n.GetObjectValue<Actor_tokensPostRequestBody_actor>(Actor_tokensPostRequestBody_actor.CreateFromDiscriminatorValue); } },

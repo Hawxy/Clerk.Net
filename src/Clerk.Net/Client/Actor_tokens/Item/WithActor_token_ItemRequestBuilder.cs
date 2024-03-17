@@ -16,14 +16,14 @@ namespace Clerk.Net.Client.Actor_tokens.Item {
             new RevokeRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new WithActor_token_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithActor_token_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public WithActor_token_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/actor_tokens/{actor_token_id}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new WithActor_token_ItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithActor_token_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>

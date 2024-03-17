@@ -22,20 +22,21 @@ namespace Clerk.Net.Client.Clients {
         }
         /// <summary>Gets an item from the Clerk.Net.Client.clients.item collection</summary>
         /// <param name="position">Client ID.</param>
+        /// <returns>A <see cref="WithClient_ItemRequestBuilder"/></returns>
         public WithClient_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("client_id", position);
             return new WithClient_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new ClientsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="ClientsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public ClientsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new ClientsRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="ClientsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -44,8 +45,13 @@ namespace Clerk.Net.Client.Clients {
         /// <summary>
         /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
+        /// <returns>A List&lt;Clerk.Net.Client.Models.Client&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 410 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -67,6 +73,7 @@ namespace Clerk.Net.Client.Clients {
         /// <summary>
         /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -84,6 +91,7 @@ namespace Clerk.Net.Client.Clients {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="ClientsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         [Obsolete("")]
         public ClientsRequestBuilder WithUrl(string rawUrl) {

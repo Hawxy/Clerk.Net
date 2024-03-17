@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Clients.Verify {
     /// </summary>
     public class VerifyRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new VerifyRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="VerifyRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public VerifyRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients/verify", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new VerifyRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="VerifyRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,9 +30,13 @@ namespace Clerk.Net.Client.Clients.Verify {
         /// <summary>
         /// Verifies the client in the provided token
         /// </summary>
+        /// <returns>A <see cref="Clerk.Net.Client.Models.Client"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<Clerk.Net.Client.Models.Client?> PostAsync(VerifyPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -52,6 +56,7 @@ namespace Clerk.Net.Client.Clients.Verify {
         /// <summary>
         /// Verifies the client in the provided token
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -71,6 +76,7 @@ namespace Clerk.Net.Client.Clients.Verify {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="VerifyRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public VerifyRequestBuilder WithUrl(string rawUrl) {
             return new VerifyRequestBuilder(rawUrl, RequestAdapter);

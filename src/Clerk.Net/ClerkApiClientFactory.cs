@@ -17,7 +17,8 @@ public static class ClerkApiClientFactory
     /// <returns>The <see cref="ClerkApiClient"/></returns>
     public static ClerkApiClient Create(string secretKey, HttpClient? httpClient = default)
     {
-        ArgumentNullException.ThrowIfNull(secretKey);
+        if (string.IsNullOrEmpty(secretKey))
+            throw new ArgumentNullException(nameof(secretKey));
         
         var authProvider = new ApiKeyAuthenticationProvider($"Bearer {secretKey}", "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
         var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);

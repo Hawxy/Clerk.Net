@@ -16,20 +16,21 @@ namespace Clerk.Net.Client.Jwt_templates {
     public class Jwt_templatesRequestBuilder : BaseRequestBuilder {
         /// <summary>Gets an item from the Clerk.Net.Client.jwt_templates.item collection</summary>
         /// <param name="position">JWT Template ID</param>
+        /// <returns>A <see cref="WithTemplate_ItemRequestBuilder"/></returns>
         public WithTemplate_ItemRequestBuilder this[string position] { get {
             var urlTplParams = new Dictionary<string, object>(PathParameters);
             urlTplParams.Add("template_id", position);
             return new WithTemplate_ItemRequestBuilder(urlTplParams, RequestAdapter);
         } }
         /// <summary>
-        /// Instantiates a new Jwt_templatesRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Jwt_templatesRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Jwt_templatesRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/jwt_templates", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Jwt_templatesRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Jwt_templatesRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -38,6 +39,7 @@ namespace Clerk.Net.Client.Jwt_templates {
         /// <summary>
         /// List all templates
         /// </summary>
+        /// <returns>A List&lt;JWTTemplate&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -54,9 +56,13 @@ namespace Clerk.Net.Client.Jwt_templates {
         /// <summary>
         /// Create a new JWT template
         /// </summary>
+        /// <returns>A <see cref="JWTTemplate"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 402 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<JWTTemplate?> PostAsync(Jwt_templatesPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -76,6 +82,7 @@ namespace Clerk.Net.Client.Jwt_templates {
         /// <summary>
         /// List all templates
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -92,6 +99,7 @@ namespace Clerk.Net.Client.Jwt_templates {
         /// <summary>
         /// Create a new JWT template
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -111,6 +119,7 @@ namespace Clerk.Net.Client.Jwt_templates {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Jwt_templatesRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Jwt_templatesRequestBuilder WithUrl(string rawUrl) {
             return new Jwt_templatesRequestBuilder(rawUrl, RequestAdapter);

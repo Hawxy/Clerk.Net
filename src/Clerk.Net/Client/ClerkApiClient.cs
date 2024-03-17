@@ -136,7 +136,7 @@ namespace Clerk.Net.Client {
             new WebhooksRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new ClerkApiClient and sets the default values.
+        /// Instantiates a new <see cref="ClerkApiClient"/> and sets the default values.
         /// </summary>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public ClerkApiClient(IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}", new Dictionary<string, object>()) {

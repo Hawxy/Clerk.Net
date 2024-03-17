@@ -19,7 +19,7 @@ namespace Clerk.Net.Client.Sign_ups.Item {
         public string ExternalId { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new Sign_upsPatchRequestBody and sets the default values.
+        /// Instantiates a new <see cref="Sign_upsPatchRequestBody"/> and sets the default values.
         /// </summary>
         public Sign_upsPatchRequestBody() {
             AdditionalData = new Dictionary<string, object>();
@@ -27,6 +27,7 @@ namespace Clerk.Net.Client.Sign_ups.Item {
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
+        /// <returns>A <see cref="Sign_upsPatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static Sign_upsPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
@@ -35,6 +36,7 @@ namespace Clerk.Net.Client.Sign_ups.Item {
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
+        /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"custom_action", n => { CustomAction = n.GetBoolValue(); } },

@@ -14,14 +14,14 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
     /// </summary>
     public class Redirect_urlsItemRequestBuilder : BaseRequestBuilder {
         /// <summary>
-        /// Instantiates a new Redirect_urlsItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Redirect_urlsItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public Redirect_urlsItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls/{id}", pathParameters) {
         }
         /// <summary>
-        /// Instantiates a new Redirect_urlsItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="Redirect_urlsItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -30,8 +30,10 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
         /// <summary>
         /// Remove the selected redirect URL from the whitelist of the instance
         /// </summary>
+        /// <returns>A <see cref="DeletedObject"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -48,8 +50,10 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
         /// <summary>
         /// Retrieve the details of the redirect URL with the given ID
         /// </summary>
+        /// <returns>A <see cref="RedirectURL"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<RedirectURL?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
@@ -66,6 +70,7 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
         /// <summary>
         /// Remove the selected redirect URL from the whitelist of the instance
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -82,6 +87,7 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
         /// <summary>
         /// Retrieve the details of the redirect URL with the given ID
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -98,6 +104,7 @@ namespace Clerk.Net.Client.Redirect_urls.Item {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="Redirect_urlsItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         public Redirect_urlsItemRequestBuilder WithUrl(string rawUrl) {
             return new Redirect_urlsItemRequestBuilder(rawUrl, RequestAdapter);
