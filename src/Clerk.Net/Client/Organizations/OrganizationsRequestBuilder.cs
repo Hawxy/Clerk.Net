@@ -26,14 +26,14 @@ namespace Clerk.Net.Client.Organizations {
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?limit*,offset*,include_members_count*,query*,order_by*}", pathParameters) {
+        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,query*}", pathParameters) {
         }
         /// <summary>
         /// Instantiates a new OrganizationsRequestBuilder and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?limit*,offset*,include_members_count*,query*,order_by*}", rawUrl) {
+        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,query*}", rawUrl) {
         }
         /// <summary>
         /// This request returns the list of organizations for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The organizations are ordered by descending creation date.Most recent organizations will be returned first.

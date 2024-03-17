@@ -31,14 +31,14 @@ namespace Clerk.Net.Client.Users {
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,last_active_at_since*,limit*,offset*,order_by*}", pathParameters) {
+        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,external_id*,last_active_at_since*,limit*,offset*,order_by*,organization_id*,phone_number*,query*,username*,user_id*,web3_wallet*}", pathParameters) {
         }
         /// <summary>
         /// Instantiates a new UsersRequestBuilder and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,organization_id*,query*,last_active_at_since*,limit*,offset*,order_by*}", rawUrl) {
+        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,external_id*,last_active_at_since*,limit*,offset*,order_by*,organization_id*,phone_number*,query*,username*,user_id*,web3_wallet*}", rawUrl) {
         }
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.

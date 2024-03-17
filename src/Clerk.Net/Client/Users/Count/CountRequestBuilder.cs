@@ -18,14 +18,14 @@ namespace Clerk.Net.Client.Users.Count {
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,query*}", pathParameters) {
+        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,external_id*,phone_number*,query*,username*,user_id*,web3_wallet*}", pathParameters) {
         }
         /// <summary>
         /// Instantiates a new CountRequestBuilder and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,phone_number*,external_id*,username*,web3_wallet*,user_id*,query*}", rawUrl) {
+        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,external_id*,phone_number*,query*,username*,user_id*,web3_wallet*}", rawUrl) {
         }
         /// <summary>
         /// Returns a total count of all users that match the given filtering criteria.

@@ -26,14 +26,14 @@ namespace Clerk.Net.Client.Invitations {
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InvitationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations{?status*}", pathParameters) {
+        public InvitationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations{?limit*,offset*,status*}", pathParameters) {
         }
         /// <summary>
         /// Instantiates a new InvitationsRequestBuilder and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InvitationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations{?status*}", rawUrl) {
+        public InvitationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations{?limit*,offset*,status*}", rawUrl) {
         }
         /// <summary>
         /// Returns all non-revoked invitations for your application, sorted by creation date
@@ -118,6 +118,12 @@ namespace Clerk.Net.Client.Invitations {
         /// Returns all non-revoked invitations for your application, sorted by creation date
         /// </summary>
         public class InvitationsRequestBuilderGetQueryParameters {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+            [QueryParameter("limit")]
+            public double? Limit { get; set; }
+            /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
+            [QueryParameter("offset")]
+            public double? Offset { get; set; }
             /// <summary>Filter invitations based on their status</summary>
             [QueryParameter("status")]
             public GetStatusQueryParameterType? Status { get; set; }

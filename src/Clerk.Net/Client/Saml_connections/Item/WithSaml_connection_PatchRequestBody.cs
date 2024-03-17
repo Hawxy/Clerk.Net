@@ -8,6 +8,18 @@ namespace Clerk.Net.Client.Saml_connections.Item {
     public class WithSaml_connection_PatchRequestBody : IParsable {
         /// <summary>Activate or de-activate the SAML Connection</summary>
         public bool? Active { get; set; }
+        /// <summary>Enable or deactivate IdP-initiated flows</summary>
+        public bool? AllowIdpInitiated { get; set; }
+        /// <summary>Allow users with an email address subdomain to use this connection in order to authenticate</summary>
+        public bool? AllowSubdomains { get; set; }
+        /// <summary>Define the atrtibute name mapping between Identity Provider and Clerk&apos;s user properties</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public WithSaml_connection_PatchRequestBody_attribute_mapping? AttributeMapping { get; set; }
+#nullable restore
+#else
+        public WithSaml_connection_PatchRequestBody_attribute_mapping AttributeMapping { get; set; }
+#endif
         /// <summary>The domain to use for the new SAML Connection</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,6 +43,14 @@ namespace Clerk.Net.Client.Saml_connections.Item {
 #nullable restore
 #else
         public string IdpEntityId { get; set; }
+#endif
+        /// <summary>The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? IdpMetadataUrl { get; set; }
+#nullable restore
+#else
+        public string IdpMetadataUrl { get; set; }
 #endif
         /// <summary>The SSO url as provided by the IdP</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -64,9 +84,13 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"active", n => { Active = n.GetBoolValue(); } },
+                {"allow_idp_initiated", n => { AllowIdpInitiated = n.GetBoolValue(); } },
+                {"allow_subdomains", n => { AllowSubdomains = n.GetBoolValue(); } },
+                {"attribute_mapping", n => { AttributeMapping = n.GetObjectValue<WithSaml_connection_PatchRequestBody_attribute_mapping>(WithSaml_connection_PatchRequestBody_attribute_mapping.CreateFromDiscriminatorValue); } },
                 {"domain", n => { Domain = n.GetStringValue(); } },
                 {"idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 {"idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
+                {"idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 {"idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
                 {"sync_user_attributes", n => { SyncUserAttributes = n.GetBoolValue(); } },
@@ -79,9 +103,13 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("active", Active);
+            writer.WriteBoolValue("allow_idp_initiated", AllowIdpInitiated);
+            writer.WriteBoolValue("allow_subdomains", AllowSubdomains);
+            writer.WriteObjectValue<WithSaml_connection_PatchRequestBody_attribute_mapping>("attribute_mapping", AttributeMapping);
             writer.WriteStringValue("domain", Domain);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
+            writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);
             writer.WriteBoolValue("sync_user_attributes", SyncUserAttributes);

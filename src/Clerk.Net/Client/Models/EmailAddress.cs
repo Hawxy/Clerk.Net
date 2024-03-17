@@ -77,7 +77,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteObjectValue<EmailAddress_verification>("verification", Verification);
         }
         /// <summary>
-        /// Composed type wrapper for classes Admin, OTP
+        /// Composed type wrapper for classes Admin, Oauth, OTP
         /// </summary>
         public class EmailAddress_verification : IComposedTypeWrapper, IParsable {
             /// <summary>Composed type representation for type Admin</summary>
@@ -87,6 +87,14 @@ namespace Clerk.Net.Client.Models {
 #nullable restore
 #else
             public Clerk.Net.Client.Models.Admin Admin { get; set; }
+#endif
+            /// <summary>Composed type representation for type Oauth</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public Clerk.Net.Client.Models.Oauth? Oauth { get; set; }
+#nullable restore
+#else
+            public Clerk.Net.Client.Models.Oauth Oauth { get; set; }
 #endif
             /// <summary>Composed type representation for type OTP</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -110,6 +118,9 @@ namespace Clerk.Net.Client.Models {
                 else if("OTP".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
                     result.OTP = new Clerk.Net.Client.Models.OTP();
                 }
+                else if("Oauth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                    result.Oauth = new Clerk.Net.Client.Models.Oauth();
+                }
                 return result;
             }
             /// <summary>
@@ -118,6 +129,9 @@ namespace Clerk.Net.Client.Models {
             public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
                 if(Admin != null) {
                     return Admin.GetFieldDeserializers();
+                }
+                else if(Oauth != null) {
+                    return Oauth.GetFieldDeserializers();
                 }
                 else if(OTP != null) {
                     return OTP.GetFieldDeserializers();
@@ -132,6 +146,9 @@ namespace Clerk.Net.Client.Models {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
                 if(Admin != null) {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Admin>(null, Admin);
+                }
+                else if(Oauth != null) {
+                    writer.WriteObjectValue<Clerk.Net.Client.Models.Oauth>(null, Oauth);
                 }
                 else if(OTP != null) {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.OTP>(null, OTP);

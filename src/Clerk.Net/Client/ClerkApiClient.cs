@@ -6,7 +6,6 @@ using Clerk.Net.Client.Blocklist_identifiers;
 using Clerk.Net.Client.Clients;
 using Clerk.Net.Client.Domains;
 using Clerk.Net.Client.Email_addresses;
-using Clerk.Net.Client.Emails;
 using Clerk.Net.Client.Instance;
 using Clerk.Net.Client.Invitations;
 using Clerk.Net.Client.Jwks;
@@ -67,10 +66,6 @@ namespace Clerk.Net.Client {
         /// <summary>The email_addresses property</summary>
         public Email_addressesRequestBuilder Email_addresses { get =>
             new Email_addressesRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The emails property</summary>
-        public EmailsRequestBuilder Emails { get =>
-            new EmailsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The instance property</summary>
         public InstanceRequestBuilder Instance { get =>

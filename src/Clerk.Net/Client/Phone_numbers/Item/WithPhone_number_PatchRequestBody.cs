@@ -10,6 +10,8 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Set this phone number as the primary phone number for the user.</summary>
         public bool? Primary { get; set; }
+        /// <summary>Set this phone number as reserved for multi-factor authentication.The phone number must also be verified.If there are no other reserved second factors, the phone number will be set as the default second factor.</summary>
+        public bool? ReservedForSecondFactor { get; set; }
         /// <summary>The phone number will be marked as verified.</summary>
         public bool? Verified { get; set; }
         /// <summary>
@@ -32,6 +34,7 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
                 {"primary", n => { Primary = n.GetBoolValue(); } },
+                {"reserved_for_second_factor", n => { ReservedForSecondFactor = n.GetBoolValue(); } },
                 {"verified", n => { Verified = n.GetBoolValue(); } },
             };
         }
@@ -42,6 +45,7 @@ namespace Clerk.Net.Client.Phone_numbers.Item {
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("primary", Primary);
+            writer.WriteBoolValue("reserved_for_second_factor", ReservedForSecondFactor);
             writer.WriteBoolValue("verified", Verified);
             writer.WriteAdditionalData(AdditionalData);
         }

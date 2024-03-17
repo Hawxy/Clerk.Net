@@ -5,22 +5,22 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class Email_data : IAdditionalDataHolder, IParsable {
+    public class Oauth_error : IAdditionalDataHolder, IParsable {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
-        /// Instantiates a new Email_data and sets the default values.
+        /// Instantiates a new Oauth_error and sets the default values.
         /// </summary>
-        public Email_data() {
+        public Oauth_error() {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Email_data CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Oauth_error CreateFromDiscriminatorValue(IParseNode parseNode) {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new Email_data();
+            return new Oauth_error();
         }
         /// <summary>
         /// The deserialization information for the current model

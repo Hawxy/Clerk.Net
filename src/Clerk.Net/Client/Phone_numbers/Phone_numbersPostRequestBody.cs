@@ -18,6 +18,8 @@ namespace Clerk.Net.Client.Phone_numbers {
 #endif
         /// <summary>Create this phone number as the primary phone number for the user.Default: false, unless it is the first phone number.</summary>
         public bool? Primary { get; set; }
+        /// <summary>Create this phone number as reserved for multi-factor authentication.The phone number must also be verified.If there are no other reserved second factors, the phone number will be set as the default second factor.</summary>
+        public bool? ReservedForSecondFactor { get; set; }
         /// <summary>The ID representing the user</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -49,6 +51,7 @@ namespace Clerk.Net.Client.Phone_numbers {
             return new Dictionary<string, Action<IParseNode>> {
                 {"phone_number", n => { PhoneNumber = n.GetStringValue(); } },
                 {"primary", n => { Primary = n.GetBoolValue(); } },
+                {"reserved_for_second_factor", n => { ReservedForSecondFactor = n.GetBoolValue(); } },
                 {"user_id", n => { UserId = n.GetStringValue(); } },
                 {"verified", n => { Verified = n.GetBoolValue(); } },
             };
@@ -61,6 +64,7 @@ namespace Clerk.Net.Client.Phone_numbers {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("phone_number", PhoneNumber);
             writer.WriteBoolValue("primary", Primary);
+            writer.WriteBoolValue("reserved_for_second_factor", ReservedForSecondFactor);
             writer.WriteStringValue("user_id", UserId);
             writer.WriteBoolValue("verified", Verified);
             writer.WriteAdditionalData(AdditionalData);

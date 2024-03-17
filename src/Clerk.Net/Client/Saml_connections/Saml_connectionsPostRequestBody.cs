@@ -6,6 +6,14 @@ using System.Linq;
 using System;
 namespace Clerk.Net.Client.Saml_connections {
     public class Saml_connectionsPostRequestBody : IParsable {
+        /// <summary>Define the attribute name mapping between Identity Provider and Clerk&apos;s user properties</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public Saml_connectionsPostRequestBody_attribute_mapping? AttributeMapping { get; set; }
+#nullable restore
+#else
+        public Saml_connectionsPostRequestBody_attribute_mapping AttributeMapping { get; set; }
+#endif
         /// <summary>The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -30,6 +38,14 @@ namespace Clerk.Net.Client.Saml_connections {
 #else
         public string IdpEntityId { get; set; }
 #endif
+        /// <summary>The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? IdpMetadataUrl { get; set; }
+#nullable restore
+#else
+        public string IdpMetadataUrl { get; set; }
+#endif
         /// <summary>The Single-Sign On URL as provided by the IdP</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -46,6 +62,8 @@ namespace Clerk.Net.Client.Saml_connections {
 #else
         public string Name { get; set; }
 #endif
+        /// <summary>The IdP provider of the connection.</summary>
+        public Saml_connectionsPostRequestBody_provider? Provider { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -59,11 +77,14 @@ namespace Clerk.Net.Client.Saml_connections {
         /// </summary>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
             return new Dictionary<string, Action<IParseNode>> {
+                {"attribute_mapping", n => { AttributeMapping = n.GetObjectValue<Saml_connectionsPostRequestBody_attribute_mapping>(Saml_connectionsPostRequestBody_attribute_mapping.CreateFromDiscriminatorValue); } },
                 {"domain", n => { Domain = n.GetStringValue(); } },
                 {"idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 {"idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
+                {"idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 {"idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
+                {"provider", n => { Provider = n.GetEnumValue<Saml_connectionsPostRequestBody_provider>(); } },
             };
         }
         /// <summary>
@@ -72,11 +93,14 @@ namespace Clerk.Net.Client.Saml_connections {
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer) {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteObjectValue<Saml_connectionsPostRequestBody_attribute_mapping>("attribute_mapping", AttributeMapping);
             writer.WriteStringValue("domain", Domain);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
+            writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);
+            writer.WriteEnumValue<Saml_connectionsPostRequestBody_provider>("provider", Provider);
         }
     }
 }
