@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum OTP_status {
+    public enum OTP_status
+    {
         [EnumMember(Value = "unverified")]
         Unverified,
         [EnumMember(Value = "verified")]

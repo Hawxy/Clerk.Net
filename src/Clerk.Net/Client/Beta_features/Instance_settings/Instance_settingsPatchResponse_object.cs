@@ -3,7 +3,8 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Beta_features.Instance_settings {
     /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
-    public enum Instance_settingsPatchResponse_object {
+    public enum Instance_settingsPatchResponse_object
+    {
         [EnumMember(Value = "instance_settings")]
         Instance_settings,
     }

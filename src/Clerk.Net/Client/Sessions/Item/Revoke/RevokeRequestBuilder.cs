@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Sessions.Item.Revoke {
     /// <summary>
     /// Builds and executes requests for operations under \sessions\{session_id}\revoke
     /// </summary>
-    public class RevokeRequestBuilder : BaseRequestBuilder {
+    public class RevokeRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="RevokeRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public RevokeRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/revoke", pathParameters) {
+        public RevokeRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/revoke", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="RevokeRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public RevokeRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/revoke", rawUrl) {
+        public RevokeRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/revoke", rawUrl)
+        {
         }
         /// <summary>
         /// Sets the status of a session as &quot;revoked&quot;, which is an unauthenticated state.In multi-session mode, a revoked session will still be returned along with its client object, however the user will need to sign in again.
@@ -38,13 +41,16 @@ namespace Clerk.Net.Client.Sessions.Item.Revoke {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Session?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Session?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Session> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Session> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -58,10 +64,12 @@ namespace Clerk.Net.Client.Sessions.Item.Revoke {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -73,7 +81,8 @@ namespace Clerk.Net.Client.Sessions.Item.Revoke {
         /// </summary>
         /// <returns>A <see cref="RevokeRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public RevokeRequestBuilder WithUrl(string rawUrl) {
+        public RevokeRequestBuilder WithUrl(string rawUrl)
+        {
             return new RevokeRequestBuilder(rawUrl, RequestAdapter);
         }
     }

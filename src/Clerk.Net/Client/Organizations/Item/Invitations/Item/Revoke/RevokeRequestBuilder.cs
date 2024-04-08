@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke {
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations\{invitation_id}\revoke
     /// </summary>
-    public class RevokeRequestBuilder : BaseRequestBuilder {
+    public class RevokeRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="RevokeRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public RevokeRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/{invitation_id}/revoke", pathParameters) {
+        public RevokeRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/{invitation_id}/revoke", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="RevokeRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public RevokeRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/{invitation_id}/revoke", rawUrl) {
+        public RevokeRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/{invitation_id}/revoke", rawUrl)
+        {
         }
         /// <summary>
         /// Use this request to revoke a previously issued organization invitation.Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.Only organization invitations with &quot;pending&quot; status can be revoked.The request needs the `requesting_user_id` parameter to specify the user which revokes the invitation.Only users with &quot;admin&quot; role can revoke invitations.
@@ -39,14 +42,17 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<OrganizationInvitation?> PostAsync(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitation?> PostAsync(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<OrganizationInvitation> PostAsync(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitation> PostAsync(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -61,10 +67,12 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(RevokePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -78,7 +86,8 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke {
         /// </summary>
         /// <returns>A <see cref="RevokeRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public RevokeRequestBuilder WithUrl(string rawUrl) {
+        public RevokeRequestBuilder WithUrl(string rawUrl)
+        {
             return new RevokeRequestBuilder(rawUrl, RequestAdapter);
         }
     }

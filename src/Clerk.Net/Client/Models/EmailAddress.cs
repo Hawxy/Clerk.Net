@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class EmailAddress : IParsable {
+    public class EmailAddress : IParsable 
+    {
         /// <summary>The email_address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,7 +48,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="EmailAddress"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static EmailAddress CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static EmailAddress CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new EmailAddress();
         }
@@ -55,8 +57,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"email_address", n => { EmailAddressProp = n.GetStringValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"linked_to", n => { LinkedTo = n.GetCollectionOfObjectValues<IdentificationLink>(IdentificationLink.CreateFromDiscriminatorValue)?.ToList(); } },
@@ -69,7 +73,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("email_address", EmailAddressProp);
             writer.WriteStringValue("id", Id);
@@ -81,7 +86,8 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Composed type wrapper for classes <see cref="Admin"/>, <see cref="Oauth"/>, <see cref="OTP"/>
         /// </summary>
-        public class EmailAddress_verification : IComposedTypeWrapper, IParsable {
+        public class EmailAddress_verification : IComposedTypeWrapper, IParsable 
+        {
             /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Admin"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -111,17 +117,21 @@ namespace Clerk.Net.Client.Models {
             /// </summary>
             /// <returns>A <see cref="EmailAddress_verification"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-            public static EmailAddress_verification CreateFromDiscriminatorValue(IParseNode parseNode) {
+            public static EmailAddress_verification CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
                 var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new EmailAddress_verification();
-                if("Admin".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                if("Admin".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
                     result.Admin = new Clerk.Net.Client.Models.Admin();
                 }
-                else if("OTP".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                else if("OTP".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
                     result.OTP = new Clerk.Net.Client.Models.OTP();
                 }
-                else if("Oauth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                else if("Oauth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
                     result.Oauth = new Clerk.Net.Client.Models.Oauth();
                 }
                 return result;
@@ -130,14 +140,18 @@ namespace Clerk.Net.Client.Models {
             /// The deserialization information for the current model
             /// </summary>
             /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-                if(Admin != null) {
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(Admin != null)
+                {
                     return Admin.GetFieldDeserializers();
                 }
-                else if(Oauth != null) {
+                else if(Oauth != null)
+                {
                     return Oauth.GetFieldDeserializers();
                 }
-                else if(OTP != null) {
+                else if(OTP != null)
+                {
                     return OTP.GetFieldDeserializers();
                 }
                 return new Dictionary<string, Action<IParseNode>>();
@@ -146,15 +160,19 @@ namespace Clerk.Net.Client.Models {
             /// Serializes information the current object
             /// </summary>
             /// <param name="writer">Serialization writer to use to serialize this model</param>
-            public virtual void Serialize(ISerializationWriter writer) {
+            public virtual void Serialize(ISerializationWriter writer)
+            {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
-                if(Admin != null) {
+                if(Admin != null)
+                {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Admin>(null, Admin);
                 }
-                else if(Oauth != null) {
+                else if(Oauth != null)
+                {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Oauth>(null, Oauth);
                 }
-                else if(OTP != null) {
+                else if(OTP != null)
+                {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.OTP>(null, OTP);
                 }
             }

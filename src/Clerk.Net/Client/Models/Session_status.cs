@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Session_status {
+    public enum Session_status
+    {
         [EnumMember(Value = "active")]
         Active,
         [EnumMember(Value = "revoked")]

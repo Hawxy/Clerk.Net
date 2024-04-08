@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations\bulk
     /// </summary>
-    public class BulkRequestBuilder : BaseRequestBuilder {
+    public class BulkRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="BulkRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public BulkRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/bulk", pathParameters) {
+        public BulkRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/bulk", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="BulkRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public BulkRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/bulk", rawUrl) {
+        public BulkRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/bulk", rawUrl)
+        {
         }
         /// <summary>
         /// Creates new organization invitations in bulk and sends out emails to the provided email addresses with a link to accept the invitation and join the organization.You can specify a different `role` for each invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter for each invitation.When the invited user clicks the link to accept the invitation, they will be redirected to the provided URL.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitationcan have a different inviter user.Inviter users must be members with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for each organization invitation. The public metadata are visibleby both the Frontend and the Backend, whereas the private metadata are only visible by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
@@ -40,14 +43,17 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<OrganizationInvitations?> PostAsync(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitations?> PostAsync(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<OrganizationInvitations> PostAsync(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitations> PostAsync(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -63,10 +69,12 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(List<Bulk> body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -80,7 +88,8 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk {
         /// </summary>
         /// <returns>A <see cref="BulkRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public BulkRequestBuilder WithUrl(string rawUrl) {
+        public BulkRequestBuilder WithUrl(string rawUrl)
+        {
             return new BulkRequestBuilder(rawUrl, RequestAdapter);
         }
     }

@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Users {
-    public class UsersPostRequestBody : IParsable {
+    public class UsersPostRequestBody : IParsable 
+    {
         /// <summary>If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.You must provide the backup codes in plain format or the corresponding bcrypt digest.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -137,7 +138,8 @@ namespace Clerk.Net.Client.Users {
         /// </summary>
         /// <returns>A <see cref="UsersPostRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static UsersPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static UsersPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new UsersPostRequestBody();
         }
@@ -145,8 +147,10 @@ namespace Clerk.Net.Client.Users {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"backup_codes", n => { BackupCodes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"created_at", n => { CreatedAt = n.GetStringValue(); } },
                 {"email_address", n => { EmailAddress = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
@@ -171,7 +175,8 @@ namespace Clerk.Net.Client.Users {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("backup_codes", BackupCodes);
             writer.WriteStringValue("created_at", CreatedAt);

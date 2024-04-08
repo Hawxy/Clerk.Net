@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class DeletedObject : IParsable {
+    public class DeletedObject : IParsable 
+    {
         /// <summary>The deleted property</summary>
         public bool? Deleted { get; set; }
         /// <summary>The id property</summary>
@@ -37,7 +38,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="DeletedObject"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static DeletedObject CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static DeletedObject CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new DeletedObject();
         }
@@ -45,8 +47,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"deleted", n => { Deleted = n.GetBoolValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetStringValue(); } },
@@ -57,7 +61,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("deleted", Deleted);
             writer.WriteStringValue("id", Id);

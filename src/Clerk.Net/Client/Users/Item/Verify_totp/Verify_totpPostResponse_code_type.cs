@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Users.Item.Verify_totp {
-    public enum Verify_totpPostResponse_code_type {
+    public enum Verify_totpPostResponse_code_type
+    {
         [EnumMember(Value = "totp")]
         Totp,
         [EnumMember(Value = "backup_code")]

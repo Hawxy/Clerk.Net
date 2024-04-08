@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Instance.Organization_settings {
-    public class Organization_settingsPatchRequestBody : IParsable {
+    public class Organization_settingsPatchRequestBody : IParsable 
+    {
         /// <summary>The admin_delete_enabled property</summary>
         public bool? AdminDeleteEnabled { get; set; }
         /// <summary>Specify what the default organization role is for an organization creator.</summary>
@@ -43,7 +44,8 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
         /// </summary>
         /// <returns>A <see cref="Organization_settingsPatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Organization_settingsPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Organization_settingsPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Organization_settingsPatchRequestBody();
         }
@@ -51,8 +53,10 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"admin_delete_enabled", n => { AdminDeleteEnabled = n.GetBoolValue(); } },
                 {"creator_role_id", n => { CreatorRoleId = n.GetStringValue(); } },
                 {"domains_default_role_id", n => { DomainsDefaultRoleId = n.GetStringValue(); } },
@@ -66,7 +70,8 @@ namespace Clerk.Net.Client.Instance.Organization_settings {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("admin_delete_enabled", AdminDeleteEnabled);
             writer.WriteStringValue("creator_role_id", CreatorRoleId);

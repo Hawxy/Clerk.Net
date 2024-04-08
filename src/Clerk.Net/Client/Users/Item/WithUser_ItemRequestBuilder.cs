@@ -23,64 +23,78 @@ namespace Clerk.Net.Client.Users.Item {
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}
     /// </summary>
-    public class WithUser_ItemRequestBuilder : BaseRequestBuilder {
+    public class WithUser_ItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The ban property</summary>
-        public BanRequestBuilder Ban { get =>
-            new BanRequestBuilder(PathParameters, RequestAdapter);
+        public BanRequestBuilder Ban
+        {
+            get => new BanRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The lock property</summary>
-        public LockRequestBuilder Lock { get =>
-            new LockRequestBuilder(PathParameters, RequestAdapter);
+        public LockRequestBuilder Lock
+        {
+            get => new LockRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The metadata property</summary>
-        public MetadataRequestBuilder Metadata { get =>
-            new MetadataRequestBuilder(PathParameters, RequestAdapter);
+        public MetadataRequestBuilder Metadata
+        {
+            get => new MetadataRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The mfa property</summary>
-        public MfaRequestBuilder Mfa { get =>
-            new MfaRequestBuilder(PathParameters, RequestAdapter);
+        public MfaRequestBuilder Mfa
+        {
+            get => new MfaRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The oauth_access_tokens property</summary>
-        public Oauth_access_tokensRequestBuilder Oauth_access_tokens { get =>
-            new Oauth_access_tokensRequestBuilder(PathParameters, RequestAdapter);
+        public Oauth_access_tokensRequestBuilder Oauth_access_tokens
+        {
+            get => new Oauth_access_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_memberships property</summary>
-        public Organization_membershipsRequestBuilder Organization_memberships { get =>
-            new Organization_membershipsRequestBuilder(PathParameters, RequestAdapter);
+        public Organization_membershipsRequestBuilder Organization_memberships
+        {
+            get => new Organization_membershipsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The profile_image property</summary>
-        public Profile_imageRequestBuilder Profile_image { get =>
-            new Profile_imageRequestBuilder(PathParameters, RequestAdapter);
+        public Profile_imageRequestBuilder Profile_image
+        {
+            get => new Profile_imageRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The unban property</summary>
-        public UnbanRequestBuilder Unban { get =>
-            new UnbanRequestBuilder(PathParameters, RequestAdapter);
+        public UnbanRequestBuilder Unban
+        {
+            get => new UnbanRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The unlock property</summary>
-        public UnlockRequestBuilder Unlock { get =>
-            new UnlockRequestBuilder(PathParameters, RequestAdapter);
+        public UnlockRequestBuilder Unlock
+        {
+            get => new UnlockRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The verify_password property</summary>
-        public Verify_passwordRequestBuilder Verify_password { get =>
-            new Verify_passwordRequestBuilder(PathParameters, RequestAdapter);
+        public Verify_passwordRequestBuilder Verify_password
+        {
+            get => new Verify_passwordRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The verify_totp property</summary>
-        public Verify_totpRequestBuilder Verify_totp { get =>
-            new Verify_totpRequestBuilder(PathParameters, RequestAdapter);
+        public Verify_totpRequestBuilder Verify_totp
+        {
+            get => new Verify_totpRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="WithUser_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithUser_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}", pathParameters) {
+        public WithUser_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="WithUser_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithUser_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}", rawUrl) {
+        public WithUser_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}", rawUrl)
+        {
         }
         /// <summary>
         /// Delete the specified user
@@ -93,13 +107,16 @@ namespace Clerk.Net.Client.Users.Item {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<DeletedObject> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<DeletedObject> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -117,13 +134,16 @@ namespace Clerk.Net.Client.Users.Item {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<User?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<User?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<User> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<User> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -143,14 +163,17 @@ namespace Clerk.Net.Client.Users.Item {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<User?> PatchAsync(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<User?> PatchAsync(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<User> PatchAsync(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<User> PatchAsync(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -165,10 +188,12 @@ namespace Clerk.Net.Client.Users.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -182,10 +207,12 @@ namespace Clerk.Net.Client.Users.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -200,10 +227,12 @@ namespace Clerk.Net.Client.Users.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(WithUser_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
@@ -217,7 +246,8 @@ namespace Clerk.Net.Client.Users.Item {
         /// </summary>
         /// <returns>A <see cref="WithUser_ItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithUser_ItemRequestBuilder WithUrl(string rawUrl) {
+        public WithUser_ItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithUser_ItemRequestBuilder(rawUrl, RequestAdapter);
         }
     }

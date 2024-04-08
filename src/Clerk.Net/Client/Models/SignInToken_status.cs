@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum SignInToken_status {
+    public enum SignInToken_status
+    {
         [EnumMember(Value = "pending")]
         Pending,
         [EnumMember(Value = "accepted")]

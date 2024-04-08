@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Templates.Item.Item.Toggle_delivery {
     /// <summary>
     /// Builds and executes requests for operations under \templates\{template_type}\{slug}\toggle_delivery
     /// </summary>
-    public class Toggle_deliveryRequestBuilder : BaseRequestBuilder {
+    public class Toggle_deliveryRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="Toggle_deliveryRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Toggle_deliveryRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}/{slug}/toggle_delivery", pathParameters) {
+        public Toggle_deliveryRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}/{slug}/toggle_delivery", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Toggle_deliveryRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Toggle_deliveryRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}/{slug}/toggle_delivery", rawUrl) {
+        public Toggle_deliveryRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}/{slug}/toggle_delivery", rawUrl)
+        {
         }
         /// <summary>
         /// Toggles the delivery by Clerk for a template of a given type and slug.If disabled, Clerk will not deliver the resulting email or SMS.The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to handle delivery themselves.
@@ -39,14 +42,17 @@ namespace Clerk.Net.Client.Templates.Item.Item.Toggle_delivery {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Template?> PostAsync(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Template?> PostAsync(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Template> PostAsync(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Template> PostAsync(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
@@ -61,10 +67,12 @@ namespace Clerk.Net.Client.Templates.Item.Item.Toggle_delivery {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Toggle_deliveryPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -78,7 +86,8 @@ namespace Clerk.Net.Client.Templates.Item.Item.Toggle_delivery {
         /// </summary>
         /// <returns>A <see cref="Toggle_deliveryRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Toggle_deliveryRequestBuilder WithUrl(string rawUrl) {
+        public Toggle_deliveryRequestBuilder WithUrl(string rawUrl)
+        {
             return new Toggle_deliveryRequestBuilder(rawUrl, RequestAdapter);
         }
     }

@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Admin_status {
+    public enum Admin_status
+    {
         [EnumMember(Value = "verified")]
         Verified,
     }

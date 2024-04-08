@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Organizations.Item {
-    public class WithOrganization_PatchRequestBody : IParsable {
+    public class WithOrganization_PatchRequestBody : IParsable 
+    {
         /// <summary>If true, an admin can delete this organization with the Frontend API.</summary>
         public bool? AdminDeleteEnabled { get; set; }
         /// <summary>The maximum number of memberships allowed for this organization</summary>
@@ -47,7 +48,8 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// </summary>
         /// <returns>A <see cref="WithOrganization_PatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static WithOrganization_PatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static WithOrganization_PatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new WithOrganization_PatchRequestBody();
         }
@@ -55,8 +57,10 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"admin_delete_enabled", n => { AdminDeleteEnabled = n.GetBoolValue(); } },
                 {"max_allowed_memberships", n => { MaxAllowedMemberships = n.GetIntValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
@@ -69,7 +73,8 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("admin_delete_enabled", AdminDeleteEnabled);
             writer.WriteIntValue("max_allowed_memberships", MaxAllowedMemberships);

@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Web3Signature_strategy {
+    public enum Web3Signature_strategy
+    {
         [EnumMember(Value = "web3_metamask_signature")]
         Web3_metamask_signature,
     }

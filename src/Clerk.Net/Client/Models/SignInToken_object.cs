@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum SignInToken_object {
+    public enum SignInToken_object
+    {
         [EnumMember(Value = "sign_in_token")]
         Sign_in_token,
     }

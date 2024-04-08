@@ -38,108 +38,134 @@ namespace Clerk.Net.Client {
     /// <summary>
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
-    public class ClerkApiClient : BaseRequestBuilder {
+    public class ClerkApiClient : BaseRequestBuilder 
+    {
         /// <summary>The actor_tokens property</summary>
-        public Actor_tokensRequestBuilder Actor_tokens { get =>
-            new Actor_tokensRequestBuilder(PathParameters, RequestAdapter);
+        public Actor_tokensRequestBuilder Actor_tokens
+        {
+            get => new Actor_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The allowlist_identifiers property</summary>
-        public Allowlist_identifiersRequestBuilder Allowlist_identifiers { get =>
-            new Allowlist_identifiersRequestBuilder(PathParameters, RequestAdapter);
+        public Allowlist_identifiersRequestBuilder Allowlist_identifiers
+        {
+            get => new Allowlist_identifiersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The beta_features property</summary>
-        public Beta_featuresRequestBuilder Beta_features { get =>
-            new Beta_featuresRequestBuilder(PathParameters, RequestAdapter);
+        public Beta_featuresRequestBuilder Beta_features
+        {
+            get => new Beta_featuresRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The blocklist_identifiers property</summary>
-        public Blocklist_identifiersRequestBuilder Blocklist_identifiers { get =>
-            new Blocklist_identifiersRequestBuilder(PathParameters, RequestAdapter);
+        public Blocklist_identifiersRequestBuilder Blocklist_identifiers
+        {
+            get => new Blocklist_identifiersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The clients property</summary>
-        public ClientsRequestBuilder Clients { get =>
-            new ClientsRequestBuilder(PathParameters, RequestAdapter);
+        public ClientsRequestBuilder Clients
+        {
+            get => new ClientsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The domains property</summary>
-        public DomainsRequestBuilder Domains { get =>
-            new DomainsRequestBuilder(PathParameters, RequestAdapter);
+        public DomainsRequestBuilder Domains
+        {
+            get => new DomainsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The email_addresses property</summary>
-        public Email_addressesRequestBuilder Email_addresses { get =>
-            new Email_addressesRequestBuilder(PathParameters, RequestAdapter);
+        public Email_addressesRequestBuilder Email_addresses
+        {
+            get => new Email_addressesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The instance property</summary>
-        public InstanceRequestBuilder Instance { get =>
-            new InstanceRequestBuilder(PathParameters, RequestAdapter);
+        public InstanceRequestBuilder Instance
+        {
+            get => new InstanceRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The invitations property</summary>
-        public InvitationsRequestBuilder Invitations { get =>
-            new InvitationsRequestBuilder(PathParameters, RequestAdapter);
+        public InvitationsRequestBuilder Invitations
+        {
+            get => new InvitationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The jwks property</summary>
-        public JwksRequestBuilder Jwks { get =>
-            new JwksRequestBuilder(PathParameters, RequestAdapter);
+        public JwksRequestBuilder Jwks
+        {
+            get => new JwksRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The jwt_templates property</summary>
-        public Jwt_templatesRequestBuilder Jwt_templates { get =>
-            new Jwt_templatesRequestBuilder(PathParameters, RequestAdapter);
+        public Jwt_templatesRequestBuilder Jwt_templates
+        {
+            get => new Jwt_templatesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The oauth_applications property</summary>
-        public Oauth_applicationsRequestBuilder Oauth_applications { get =>
-            new Oauth_applicationsRequestBuilder(PathParameters, RequestAdapter);
+        public Oauth_applicationsRequestBuilder Oauth_applications
+        {
+            get => new Oauth_applicationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organizations property</summary>
-        public OrganizationsRequestBuilder Organizations { get =>
-            new OrganizationsRequestBuilder(PathParameters, RequestAdapter);
+        public OrganizationsRequestBuilder Organizations
+        {
+            get => new OrganizationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The phone_numbers property</summary>
-        public Phone_numbersRequestBuilder Phone_numbers { get =>
-            new Phone_numbersRequestBuilder(PathParameters, RequestAdapter);
+        public Phone_numbersRequestBuilder Phone_numbers
+        {
+            get => new Phone_numbersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The proxy_checks property</summary>
-        public Proxy_checksRequestBuilder Proxy_checks { get =>
-            new Proxy_checksRequestBuilder(PathParameters, RequestAdapter);
+        public Proxy_checksRequestBuilder Proxy_checks
+        {
+            get => new Proxy_checksRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The public property</summary>
-        public PublicRequestBuilder Public { get =>
-            new PublicRequestBuilder(PathParameters, RequestAdapter);
+        public PublicRequestBuilder Public
+        {
+            get => new PublicRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The redirect_urls property</summary>
-        public Redirect_urlsRequestBuilder Redirect_urls { get =>
-            new Redirect_urlsRequestBuilder(PathParameters, RequestAdapter);
+        public Redirect_urlsRequestBuilder Redirect_urls
+        {
+            get => new Redirect_urlsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The saml_connections property</summary>
-        public Saml_connectionsRequestBuilder Saml_connections { get =>
-            new Saml_connectionsRequestBuilder(PathParameters, RequestAdapter);
+        public Saml_connectionsRequestBuilder Saml_connections
+        {
+            get => new Saml_connectionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The sessions property</summary>
-        public SessionsRequestBuilder Sessions { get =>
-            new SessionsRequestBuilder(PathParameters, RequestAdapter);
+        public SessionsRequestBuilder Sessions
+        {
+            get => new SessionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The sign_in_tokens property</summary>
-        public Sign_in_tokensRequestBuilder Sign_in_tokens { get =>
-            new Sign_in_tokensRequestBuilder(PathParameters, RequestAdapter);
+        public Sign_in_tokensRequestBuilder Sign_in_tokens
+        {
+            get => new Sign_in_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The sign_ups property</summary>
-        public Sign_upsRequestBuilder Sign_ups { get =>
-            new Sign_upsRequestBuilder(PathParameters, RequestAdapter);
+        public Sign_upsRequestBuilder Sign_ups
+        {
+            get => new Sign_upsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The templates property</summary>
-        public TemplatesRequestBuilder Templates { get =>
-            new TemplatesRequestBuilder(PathParameters, RequestAdapter);
+        public TemplatesRequestBuilder Templates
+        {
+            get => new TemplatesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The users property</summary>
-        public UsersRequestBuilder Users { get =>
-            new UsersRequestBuilder(PathParameters, RequestAdapter);
+        public UsersRequestBuilder Users
+        {
+            get => new UsersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The webhooks property</summary>
-        public WebhooksRequestBuilder Webhooks { get =>
-            new WebhooksRequestBuilder(PathParameters, RequestAdapter);
+        public WebhooksRequestBuilder Webhooks
+        {
+            get => new WebhooksRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="ClerkApiClient"/> and sets the default values.
         /// </summary>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ClerkApiClient(IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}", new Dictionary<string, object>()) {
+        public ClerkApiClient(IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}", new Dictionary<string, object>())
+        {
             ApiClientBuilder.RegisterDefaultSerializer<JsonSerializationWriterFactory>();
             ApiClientBuilder.RegisterDefaultSerializer<TextSerializationWriterFactory>();
             ApiClientBuilder.RegisterDefaultSerializer<FormSerializationWriterFactory>();
@@ -147,7 +173,8 @@ namespace Clerk.Net.Client {
             ApiClientBuilder.RegisterDefaultDeserializer<JsonParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<TextParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
-            if (string.IsNullOrEmpty(RequestAdapter.BaseUrl)) {
+            if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
+            {
                 RequestAdapter.BaseUrl = "https://api.clerk.com/v1";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);

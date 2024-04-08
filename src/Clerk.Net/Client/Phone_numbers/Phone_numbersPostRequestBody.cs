@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Phone_numbers {
-    public class Phone_numbersPostRequestBody : IAdditionalDataHolder, IParsable {
+    public class Phone_numbersPostRequestBody : IAdditionalDataHolder, IParsable 
+    {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The new phone number. Must adhere to the E.164 standard for phone number format.</summary>
@@ -33,7 +34,8 @@ namespace Clerk.Net.Client.Phone_numbers {
         /// <summary>
         /// Instantiates a new <see cref="Phone_numbersPostRequestBody"/> and sets the default values.
         /// </summary>
-        public Phone_numbersPostRequestBody() {
+        public Phone_numbersPostRequestBody()
+        {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
@@ -41,7 +43,8 @@ namespace Clerk.Net.Client.Phone_numbers {
         /// </summary>
         /// <returns>A <see cref="Phone_numbersPostRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Phone_numbersPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Phone_numbersPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Phone_numbersPostRequestBody();
         }
@@ -49,8 +52,10 @@ namespace Clerk.Net.Client.Phone_numbers {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"phone_number", n => { PhoneNumber = n.GetStringValue(); } },
                 {"primary", n => { Primary = n.GetBoolValue(); } },
                 {"reserved_for_second_factor", n => { ReservedForSecondFactor = n.GetBoolValue(); } },
@@ -62,7 +67,8 @@ namespace Clerk.Net.Client.Phone_numbers {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("phone_number", PhoneNumber);
             writer.WriteBoolValue("primary", Primary);

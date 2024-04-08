@@ -13,28 +13,35 @@ namespace Clerk.Net.Client.Actor_tokens {
     /// <summary>
     /// Builds and executes requests for operations under \actor_tokens
     /// </summary>
-    public class Actor_tokensRequestBuilder : BaseRequestBuilder {
+    public class Actor_tokensRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.actor_tokens.item collection</summary>
         /// <param name="position">The ID of the actor token to be revoked.</param>
         /// <returns>A <see cref="WithActor_token_ItemRequestBuilder"/></returns>
-        public WithActor_token_ItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("actor_token_id", position);
-            return new WithActor_token_ItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithActor_token_ItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("actor_token_id", position);
+                return new WithActor_token_ItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="Actor_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Actor_tokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/actor_tokens", pathParameters) {
+        public Actor_tokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/actor_tokens", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Actor_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Actor_tokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/actor_tokens", rawUrl) {
+        public Actor_tokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/actor_tokens", rawUrl)
+        {
         }
         /// <summary>
         /// Create an actor token that can be used to impersonate the given user.The `actor` parameter needs to include at least a &quot;sub&quot; key whose value is the ID of the actor (impersonating) user.
@@ -48,14 +55,17 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<ActorToken?> PostAsync(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<ActorToken?> PostAsync(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<ActorToken> PostAsync(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<ActorToken> PostAsync(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"402", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
@@ -70,10 +80,12 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Actor_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -87,7 +99,8 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// </summary>
         /// <returns>A <see cref="Actor_tokensRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Actor_tokensRequestBuilder WithUrl(string rawUrl) {
+        public Actor_tokensRequestBuilder WithUrl(string rawUrl)
+        {
             return new Actor_tokensRequestBuilder(rawUrl, RequestAdapter);
         }
     }

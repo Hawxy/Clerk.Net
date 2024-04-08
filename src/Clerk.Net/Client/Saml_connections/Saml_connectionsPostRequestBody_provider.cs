@@ -3,7 +3,8 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Saml_connections {
     /// <summary>The IdP provider of the connection.</summary>
-    public enum Saml_connectionsPostRequestBody_provider {
+    public enum Saml_connectionsPostRequestBody_provider
+    {
         [EnumMember(Value = "saml_custom")]
         Saml_custom,
         [EnumMember(Value = "saml_okta")]

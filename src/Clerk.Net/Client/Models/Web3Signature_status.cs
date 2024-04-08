@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Web3Signature_status {
+    public enum Web3Signature_status
+    {
         [EnumMember(Value = "verified")]
         Verified,
     }

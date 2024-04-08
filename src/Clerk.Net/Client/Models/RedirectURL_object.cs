@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum RedirectURL_object {
+    public enum RedirectURL_object
+    {
         [EnumMember(Value = "redirect_url")]
         Redirect_url,
     }

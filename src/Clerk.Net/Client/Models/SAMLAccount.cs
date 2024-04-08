@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class SAMLAccount : IParsable {
+    public class SAMLAccount : IParsable 
+    {
         /// <summary>The active property</summary>
         public bool? Active { get; set; }
         /// <summary>The email_address property</summary>
@@ -71,7 +72,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="SAMLAccount"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static SAMLAccount CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static SAMLAccount CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new SAMLAccount();
         }
@@ -79,8 +81,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"active", n => { Active = n.GetBoolValue(); } },
                 {"email_address", n => { EmailAddress = n.GetStringValue(); } },
                 {"first_name", n => { FirstName = n.GetStringValue(); } },
@@ -96,7 +100,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("active", Active);
             writer.WriteStringValue("email_address", EmailAddress);

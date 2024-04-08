@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations\pending
     /// </summary>
-    public class PendingRequestBuilder : BaseRequestBuilder {
+    public class PendingRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="PendingRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PendingRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/pending{?limit*,offset*}", pathParameters) {
+        public PendingRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/pending{?limit*,offset*}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="PendingRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PendingRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/pending{?limit*,offset*}", rawUrl) {
+        public PendingRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations/pending{?limit*,offset*}", rawUrl)
+        {
         }
         /// <summary>
         /// This request returns the list of organization invitations with &quot;pending&quot; status.These are the organization invitations that can still be used to join the organization, but have not been accepted by the invited user yet.Results can be paginated using the optional `limit` and `offset` query parameters.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
@@ -38,13 +41,16 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<OrganizationInvitations?> GetAsync(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitations?> GetAsync(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<OrganizationInvitations> GetAsync(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationInvitations> GetAsync(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
             };
@@ -58,10 +64,12 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PendingRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -74,13 +82,15 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         /// <returns>A <see cref="PendingRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         [Obsolete("")]
-        public PendingRequestBuilder WithUrl(string rawUrl) {
+        public PendingRequestBuilder WithUrl(string rawUrl)
+        {
             return new PendingRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// This request returns the list of organization invitations with &quot;pending&quot; status.These are the organization invitations that can still be used to join the organization, but have not been accepted by the invited user yet.Results can be paginated using the optional `limit` and `offset` query parameters.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
-        public class PendingRequestBuilderGetQueryParameters {
+        public class PendingRequestBuilderGetQueryParameters 
+        {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }

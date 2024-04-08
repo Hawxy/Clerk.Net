@@ -13,28 +13,35 @@ namespace Clerk.Net.Client.Saml_connections {
     /// <summary>
     /// Builds and executes requests for operations under \saml_connections
     /// </summary>
-    public class Saml_connectionsRequestBuilder : BaseRequestBuilder {
+    public class Saml_connectionsRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.saml_connections.item collection</summary>
         /// <param name="position">The ID of the SAML Connection</param>
         /// <returns>A <see cref="WithSaml_connection_ItemRequestBuilder"/></returns>
-        public WithSaml_connection_ItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("saml_connection_id", position);
-            return new WithSaml_connection_ItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithSaml_connection_ItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("saml_connection_id", position);
+                return new WithSaml_connection_ItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="Saml_connectionsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Saml_connectionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*}", pathParameters) {
+        public Saml_connectionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Saml_connectionsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Saml_connectionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*}", rawUrl) {
+        public Saml_connectionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*}", rawUrl)
+        {
         }
         /// <summary>
         /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
@@ -47,13 +54,16 @@ namespace Clerk.Net.Client.Saml_connections {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<SAMLConnections?> GetAsync(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SAMLConnections?> GetAsync(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<SAMLConnections> GetAsync(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SAMLConnections> GetAsync(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"402", ClerkErrors.CreateFromDiscriminatorValue},
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
@@ -72,14 +82,17 @@ namespace Clerk.Net.Client.Saml_connections {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<SAMLConnection?> PostAsync(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SAMLConnection?> PostAsync(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<SAMLConnection> PostAsync(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SAMLConnection> PostAsync(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"402", ClerkErrors.CreateFromDiscriminatorValue},
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
@@ -93,10 +106,12 @@ namespace Clerk.Net.Client.Saml_connections {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Saml_connectionsRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -111,10 +126,12 @@ namespace Clerk.Net.Client.Saml_connections {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Saml_connectionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, "{+baseurl}/saml_connections", PathParameters);
@@ -128,13 +145,15 @@ namespace Clerk.Net.Client.Saml_connections {
         /// </summary>
         /// <returns>A <see cref="Saml_connectionsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Saml_connectionsRequestBuilder WithUrl(string rawUrl) {
+        public Saml_connectionsRequestBuilder WithUrl(string rawUrl)
+        {
             return new Saml_connectionsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
         /// </summary>
-        public class Saml_connectionsRequestBuilderGetQueryParameters {
+        public class Saml_connectionsRequestBuilderGetQueryParameters 
+        {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }

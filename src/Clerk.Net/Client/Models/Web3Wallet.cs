@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class Web3Wallet : IParsable {
+    public class Web3Wallet : IParsable 
+    {
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -37,7 +38,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="Web3Wallet"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Web3Wallet CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Web3Wallet CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Web3Wallet();
         }
@@ -45,8 +47,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<Web3Wallet_object>(); } },
                 {"verification", n => { Verification = n.GetObjectValue<Web3Wallet_verification>(Web3Wallet_verification.CreateFromDiscriminatorValue); } },
@@ -57,7 +61,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("id", Id);
             writer.WriteEnumValue<Web3Wallet_object>("object", Object);
@@ -67,7 +72,8 @@ namespace Clerk.Net.Client.Models {
         /// <summary>
         /// Composed type wrapper for classes <see cref="Admin"/>, <see cref="Web3Signature"/>
         /// </summary>
-        public class Web3Wallet_verification : IComposedTypeWrapper, IParsable {
+        public class Web3Wallet_verification : IComposedTypeWrapper, IParsable 
+        {
             /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Admin"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -89,14 +95,17 @@ namespace Clerk.Net.Client.Models {
             /// </summary>
             /// <returns>A <see cref="Web3Wallet_verification"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-            public static Web3Wallet_verification CreateFromDiscriminatorValue(IParseNode parseNode) {
+            public static Web3Wallet_verification CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
                 var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new Web3Wallet_verification();
-                if("Admin".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                if("Admin".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
                     result.Admin = new Clerk.Net.Client.Models.Admin();
                 }
-                else if("Web3Signature".Equals(mappingValue, StringComparison.OrdinalIgnoreCase)) {
+                else if("Web3Signature".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
                     result.Web3Signature = new Clerk.Net.Client.Models.Web3Signature();
                 }
                 return result;
@@ -105,11 +114,14 @@ namespace Clerk.Net.Client.Models {
             /// The deserialization information for the current model
             /// </summary>
             /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-                if(Admin != null) {
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(Admin != null)
+                {
                     return Admin.GetFieldDeserializers();
                 }
-                else if(Web3Signature != null) {
+                else if(Web3Signature != null)
+                {
                     return Web3Signature.GetFieldDeserializers();
                 }
                 return new Dictionary<string, Action<IParseNode>>();
@@ -118,12 +130,15 @@ namespace Clerk.Net.Client.Models {
             /// Serializes information the current object
             /// </summary>
             /// <param name="writer">Serialization writer to use to serialize this model</param>
-            public virtual void Serialize(ISerializationWriter writer) {
+            public virtual void Serialize(ISerializationWriter writer)
+            {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
-                if(Admin != null) {
+                if(Admin != null)
+                {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Admin>(null, Admin);
                 }
-                else if(Web3Signature != null) {
+                else if(Web3Signature != null)
+                {
                     writer.WriteObjectValue<Clerk.Net.Client.Models.Web3Signature>(null, Web3Signature);
                 }
             }

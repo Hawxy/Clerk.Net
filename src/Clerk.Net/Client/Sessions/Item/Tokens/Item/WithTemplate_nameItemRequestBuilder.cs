@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item {
     /// <summary>
     /// Builds and executes requests for operations under \sessions\{session_id}\tokens\{template_name}
     /// </summary>
-    public class WithTemplate_nameItemRequestBuilder : BaseRequestBuilder {
+    public class WithTemplate_nameItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="WithTemplate_nameItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_nameItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens/{template_name}", pathParameters) {
+        public WithTemplate_nameItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens/{template_name}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="WithTemplate_nameItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_nameItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens/{template_name}", rawUrl) {
+        public WithTemplate_nameItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens/{template_name}", rawUrl)
+        {
         }
         /// <summary>
         /// Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
@@ -37,13 +40,16 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<WithTemplate_namePostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WithTemplate_namePostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<WithTemplate_namePostResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WithTemplate_namePostResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
             };
@@ -56,10 +62,12 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -71,7 +79,8 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item {
         /// </summary>
         /// <returns>A <see cref="WithTemplate_nameItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithTemplate_nameItemRequestBuilder WithUrl(string rawUrl) {
+        public WithTemplate_nameItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithTemplate_nameItemRequestBuilder(rawUrl, RequestAdapter);
         }
     }

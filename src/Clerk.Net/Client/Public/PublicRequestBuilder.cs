@@ -10,24 +10,28 @@ namespace Clerk.Net.Client.Public {
     /// <summary>
     /// Builds and executes requests for operations under \public
     /// </summary>
-    public class PublicRequestBuilder : BaseRequestBuilder {
+    public class PublicRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The interstitial property</summary>
-        public InterstitialRequestBuilder Interstitial { get =>
-            new InterstitialRequestBuilder(PathParameters, RequestAdapter);
+        public InterstitialRequestBuilder Interstitial
+        {
+            get => new InterstitialRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="PublicRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PublicRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public", pathParameters) {
+        public PublicRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="PublicRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PublicRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public", rawUrl) {
+        public PublicRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public", rawUrl)
+        {
         }
     }
 }

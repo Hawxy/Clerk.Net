@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Beta_features.Instance_settings {
-    public class Instance_settingsPatchRequestBody : IParsable {
+    public class Instance_settingsPatchRequestBody : IParsable 
+    {
         /// <summary>The &quot;enhanced_email_deliverability&quot; feature will send emails from &quot;verifications@clerk.dev&quot; instead of your domain.This can be helpful if you do not have a high domain reputation.</summary>
         public bool? EnhancedEmailDeliverability { get; set; }
         /// <summary>The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.Only alphanumeric values are allowed.Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).</summary>
@@ -35,7 +36,8 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// </summary>
         /// <returns>A <see cref="Instance_settingsPatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Instance_settingsPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Instance_settingsPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Instance_settingsPatchRequestBody();
         }
@@ -43,8 +45,10 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"enhanced_email_deliverability", n => { EnhancedEmailDeliverability = n.GetBoolValue(); } },
                 {"from_email_address", n => { FromEmailAddress = n.GetStringValue(); } },
                 {"progressive_sign_up", n => { ProgressiveSignUp = n.GetBoolValue(); } },
@@ -57,7 +61,8 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("enhanced_email_deliverability", EnhancedEmailDeliverability);
             writer.WriteStringValue("from_email_address", FromEmailAddress);

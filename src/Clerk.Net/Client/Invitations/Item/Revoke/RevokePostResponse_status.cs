@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Invitations.Item.Revoke {
-    public enum RevokePostResponse_status {
+    public enum RevokePostResponse_status
+    {
         [EnumMember(Value = "revoked")]
         Revoked,
     }

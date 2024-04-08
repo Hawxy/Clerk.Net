@@ -8,13 +8,15 @@ namespace Clerk.Net.Client.Jwt_templates.Item {
     /// <summary>
     /// JWT template claims in JSON format
     /// </summary>
-    public class WithTemplate_PatchRequestBody_claims : IAdditionalDataHolder, IParsable {
+    public class WithTemplate_PatchRequestBody_claims : IAdditionalDataHolder, IParsable 
+    {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="WithTemplate_PatchRequestBody_claims"/> and sets the default values.
         /// </summary>
-        public WithTemplate_PatchRequestBody_claims() {
+        public WithTemplate_PatchRequestBody_claims()
+        {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
@@ -22,7 +24,8 @@ namespace Clerk.Net.Client.Jwt_templates.Item {
         /// </summary>
         /// <returns>A <see cref="WithTemplate_PatchRequestBody_claims"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static WithTemplate_PatchRequestBody_claims CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static WithTemplate_PatchRequestBody_claims CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new WithTemplate_PatchRequestBody_claims();
         }
@@ -30,15 +33,18 @@ namespace Clerk.Net.Client.Jwt_templates.Item {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
             };
         }
         /// <summary>
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteAdditionalData(AdditionalData);
         }

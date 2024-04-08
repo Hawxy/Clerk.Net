@@ -15,32 +15,38 @@ namespace Clerk.Net.Client.Instance {
     /// <summary>
     /// Builds and executes requests for operations under \instance
     /// </summary>
-    public class InstanceRequestBuilder : BaseRequestBuilder {
+    public class InstanceRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The change_domain property</summary>
-        public Change_domainRequestBuilder Change_domain { get =>
-            new Change_domainRequestBuilder(PathParameters, RequestAdapter);
+        public Change_domainRequestBuilder Change_domain
+        {
+            get => new Change_domainRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_settings property</summary>
-        public Organization_settingsRequestBuilder Organization_settings { get =>
-            new Organization_settingsRequestBuilder(PathParameters, RequestAdapter);
+        public Organization_settingsRequestBuilder Organization_settings
+        {
+            get => new Organization_settingsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The restrictions property</summary>
-        public RestrictionsRequestBuilder Restrictions { get =>
-            new RestrictionsRequestBuilder(PathParameters, RequestAdapter);
+        public RestrictionsRequestBuilder Restrictions
+        {
+            get => new RestrictionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="InstanceRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InstanceRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/instance", pathParameters) {
+        public InstanceRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/instance", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="InstanceRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InstanceRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/instance", rawUrl) {
+        public InstanceRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/instance", rawUrl)
+        {
         }
         /// <summary>
         /// Updates the settings of an instance
@@ -51,14 +57,17 @@ namespace Clerk.Net.Client.Instance {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task PatchAsync(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task PatchAsync(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
@@ -71,10 +80,12 @@ namespace Clerk.Net.Client.Instance {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(InstancePatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
@@ -88,7 +99,8 @@ namespace Clerk.Net.Client.Instance {
         /// </summary>
         /// <returns>A <see cref="InstanceRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public InstanceRequestBuilder WithUrl(string rawUrl) {
+        public InstanceRequestBuilder WithUrl(string rawUrl)
+        {
             return new InstanceRequestBuilder(rawUrl, RequestAdapter);
         }
     }
