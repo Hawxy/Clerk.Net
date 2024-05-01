@@ -7,7 +7,7 @@
     <PackageProjectUrl>https://github.com/Hawxy/Clerk.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Hawxy/Clerk.Net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Hawxy 2023</Copyright>
+    <Copyright>Hawxy 2023-2024</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
