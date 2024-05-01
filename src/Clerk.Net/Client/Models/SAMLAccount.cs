@@ -59,6 +59,14 @@ namespace Clerk.Net.Client.Models {
 #else
         public string ProviderUserId { get; set; }
 #endif
+        /// <summary>The public_metadata property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public SAMLAccount_public_metadata? PublicMetadata { get; set; }
+#nullable restore
+#else
+        public SAMLAccount_public_metadata PublicMetadata { get; set; }
+#endif
         /// <summary>The verification property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -93,6 +101,7 @@ namespace Clerk.Net.Client.Models {
                 {"object", n => { Object = n.GetEnumValue<SAMLAccount_object>(); } },
                 {"provider", n => { Provider = n.GetStringValue(); } },
                 {"provider_user_id", n => { ProviderUserId = n.GetStringValue(); } },
+                {"public_metadata", n => { PublicMetadata = n.GetObjectValue<SAMLAccount_public_metadata>(SAMLAccount_public_metadata.CreateFromDiscriminatorValue); } },
                 {"verification", n => { Verification = n.GetObjectValue<SAMLAccount_verification>(SAMLAccount_verification.CreateFromDiscriminatorValue); } },
             };
         }
@@ -111,7 +120,82 @@ namespace Clerk.Net.Client.Models {
             writer.WriteEnumValue<SAMLAccount_object>("object", Object);
             writer.WriteStringValue("provider", Provider);
             writer.WriteStringValue("provider_user_id", ProviderUserId);
+            writer.WriteObjectValue<SAMLAccount_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteObjectValue<SAMLAccount_verification>("verification", Verification);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="SAML"/>, <see cref="Ticket"/>
+        /// </summary>
+        public class SAMLAccount_verification : IComposedTypeWrapper, IParsable 
+        {
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.SAML"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public Clerk.Net.Client.Models.SAML? SAML { get; set; }
+#nullable restore
+#else
+            public Clerk.Net.Client.Models.SAML SAML { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="Clerk.Net.Client.Models.Ticket"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public Clerk.Net.Client.Models.Ticket? Ticket { get; set; }
+#nullable restore
+#else
+            public Clerk.Net.Client.Models.Ticket Ticket { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="SAMLAccount_verification"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static SAMLAccount_verification CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new SAMLAccount_verification();
+                if("SAML".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SAML = new Clerk.Net.Client.Models.SAML();
+                }
+                else if("Ticket".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Ticket = new Clerk.Net.Client.Models.Ticket();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(SAML != null)
+                {
+                    return SAML.GetFieldDeserializers();
+                }
+                else if(Ticket != null)
+                {
+                    return Ticket.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(SAML != null)
+                {
+                    writer.WriteObjectValue<Clerk.Net.Client.Models.SAML>(null, SAML);
+                }
+                else if(Ticket != null)
+                {
+                    writer.WriteObjectValue<Clerk.Net.Client.Models.Ticket>(null, Ticket);
+                }
+            }
         }
     }
 }

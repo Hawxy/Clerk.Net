@@ -31,7 +31,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         {
         }
         /// <summary>
-        /// Deletes the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Deletes the SAML Connection whose ID matches the provided `id` in the path.
         /// </summary>
         /// <returns>A <see cref="DeletedObject"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -58,7 +58,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<DeletedObject>(requestInfo, DeletedObject.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
         /// </summary>
         /// <returns>A <see cref="SAMLConnection"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -85,7 +85,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Updates the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Updates the SAML Connection whose ID matches the provided `id` in the path.
         /// </summary>
         /// <returns>A <see cref="SAMLConnection"/></returns>
         /// <param name="body">The request body</param>
@@ -116,7 +116,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Deletes the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Deletes the SAML Connection whose ID matches the provided `id` in the path.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -135,7 +135,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return requestInfo;
         }
         /// <summary>
-        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -154,7 +154,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             return requestInfo;
         }
         /// <summary>
-        /// Updates the SAML Connection whose ID matches the provided `id` in the path. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Updates the SAML Connection whose ID matches the provided `id` in the path.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

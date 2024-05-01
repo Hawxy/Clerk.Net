@@ -7,6 +7,14 @@ using System;
 namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item {
     public class WithProvider : IParsable 
     {
+        /// <summary>External account ID</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ExternalAccountId { get; set; }
+#nullable restore
+#else
+        public string ExternalAccountId { get; set; }
+#endif
         /// <summary>The label property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -30,6 +38,14 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item {
 #nullable restore
 #else
         public string Provider { get; set; }
+#endif
+        /// <summary>The unique ID of the user in the external provider&apos;s system</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ProviderUserId { get; set; }
+#nullable restore
+#else
+        public string ProviderUserId { get; set; }
 #endif
         /// <summary>The public_metadata property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -81,9 +97,11 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item {
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                {"external_account_id", n => { ExternalAccountId = n.GetStringValue(); } },
                 {"label", n => { Label = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetStringValue(); } },
                 {"provider", n => { Provider = n.GetStringValue(); } },
+                {"provider_user_id", n => { ProviderUserId = n.GetStringValue(); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<WithProvider_public_metadata>(WithProvider_public_metadata.CreateFromDiscriminatorValue); } },
                 {"scopes", n => { Scopes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"token", n => { Token = n.GetStringValue(); } },
@@ -97,9 +115,11 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item {
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("external_account_id", ExternalAccountId);
             writer.WriteStringValue("label", Label);
             writer.WriteStringValue("object", Object);
             writer.WriteStringValue("provider", Provider);
+            writer.WriteStringValue("provider_user_id", ProviderUserId);
             writer.WriteObjectValue<WithProvider_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteCollectionOfPrimitiveValues<string>("scopes", Scopes);
             writer.WriteStringValue("token", Token);

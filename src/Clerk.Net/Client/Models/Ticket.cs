@@ -5,26 +5,25 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class SAMLAccount_verification : IAdditionalDataHolder, IParsable 
+    public class Ticket : IParsable 
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="SAMLAccount_verification"/> and sets the default values.
-        /// </summary>
-        public SAMLAccount_verification()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
+        /// <summary>The attempts property</summary>
+        public int? Attempts { get; set; }
+        /// <summary>The expire_at property</summary>
+        public int? ExpireAt { get; set; }
+        /// <summary>The status property</summary>
+        public Ticket_status? Status { get; set; }
+        /// <summary>The strategy property</summary>
+        public Ticket_strategy? Strategy { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="SAMLAccount_verification"/></returns>
+        /// <returns>A <see cref="Ticket"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static SAMLAccount_verification CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static Ticket CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new SAMLAccount_verification();
+            return new Ticket();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -34,6 +33,10 @@ namespace Clerk.Net.Client.Models {
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                {"attempts", n => { Attempts = n.GetIntValue(); } },
+                {"expire_at", n => { ExpireAt = n.GetIntValue(); } },
+                {"status", n => { Status = n.GetEnumValue<Ticket_status>(); } },
+                {"strategy", n => { Strategy = n.GetEnumValue<Ticket_strategy>(); } },
             };
         }
         /// <summary>
@@ -43,7 +46,10 @@ namespace Clerk.Net.Client.Models {
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteAdditionalData(AdditionalData);
+            writer.WriteIntValue("attempts", Attempts);
+            writer.WriteIntValue("expire_at", ExpireAt);
+            writer.WriteEnumValue<Ticket_status>("status", Status);
+            writer.WriteEnumValue<Ticket_strategy>("strategy", Strategy);
         }
     }
 }

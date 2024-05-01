@@ -75,6 +75,14 @@ namespace Clerk.Net.Client.Models {
         public Template_object? Object { get; set; }
         /// <summary>position with the listing of templates</summary>
         public int? Position { get; set; }
+        /// <summary>The reply_to_email_name property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ReplyToEmailName { get; set; }
+#nullable restore
+#else
+        public string ReplyToEmailName { get; set; }
+#endif
         /// <summary>list of variables that must be contained in the template body</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -148,6 +156,7 @@ namespace Clerk.Net.Client.Models {
                 {"name", n => { Name = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<Template_object>(); } },
                 {"position", n => { Position = n.GetIntValue(); } },
+                {"reply_to_email_name", n => { ReplyToEmailName = n.GetStringValue(); } },
                 {"required_variables", n => { RequiredVariables = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"resource_type", n => { ResourceType = n.GetStringValue(); } },
                 {"slug", n => { Slug = n.GetStringValue(); } },
@@ -176,6 +185,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<Template_object>("object", Object);
             writer.WriteIntValue("position", Position);
+            writer.WriteStringValue("reply_to_email_name", ReplyToEmailName);
             writer.WriteCollectionOfPrimitiveValues<string>("required_variables", RequiredVariables);
             writer.WriteStringValue("resource_type", ResourceType);
             writer.WriteStringValue("slug", Slug);

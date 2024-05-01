@@ -91,7 +91,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending {
         /// </summary>
         public class PendingRequestBuilderGetQueryParameters 
         {
-            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>

@@ -23,6 +23,14 @@ namespace Clerk.Net.Client.Templates.Item.Item.Preview {
 #else
         public string FromEmailName { get; set; }
 #endif
+        /// <summary>The local part of the Reply To email address that will be used for emails.For example, in the address &apos;hello@example.com&apos;, the local part is &apos;hello&apos;.Applicable only to email templates.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ReplyToEmailName { get; set; }
+#nullable restore
+#else
+        public string ReplyToEmailName { get; set; }
+#endif
         /// <summary>The email subject.Applicable only to email templates.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -51,6 +59,7 @@ namespace Clerk.Net.Client.Templates.Item.Item.Preview {
             {
                 {"body", n => { Body = n.GetStringValue(); } },
                 {"from_email_name", n => { FromEmailName = n.GetStringValue(); } },
+                {"reply_to_email_name", n => { ReplyToEmailName = n.GetStringValue(); } },
                 {"subject", n => { Subject = n.GetStringValue(); } },
             };
         }
@@ -63,6 +72,7 @@ namespace Clerk.Net.Client.Templates.Item.Item.Preview {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("body", Body);
             writer.WriteStringValue("from_email_name", FromEmailName);
+            writer.WriteStringValue("reply_to_email_name", ReplyToEmailName);
             writer.WriteStringValue("subject", Subject);
         }
     }

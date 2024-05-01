@@ -7,6 +7,8 @@ using System;
 namespace Clerk.Net.Client.Models {
     public class Web3Wallet : IParsable 
     {
+        /// <summary>Unix timestamp of creation</summary>
+        public long? CreatedAt { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -17,6 +19,8 @@ namespace Clerk.Net.Client.Models {
 #endif
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public Web3Wallet_object? Object { get; set; }
+        /// <summary>Unix timestamp of creation</summary>
+        public long? UpdatedAt { get; set; }
         /// <summary>The verification property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -51,8 +55,10 @@ namespace Clerk.Net.Client.Models {
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<Web3Wallet_object>(); } },
+                {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 {"verification", n => { Verification = n.GetObjectValue<Web3Wallet_verification>(Web3Wallet_verification.CreateFromDiscriminatorValue); } },
                 {"web3_wallet", n => { Web3WalletProp = n.GetStringValue(); } },
             };
@@ -64,8 +70,10 @@ namespace Clerk.Net.Client.Models {
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("id", Id);
             writer.WriteEnumValue<Web3Wallet_object>("object", Object);
+            writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteObjectValue<Web3Wallet_verification>("verification", Verification);
             writer.WriteStringValue("web3_wallet", Web3WalletProp);
         }

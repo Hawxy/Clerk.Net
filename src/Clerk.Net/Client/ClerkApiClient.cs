@@ -21,6 +21,7 @@ using Clerk.Net.Client.Sessions;
 using Clerk.Net.Client.Sign_in_tokens;
 using Clerk.Net.Client.Sign_ups;
 using Clerk.Net.Client.Templates;
+using Clerk.Net.Client.Testing_tokens;
 using Clerk.Net.Client.Users;
 using Clerk.Net.Client.Webhooks;
 using Microsoft.Kiota.Abstractions.Extensions;
@@ -149,6 +150,11 @@ namespace Clerk.Net.Client {
         public TemplatesRequestBuilder Templates
         {
             get => new TemplatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The testing_tokens property</summary>
+        public Testing_tokensRequestBuilder Testing_tokens
+        {
+            get => new Testing_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The users property</summary>
         public UsersRequestBuilder Users

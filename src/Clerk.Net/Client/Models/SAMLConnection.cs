@@ -65,6 +65,14 @@ namespace Clerk.Net.Client.Models {
 #else
         public string IdpEntityId { get; set; }
 #endif
+        /// <summary>The idp_metadata property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? IdpMetadata { get; set; }
+#nullable restore
+#else
+        public string IdpMetadata { get; set; }
+#endif
         /// <summary>The idp_metadata_url property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -156,6 +164,7 @@ namespace Clerk.Net.Client.Models {
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 {"idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
+                {"idp_metadata", n => { IdpMetadata = n.GetStringValue(); } },
                 {"idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 {"idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
@@ -185,6 +194,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
+            writer.WriteStringValue("idp_metadata", IdpMetadata);
             writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);

@@ -85,6 +85,7 @@ namespace Clerk.Net.Client.Templates.Item.Item {
         /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
         /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
         /// <exception cref="ClerkErrors">When receiving a 402 status code</exception>
+        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -103,6 +104,7 @@ namespace Clerk.Net.Client.Templates.Item.Item {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"402", ClerkErrors.CreateFromDiscriminatorValue},
+                {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };

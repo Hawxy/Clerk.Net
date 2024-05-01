@@ -44,7 +44,7 @@ namespace Clerk.Net.Client.Saml_connections {
         {
         }
         /// <summary>
-        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first.
         /// </summary>
         /// <returns>A <see cref="SAMLConnections"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -71,7 +71,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return await RequestAdapter.SendAsync<SAMLConnections>(requestInfo, SAMLConnections.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Create a new SAML Connection.
         /// </summary>
         /// <returns>A <see cref="SAMLConnection"/></returns>
         /// <param name="body">The request body</param>
@@ -100,7 +100,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return await RequestAdapter.SendAsync<SAMLConnection>(requestInfo, SAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -119,7 +119,7 @@ namespace Clerk.Net.Client.Saml_connections {
             return requestInfo;
         }
         /// <summary>
-        /// Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Create a new SAML Connection.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -150,11 +150,11 @@ namespace Clerk.Net.Client.Saml_connections {
             return new Saml_connectionsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
-        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first. &lt;br/&gt; Refer to &lt;a href=&quot;https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta&quot;&gt;Clerk SAML documentation&lt;/a&gt; for more information.
+        /// Returns the list of SAML Connections for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The SAML Connections are ordered by descending creation date and the most recent will be returned first.
         /// </summary>
         public class Saml_connectionsRequestBuilderGetQueryParameters 
         {
-            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>

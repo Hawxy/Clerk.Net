@@ -15,6 +15,8 @@ namespace Clerk.Net.Client.Models {
 #else
         public List<string> BackupCodes { get; set; }
 #endif
+        /// <summary>Unix timestamp of creation</summary>
+        public long? CreatedAt { get; set; }
         /// <summary>The default_second_factor property</summary>
         public bool? DefaultSecondFactor { get; set; }
         /// <summary>The id property</summary>
@@ -47,6 +49,8 @@ namespace Clerk.Net.Client.Models {
         public bool? Reserved { get; set; }
         /// <summary>The reserved_for_second_factor property</summary>
         public bool? ReservedForSecondFactor { get; set; }
+        /// <summary>Unix timestamp of creation</summary>
+        public long? UpdatedAt { get; set; }
         /// <summary>The verification property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -74,6 +78,7 @@ namespace Clerk.Net.Client.Models {
             return new Dictionary<string, Action<IParseNode>>
             {
                 {"backup_codes", n => { BackupCodes = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
+                {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"default_second_factor", n => { DefaultSecondFactor = n.GetBoolValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"linked_to", n => { LinkedTo = n.GetCollectionOfObjectValues<IdentificationLink>(IdentificationLink.CreateFromDiscriminatorValue)?.ToList(); } },
@@ -81,6 +86,7 @@ namespace Clerk.Net.Client.Models {
                 {"phone_number", n => { PhoneNumberProp = n.GetStringValue(); } },
                 {"reserved", n => { Reserved = n.GetBoolValue(); } },
                 {"reserved_for_second_factor", n => { ReservedForSecondFactor = n.GetBoolValue(); } },
+                {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 {"verification", n => { Verification = n.GetObjectValue<PhoneNumber_verification>(PhoneNumber_verification.CreateFromDiscriminatorValue); } },
             };
         }
@@ -92,6 +98,7 @@ namespace Clerk.Net.Client.Models {
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("backup_codes", BackupCodes);
+            writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteBoolValue("default_second_factor", DefaultSecondFactor);
             writer.WriteStringValue("id", Id);
             writer.WriteCollectionOfObjectValues<IdentificationLink>("linked_to", LinkedTo);
@@ -99,6 +106,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("phone_number", PhoneNumberProp);
             writer.WriteBoolValue("reserved", Reserved);
             writer.WriteBoolValue("reserved_for_second_factor", ReservedForSecondFactor);
+            writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteObjectValue<PhoneNumber_verification>("verification", Verification);
         }
         /// <summary>

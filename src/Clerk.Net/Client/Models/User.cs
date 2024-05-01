@@ -85,6 +85,14 @@ namespace Clerk.Net.Client.Models {
         public long? LockoutExpiresInSeconds { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public User_object? Object { get; set; }
+        /// <summary>The passkeys property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<SchemasPasskey>? Passkeys { get; set; }
+#nullable restore
+#else
+        public List<SchemasPasskey> Passkeys { get; set; }
+#endif
         /// <summary>The password_enabled property</summary>
         public bool? PasswordEnabled { get; set; }
         /// <summary>The phone_numbers property</summary>
@@ -220,6 +228,7 @@ namespace Clerk.Net.Client.Models {
                 {"locked", n => { Locked = n.GetBoolValue(); } },
                 {"lockout_expires_in_seconds", n => { LockoutExpiresInSeconds = n.GetLongValue(); } },
                 {"object", n => { Object = n.GetEnumValue<User_object>(); } },
+                {"passkeys", n => { Passkeys = n.GetCollectionOfObjectValues<SchemasPasskey>(SchemasPasskey.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"password_enabled", n => { PasswordEnabled = n.GetBoolValue(); } },
                 {"phone_numbers", n => { PhoneNumbers = n.GetCollectionOfObjectValues<PhoneNumber>(PhoneNumber.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"primary_email_address_id", n => { PrimaryEmailAddressId = n.GetStringValue(); } },
@@ -263,6 +272,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteBoolValue("locked", Locked);
             writer.WriteLongValue("lockout_expires_in_seconds", LockoutExpiresInSeconds);
             writer.WriteEnumValue<User_object>("object", Object);
+            writer.WriteCollectionOfObjectValues<SchemasPasskey>("passkeys", Passkeys);
             writer.WriteBoolValue("password_enabled", PasswordEnabled);
             writer.WriteCollectionOfObjectValues<PhoneNumber>("phone_numbers", PhoneNumbers);
             writer.WriteStringValue("primary_email_address_id", PrimaryEmailAddressId);

@@ -186,7 +186,7 @@ namespace Clerk.Net.Client.Users {
             /// <summary>Returns users that had session activity since the given date, with day precision.Providing a value with higher precision than day will result in an error.Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.</summary>
             [QueryParameter("last_active_at_since")]
             public int? LastActiveAtSince { get; set; }
-            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>

@@ -7,6 +7,8 @@ using System;
 namespace Clerk.Net.Client.Models {
     public class EmailAddress : IParsable 
     {
+        /// <summary>Unix timestamp of creation</summary>
+        public long? CreatedAt { get; set; }
         /// <summary>The email_address property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -35,6 +37,8 @@ namespace Clerk.Net.Client.Models {
         public EmailAddress_object? Object { get; set; }
         /// <summary>The reserved property</summary>
         public bool? Reserved { get; set; }
+        /// <summary>Unix timestamp of creation</summary>
+        public long? UpdatedAt { get; set; }
         /// <summary>The verification property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -61,11 +65,13 @@ namespace Clerk.Net.Client.Models {
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"email_address", n => { EmailAddressProp = n.GetStringValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"linked_to", n => { LinkedTo = n.GetCollectionOfObjectValues<IdentificationLink>(IdentificationLink.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"object", n => { Object = n.GetEnumValue<EmailAddress_object>(); } },
                 {"reserved", n => { Reserved = n.GetBoolValue(); } },
+                {"updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 {"verification", n => { Verification = n.GetObjectValue<EmailAddress_verification>(EmailAddress_verification.CreateFromDiscriminatorValue); } },
             };
         }
@@ -76,11 +82,13 @@ namespace Clerk.Net.Client.Models {
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("email_address", EmailAddressProp);
             writer.WriteStringValue("id", Id);
             writer.WriteCollectionOfObjectValues<IdentificationLink>("linked_to", LinkedTo);
             writer.WriteEnumValue<EmailAddress_object>("object", Object);
             writer.WriteBoolValue("reserved", Reserved);
+            writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteObjectValue<EmailAddress_verification>("verification", Verification);
         }
         /// <summary>
