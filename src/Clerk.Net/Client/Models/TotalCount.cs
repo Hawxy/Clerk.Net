@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class TotalCount : IParsable {
+    public class TotalCount : IParsable 
+    {
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public TotalCount_object? Object { get; set; }
         /// <summary>The total_count property</summary>
@@ -15,7 +16,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="TotalCount"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static TotalCount CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static TotalCount CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new TotalCount();
         }
@@ -23,8 +25,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"object", n => { Object = n.GetEnumValue<TotalCount_object>(); } },
                 {"total_count", n => { TotalCountProp = n.GetLongValue(); } },
             };
@@ -33,7 +37,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteEnumValue<TotalCount_object>("object", Object);
             writer.WriteLongValue("total_count", TotalCountProp);

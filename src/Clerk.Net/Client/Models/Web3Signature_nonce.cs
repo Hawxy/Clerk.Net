@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Web3Signature_nonce {
+    public enum Web3Signature_nonce
+    {
         [EnumMember(Value = "nonce")]
         Nonce,
     }

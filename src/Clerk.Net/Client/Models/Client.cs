@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class Client : IParsable {
+    public class Client : IParsable 
+    {
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
         /// <summary>String representing the identifier of the session.</summary>
@@ -65,7 +66,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="Client"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Client CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Client CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Client();
         }
@@ -73,8 +75,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"created_at", n => { CreatedAt = n.GetLongValue(); } },
                 {"id", n => { Id = n.GetStringValue(); } },
                 {"last_active_session_id", n => { LastActiveSessionId = n.GetStringValue(); } },
@@ -90,7 +94,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("id", Id);

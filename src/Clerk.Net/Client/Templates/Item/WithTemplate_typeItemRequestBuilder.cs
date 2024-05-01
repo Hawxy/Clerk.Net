@@ -13,28 +13,35 @@ namespace Clerk.Net.Client.Templates.Item {
     /// <summary>
     /// Builds and executes requests for operations under \templates\{template_type}
     /// </summary>
-    public class WithTemplate_typeItemRequestBuilder : BaseRequestBuilder {
+    public class WithTemplate_typeItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.templates.item.item collection</summary>
         /// <param name="position">The slug (i.e. machine-friendly name) of the template to retrieve</param>
         /// <returns>A <see cref="WithSlugItemRequestBuilder"/></returns>
-        public WithSlugItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("slug", position);
-            return new WithSlugItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithSlugItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("slug", position);
+                return new WithSlugItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="WithTemplate_typeItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_typeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", pathParameters) {
+        public WithTemplate_typeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="WithTemplate_typeItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_typeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", rawUrl) {
+        public WithTemplate_typeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", rawUrl)
+        {
         }
         /// <summary>
         /// Returns a list of all templates.The templates are returned sorted by position.
@@ -47,13 +54,16 @@ namespace Clerk.Net.Client.Templates.Item {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<Template>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<List<Template>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<List<Template>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<List<Template>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
@@ -68,10 +78,12 @@ namespace Clerk.Net.Client.Templates.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -83,7 +95,8 @@ namespace Clerk.Net.Client.Templates.Item {
         /// </summary>
         /// <returns>A <see cref="WithTemplate_typeItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithTemplate_typeItemRequestBuilder WithUrl(string rawUrl) {
+        public WithTemplate_typeItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithTemplate_typeItemRequestBuilder(rawUrl, RequestAdapter);
         }
     }

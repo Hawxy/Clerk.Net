@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Sessions.Item.Tokens.Item {
-    public enum WithTemplate_namePostResponse_object {
+    public enum WithTemplate_namePostResponse_object
+    {
         [EnumMember(Value = "token")]
         Token,
     }

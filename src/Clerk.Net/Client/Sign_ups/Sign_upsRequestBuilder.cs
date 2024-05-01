@@ -10,28 +10,35 @@ namespace Clerk.Net.Client.Sign_ups {
     /// <summary>
     /// Builds and executes requests for operations under \sign_ups
     /// </summary>
-    public class Sign_upsRequestBuilder : BaseRequestBuilder {
+    public class Sign_upsRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.sign_ups.item collection</summary>
         /// <param name="position">The ID of the sign-up to update</param>
         /// <returns>A <see cref="Sign_upsItemRequestBuilder"/></returns>
-        public Sign_upsItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("id", position);
-            return new Sign_upsItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public Sign_upsItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("id", position);
+                return new Sign_upsItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="Sign_upsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Sign_upsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_ups", pathParameters) {
+        public Sign_upsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_ups", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Sign_upsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Sign_upsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_ups", rawUrl) {
+        public Sign_upsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_ups", rawUrl)
+        {
         }
     }
 }

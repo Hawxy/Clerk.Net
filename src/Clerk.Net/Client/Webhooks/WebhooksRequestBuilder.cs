@@ -11,28 +11,33 @@ namespace Clerk.Net.Client.Webhooks {
     /// <summary>
     /// Builds and executes requests for operations under \webhooks
     /// </summary>
-    public class WebhooksRequestBuilder : BaseRequestBuilder {
+    public class WebhooksRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The svix property</summary>
-        public SvixRequestBuilder Svix { get =>
-            new SvixRequestBuilder(PathParameters, RequestAdapter);
+        public SvixRequestBuilder Svix
+        {
+            get => new SvixRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The svix_url property</summary>
-        public Svix_urlRequestBuilder Svix_url { get =>
-            new Svix_urlRequestBuilder(PathParameters, RequestAdapter);
+        public Svix_urlRequestBuilder Svix_url
+        {
+            get => new Svix_urlRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="WebhooksRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WebhooksRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/webhooks", pathParameters) {
+        public WebhooksRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/webhooks", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="WebhooksRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WebhooksRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/webhooks", rawUrl) {
+        public WebhooksRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/webhooks", rawUrl)
+        {
         }
     }
 }

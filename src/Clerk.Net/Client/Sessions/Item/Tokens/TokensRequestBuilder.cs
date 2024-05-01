@@ -10,28 +10,35 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens {
     /// <summary>
     /// Builds and executes requests for operations under \sessions\{session_id}\tokens
     /// </summary>
-    public class TokensRequestBuilder : BaseRequestBuilder {
+    public class TokensRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.sessions.item.tokens.item collection</summary>
         /// <param name="position">The name of the JWT Template defined in your instance (e.g. `custom_hasura`).</param>
         /// <returns>A <see cref="WithTemplate_nameItemRequestBuilder"/></returns>
-        public WithTemplate_nameItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("template_name", position);
-            return new WithTemplate_nameItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithTemplate_nameItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("template_name", position);
+                return new WithTemplate_nameItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="TokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens", pathParameters) {
+        public TokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="TokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public TokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens", rawUrl) {
+        public TokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions/{session_id}/tokens", rawUrl)
+        {
         }
     }
 }

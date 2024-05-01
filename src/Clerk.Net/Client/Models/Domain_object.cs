@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum Domain_object {
+    public enum Domain_object
+    {
         [EnumMember(Value = "domain")]
         Domain,
     }

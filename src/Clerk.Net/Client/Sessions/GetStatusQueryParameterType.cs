@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Sessions {
-    public enum GetStatusQueryParameterType {
+    public enum GetStatusQueryParameterType
+    {
         [EnumMember(Value = "abandoned")]
         Abandoned,
         [EnumMember(Value = "active")]

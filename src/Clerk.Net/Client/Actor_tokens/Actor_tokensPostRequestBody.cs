@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Actor_tokens {
-    public class Actor_tokensPostRequestBody : IParsable {
+    public class Actor_tokensPostRequestBody : IParsable 
+    {
         /// <summary>The actor payload. It needs to include a sub property which should contain the ID of the actor.This whole payload will be also included in the JWT session token.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,7 +32,8 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// </summary>
         /// <returns>A <see cref="Actor_tokensPostRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Actor_tokensPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Actor_tokensPostRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Actor_tokensPostRequestBody();
         }
@@ -39,8 +41,10 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"actor", n => { Actor = n.GetObjectValue<Actor_tokensPostRequestBody_actor>(Actor_tokensPostRequestBody_actor.CreateFromDiscriminatorValue); } },
                 {"expires_in_seconds", n => { ExpiresInSeconds = n.GetIntValue(); } },
                 {"session_max_duration_in_seconds", n => { SessionMaxDurationInSeconds = n.GetIntValue(); } },
@@ -51,7 +55,8 @@ namespace Clerk.Net.Client.Actor_tokens {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<Actor_tokensPostRequestBody_actor>("actor", Actor);
             writer.WriteIntValue("expires_in_seconds", ExpiresInSeconds);

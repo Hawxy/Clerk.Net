@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class Template : IParsable {
+    public class Template : IParsable 
+    {
         /// <summary>list of variables that are available for use in the template body</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -74,6 +75,14 @@ namespace Clerk.Net.Client.Models {
         public Template_object? Object { get; set; }
         /// <summary>position with the listing of templates</summary>
         public int? Position { get; set; }
+        /// <summary>The reply_to_email_name property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ReplyToEmailName { get; set; }
+#nullable restore
+#else
+        public string ReplyToEmailName { get; set; }
+#endif
         /// <summary>list of variables that must be contained in the template body</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -121,7 +130,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="Template"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static Template CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static Template CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new Template();
         }
@@ -129,8 +139,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"available_variables", n => { AvailableVariables = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"body", n => { Body = n.GetStringValue(); } },
                 {"can_delete", n => { CanDelete = n.GetBoolValue(); } },
@@ -144,6 +156,7 @@ namespace Clerk.Net.Client.Models {
                 {"name", n => { Name = n.GetStringValue(); } },
                 {"object", n => { Object = n.GetEnumValue<Template_object>(); } },
                 {"position", n => { Position = n.GetIntValue(); } },
+                {"reply_to_email_name", n => { ReplyToEmailName = n.GetStringValue(); } },
                 {"required_variables", n => { RequiredVariables = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"resource_type", n => { ResourceType = n.GetStringValue(); } },
                 {"slug", n => { Slug = n.GetStringValue(); } },
@@ -156,7 +169,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("available_variables", AvailableVariables);
             writer.WriteStringValue("body", Body);
@@ -171,6 +185,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<Template_object>("object", Object);
             writer.WriteIntValue("position", Position);
+            writer.WriteStringValue("reply_to_email_name", ReplyToEmailName);
             writer.WriteCollectionOfPrimitiveValues<string>("required_variables", RequiredVariables);
             writer.WriteStringValue("resource_type", ResourceType);
             writer.WriteStringValue("slug", Slug);

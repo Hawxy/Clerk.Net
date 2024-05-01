@@ -12,7 +12,7 @@
       "name": "Clerk Platform Team",
       "url": "https://clerk.com/support"
     },
-    "description": "The Clerk REST Backend API, meant to be accessed by backend servers. Please see https://clerk.com/docs for more information.",
+    "description": "The Clerk REST Backend API, meant to be accessed by backend\nservers.\n\n### Versions\n\nWhen the API changes in a way that isn't compatible with older versions, a new version is released.\nEach version is identified by its release date, e.g. `2021-02-05`. For more information, please see [Clerk API Versions](https://clerk.com/docs/backend-requests/versioning/overview).\n\n\nPlease see https://clerk.com/docs for more information.",
     "version": "v1",
     "termsOfService": "https://clerk.com/terms",
     "license": {
@@ -129,8 +129,8 @@
       "description": "Redirect URLs are whitelisted URLs that facilitate secure authentication flows in native applications (e.g. React Native, Expo).\nIn these contexts, Clerk ensures that security-critical nonces are passed only to the whitelisted URLs."
     },
     {
-      "name": "SAML Connections (Beta)",
-      "description": "A SAML Connection holds configuration data required for facilitating a SAML flow between your\nClerk Instance (SP) and a particular SAML IdP."
+      "name": "SAML Connections",
+      "description": "A SAML Connection holds configuration data required for facilitating a SAML SSO flow between your\nClerk Instance (SP) and a particular SAML IdP."
     },
     {
       "name": "Sessions",
@@ -142,6 +142,13 @@
     {
       "name": "Sign-in Tokens",
       "description": "Sign-in tokens are JWTs that can be used to sign in to an application without specifying any credentials.\nA sign-in token can be used at most once and they can be consumed from the Frontend API using the `ticket` strategy."
+    },
+    {
+      "name": "Testing Tokens",
+      "description": "Tokens meant for use by end-to-end test suites in requests to the Frontend API, so as to bypass bot detection measures.",
+      "externalDocs": {
+        "url": "https://clerk.com/docs/testing/overview#testing-tokens"
+      }
     },
     {
       "name": "Users",
@@ -1132,6 +1139,10 @@
                   "from_email_name": {
                     "type": "string",
                     "description": "The local part of the From email address that will be used for emails.\nFor example, in the address 'hello@example.com', the local part is 'hello'.\nApplicable only to email templates."
+                  },
+                  "reply_to_email_name": {
+                    "type": "string",
+                    "description": "The local part of the Reply To email address that will be used for emails.\nFor example, in the address 'hello@example.com', the local part is 'hello'.\nApplicable only to email templates."
                   }
                 }
               }
@@ -1150,6 +1161,9 @@
           },
           "402": {
             "$ref": "#/components/responses/PaymentRequired"
+          },
+          "403": {
+            "$ref": "#/components/responses/ClerkErrors"
           },
           "404": {
             "$ref": "#/components/responses/ResourceNotFound"
@@ -1259,6 +1273,10 @@
                   "from_email_name": {
                     "type": "string",
                     "description": "The local part of the From email address that will be used for emails.\nFor example, in the address 'hello@example.com', the local part is 'hello'.\nApplicable only to email templates."
+                  },
+                  "reply_to_email_name": {
+                    "type": "string",
+                    "description": "The local part of the Reply To email address that will be used for emails.\nFor example, in the address 'hello@example.com', the local part is 'hello'.\nApplicable only to email templates."
                   }
                 }
               }
@@ -1566,7 +1584,7 @@
                   },
                   "password_hasher": {
                     "type": "string",
-                    "description": "The hashing algorithm that was used to generate the password digest.\nThe algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),\n[sha256](https://en.wikipedia.org/wiki/SHA-2)\nand the [argon2](https://argon2.online/) variants argon2i and argon2id.\n\nIf you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).\n\nNote: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.\nInsecure schemes are marked with `(insecure)` in the list below.\n\nEach of the supported hashers expects the incoming digest to be in a particular format. Specifically:\n\n**bcrypt:** The digest should be of the following form:\n\n`$<algorithm version>$<cost>$<salt & hash>`\n\n**bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):\n\n`bcrypt_sha256$$<algorithm version>$<cost>$<salt & hash>`\n\n**md5** (insecure): The digest should follow the regular form e.g.:\n\n`5f4dcc3b5aa765d61d8327deb882cf99`\n\n**pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: Both the salt and the hash are expected to be base64-encoded.\n\n**pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: The salt is expected to be un-encoded, the hash is expected base64-encoded.\n\n**pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:\n1. uses sha1 instead of sha256\n2. accepts the hash as a hex-encoded string\n\nThe format is the following:\n\n`pbkdf2_sha1$<iterations>$<salt>$<hash-as-hex-string>`\n\n**phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:\n\nThe format is the following:\n\n`$P$<rounds><salt><encoded-checksum>`\n\n- $P$ is the prefix used to identify phpass hashes.\n- rounds is a single character encoding a 6-bit integer representing the number of rounds used.\n- salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.\n- checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.\n\n**scrypt_firebase:** The Firebase-specific variant of scrypt.\nThe value is expected to have 6 segments separated by the $ character and include the following information:\n\n_hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.\n_salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.\n_signer key:_ The base64 encoded signer key.\n_salt separator:_ The base64 encoded salt separator.\n_rounds:_ The number of rounds the algorithm needs to run.\n_memory cost:_ The cost of the algorithm run\n\nThe first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.\nThe other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.\n\nOnce you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:\n\n`<hash>$<salt>$<signer key>$<salt separator>$<rounds>$<memory cost>`\n\n**argon2i:** Algorithms in the argon2 family generate digests that encode the following information:\n\n_version (v):_ The argon version, version 19 is assumed\n_memory (m):_ The memory used by the algorithm (in kibibytes)\n_iterations (t):_ The number of iterations to perform\n_parallelism (p):_ The number of threads to use\n\nParts are demarcated by the `$` character, with the first part identifying the algorithm variant.\nThe middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).\nThe final part is the actual digest.\n\n`$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`\n\n**argon2id:** See the previous algorithm for an explanation of the formatting.\n\nFor the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:\n\n`$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`\n\n**sha256** (insecure): The digest should be a 64-length hex string, e.g.:\n\n`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`",
+                    "description": "The hashing algorithm that was used to generate the password digest.\nThe algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),\n[scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [sha256](https://en.wikipedia.org/wiki/SHA-2)\nand the [argon2](https://argon2.online/) variants argon2i and argon2id.\n\nIf you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).\n\nNote: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.\nInsecure schemes are marked with `(insecure)` in the list below.\n\nEach of the supported hashers expects the incoming digest to be in a particular format. Specifically:\n\n**bcrypt:** The digest should be of the following form:\n\n`$<algorithm version>$<cost>$<salt & hash>`\n\n**bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):\n\n`bcrypt_sha256$$<algorithm version>$<cost>$<salt & hash>`\n\n**md5** (insecure): The digest should follow the regular form e.g.:\n\n`5f4dcc3b5aa765d61d8327deb882cf99`\n\n**pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: Both the salt and the hash are expected to be base64-encoded.\n\n**pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: The salt is expected to be un-encoded, the hash is expected base64-encoded.\n\n**pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:\n1. uses sha1 instead of sha256\n2. accepts the hash as a hex-encoded string\n\nThe format is the following:\n\n`pbkdf2_sha1$<iterations>$<salt>$<hash-as-hex-string>`\n\n**phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:\n\nThe format is the following:\n\n`$P$<rounds><salt><encoded-checksum>`\n\n- $P$ is the prefix used to identify phpass hashes.\n- rounds is a single character encoding a 6-bit integer representing the number of rounds used.\n- salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.\n- checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.\n\n**scrypt_firebase:** The Firebase-specific variant of scrypt.\nThe value is expected to have 6 segments separated by the $ character and include the following information:\n\n_hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.\n_salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.\n_signer key:_ The base64 encoded signer key.\n_salt separator:_ The base64 encoded salt separator.\n_rounds:_ The number of rounds the algorithm needs to run.\n_memory cost:_ The cost of the algorithm run\n\nThe first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.\nThe other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.\n\nOnce you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:\n\n`<hash>$<salt>$<signer key>$<salt separator>$<rounds>$<memory cost>`\n\n**scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.\n\n  The value is expected to have 3 segments separated by the $ character and include the following information:\n\n  _algorithm args:_ The algorithm used to generate the hash.\n  _salt:_ The salt used to generate the above hash.\n  _hash:_ The actual Base64 hash.\n\n  The algorithm args are the parameters used to generate the hash and are included in the digest.\n\n**argon2i:** Algorithms in the argon2 family generate digests that encode the following information:\n\n_version (v):_ The argon version, version 19 is assumed\n_memory (m):_ The memory used by the algorithm (in kibibytes)\n_iterations (t):_ The number of iterations to perform\n_parallelism (p):_ The number of threads to use\n\nParts are demarcated by the `$` character, with the first part identifying the algorithm variant.\nThe middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).\nThe final part is the actual digest.\n\n`$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`\n\n**argon2id:** See the previous algorithm for an explanation of the formatting.\n\nFor the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:\n\n`$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`\n\n**sha256** (insecure): The digest should be a 64-length hex string, e.g.:\n\n`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`",
                     "enum": [
                       "argon2i",
                       "argon2id",
@@ -1578,6 +1596,7 @@
                       "pbkdf2_sha1",
                       "phpass",
                       "scrypt_firebase",
+                      "scrypt_werkzeug",
                       "sha256"
                     ]
                   },
@@ -1854,7 +1873,7 @@
                   },
                   "password_hasher": {
                     "type": "string",
-                    "description": "The hashing algorithm that was used to generate the password digest.\nThe algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),\n[sha256](https://en.wikipedia.org/wiki/SHA-2)\nand the [argon2](https://argon2.online/) variants argon2i and argon2id.\n\nIf you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).\n\nNote: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.\nInsecure schemes are marked with `(insecure)` in the list below.\n\nEach of the supported hashers expects the incoming digest to be in a particular format. Specifically:\n\n**bcrypt:** The digest should be of the following form:\n\n`$<algorithm version>$<cost>$<salt & hash>`\n\n**bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):\n\n`bcrypt_sha256$$<algorithm version>$<cost>$<salt & hash>`\n\n**md5** (insecure): The digest should follow the regular form e.g.:\n\n`5f4dcc3b5aa765d61d8327deb882cf99`\n\n**pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: Both the salt and the hash are expected to be base64-encoded.\n\n**pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: The salt is expected to be un-encoded, the hash is expected base64-encoded.\n\n**pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:\n1. uses sha1 instead of sha256\n2. accepts the hash as a hex-encoded string\n\nThe format is the following:\n\n`pbkdf2_sha1$<iterations>$<salt>$<hash-as-hex-string>`\n\n**phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:\n\nThe format is the following:\n\n`$P$<rounds><salt><encoded-checksum>`\n\n- $P$ is the prefix used to identify phpass hashes.\n- rounds is a single character encoding a 6-bit integer representing the number of rounds used.\n- salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.\n- checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.\n\n**scrypt_firebase:** The Firebase-specific variant of scrypt.\nThe value is expected to have 6 segments separated by the $ character and include the following information:\n\n_hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.\n_salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.\n_signer key:_ The base64 encoded signer key.\n_salt separator:_ The base64 encoded salt separator.\n_rounds:_ The number of rounds the algorithm needs to run.\n_memory cost:_ The cost of the algorithm run\n\nThe first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.\nThe other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.\n\nOnce you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:\n\n`<hash>$<salt>$<signer key>$<salt separator>$<rounds>$<memory cost>`\n\n**argon2i:** Algorithms in the argon2 family generate digests that encode the following information:\n\n_version (v):_ The argon version, version 19 is assumed\n_memory (m):_ The memory used by the algorithm (in kibibytes)\n_iterations (t):_ The number of iterations to perform\n_parallelism (p):_ The number of threads to use\n\nParts are demarcated by the `$` character, with the first part identifying the algorithm variant.\nThe middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).\nThe final part is the actual digest.\n\n`$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`\n\n**argon2id:** See the previous algorithm for an explanation of the formatting.\n\nFor the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:\n\n`$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`\n\n**sha256** (insecure): The digest should be a 64-length hex string, e.g.:\n\n`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`",
+                    "description": "The hashing algorithm that was used to generate the password digest.\nThe algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),\n[phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),\n[sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)\nand the [argon2](https://argon2.online/) variants argon2i and argon2id.\n\nIf you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).\n\nNote: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.\nInsecure schemes are marked with `(insecure)` in the list below.\n\nEach of the supported hashers expects the incoming digest to be in a particular format. Specifically:\n\n**bcrypt:** The digest should be of the following form:\n\n`$<algorithm version>$<cost>$<salt & hash>`\n\n**bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):\n\n`bcrypt_sha256$$<algorithm version>$<cost>$<salt & hash>`\n\n**md5** (insecure): The digest should follow the regular form e.g.:\n\n`5f4dcc3b5aa765d61d8327deb882cf99`\n\n**pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: Both the salt and the hash are expected to be base64-encoded.\n\n**pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):\n\n`pbkdf2_sha256$<iterations>$<salt>$<hash>`\n\nNote: The salt is expected to be un-encoded, the hash is expected base64-encoded.\n\n**pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:\n1. uses sha1 instead of sha256\n2. accepts the hash as a hex-encoded string\n\nThe format is the following:\n\n`pbkdf2_sha1$<iterations>$<salt>$<hash-as-hex-string>`\n\n**phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:\n\nThe format is the following:\n\n`$P$<rounds><salt><encoded-checksum>`\n\n- $P$ is the prefix used to identify phpass hashes.\n- rounds is a single character encoding a 6-bit integer representing the number of rounds used.\n- salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.\n- checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.\n\n**scrypt_firebase:** The Firebase-specific variant of scrypt.\nThe value is expected to have 6 segments separated by the $ character and include the following information:\n\n_hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.\n_salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.\n_signer key:_ The base64 encoded signer key.\n_salt separator:_ The base64 encoded salt separator.\n_rounds:_ The number of rounds the algorithm needs to run.\n_memory cost:_ The cost of the algorithm run\n\nThe first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.\nThe other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.\n\nOnce you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:\n\n`<hash>$<salt>$<signer key>$<salt separator>$<rounds>$<memory cost>`\n\n**scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.\n\nThe value is expected to have 3 segments separated by the $ character and include the following information:\n\n_algorithm args:_ The algorithm used to generate the hash.\n_salt:_ The salt used to generate the above hash.\n_hash:_ The actual Base64 hash.\n\nThe algorithm args are the parameters used to generate the hash and are included in the digest.\n\n**argon2i:** Algorithms in the argon2 family generate digests that encode the following information:\n\n_version (v):_ The argon version, version 19 is assumed\n_memory (m):_ The memory used by the algorithm (in kibibytes)\n_iterations (t):_ The number of iterations to perform\n_parallelism (p):_ The number of threads to use\n\nParts are demarcated by the `$` character, with the first part identifying the algorithm variant.\nThe middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).\nThe final part is the actual digest.\n\n`$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`\n\n**argon2id:** See the previous algorithm for an explanation of the formatting.\n\nFor the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:\n\n`$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`\n\n**sha256** (insecure): The digest should be a 64-length hex string, e.g.:\n\n`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`",
                     "enum": [
                       "argon2i",
                       "argon2id",
@@ -1866,6 +1885,7 @@
                       "pbkdf2_sha1",
                       "phpass",
                       "scrypt_firebase",
+                      "scrypt_werkzeug",
                       "sha256"
                     ]
                   },
@@ -2269,6 +2289,14 @@
                     "additionalProperties": false,
                     "properties": {
                       "object": {
+                        "type": "string"
+                      },
+                      "external_account_id": {
+                        "description": "External account ID",
+                        "type": "string"
+                      },
+                      "provider_user_id": {
+                        "description": "The unique ID of the user in the external provider's system",
                         "type": "string"
                       },
                       "token": {
@@ -5261,9 +5289,9 @@
       "get": {
         "operationId": "ListSAMLConnections",
         "summary": "Get a list of SAML Connections for an instance",
-        "description": "Returns the list of SAML Connections for an instance.\nResults can be paginated using the optional `limit` and `offset` query parameters.\nThe SAML Connections are ordered by descending creation date and the most recent will be returned first. <br/> Refer to <a href=\"https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta\">Clerk SAML documentation</a> for more information.",
+        "description": "Returns the list of SAML Connections for an instance.\nResults can be paginated using the optional `limit` and `offset` query parameters.\nThe SAML Connections are ordered by descending creation date and the most recent will be returned first.",
         "tags": [
-          "SAML Connections (Beta)"
+          "SAML Connections"
         ],
         "parameters": [
           {
@@ -5291,9 +5319,9 @@
       "post": {
         "operationId": "CreateSAMLConnection",
         "summary": "Create a SAML Connection",
-        "description": "Refer to <a href=\"https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta\">Clerk SAML documentation</a> for more information.",
+        "description": "Create a new SAML Connection.",
         "tags": [
-          "SAML Connections (Beta)"
+          "SAML Connections"
         ],
         "requestBody": {
           "content": {
@@ -5338,6 +5366,11 @@
                   "idp_metadata_url": {
                     "type": "string",
                     "description": "The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties",
+                    "nullable": true
+                  },
+                  "idp_metadata": {
+                    "type": "string",
+                    "description": "The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties",
                     "nullable": true
                   },
                   "attribute_mapping": {
@@ -5390,9 +5423,9 @@
       "get": {
         "operationId": "GetSAMLConnection",
         "summary": "Retrieve a SAML Connection by ID",
-        "description": "Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path. <br/> Refer to <a href=\"https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta\">Clerk SAML documentation</a> for more information.",
+        "description": "Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.",
         "tags": [
-          "SAML Connections (Beta)"
+          "SAML Connections"
         ],
         "parameters": [
           {
@@ -5423,9 +5456,9 @@
       "patch": {
         "operationId": "UpdateSAMLConnection",
         "summary": "Update a SAML Connection",
-        "description": "Updates the SAML Connection whose ID matches the provided `id` in the path. <br/> Refer to <a href=\"https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta\">Clerk SAML documentation</a> for more information.",
+        "description": "Updates the SAML Connection whose ID matches the provided `id` in the path.",
         "tags": [
-          "SAML Connections (Beta)"
+          "SAML Connections"
         ],
         "parameters": [
           {
@@ -5474,6 +5507,11 @@
                   "idp_metadata_url": {
                     "type": "string",
                     "description": "The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them",
+                    "nullable": true
+                  },
+                  "idp_metadata": {
+                    "type": "string",
+                    "description": "The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties",
                     "nullable": true
                   },
                   "attribute_mapping": {
@@ -5542,9 +5580,9 @@
       "delete": {
         "operationId": "DeleteSAMLConnection",
         "summary": "Delete a SAML Connection",
-        "description": "Deletes the SAML Connection whose ID matches the provided `id` in the path. <br/> Refer to <a href=\"https://clerk.com/docs/authentication/saml-at-clerk#saml-at-clerk-beta\">Clerk SAML documentation</a> for more information.",
+        "description": "Deletes the SAML Connection whose ID matches the provided `id` in the path.",
         "tags": [
-          "SAML Connections (Beta)"
+          "SAML Connections"
         ],
         "parameters": [
           {
@@ -5572,6 +5610,24 @@
           }
         }
       }
+    },
+    "/testing_tokens": {
+      "post": {
+        "operationId": "CreateTestingToken",
+        "summary": "Retrieve a new testing token",
+        "description": "Retrieve a new testing token. Only available for development instances.",
+        "tags": [
+          "Testing Tokens"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/TestingToken"
+          },
+          "400": {
+            "description": "The instance is a production instance, but this endpoint is only available in development instances."
+          }
+        }
+      }
     }
   },
   "components": {
@@ -5585,7 +5641,7 @@
       "LimitParameter": {
         "name": "limit",
         "in": "query",
-        "description": "Applies a limit to the number of results returned.\nCan be used for paginating the results together with `offset`.\nMust be an integer greater than zero and less than 500.\nBy default, if not supplied, a limit of 10 is used.",
+        "description": "Applies a limit to the number of results returned.\nCan be used for paginating the results together with `offset`.",
         "required": false,
         "schema": {
           "type": "number",
@@ -5958,6 +6014,16 @@
             "items": {
               "$ref": "#/components/schemas/IdentificationLink"
             }
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
+          },
+          "updated_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
           }
         },
         "required": [
@@ -5965,7 +6031,9 @@
           "email_address",
           "verification",
           "linked_to",
-          "reserved"
+          "reserved",
+          "created_at",
+          "updated_at"
         ]
       },
       "DeletedObject": {
@@ -6040,6 +6108,16 @@
               "type": "string"
             },
             "nullable": true
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
+          },
+          "updated_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
           }
         },
         "required": [
@@ -6047,7 +6125,9 @@
           "phone_number",
           "verification",
           "linked_to",
-          "reserved"
+          "reserved",
+          "created_at",
+          "updated_at"
         ]
       },
       "Template": {
@@ -6125,6 +6205,9 @@
             }
           },
           "from_email_name": {
+            "type": "string"
+          },
+          "reply_to_email_name": {
             "type": "string"
           },
           "delivered_by_clerk": {
@@ -6207,11 +6290,98 @@
                 "$ref": "#/components/schemas/Admin"
               }
             ]
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
+          },
+          "updated_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation\n"
           }
         },
         "required": [
           "object",
           "web3_wallet",
+          "verification",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Passkey": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "verified"
+            ]
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "passkey"
+            ]
+          },
+          "nonce": {
+            "type": "string",
+            "enum": [
+              "nonce"
+            ]
+          },
+          "attempts": {
+            "type": "integer",
+            "nullable": true
+          },
+          "expire_at": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status",
+          "strategy"
+        ]
+      },
+      "schemas-Passkey": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "description": "String representing the object's type. Objects of the same type share the same value.\n",
+            "enum": [
+              "passkey"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "last_used_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of when the passkey was last used.\n"
+          },
+          "verification": {
+            "type": "object",
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Passkey"
+              }
+            ]
+          }
+        },
+        "required": [
+          "object",
+          "name",
+          "last_used_at",
           "verification"
         ]
       },
@@ -6263,6 +6433,38 @@
           "expire_at"
         ]
       },
+      "Ticket": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "unverified",
+              "verified",
+              "expired"
+            ]
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "ticket"
+            ]
+          },
+          "attempts": {
+            "type": "integer",
+            "nullable": true
+          },
+          "expire_at": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status",
+          "strategy"
+        ]
+      },
       "SAMLAccount": {
         "type": "object",
         "additionalProperties": false,
@@ -6298,12 +6500,18 @@
             "type": "string",
             "nullable": true
           },
+          "public_metadata": {
+            "type": "object"
+          },
           "verification": {
             "type": "object",
             "nullable": true,
             "oneOf": [
               {
                 "$ref": "#/components/schemas/SAML"
+              },
+              {
+                "$ref": "#/components/schemas/Ticket"
               }
             ]
           }
@@ -6395,6 +6603,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Web3Wallet"
+            }
+          },
+          "passkeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/schemas-Passkey"
             }
           },
           "password_enabled": {
@@ -7609,6 +7823,10 @@
             "type": "string",
             "nullable": true
           },
+          "idp_metadata": {
+            "type": "string",
+            "nullable": true
+          },
           "acs_url": {
             "type": "string"
           },
@@ -7703,6 +7921,33 @@
         "required": [
           "data",
           "total_count"
+        ]
+      },
+      "TestingToken": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": [
+              "testing_token"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "description": "The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.",
+            "example": "1713877200-c_2J2MvPu9PnXcuhbPZNao0LOXqK9A7YrnBn0HmIWxy"
+          },
+          "expires_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of the token's expiration time.\n",
+            "example": 1713880800
+          }
+        },
+        "required": [
+          "object",
+          "token",
+          "expires_at"
         ]
       }
     },
@@ -8294,6 +8539,16 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/SAMLConnection"
+            }
+          }
+        }
+      },
+      "TestingToken": {
+        "description": "A Testing Token",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/TestingToken"
             }
           }
         }

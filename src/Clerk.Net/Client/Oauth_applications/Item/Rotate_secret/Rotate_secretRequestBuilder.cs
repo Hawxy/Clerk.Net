@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Oauth_applications.Item.Rotate_secret {
     /// <summary>
     /// Builds and executes requests for operations under \oauth_applications\{oauth_application_id}\rotate_secret
     /// </summary>
-    public class Rotate_secretRequestBuilder : BaseRequestBuilder {
+    public class Rotate_secretRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="Rotate_secretRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Rotate_secretRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications/{oauth_application_id}/rotate_secret", pathParameters) {
+        public Rotate_secretRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications/{oauth_application_id}/rotate_secret", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Rotate_secretRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Rotate_secretRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications/{oauth_application_id}/rotate_secret", rawUrl) {
+        public Rotate_secretRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications/{oauth_application_id}/rotate_secret", rawUrl)
+        {
         }
         /// <summary>
         /// Rotates the OAuth application&apos;s client secret.When the client secret is rotated, make sure to update it in authorized OAuth clients.
@@ -37,13 +40,16 @@ namespace Clerk.Net.Client.Oauth_applications.Item.Rotate_secret {
         /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<OAuthApplicationWithSecret?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OAuthApplicationWithSecret?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<OAuthApplicationWithSecret> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OAuthApplicationWithSecret> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
             };
@@ -56,10 +62,12 @@ namespace Clerk.Net.Client.Oauth_applications.Item.Rotate_secret {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -71,7 +79,8 @@ namespace Clerk.Net.Client.Oauth_applications.Item.Rotate_secret {
         /// </summary>
         /// <returns>A <see cref="Rotate_secretRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Rotate_secretRequestBuilder WithUrl(string rawUrl) {
+        public Rotate_secretRequestBuilder WithUrl(string rawUrl)
+        {
             return new Rotate_secretRequestBuilder(rawUrl, RequestAdapter);
         }
     }

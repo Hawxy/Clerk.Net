@@ -13,28 +13,35 @@ namespace Clerk.Net.Client.Sign_in_tokens {
     /// <summary>
     /// Builds and executes requests for operations under \sign_in_tokens
     /// </summary>
-    public class Sign_in_tokensRequestBuilder : BaseRequestBuilder {
+    public class Sign_in_tokensRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Gets an item from the Clerk.Net.Client.sign_in_tokens.item collection</summary>
         /// <param name="position">The ID of the sign-in token to be revoked</param>
         /// <returns>A <see cref="WithSign_in_token_ItemRequestBuilder"/></returns>
-        public WithSign_in_token_ItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("sign_in_token_id", position);
-            return new WithSign_in_token_ItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithSign_in_token_ItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("sign_in_token_id", position);
+                return new WithSign_in_token_ItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="Sign_in_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Sign_in_tokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens", pathParameters) {
+        public Sign_in_tokensRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Sign_in_tokensRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Sign_in_tokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens", rawUrl) {
+        public Sign_in_tokensRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sign_in_tokens", rawUrl)
+        {
         }
         /// <summary>
         /// Creates a new sign-in token and associates it with the given user.By default, sign-in tokens expire in 30 days.You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
@@ -47,14 +54,17 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<SignInToken?> PostAsync(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SignInToken?> PostAsync(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<SignInToken> PostAsync(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<SignInToken> PostAsync(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"404", ClerkErrors.CreateFromDiscriminatorValue},
                 {"422", ClerkErrors.CreateFromDiscriminatorValue},
             };
@@ -68,10 +78,12 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Sign_in_tokensPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -85,7 +97,8 @@ namespace Clerk.Net.Client.Sign_in_tokens {
         /// </summary>
         /// <returns>A <see cref="Sign_in_tokensRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Sign_in_tokensRequestBuilder WithUrl(string rawUrl) {
+        public Sign_in_tokensRequestBuilder WithUrl(string rawUrl)
+        {
             return new Sign_in_tokensRequestBuilder(rawUrl, RequestAdapter);
         }
     }

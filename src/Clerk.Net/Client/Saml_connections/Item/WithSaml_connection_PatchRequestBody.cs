@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Saml_connections.Item {
-    public class WithSaml_connection_PatchRequestBody : IParsable {
+    public class WithSaml_connection_PatchRequestBody : IParsable 
+    {
         /// <summary>Activate or de-activate the SAML Connection</summary>
         public bool? Active { get; set; }
         /// <summary>Enable or deactivate IdP-initiated flows</summary>
@@ -44,6 +45,14 @@ namespace Clerk.Net.Client.Saml_connections.Item {
 #else
         public string IdpEntityId { get; set; }
 #endif
+        /// <summary>The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? IdpMetadata { get; set; }
+#nullable restore
+#else
+        public string IdpMetadata { get; set; }
+#endif
         /// <summary>The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -75,7 +84,8 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         /// </summary>
         /// <returns>A <see cref="WithSaml_connection_PatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static WithSaml_connection_PatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static WithSaml_connection_PatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new WithSaml_connection_PatchRequestBody();
         }
@@ -83,8 +93,10 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"active", n => { Active = n.GetBoolValue(); } },
                 {"allow_idp_initiated", n => { AllowIdpInitiated = n.GetBoolValue(); } },
                 {"allow_subdomains", n => { AllowSubdomains = n.GetBoolValue(); } },
@@ -92,6 +104,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
                 {"domain", n => { Domain = n.GetStringValue(); } },
                 {"idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 {"idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
+                {"idp_metadata", n => { IdpMetadata = n.GetStringValue(); } },
                 {"idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 {"idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 {"name", n => { Name = n.GetStringValue(); } },
@@ -102,7 +115,8 @@ namespace Clerk.Net.Client.Saml_connections.Item {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("active", Active);
             writer.WriteBoolValue("allow_idp_initiated", AllowIdpInitiated);
@@ -111,6 +125,7 @@ namespace Clerk.Net.Client.Saml_connections.Item {
             writer.WriteStringValue("domain", Domain);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
+            writer.WriteStringValue("idp_metadata", IdpMetadata);
             writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);

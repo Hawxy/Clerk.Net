@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum IdentificationLink_type {
+    public enum IdentificationLink_type
+    {
         [EnumMember(Value = "oauth_google")]
         Oauth_google,
         [EnumMember(Value = "oauth_mock")]

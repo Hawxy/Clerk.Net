@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class JWTTemplate : IParsable {
+    public class JWTTemplate : IParsable 
+    {
         /// <summary>The allowed_clock_skew property</summary>
         public int? AllowedClockSkew { get; set; }
         /// <summary>The claims property</summary>
@@ -55,7 +56,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="JWTTemplate"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static JWTTemplate CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static JWTTemplate CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new JWTTemplate();
         }
@@ -63,8 +65,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"allowed_clock_skew", n => { AllowedClockSkew = n.GetIntValue(); } },
                 {"claims", n => { Claims = n.GetObjectValue<JWTTemplate_claims>(JWTTemplate_claims.CreateFromDiscriminatorValue); } },
                 {"created_at", n => { CreatedAt = n.GetLongValue(); } },
@@ -81,7 +85,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteIntValue("allowed_clock_skew", AllowedClockSkew);
             writer.WriteObjectValue<JWTTemplate_claims>("claims", Claims);

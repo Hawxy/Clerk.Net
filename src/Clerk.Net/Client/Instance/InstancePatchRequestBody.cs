@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Instance {
-    public class InstancePatchRequestBody : IParsable {
+    public class InstancePatchRequestBody : IParsable 
+    {
         /// <summary>For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -54,7 +55,8 @@ namespace Clerk.Net.Client.Instance {
         /// </summary>
         /// <returns>A <see cref="InstancePatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static InstancePatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static InstancePatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new InstancePatchRequestBody();
         }
@@ -62,8 +64,10 @@ namespace Clerk.Net.Client.Instance {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"allowed_origins", n => { AllowedOrigins = n.GetCollectionOfPrimitiveValues<string>()?.ToList(); } },
                 {"clerk_js_version", n => { ClerkJsVersion = n.GetStringValue(); } },
                 {"cookieless_dev", n => { CookielessDev = n.GetBoolValue(); } },
@@ -79,7 +83,8 @@ namespace Clerk.Net.Client.Instance {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("allowed_origins", AllowedOrigins);
             writer.WriteStringValue("clerk_js_version", ClerkJsVersion);

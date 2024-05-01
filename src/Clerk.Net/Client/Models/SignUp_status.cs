@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum SignUp_status {
+    public enum SignUp_status
+    {
         [EnumMember(Value = "missing_requirements")]
         Missing_requirements,
         [EnumMember(Value = "complete")]

@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Models {
-    public class User : IParsable {
+    public class User : IParsable 
+    {
         /// <summary>The backup_code_enabled property</summary>
         public bool? BackupCodeEnabled { get; set; }
         /// <summary>Flag to denote whether user is banned or not.</summary>
@@ -84,6 +85,14 @@ namespace Clerk.Net.Client.Models {
         public long? LockoutExpiresInSeconds { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public User_object? Object { get; set; }
+        /// <summary>The passkeys property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<SchemasPasskey>? Passkeys { get; set; }
+#nullable restore
+#else
+        public List<SchemasPasskey> Passkeys { get; set; }
+#endif
         /// <summary>The password_enabled property</summary>
         public bool? PasswordEnabled { get; set; }
         /// <summary>The phone_numbers property</summary>
@@ -188,7 +197,8 @@ namespace Clerk.Net.Client.Models {
         /// </summary>
         /// <returns>A <see cref="User"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static User CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static User CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new User();
         }
@@ -196,8 +206,10 @@ namespace Clerk.Net.Client.Models {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"backup_code_enabled", n => { BackupCodeEnabled = n.GetBoolValue(); } },
                 {"banned", n => { Banned = n.GetBoolValue(); } },
                 {"create_organization_enabled", n => { CreateOrganizationEnabled = n.GetBoolValue(); } },
@@ -216,6 +228,7 @@ namespace Clerk.Net.Client.Models {
                 {"locked", n => { Locked = n.GetBoolValue(); } },
                 {"lockout_expires_in_seconds", n => { LockoutExpiresInSeconds = n.GetLongValue(); } },
                 {"object", n => { Object = n.GetEnumValue<User_object>(); } },
+                {"passkeys", n => { Passkeys = n.GetCollectionOfObjectValues<SchemasPasskey>(SchemasPasskey.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"password_enabled", n => { PasswordEnabled = n.GetBoolValue(); } },
                 {"phone_numbers", n => { PhoneNumbers = n.GetCollectionOfObjectValues<PhoneNumber>(PhoneNumber.CreateFromDiscriminatorValue)?.ToList(); } },
                 {"primary_email_address_id", n => { PrimaryEmailAddressId = n.GetStringValue(); } },
@@ -238,7 +251,8 @@ namespace Clerk.Net.Client.Models {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("backup_code_enabled", BackupCodeEnabled);
             writer.WriteBoolValue("banned", Banned);
@@ -258,6 +272,7 @@ namespace Clerk.Net.Client.Models {
             writer.WriteBoolValue("locked", Locked);
             writer.WriteLongValue("lockout_expires_in_seconds", LockoutExpiresInSeconds);
             writer.WriteEnumValue<User_object>("object", Object);
+            writer.WriteCollectionOfObjectValues<SchemasPasskey>("passkeys", Passkeys);
             writer.WriteBoolValue("password_enabled", PasswordEnabled);
             writer.WriteCollectionOfObjectValues<PhoneNumber>("phone_numbers", PhoneNumbers);
             writer.WriteStringValue("primary_email_address_id", PrimaryEmailAddressId);

@@ -14,33 +14,41 @@ namespace Clerk.Net.Client.Clients {
     /// <summary>
     /// Builds and executes requests for operations under \clients
     /// </summary>
-    public class ClientsRequestBuilder : BaseRequestBuilder {
+    public class ClientsRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The verify property</summary>
         [Obsolete("")]
-        public VerifyRequestBuilder Verify { get =>
-            new VerifyRequestBuilder(PathParameters, RequestAdapter);
+        public VerifyRequestBuilder Verify
+        {
+            get => new VerifyRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Gets an item from the Clerk.Net.Client.clients.item collection</summary>
         /// <param name="position">Client ID.</param>
         /// <returns>A <see cref="WithClient_ItemRequestBuilder"/></returns>
-        public WithClient_ItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("client_id", position);
-            return new WithClient_ItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithClient_ItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("client_id", position);
+                return new WithClient_ItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="ClientsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ClientsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", pathParameters) {
+        public ClientsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="ClientsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ClientsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", rawUrl) {
+        public ClientsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", rawUrl)
+        {
         }
         /// <summary>
         /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
@@ -55,13 +63,16 @@ namespace Clerk.Net.Client.Clients {
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<Clerk.Net.Client.Models.Client>?> GetAsync(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<List<Clerk.Net.Client.Models.Client>?> GetAsync(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<List<Clerk.Net.Client.Models.Client>> GetAsync(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<List<Clerk.Net.Client.Models.Client>> GetAsync(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"400", ClerkErrors.CreateFromDiscriminatorValue},
                 {"401", ClerkErrors.CreateFromDiscriminatorValue},
                 {"410", ClerkErrors.CreateFromDiscriminatorValue},
@@ -78,10 +89,12 @@ namespace Clerk.Net.Client.Clients {
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<ClientsRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -94,14 +107,16 @@ namespace Clerk.Net.Client.Clients {
         /// <returns>A <see cref="ClientsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         [Obsolete("")]
-        public ClientsRequestBuilder WithUrl(string rawUrl) {
+        public ClientsRequestBuilder WithUrl(string rawUrl)
+        {
             return new ClientsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
-        public class ClientsRequestBuilderGetQueryParameters {
-            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+        public class ClientsRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>

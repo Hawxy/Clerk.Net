@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Users.Item.Verify_password {
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\verify_password
     /// </summary>
-    public class Verify_passwordRequestBuilder : BaseRequestBuilder {
+    public class Verify_passwordRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="Verify_passwordRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Verify_passwordRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_password", pathParameters) {
+        public Verify_passwordRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_password", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Verify_passwordRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Verify_passwordRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_password", rawUrl) {
+        public Verify_passwordRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_password", rawUrl)
+        {
         }
         /// <summary>
         /// Check that the user&apos;s password matches the supplied input.Useful for custom auth flows and re-verification.
@@ -37,14 +40,17 @@ namespace Clerk.Net.Client.Users.Item.Verify_password {
         /// <exception cref="ClerkErrors">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Verify_passwordPostResponse?> PostAsync(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Verify_passwordPostResponse?> PostAsync(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Verify_passwordPostResponse> PostAsync(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Verify_passwordPostResponse> PostAsync(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"500", ClerkErrors.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<Verify_passwordPostResponse>(requestInfo, Verify_passwordPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
@@ -57,10 +63,12 @@ namespace Clerk.Net.Client.Users.Item.Verify_password {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Verify_passwordPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -74,7 +82,8 @@ namespace Clerk.Net.Client.Users.Item.Verify_password {
         /// </summary>
         /// <returns>A <see cref="Verify_passwordRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Verify_passwordRequestBuilder WithUrl(string rawUrl) {
+        public Verify_passwordRequestBuilder WithUrl(string rawUrl)
+        {
             return new Verify_passwordRequestBuilder(rawUrl, RequestAdapter);
         }
     }

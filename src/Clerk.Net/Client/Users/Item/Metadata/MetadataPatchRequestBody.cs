@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Users.Item.Metadata {
-    public class MetadataPatchRequestBody : IParsable {
+    public class MetadataPatchRequestBody : IParsable 
+    {
         /// <summary>Metadata saved on the user that is only visible to your backend.The new object will be merged with the existing value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -35,7 +36,8 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
         /// </summary>
         /// <returns>A <see cref="MetadataPatchRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static MetadataPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static MetadataPatchRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new MetadataPatchRequestBody();
         }
@@ -43,8 +45,10 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"private_metadata", n => { PrivateMetadata = n.GetObjectValue<MetadataPatchRequestBody_private_metadata>(MetadataPatchRequestBody_private_metadata.CreateFromDiscriminatorValue); } },
                 {"public_metadata", n => { PublicMetadata = n.GetObjectValue<MetadataPatchRequestBody_public_metadata>(MetadataPatchRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
                 {"unsafe_metadata", n => { UnsafeMetadata = n.GetObjectValue<MetadataPatchRequestBody_unsafe_metadata>(MetadataPatchRequestBody_unsafe_metadata.CreateFromDiscriminatorValue); } },
@@ -54,7 +58,8 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<MetadataPatchRequestBody_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<MetadataPatchRequestBody_public_metadata>("public_metadata", PublicMetadata);

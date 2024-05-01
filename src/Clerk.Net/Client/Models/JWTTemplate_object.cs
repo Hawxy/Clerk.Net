@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum JWTTemplate_object {
+    public enum JWTTemplate_object
+    {
         [EnumMember(Value = "jwt_template")]
         Jwt_template,
     }

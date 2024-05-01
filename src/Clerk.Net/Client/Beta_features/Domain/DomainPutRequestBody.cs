@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System;
 namespace Clerk.Net.Client.Beta_features.Domain {
-    public class DomainPutRequestBody : IParsable {
+    public class DomainPutRequestBody : IParsable 
+    {
         /// <summary>The new home URL of the production instance e.g. https://www.example.com</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -19,7 +20,8 @@ namespace Clerk.Net.Client.Beta_features.Domain {
         /// </summary>
         /// <returns>A <see cref="DomainPutRequestBody"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static DomainPutRequestBody CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static DomainPutRequestBody CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new DomainPutRequestBody();
         }
@@ -27,8 +29,10 @@ namespace Clerk.Net.Client.Beta_features.Domain {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
                 {"home_url", n => { HomeUrl = n.GetStringValue(); } },
             };
         }
@@ -36,7 +40,8 @@ namespace Clerk.Net.Client.Beta_features.Domain {
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("home_url", HomeUrl);
         }

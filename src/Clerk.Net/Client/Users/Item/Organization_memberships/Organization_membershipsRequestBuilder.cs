@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Users.Item.Organization_memberships {
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\organization_memberships
     /// </summary>
-    public class Organization_membershipsRequestBuilder : BaseRequestBuilder {
+    public class Organization_membershipsRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="Organization_membershipsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Organization_membershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/organization_memberships{?limit*,offset*}", pathParameters) {
+        public Organization_membershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/organization_memberships{?limit*,offset*}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Organization_membershipsRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Organization_membershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/organization_memberships{?limit*,offset*}", rawUrl) {
+        public Organization_membershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/organization_memberships{?limit*,offset*}", rawUrl)
+        {
         }
         /// <summary>
         /// Retrieve a paginated list of the user&apos;s organization memberships
@@ -36,13 +39,16 @@ namespace Clerk.Net.Client.Users.Item.Organization_memberships {
         /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<OrganizationMemberships?> GetAsync(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationMemberships?> GetAsync(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<OrganizationMemberships> GetAsync(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<OrganizationMemberships> GetAsync(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"403", ClerkErrors.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<OrganizationMemberships>(requestInfo, OrganizationMemberships.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
@@ -54,10 +60,12 @@ namespace Clerk.Net.Client.Users.Item.Organization_memberships {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<Organization_membershipsRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -69,14 +77,16 @@ namespace Clerk.Net.Client.Users.Item.Organization_memberships {
         /// </summary>
         /// <returns>A <see cref="Organization_membershipsRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Organization_membershipsRequestBuilder WithUrl(string rawUrl) {
+        public Organization_membershipsRequestBuilder WithUrl(string rawUrl)
+        {
             return new Organization_membershipsRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Retrieve a paginated list of the user&apos;s organization memberships
         /// </summary>
-        public class Organization_membershipsRequestBuilderGetQueryParameters {
-            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.Must be an integer greater than zero and less than 500.By default, if not supplied, a limit of 10 is used.</summary>
+        public class Organization_membershipsRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>

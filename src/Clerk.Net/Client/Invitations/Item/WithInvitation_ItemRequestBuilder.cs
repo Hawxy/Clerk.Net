@@ -10,24 +10,28 @@ namespace Clerk.Net.Client.Invitations.Item {
     /// <summary>
     /// Builds and executes requests for operations under \invitations\{invitation_id}
     /// </summary>
-    public class WithInvitation_ItemRequestBuilder : BaseRequestBuilder {
+    public class WithInvitation_ItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>The revoke property</summary>
-        public RevokeRequestBuilder Revoke { get =>
-            new RevokeRequestBuilder(PathParameters, RequestAdapter);
+        public RevokeRequestBuilder Revoke
+        {
+            get => new RevokeRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="WithInvitation_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithInvitation_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations/{invitation_id}", pathParameters) {
+        public WithInvitation_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations/{invitation_id}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="WithInvitation_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithInvitation_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations/{invitation_id}", rawUrl) {
+        public WithInvitation_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/invitations/{invitation_id}", rawUrl)
+        {
         }
     }
 }

@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum OrganizationSettings_domains_enrollment_modes {
+    public enum OrganizationSettings_domains_enrollment_modes
+    {
         [EnumMember(Value = "manual_invitation")]
         Manual_invitation,
         [EnumMember(Value = "automatic_invitation")]

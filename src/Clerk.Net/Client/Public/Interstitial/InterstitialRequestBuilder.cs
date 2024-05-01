@@ -11,20 +11,23 @@ namespace Clerk.Net.Client.Public.Interstitial {
     /// <summary>
     /// Builds and executes requests for operations under \public\interstitial
     /// </summary>
-    public class InterstitialRequestBuilder : BaseRequestBuilder {
+    public class InterstitialRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="InterstitialRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InterstitialRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", pathParameters) {
+        public InterstitialRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="InterstitialRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InterstitialRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", rawUrl) {
+        public InterstitialRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", rawUrl)
+        {
         }
         /// <summary>
         /// The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user&apos;s authentication state.It is used by Clerk SDKs when the user&apos;s authentication state cannot be immediately determined.
@@ -34,10 +37,12 @@ namespace Clerk.Net.Client.Public.Interstitial {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Stream?> GetAsync(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Stream?> GetAsync(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Stream> GetAsync(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Stream> GetAsync(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
@@ -49,10 +54,12 @@ namespace Clerk.Net.Client.Public.Interstitial {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<InterstitialRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
@@ -63,13 +70,15 @@ namespace Clerk.Net.Client.Public.Interstitial {
         /// </summary>
         /// <returns>A <see cref="InterstitialRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public InterstitialRequestBuilder WithUrl(string rawUrl) {
+        public InterstitialRequestBuilder WithUrl(string rawUrl)
+        {
             return new InterstitialRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user&apos;s authentication state.It is used by Clerk SDKs when the user&apos;s authentication state cannot be immediately determined.
         /// </summary>
-        public class InterstitialRequestBuilderGetQueryParameters {
+        public class InterstitialRequestBuilderGetQueryParameters 
+        {
             /// <summary>The Frontend API key of your instance</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

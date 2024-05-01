@@ -12,20 +12,23 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\verify_totp
     /// </summary>
-    public class Verify_totpRequestBuilder : BaseRequestBuilder {
+    public class Verify_totpRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
         /// Instantiates a new <see cref="Verify_totpRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Verify_totpRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_totp", pathParameters) {
+        public Verify_totpRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_totp", pathParameters)
+        {
         }
         /// <summary>
         /// Instantiates a new <see cref="Verify_totpRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Verify_totpRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_totp", rawUrl) {
+        public Verify_totpRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/verify_totp", rawUrl)
+        {
         }
         /// <summary>
         /// Verify that the provided TOTP or backup code is valid for the user.Verifying a backup code will result it in being consumed (i.e. it willbecome invalid).Useful for custom auth flows and re-verification.
@@ -37,14 +40,17 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
         /// <exception cref="ClerkErrors">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Verify_totpPostResponse?> PostAsync(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Verify_totpPostResponse?> PostAsync(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Verify_totpPostResponse> PostAsync(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Verify_totpPostResponse> PostAsync(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
                 {"500", ClerkErrors.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<Verify_totpPostResponse>(requestInfo, Verify_totpPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
@@ -57,10 +63,12 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default) {
+        public RequestInformation ToPostRequestInformation(Verify_totpPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
@@ -74,7 +82,8 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp {
         /// </summary>
         /// <returns>A <see cref="Verify_totpRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public Verify_totpRequestBuilder WithUrl(string rawUrl) {
+        public Verify_totpRequestBuilder WithUrl(string rawUrl)
+        {
             return new Verify_totpRequestBuilder(rawUrl, RequestAdapter);
         }
     }

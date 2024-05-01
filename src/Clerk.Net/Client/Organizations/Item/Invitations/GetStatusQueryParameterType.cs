@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Organizations.Item.Invitations {
-    public enum GetStatusQueryParameterType {
+    public enum GetStatusQueryParameterType
+    {
         [EnumMember(Value = "pending")]
         Pending,
         [EnumMember(Value = "accepted")]

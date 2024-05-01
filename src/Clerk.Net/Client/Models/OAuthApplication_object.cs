@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models {
-    public enum OAuthApplication_object {
+    public enum OAuthApplication_object
+    {
         [EnumMember(Value = "oauth_application")]
         Oauth_application,
     }

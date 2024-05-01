@@ -8,13 +8,15 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
     /// <summary>
     /// Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.The new object will be merged with the existing value.Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
     /// </summary>
-    public class MetadataPatchRequestBody_unsafe_metadata : IAdditionalDataHolder, IParsable {
+    public class MetadataPatchRequestBody_unsafe_metadata : IAdditionalDataHolder, IParsable 
+    {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="MetadataPatchRequestBody_unsafe_metadata"/> and sets the default values.
         /// </summary>
-        public MetadataPatchRequestBody_unsafe_metadata() {
+        public MetadataPatchRequestBody_unsafe_metadata()
+        {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
@@ -22,7 +24,8 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
         /// </summary>
         /// <returns>A <see cref="MetadataPatchRequestBody_unsafe_metadata"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static MetadataPatchRequestBody_unsafe_metadata CreateFromDiscriminatorValue(IParseNode parseNode) {
+        public static MetadataPatchRequestBody_unsafe_metadata CreateFromDiscriminatorValue(IParseNode parseNode)
+        {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
             return new MetadataPatchRequestBody_unsafe_metadata();
         }
@@ -30,15 +33,18 @@ namespace Clerk.Net.Client.Users.Item.Metadata {
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers() {
-            return new Dictionary<string, Action<IParseNode>> {
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        {
+            return new Dictionary<string, Action<IParseNode>>
+            {
             };
         }
         /// <summary>
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public virtual void Serialize(ISerializationWriter writer) {
+        public virtual void Serialize(ISerializationWriter writer)
+        {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteAdditionalData(AdditionalData);
         }
