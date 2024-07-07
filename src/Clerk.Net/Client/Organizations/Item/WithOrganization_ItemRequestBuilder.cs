@@ -4,42 +4,44 @@ using Clerk.Net.Client.Organizations.Item.Invitations;
 using Clerk.Net.Client.Organizations.Item.Logo;
 using Clerk.Net.Client.Organizations.Item.Memberships;
 using Clerk.Net.Client.Organizations.Item.Metadata;
+using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
-namespace Clerk.Net.Client.Organizations.Item {
+namespace Clerk.Net.Client.Organizations.Item
+{
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}
     /// </summary>
-    public class WithOrganization_ItemRequestBuilder : BaseRequestBuilder 
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    public partial class WithOrganization_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The invitations property</summary>
-        public InvitationsRequestBuilder Invitations
+        public global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsRequestBuilder Invitations
         {
-            get => new InvitationsRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The logo property</summary>
-        public LogoRequestBuilder Logo
+        public global::Clerk.Net.Client.Organizations.Item.Logo.LogoRequestBuilder Logo
         {
-            get => new LogoRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Clerk.Net.Client.Organizations.Item.Logo.LogoRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The memberships property</summary>
-        public MembershipsRequestBuilder Memberships
+        public global::Clerk.Net.Client.Organizations.Item.Memberships.MembershipsRequestBuilder Memberships
         {
-            get => new MembershipsRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Clerk.Net.Client.Organizations.Item.Memberships.MembershipsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The metadata property</summary>
-        public MetadataRequestBuilder Metadata
+        public global::Clerk.Net.Client.Organizations.Item.Metadata.MetadataRequestBuilder Metadata
         {
-            get => new MetadataRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Clerk.Net.Client.Organizations.Item.Metadata.MetadataRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new <see cref="WithOrganization_ItemRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Organizations.Item.WithOrganization_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -47,7 +49,7 @@ namespace Clerk.Net.Client.Organizations.Item {
         {
         }
         /// <summary>
-        /// Instantiates a new <see cref="WithOrganization_ItemRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Organizations.Item.WithOrganization_ItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -57,79 +59,79 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// <summary>
         /// Deletes the given organization.Please note that deleting an organization will also delete all memberships and invitations.This is not reversible.
         /// </summary>
-        /// <returns>A <see cref="DeletedObject"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.DeletedObject"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.DeletedObject?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<DeletedObject> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.DeletedObject> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                {"404", ClerkErrors.CreateFromDiscriminatorValue},
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<DeletedObject>(requestInfo, DeletedObject.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.DeletedObject>(requestInfo, global::Clerk.Net.Client.Models.DeletedObject.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Fetches the organization whose ID or slug matches the provided `id_or_slug` URL query parameter.
         /// </summary>
-        /// <returns>A <see cref="Organization"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.Organization"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Organization?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.Organization?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Organization> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.Organization> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                {"403", ClerkErrors.CreateFromDiscriminatorValue},
-                {"404", ClerkErrors.CreateFromDiscriminatorValue},
+                { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<Organization>(requestInfo, Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.Organization>(requestInfo, global::Clerk.Net.Client.Models.Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Updates an existing organization
         /// </summary>
-        /// <returns>A <see cref="Organization"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.Organization"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="ClerkErrors">When receiving a 402 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 404 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 402 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Organization?> PatchAsync(WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.Organization?> PatchAsync(global::Clerk.Net.Client.Organizations.Item.WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<Organization> PatchAsync(WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.Organization> PatchAsync(global::Clerk.Net.Client.Organizations.Item.WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                {"402", ClerkErrors.CreateFromDiscriminatorValue},
-                {"404", ClerkErrors.CreateFromDiscriminatorValue},
-                {"422", ClerkErrors.CreateFromDiscriminatorValue},
+                { "402", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<Organization>(requestInfo, Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.Organization>(requestInfo, global::Clerk.Net.Client.Models.Organization.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Deletes the given organization.Please note that deleting an organization will also delete all memberships and invitations.This is not reversible.
@@ -177,11 +179,11 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Clerk.Net.Client.Organizations.Item.WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Clerk.Net.Client.Organizations.Item.WithOrganization_PatchRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
@@ -194,11 +196,11 @@ namespace Clerk.Net.Client.Organizations.Item {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
-        /// <returns>A <see cref="WithOrganization_ItemRequestBuilder"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Organizations.Item.WithOrganization_ItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithOrganization_ItemRequestBuilder WithUrl(string rawUrl)
+        public global::Clerk.Net.Client.Organizations.Item.WithOrganization_ItemRequestBuilder WithUrl(string rawUrl)
         {
-            return new WithOrganization_ItemRequestBuilder(rawUrl, RequestAdapter);
+            return new global::Clerk.Net.Client.Organizations.Item.WithOrganization_ItemRequestBuilder(rawUrl, RequestAdapter);
         }
     }
 }

@@ -1,14 +1,15 @@
 {
-  "descriptionHash": "D518D684C791F1DFCF4473F70129051B4944FAC8BB353F54563BDDACE6C07F257DC2707745BBB58C29422AD2433BDCF8CBC62364DDB75C634CC02DACB5211862",
-  "descriptionLocation": "..\\swagger.json",
+  "descriptionHash": "5F6723560CA1AE2A55190172B5D9F2B8EA948B2F74D708DDD37CCB401DFB7BA64ED3729BFE7EC68298334BA743715D01F5396ACD1FBE01E1C8C37A52BAEA41CF",
+  "descriptionLocation": "../swagger.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.13.0",
+  "kiotaVersion": "1.16.0",
   "clientClassName": "ClerkApiClient",
   "clientNamespaceName": "Clerk.Net.Client",
   "language": "CSharp",
   "usesBackingStore": false,
   "excludeBackwardCompatible": true,
   "includeAdditionalData": true,
+  "disableSSLValidation": false,
   "serializers": [
     "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
     "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
