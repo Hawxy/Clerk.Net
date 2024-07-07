@@ -2,39 +2,41 @@
 using Clerk.Net.Client.Models;
 using Clerk.Net.Client.Users.Count;
 using Clerk.Net.Client.Users.Item;
+using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
-namespace Clerk.Net.Client.Users {
+namespace Clerk.Net.Client.Users
+{
     /// <summary>
     /// Builds and executes requests for operations under \users
     /// </summary>
-    public class UsersRequestBuilder : BaseRequestBuilder 
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    public partial class UsersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The count property</summary>
-        public CountRequestBuilder Count
+        public global::Clerk.Net.Client.Users.Count.CountRequestBuilder Count
         {
-            get => new CountRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Clerk.Net.Client.Users.Count.CountRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Gets an item from the Clerk.Net.Client.users.item collection</summary>
         /// <param name="position">The ID of the user to retrieve</param>
-        /// <returns>A <see cref="WithUser_ItemRequestBuilder"/></returns>
-        public WithUser_ItemRequestBuilder this[string position]
+        /// <returns>A <see cref="global::Clerk.Net.Client.Users.Item.WithUser_ItemRequestBuilder"/></returns>
+        public global::Clerk.Net.Client.Users.Item.WithUser_ItemRequestBuilder this[string position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
                 urlTplParams.Add("user_id", position);
-                return new WithUser_ItemRequestBuilder(urlTplParams, RequestAdapter);
+                return new global::Clerk.Net.Client.Users.Item.WithUser_ItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
         /// <summary>
-        /// Instantiates a new <see cref="UsersRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Users.UsersRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -42,7 +44,7 @@ namespace Clerk.Net.Client.Users {
         {
         }
         /// <summary>
-        /// Instantiates a new <see cref="UsersRequestBuilder"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Users.UsersRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
@@ -52,61 +54,61 @@ namespace Clerk.Net.Client.Users {
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
         /// </summary>
-        /// <returns>A List&lt;User&gt;</returns>
+        /// <returns>A List&lt;global::Clerk.Net.Client.Models.User&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<User>?> GetAsync(Action<RequestConfiguration<UsersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.User>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.UsersRequestBuilder.UsersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<User>> GetAsync(Action<RequestConfiguration<UsersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.User>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.UsersRequestBuilder.UsersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                {"400", ClerkErrors.CreateFromDiscriminatorValue},
-                {"401", ClerkErrors.CreateFromDiscriminatorValue},
-                {"422", ClerkErrors.CreateFromDiscriminatorValue},
+                { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "401", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<User>(requestInfo, User.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-            return collectionResult?.ToList();
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Clerk.Net.Client.Models.User>(requestInfo, global::Clerk.Net.Client.Models.User.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return collectionResult?.AsList();
         }
         /// <summary>
         /// Creates a new user. Your user management settings determine how you should setup your user model.Any email address and phone number created using this method will be marked as verified.Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
         /// </summary>
-        /// <returns>A <see cref="User"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.User"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="ClerkErrors">When receiving a 400 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 401 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 403 status code</exception>
-        /// <exception cref="ClerkErrors">When receiving a 422 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<User?> PostAsync(UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.User?> PostAsync(global::Clerk.Net.Client.Users.UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<User> PostAsync(UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Models.User> PostAsync(global::Clerk.Net.Client.Users.UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
-                {"400", ClerkErrors.CreateFromDiscriminatorValue},
-                {"401", ClerkErrors.CreateFromDiscriminatorValue},
-                {"403", ClerkErrors.CreateFromDiscriminatorValue},
-                {"422", ClerkErrors.CreateFromDiscriminatorValue},
+                { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "401", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<User>(requestInfo, User.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.User>(requestInfo, global::Clerk.Net.Client.Models.User.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
@@ -115,11 +117,11 @@ namespace Clerk.Net.Client.Users {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<UsersRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Users.UsersRequestBuilder.UsersRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<UsersRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Users.UsersRequestBuilder.UsersRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
@@ -135,15 +137,15 @@ namespace Clerk.Net.Client.Users {
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Users.UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Users.UsersPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation(Method.POST, "{+baseurl}/users", PathParameters);
+            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
@@ -152,16 +154,17 @@ namespace Clerk.Net.Client.Users {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
-        /// <returns>A <see cref="UsersRequestBuilder"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Users.UsersRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public UsersRequestBuilder WithUrl(string rawUrl)
+        public global::Clerk.Net.Client.Users.UsersRequestBuilder WithUrl(string rawUrl)
         {
-            return new UsersRequestBuilder(rawUrl, RequestAdapter);
+            return new global::Clerk.Net.Client.Users.UsersRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
         /// </summary>
-        public class UsersRequestBuilderGetQueryParameters 
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        public partial class UsersRequestBuilderGetQueryParameters 
         {
             /// <summary>Returns users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
