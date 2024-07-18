@@ -98,7 +98,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 ```
 
-Your frontend should call Clerk-JS's `getToken` as part of its HTTP middleware and append the token (prefixed with `Bearer`) to the `Authorization` header, for example:
+If you're sending requests from a SPA, it should call Clerk-JS's `getToken` as part of its HTTP middleware and append the token (prefixed with `Bearer`) to the `Authorization` header, for example:
 ```ts
 async onRequestInit({ requestInit }) {
     requestInit.headers = {
@@ -107,6 +107,8 @@ async onRequestInit({ requestInit }) {
     }
 }
 ```
+
+If the requests are coming from an SSR environment (ie NextJS), then you can either use the session JWT via the `__session` cookie and forward it on, or use a JWT template to create a unique JWT for your scenario.
 
 ### Disclaimer
 
