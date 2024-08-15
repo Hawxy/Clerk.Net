@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Users
     /// <summary>
     /// Metadata saved on the user, that is visible to both your Frontend and Backend APIs
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class UsersPostRequestBody_public_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

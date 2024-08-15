@@ -12,7 +12,7 @@ namespace Clerk.Net.Client.Public.Interstitial
     /// <summary>
     /// Builds and executes requests for operations under \public\interstitial
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class InterstitialRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -79,7 +79,7 @@ namespace Clerk.Net.Client.Public.Interstitial
         /// <summary>
         /// The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user&apos;s authentication state.It is used by Clerk SDKs when the user&apos;s authentication state cannot be immediately determined.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class InterstitialRequestBuilderGetQueryParameters 
         {
             /// <summary>The Frontend API key of your instance</summary>

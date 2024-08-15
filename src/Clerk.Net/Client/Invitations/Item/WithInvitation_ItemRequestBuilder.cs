@@ -11,7 +11,7 @@ namespace Clerk.Net.Client.Invitations.Item
     /// <summary>
     /// Builds and executes requests for operations under \invitations\{invitation_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithInvitation_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The revoke property</summary>

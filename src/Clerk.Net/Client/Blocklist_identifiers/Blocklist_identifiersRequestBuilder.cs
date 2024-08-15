@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Blocklist_identifiers
     /// <summary>
     /// Builds and executes requests for operations under \blocklist_identifiers
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Blocklist_identifiersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.blocklist_identifiers.item collection</summary>

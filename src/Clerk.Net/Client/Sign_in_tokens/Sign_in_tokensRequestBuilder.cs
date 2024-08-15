@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Sign_in_tokens
     /// <summary>
     /// Builds and executes requests for operations under \sign_in_tokens
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Sign_in_tokensRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.sign_in_tokens.item collection</summary>

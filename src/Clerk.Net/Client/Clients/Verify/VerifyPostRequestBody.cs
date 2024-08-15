@@ -6,12 +6,12 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Clients.Verify
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class VerifyPostRequestBody : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>A JWT Token that represents the active client.</summary>
+        /// <summary>A JWT that represents the active client.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Token { get; set; }

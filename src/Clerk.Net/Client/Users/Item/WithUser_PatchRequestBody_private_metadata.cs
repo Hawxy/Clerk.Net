@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Users.Item
     /// <summary>
     /// Metadata saved on the user, that is only visible to your Backend API
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithUser_PatchRequestBody_private_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

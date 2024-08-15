@@ -6,11 +6,13 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Domains.Item
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class WithDomain_PatchRequestBody : IParsable
     #pragma warning restore CS1591
     {
+        /// <summary>Whether this is a domain for a secondary app, meaning that any subdomain provided is significant andwill be stored as part of the domain. This is useful for supporting multiple apps (one primary andmultiple secondaries) on the same root domain (eTLD+1).</summary>
+        public bool? IsSecondary { get; set; }
         /// <summary>The new domain name. For development instances, can contain the port,i.e `myhostname:3000`. For production instances, must be a valid FQDN,i.e `mysite.com`. Cannot contain protocol scheme.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -45,6 +47,7 @@ namespace Clerk.Net.Client.Domains.Item
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "is_secondary", n => { IsSecondary = n.GetBoolValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "proxy_url", n => { ProxyUrl = n.GetStringValue(); } },
             };
@@ -56,6 +59,7 @@ namespace Clerk.Net.Client.Domains.Item
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteBoolValue("is_secondary", IsSecondary);
             writer.WriteStringValue("name", Name);
             writer.WriteStringValue("proxy_url", ProxyUrl);
         }

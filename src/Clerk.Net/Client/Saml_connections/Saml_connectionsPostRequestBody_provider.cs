@@ -3,8 +3,8 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Saml_connections
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
     /// <summary>The IdP provider of the connection.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public enum Saml_connectionsPostRequestBody_provider
     {
         [EnumMember(Value = "saml_custom")]

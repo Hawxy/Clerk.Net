@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Users
     /// <summary>
     /// Builds and executes requests for operations under \users
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class UsersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The count property</summary>
@@ -163,7 +163,7 @@ namespace Clerk.Net.Client.Users
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class UsersRequestBuilderGetQueryParameters 
         {
             /// <summary>Returns users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>

@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Templates.Item.Item.Preview
     /// <summary>
     /// Builds and executes requests for operations under \templates\{template_type}\{slug}\preview
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class PreviewRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

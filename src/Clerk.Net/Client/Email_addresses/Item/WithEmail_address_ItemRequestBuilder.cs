@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Email_addresses.Item
     /// <summary>
     /// Builds and executes requests for operations under \email_addresses\{email_address_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithEmail_address_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

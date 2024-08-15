@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Sessions
     /// <summary>
     /// Builds and executes requests for operations under \sessions
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class SessionsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.sessions.item collection</summary>
@@ -104,7 +104,7 @@ namespace Clerk.Net.Client.Sessions
         /// <summary>
         /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class SessionsRequestBuilderGetQueryParameters 
         {
             /// <summary>List sessions for the given client</summary>

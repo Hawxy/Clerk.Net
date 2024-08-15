@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships.Item.Metadata
     /// <summary>
     /// Metadata saved on the organization membership that is only visible to your backend.The new object will be merged with the existing value.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class MetadataPatchRequestBody_private_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Actor_tokens
     /// <summary>
     /// Builds and executes requests for operations under \actor_tokens
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Actor_tokensRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.actor_tokens.item collection</summary>

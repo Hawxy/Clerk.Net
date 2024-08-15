@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Jwt_templates
     /// <summary>
     /// Builds and executes requests for operations under \jwt_templates
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Jwt_templatesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.jwt_templates.item collection</summary>

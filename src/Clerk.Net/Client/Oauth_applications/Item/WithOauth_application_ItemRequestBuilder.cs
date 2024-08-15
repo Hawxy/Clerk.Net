@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
     /// <summary>
     /// Builds and executes requests for operations under \oauth_applications\{oauth_application_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithOauth_application_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The rotate_secret property</summary>

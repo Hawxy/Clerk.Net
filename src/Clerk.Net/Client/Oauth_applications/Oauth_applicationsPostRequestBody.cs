@@ -6,7 +6,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Oauth_applications
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class Oauth_applicationsPostRequestBody : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591

@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Users
     /// <summary>
     /// Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class UsersPostRequestBody_unsafe_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

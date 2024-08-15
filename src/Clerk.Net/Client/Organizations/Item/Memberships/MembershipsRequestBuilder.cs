@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\memberships
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class MembershipsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.organizations.item.memberships.item collection</summary>
@@ -71,7 +71,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.OrganizationMemberships>(requestInfo, global::Clerk.Net.Client.Models.OrganizationMemberships.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Adds a user as a member to the given organization.Only users in the same instance as the organization can be added as members.
+        /// Adds a user as a member to the given organization.Only users in the same instance as the organization can be added as members.This organization will be the user&apos;s [active organization] (https://clerk.com/docs/organizations/overview#active-organization)the next time they create a session, presuming they don&apos;t explicitly set adifferent organization as active before then.
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationMembership"/></returns>
         /// <param name="body">The request body</param>
@@ -121,7 +121,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
             return requestInfo;
         }
         /// <summary>
-        /// Adds a user as a member to the given organization.Only users in the same instance as the organization can be added as members.
+        /// Adds a user as a member to the given organization.Only users in the same instance as the organization can be added as members.This organization will be the user&apos;s [active organization] (https://clerk.com/docs/organizations/overview#active-organization)the next time they create a session, presuming they don&apos;t explicitly set adifferent organization as active before then.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -154,7 +154,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         /// <summary>
         /// Retrieves all user memberships for the given organization
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class MembershipsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

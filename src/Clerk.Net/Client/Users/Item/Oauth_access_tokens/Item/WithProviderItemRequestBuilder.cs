@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\oauth_access_tokens\{provider}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithProviderItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

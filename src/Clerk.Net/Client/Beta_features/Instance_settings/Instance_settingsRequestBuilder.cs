@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings
     /// <summary>
     /// Builds and executes requests for operations under \beta_features\instance_settings
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Instance_settingsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

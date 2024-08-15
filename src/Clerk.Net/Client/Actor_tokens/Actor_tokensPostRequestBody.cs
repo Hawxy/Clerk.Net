@@ -6,7 +6,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Actor_tokens
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class Actor_tokensPostRequestBody : IParsable
     #pragma warning restore CS1591
@@ -23,7 +23,7 @@ namespace Clerk.Net.Client.Actor_tokens
         public int? ExpiresInSeconds { get; set; }
         /// <summary>The maximum duration that the session which will be created by the generated actor token should last.By default, the duration of a session created via an actor token, lasts 30 minutes.</summary>
         public int? SessionMaxDurationInSeconds { get; set; }
-        /// <summary>The ID of the user that can use the newly created sign in token.</summary>
+        /// <summary>The ID of the user being impersonated.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? UserId { get; set; }

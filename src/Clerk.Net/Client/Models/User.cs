@@ -6,7 +6,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class User : IParsable
     #pragma warning restore CS1591
@@ -19,6 +19,8 @@ namespace Clerk.Net.Client.Models
         public long? CreatedAt { get; set; }
         /// <summary>If enabled, user can create organizations via FAPI.</summary>
         public bool? CreateOrganizationEnabled { get; set; }
+        /// <summary>The maximum number of organizations the user can create. 0 means unlimited.</summary>
+        public int? CreateOrganizationsLimit { get; set; }
         /// <summary>If enabled, user can delete themselves via FAPI.</summary>
         public bool? DeleteSelfEnabled { get; set; }
         /// <summary>The email_addresses property</summary>
@@ -221,6 +223,7 @@ namespace Clerk.Net.Client.Models
                 { "backup_code_enabled", n => { BackupCodeEnabled = n.GetBoolValue(); } },
                 { "banned", n => { Banned = n.GetBoolValue(); } },
                 { "create_organization_enabled", n => { CreateOrganizationEnabled = n.GetBoolValue(); } },
+                { "create_organizations_limit", n => { CreateOrganizationsLimit = n.GetIntValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "delete_self_enabled", n => { DeleteSelfEnabled = n.GetBoolValue(); } },
                 { "email_addresses", n => { EmailAddresses = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.EmailAddress>(global::Clerk.Net.Client.Models.EmailAddress.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -268,6 +271,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteBoolValue("banned", Banned);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteBoolValue("create_organization_enabled", CreateOrganizationEnabled);
+            writer.WriteIntValue("create_organizations_limit", CreateOrganizationsLimit);
             writer.WriteBoolValue("delete_self_enabled", DeleteSelfEnabled);
             writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.EmailAddress>("email_addresses", EmailAddresses);
             writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.User_external_accounts>("external_accounts", ExternalAccounts);

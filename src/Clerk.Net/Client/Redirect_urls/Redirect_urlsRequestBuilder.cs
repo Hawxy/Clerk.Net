@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Redirect_urls
     /// <summary>
     /// Builds and executes requests for operations under \redirect_urls
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Redirect_urlsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.redirect_urls.item collection</summary>

@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Jwt_templates.Item
     /// <summary>
     /// Builds and executes requests for operations under \jwt_templates\{template_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class WithTemplate_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

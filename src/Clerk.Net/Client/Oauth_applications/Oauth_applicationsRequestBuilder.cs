@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Oauth_applications
     /// <summary>
     /// Builds and executes requests for operations under \oauth_applications
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Oauth_applicationsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.oauth_applications.item collection</summary>
@@ -154,7 +154,7 @@ namespace Clerk.Net.Client.Oauth_applications
         /// <summary>
         /// This request returns the list of OAuth applications for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The OAuth applications are ordered by descending creation date.Most recent OAuth applications will be returned first.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class Oauth_applicationsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

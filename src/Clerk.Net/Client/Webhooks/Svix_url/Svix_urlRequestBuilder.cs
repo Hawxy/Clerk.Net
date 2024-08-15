@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Webhooks.Svix_url
     /// <summary>
     /// Builds and executes requests for operations under \webhooks\svix_url
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Svix_urlRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

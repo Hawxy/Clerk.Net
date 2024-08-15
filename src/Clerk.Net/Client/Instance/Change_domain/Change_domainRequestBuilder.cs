@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Instance.Change_domain
     /// <summary>
     /// Builds and executes requests for operations under \instance\change_domain
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class Change_domainRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

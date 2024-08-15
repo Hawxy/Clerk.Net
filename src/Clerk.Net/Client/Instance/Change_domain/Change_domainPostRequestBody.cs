@@ -6,7 +6,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Instance.Change_domain
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public partial class Change_domainPostRequestBody : IParsable
     #pragma warning restore CS1591
@@ -19,6 +19,8 @@ namespace Clerk.Net.Client.Instance.Change_domain
 #else
         public string HomeUrl { get; set; }
 #endif
+        /// <summary>Whether this is a domain for a secondary app, meaning that any subdomain provided is significant andwill be stored as part of the domain. This is useful for supporting multiple apps (one primary andmultiple secondaries) on the same root domain (eTLD+1).</summary>
+        public bool? IsSecondary { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -38,6 +40,7 @@ namespace Clerk.Net.Client.Instance.Change_domain
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "home_url", n => { HomeUrl = n.GetStringValue(); } },
+                { "is_secondary", n => { IsSecondary = n.GetBoolValue(); } },
             };
         }
         /// <summary>
@@ -48,6 +51,7 @@ namespace Clerk.Net.Client.Instance.Change_domain
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("home_url", HomeUrl);
+            writer.WriteBoolValue("is_secondary", IsSecondary);
         }
     }
 }

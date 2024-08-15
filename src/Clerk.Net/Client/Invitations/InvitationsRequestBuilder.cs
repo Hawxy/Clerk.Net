@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Invitations
     /// <summary>
     /// Builds and executes requests for operations under \invitations
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     public partial class InvitationsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.invitations.item collection</summary>
@@ -144,7 +144,7 @@ namespace Clerk.Net.Client.Invitations
         /// <summary>
         /// Returns all non-revoked invitations for your application, sorted by creation date
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
         public partial class InvitationsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

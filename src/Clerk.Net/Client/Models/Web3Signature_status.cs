@@ -3,14 +3,26 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
     #pragma warning disable CS1591
     public enum Web3Signature_status
     #pragma warning restore CS1591
     {
+        [EnumMember(Value = "unverified")]
+        #pragma warning disable CS1591
+        Unverified,
+        #pragma warning restore CS1591
         [EnumMember(Value = "verified")]
         #pragma warning disable CS1591
         Verified,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "failed")]
+        #pragma warning disable CS1591
+        Failed,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "expired")]
+        #pragma warning disable CS1591
+        Expired,
         #pragma warning restore CS1591
     }
 }
