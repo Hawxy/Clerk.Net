@@ -6,6 +6,7 @@
 _Looking for ASP.NET Core w/ Clerk JWTs? [See below](#what-about-jwt-auth)._
 
 ### Packages
+
 **`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
 
 **`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container. Compatible with .NET 6+.
@@ -20,12 +21,14 @@ Make sure to add your `SecretKey` to your application configuration, ideally via
 
 1. Install `Clerk.Net.DependencyInjection` from Nuget.
 2. Add the following code to your service configuration:
+
 ```cs
 builder.Services.AddClerkApiClient(config =>
 {
     config.SecretKey = builder.Configuration["Clerk:SecretKey"]!
 });
 ```
+
 3. Request the `ClerkApiClient` in your services
 
 ```cs
@@ -50,7 +53,7 @@ public class MyBackgroundWorker : BackgroundService
 
 ### Standalone Client
 
-If you want to use the client by itself, install `Clerk.Net` and call `ClerkApiClientFactory.Create`, passing in your secret key. 
+If you want to use the client by itself, install `Clerk.Net` and call `ClerkApiClientFactory.Create`, passing in your secret key.
 
 The returned client should be treated as a singleton and created once for the lifetime of your application.
 
@@ -80,7 +83,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             // Disable audience validation as we aren't using it
             ValidateAudience = false,
-            NameClaimType = ClaimTypes.NameIdentifier 
+            NameClaimType = ClaimTypes.NameIdentifier
         };
         x.Events = new JwtBearerEvents()
         {
@@ -99,6 +102,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 ```
 
 If you're sending requests from a SPA, it should call Clerk-JS's `getToken` as part of its HTTP middleware and append the token (prefixed with `Bearer`) to the `Authorization` header, for example:
+
 ```ts
 async onRequestInit({ requestInit }) {
     requestInit.headers = {
@@ -109,6 +113,108 @@ async onRequestInit({ requestInit }) {
 ```
 
 If the requests are coming from an SSR environment (ie NextJS), then you can either use the session JWT via the `__session` cookie and forward it on, or use a JWT template to create a unique JWT for your scenario.
+
+### Sync Clerk data with Webhooks
+
+If you're accepting webhooks from Clerk, you will need to validate the incoming webhook signature. To do this, you'll need to install the `Svix` package:
+
+```bash
+dotnet add package Svix
+```
+
+Then, you can use the following code to validate the webhook signature:
+
+```cs
+    [HttpPost("webhook")]
+    public async Task<IActionResult> ClerkWebhook(IConfiguration configuration)
+    {
+        // Retrieve the Clerk webhook secret from the configuration
+        var clerkWebhookSecret = configuration["Clerk:WebhookSecret"];
+
+        // Read the request body
+        var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+
+        // Retrieve the Svix headers
+        var svixId = Request.Headers["svix-id"].ToString();
+        var svixTimestamp = Request.Headers["svix-timestamp"].ToString();
+        var svixSignature = Request.Headers["svix-signature"].ToString();
+
+        if (string.IsNullOrEmpty(svixId) || string.IsNullOrEmpty(svixTimestamp) || string.IsNullOrEmpty(svixSignature))
+        {
+            return BadRequest("Missing headers");
+        }
+
+        // Attempt signature verification with the raw signature
+        var wh = new Webhook(clerkWebhookSecret);
+        WebHeaderCollection headers = new WebHeaderCollection
+        {
+            { "svix-id", svixId },
+            { "svix-timestamp", svixTimestamp },
+            { "svix-signature", svixSignature }
+        };
+
+        Event webhookEvent;
+        try
+        {
+            wh.Verify(json, headers); // Verify doesn't return an event, just verifies the signature
+            webhookEvent = JsonSerializer.Deserialize<Event>(json); // Deserialize the JSON into an Event object
+        }
+        catch (Svix.Exceptions.WebhookVerificationException ex)
+        {
+            return BadRequest("Invalid signature");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("An error occurred");
+        }
+
+        switch (webhookEvent.Type)
+        {
+            case "user.created":
+                // Handle user created event
+                break;
+            case "user.updated":
+                // Handle user updated event
+                break;
+            case "user.deleted":
+                // Handle user deleted event
+                break;
+
+            default:
+                return BadRequest("Unhandled event type");
+        }
+
+        return Ok();
+    }
+
+    // Define the Event class to represent the webhook event
+    public class Event
+    {
+        public string? Type { get; set; }
+        public ClerkUser? Data { get; set; }
+    }
+
+    public class ClerkUser
+    {
+        public string? Id { get; set; }
+        public string? ExternalId { get; set; }
+
+        [JsonPropertyName("first_name")]
+        public string? FirstName { get; set; }
+
+        [JsonPropertyName("last_name")]
+        public string? LastName { get; set; }
+
+        [JsonPropertyName("email_addresses")]
+        public List<ClerkEmailAddress> EmailAddresses { get; set; } = new List<ClerkEmailAddress>();
+    }
+
+    public class ClerkEmailAddress
+    {
+        [JsonPropertyName("email_address")]
+        public string? EmailAddress { get; set; }
+    }
+```
 
 ### Disclaimer
 
