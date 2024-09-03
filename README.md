@@ -112,46 +112,30 @@ async onRequestInit({ requestInit }) {
 }
 ```
 
-If you're accepting webhooks from Clerk, you will need to validate the incoming webhook signature. This can be done like this:
+### Sync Clerk data with Webhooks
+
+If you're accepting webhooks from Clerk, you will need to validate the incoming webhook signature. To do this, you'll need to install the `Svix` package:
+
+```bash
+dotnet add package Svix
+```
+
+Then, you can use the following code to validate the webhook signature:
 
 ```cs
-using Newtonsoft.Json;
-using System.IO;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Svix;
-using Svix.Models;
-using System.Net;
-
-[ApiController]
-[Route("api/[controller]")]
-public class ClerkController : ControllerBase
-{
-    private readonly IConfiguration _configuration;
-
-    public ClerkController(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     [HttpPost("webhook")]
-    public async Task<IActionResult> ClerkWebhook()
+    public async Task<IActionResult> ClerkWebhook(IConfiguration configuration)
     {
         // Retrieve the Clerk webhook secret from the configuration
-        var clerkWebhookSecret = "your-webhook-secret-here";
+        var clerkWebhookSecret = configuration["Clerk:WebhookSecret"];
 
         // Read the request body
         var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-        Console.WriteLine($"Payload: {json}");
 
         // Retrieve the Svix headers
         var svixId = Request.Headers["svix-id"].ToString();
         var svixTimestamp = Request.Headers["svix-timestamp"].ToString();
         var svixSignature = Request.Headers["svix-signature"].ToString();
-
-        Console.WriteLine($"Svix ID: {svixId}");
-        Console.WriteLine($"Svix Timestamp: {svixTimestamp}");
-        Console.WriteLine($"Svix Signature: {svixSignature}");
 
         if (string.IsNullOrEmpty(svixId) || string.IsNullOrEmpty(svixTimestamp) || string.IsNullOrEmpty(svixSignature))
         {
@@ -171,8 +155,7 @@ public class ClerkController : ControllerBase
         try
         {
             wh.Verify(json, headers); // Verify doesn't return an event, just verifies the signature
-            webhookEvent = JsonConvert.DeserializeObject<Event>(json); // Deserialize the JSON into an Event object
-            Console.WriteLine($"Event Type: {webhookEvent.Type}");
+            webhookEvent = JsonSerializer.Deserialize<Event>(json); // Deserialize the JSON into an Event object
         }
         catch (Svix.Exceptions.WebhookVerificationException ex)
         {
@@ -205,24 +188,30 @@ public class ClerkController : ControllerBase
     // Define the Event class to represent the webhook event
     public class Event
     {
-        public string Type { get; set; } = string.Empty; // Initialize with an empty string
-        public ClerkUser Data { get; set; } = new ClerkUser(); // Initialize with a new instance
+        public string? Type { get; set; }
+        public ClerkUser? Data { get; set; }
     }
 
     public class ClerkUser
     {
-        public string Id { get; set; } = string.Empty;
-        public string ExternalId { get; set; } = string.Empty;
-        public string First_Name { get; set; } = string.Empty;
-        public string Last_Name { get; set; } = string.Empty;
-        public List<ClerkEmailAddress> Email_Addresses { get; set; } = new List<ClerkEmailAddress>();
+        public string? Id { get; set; }
+        public string? ExternalId { get; set; }
+
+        [JsonPropertyName("first_name")]
+        public string? FirstName { get; set; }
+
+        [JsonPropertyName("last_name")]
+        public string? LastName { get; set; }
+
+        [JsonPropertyName("email_addresses")]
+        public List<ClerkEmailAddress> EmailAddresses { get; set; } = new List<ClerkEmailAddress>();
     }
 
     public class ClerkEmailAddress
     {
-        public string Email_Address { get; set; } = string.Empty;
+        [JsonPropertyName("email_address")]
+        public string? EmailAddress { get; set; }
     }
-}
 ```
 
 If the requests are coming from an SSR environment (ie NextJS), then you can either use the session JWT via the `__session` cookie and forward it on, or use a JWT template to create a unique JWT for your scenario.
