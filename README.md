@@ -25,7 +25,7 @@ Make sure to add your `SecretKey` to your application configuration, ideally via
 ```cs
 builder.Services.AddClerkApiClient(config =>
 {
-    config.SecretKey = builder.Configuration["Clerk:SecretKey"]!
+    config.SecretKey = builder.Configuration["Clerk:SecretKey"]!;
 });
 ```
 
