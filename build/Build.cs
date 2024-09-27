@@ -1,5 +1,10 @@
 using System;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using Microsoft.Playwright;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
@@ -41,6 +46,8 @@ class Build : NukeBuild
 
     [Solution(GenerateProjects = true)] readonly Solution Solution;
 
+    [NuGetPackage("Microsoft.OpenApi.Kiota", "kiota.dll")]
+    readonly Tool Kiota;
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
     Target Clean => _ => _
@@ -108,4 +115,27 @@ class Build : NukeBuild
                 .SetApiKey(NugetApiKey));
         });
 
+    
+    
+    Target Update => _ => _
+        .Requires(() => Kiota)
+        .Executes(async () =>
+        {
+            // swagger URL is a client-side blob...
+            using var playwright = await Playwright.CreateAsync();
+            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() {Channel = "msedge"});
+            
+            var page = await browser.NewPageAsync();
+            await page.GotoAsync("https://clerk.com/docs/reference/backend-api");
+
+            var downloadTask = page.WaitForDownloadAsync();
+            await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions() { Name = "Download" }).ClickAsync();
+            var download = await downloadTask;
+
+            var projectDir = Solution.Clerk_Net.Directory;
+            await download.SaveAsAsync($"{projectDir}/swagger.json");
+            
+            Kiota(workingDirectory: projectDir, arguments: $"update -o {projectDir / "Client"} --clean-output");
+            
+        });
 }

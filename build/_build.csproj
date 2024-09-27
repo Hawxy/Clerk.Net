@@ -12,7 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.47.0" />
+    <PackageReference Include="Nuke.Common" Version="8.1.0" />
+    <PackageDownload Include="Microsoft.OpenApi.Kiota" Version="[1.18.0]" />
   </ItemGroup>
 
 </Project>

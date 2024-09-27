@@ -74,7 +74,8 @@
               "NugetPack",
               "NugetPush",
               "Restore",
-              "Test"
+              "Test",
+              "Update"
             ]
           }
         },
@@ -93,7 +94,8 @@
               "NugetPack",
               "NugetPush",
               "Restore",
-              "Test"
+              "Test",
+              "Update"
             ]
           }
         },

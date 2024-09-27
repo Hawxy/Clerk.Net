@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.16.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
     #pragma warning disable CS1591
-    public enum SAMLConnection_object
+    public enum SchemasSAMLConnection_object
     #pragma warning restore CS1591
     {
         [EnumMember(Value = "saml_connection")]
