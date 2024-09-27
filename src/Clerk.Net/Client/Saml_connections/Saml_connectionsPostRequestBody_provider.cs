@@ -4,7 +4,7 @@ using System;
 namespace Clerk.Net.Client.Saml_connections
 {
     /// <summary>The IdP provider of the connection.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
     public enum Saml_connectionsPostRequestBody_provider
     {
         [EnumMember(Value = "saml_custom")]

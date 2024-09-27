@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Invitations
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
     #pragma warning disable CS1591
     public enum GetStatusQueryParameterType
     #pragma warning restore CS1591
@@ -19,6 +19,10 @@ namespace Clerk.Net.Client.Invitations
         [EnumMember(Value = "revoked")]
         #pragma warning disable CS1591
         Revoked,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "expired")]
+        #pragma warning disable CS1591
+        Expired,
         #pragma warning restore CS1591
     }
 }

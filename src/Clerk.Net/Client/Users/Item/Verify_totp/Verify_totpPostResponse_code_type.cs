@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Users.Item.Verify_totp
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.17.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
     #pragma warning disable CS1591
     public enum Verify_totpPostResponse_code_type
     #pragma warning restore CS1591
