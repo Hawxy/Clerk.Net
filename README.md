@@ -114,7 +114,7 @@ async onRequestInit({ requestInit }) {
 
 If the requests are coming from an SSR environment (ie NextJS), then you can either use the session JWT via the `__session` cookie and forward it on, or use a JWT template to create a unique JWT for your scenario.
 
-### Sync Clerk data with Webhooks
+### Inbound Clerk Webhooks
 
 If you're accepting webhooks from Clerk, you will need to validate the incoming webhook signature. To do this, you'll need to install the `Svix` package:
 
