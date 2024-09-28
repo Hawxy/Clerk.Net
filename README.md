@@ -156,7 +156,7 @@ Then, you can use the following code to validate the webhook signature:
         Event webhookEvent;
         try
         {
-            wh.Verify(json, headers); // Verify doesn't return an event, just verifies the signature
+            wh.Verify(json, headers); // Verify doesn't return anything, just verifies the signature and throws if it's invalid
             webhookEvent = JsonSerializer.Deserialize<Event>(json); // Deserialize the JSON into an Event object
         }
         catch (Svix.Exceptions.WebhookVerificationException ex)
@@ -196,15 +196,12 @@ Then, you can use the following code to validate the webhook signature:
 
     public class ClerkUser
     {
-        public string? Id { get; set; }
+        public string Id { get; set; }
         public string? ExternalId { get; set; }
-
         [JsonPropertyName("first_name")]
         public string? FirstName { get; set; }
-
         [JsonPropertyName("last_name")]
         public string? LastName { get; set; }
-
         [JsonPropertyName("email_addresses")]
         public List<ClerkEmailAddress> EmailAddresses { get; set; } = new List<ClerkEmailAddress>();
     }
