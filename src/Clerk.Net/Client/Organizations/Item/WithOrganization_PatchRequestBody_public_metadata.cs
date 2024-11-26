@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Organizations.Item
     /// <summary>
     /// Metadata saved on the organization, that is visible to both your frontend and backend.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithOrganization_PatchRequestBody_public_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

@@ -17,7 +17,7 @@ namespace Clerk.Net.Client.Templates.Item.Item
     /// <summary>
     /// Builds and executes requests for operations under \templates\{template_type}\{slug}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithSlugItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The preview property</summary>

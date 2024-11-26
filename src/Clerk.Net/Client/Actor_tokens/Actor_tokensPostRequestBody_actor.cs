@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Actor_tokens
     /// <summary>
     /// The actor payload. It needs to include a sub property which should contain the ID of the actor.This whole payload will be also included in the JWT session token.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Actor_tokensPostRequestBody_actor : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

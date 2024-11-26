@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Organization_memberships
     /// <summary>
     /// Builds and executes requests for operations under \organization_memberships
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Organization_membershipsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -93,7 +93,7 @@ namespace Clerk.Net.Client.Organization_memberships
         /// <summary>
         /// Retrieves all organization user memberships for the given instance.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class Organization_membershipsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Organizations
     /// <summary>
     /// Builds and executes requests for operations under \organizations
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OrganizationsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.organizations.item collection</summary>
@@ -155,7 +155,7 @@ namespace Clerk.Net.Client.Organizations
         /// <summary>
         /// This request returns the list of organizations for an instance.Results can be paginated using the optional `limit` and `offset` query parameters.The organizations are ordered by descending creation date.Most recent organizations will be returned first.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class OrganizationsRequestBuilderGetQueryParameters 
         {
             /// <summary>Flag to denote whether the member counts of each organization should be included in the response or not.</summary>

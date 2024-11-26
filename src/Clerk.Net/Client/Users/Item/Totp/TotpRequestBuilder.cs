@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Totp
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\totp
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class TotpRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -32,6 +32,31 @@ namespace Clerk.Net.Client.Users.Item.Totp
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
         public TotpRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/totp", rawUrl)
         {
+        }
+        /// <summary>
+        /// Deletes all of the user&apos;s TOTPs.
+        /// </summary>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Users.Item.Totp.TotpDeleteResponse"/></returns>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 500 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<global::Clerk.Net.Client.Users.Item.Totp.TotpDeleteResponse?> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<global::Clerk.Net.Client.Users.Item.Totp.TotpDeleteResponse> DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            var requestInfo = ToDeleteRequestInformation(requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "500", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Users.Item.Totp.TotpDeleteResponse>(requestInfo, global::Clerk.Net.Client.Users.Item.Totp.TotpDeleteResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
@@ -59,6 +84,25 @@ namespace Clerk.Net.Client.Users.Item.Totp
                 { "500", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.TOTP>(requestInfo, global::Clerk.Net.Client.Models.TOTP.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Deletes all of the user&apos;s TOTPs.
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            return requestInfo;
         }
         /// <summary>
         /// Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.

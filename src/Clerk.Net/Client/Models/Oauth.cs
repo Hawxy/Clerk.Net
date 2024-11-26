@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class Oauth : IParsable
     #pragma warning restore CS1591
@@ -35,7 +35,13 @@ namespace Clerk.Net.Client.Models
         /// <summary>The status property</summary>
         public global::Clerk.Net.Client.Models.Oauth_status? Status { get; set; }
         /// <summary>The strategy property</summary>
-        public global::Clerk.Net.Client.Models.Oauth_strategy? Strategy { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Strategy { get; set; }
+#nullable restore
+#else
+        public string Strategy { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -59,7 +65,7 @@ namespace Clerk.Net.Client.Models
                 { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
                 { "external_verification_redirect_url", n => { ExternalVerificationRedirectUrl = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Oauth_status>(); } },
-                { "strategy", n => { Strategy = n.GetEnumValue<global::Clerk.Net.Client.Models.Oauth_strategy>(); } },
+                { "strategy", n => { Strategy = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -74,7 +80,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteIntValue("expire_at", ExpireAt);
             writer.WriteStringValue("external_verification_redirect_url", ExternalVerificationRedirectUrl);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Oauth_status>("status", Status);
-            writer.WriteEnumValue<global::Clerk.Net.Client.Models.Oauth_strategy>("strategy", Strategy);
+            writer.WriteStringValue("strategy", Strategy);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
     /// <summary>
     /// Define the atrtibute name mapping between Identity Provider and Clerk&apos;s user properties
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithSaml_connection_PatchRequestBody_attribute_mapping : IParsable
     {
         /// <summary>The email_address property</summary>

@@ -3,22 +3,26 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public enum Oauth_strategy
+    public enum WaitlistEntry_status
     #pragma warning restore CS1591
     {
-        [EnumMember(Value = "oauth_google")]
+        [EnumMember(Value = "pending")]
         #pragma warning disable CS1591
-        Oauth_google,
+        Pending,
         #pragma warning restore CS1591
-        [EnumMember(Value = "oauth_mock")]
+        [EnumMember(Value = "invited")]
         #pragma warning disable CS1591
-        Oauth_mock,
+        Invited,
         #pragma warning restore CS1591
-        [EnumMember(Value = "oauth_custom_mock")]
+        [EnumMember(Value = "rejected")]
         #pragma warning disable CS1591
-        Oauth_custom_mock,
+        Rejected,
+        #pragma warning restore CS1591
+        [EnumMember(Value = "completed")]
+        #pragma warning disable CS1591
+        Completed,
         #pragma warning restore CS1591
     }
 }

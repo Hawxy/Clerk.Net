@@ -16,7 +16,7 @@ namespace Clerk.Net.Client.Clients
     /// <summary>
     /// Builds and executes requests for operations under \clients
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ClientsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The verify property</summary>
@@ -117,7 +117,7 @@ namespace Clerk.Net.Client.Clients
         /// <summary>
         /// Returns a list of all clients. The clients are returned sorted by creation date,with the newest clients appearing first.Warning: the endpoint is being deprecated and will be removed in future versions.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class ClientsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

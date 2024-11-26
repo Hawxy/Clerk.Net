@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Sessions.Item.Revoke
     /// <summary>
     /// Builds and executes requests for operations under \sessions\{session_id}\revoke
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RevokeRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

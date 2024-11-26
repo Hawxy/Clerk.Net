@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Metadata
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\metadata
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MetadataRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

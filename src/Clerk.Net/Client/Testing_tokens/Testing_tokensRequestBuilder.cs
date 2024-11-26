@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Testing_tokens
     /// <summary>
     /// Builds and executes requests for operations under \testing_tokens
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Testing_tokensRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -34,7 +34,7 @@ namespace Clerk.Net.Client.Testing_tokens
         {
         }
         /// <summary>
-        /// Retrieve a new testing token. Only available for development instances.
+        /// Retrieve a new testing token.
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Models.TestingToken"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -52,7 +52,7 @@ namespace Clerk.Net.Client.Testing_tokens
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.TestingToken>(requestInfo, global::Clerk.Net.Client.Models.TestingToken.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Retrieve a new testing token. Only available for development instances.
+        /// Retrieve a new testing token.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

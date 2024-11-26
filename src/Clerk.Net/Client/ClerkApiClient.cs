@@ -12,6 +12,7 @@ using Clerk.Net.Client.Invitations;
 using Clerk.Net.Client.Jwks;
 using Clerk.Net.Client.Jwt_templates;
 using Clerk.Net.Client.Oauth_applications;
+using Clerk.Net.Client.Organization_invitations;
 using Clerk.Net.Client.Organization_memberships;
 using Clerk.Net.Client.Organizations;
 using Clerk.Net.Client.Phone_numbers;
@@ -25,6 +26,7 @@ using Clerk.Net.Client.Sign_ups;
 using Clerk.Net.Client.Templates;
 using Clerk.Net.Client.Testing_tokens;
 using Clerk.Net.Client.Users;
+using Clerk.Net.Client.Waitlist_entries;
 using Clerk.Net.Client.Webhooks;
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
@@ -41,7 +43,7 @@ namespace Clerk.Net.Client
     /// <summary>
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ClerkApiClient : BaseRequestBuilder
     {
         /// <summary>The actor_tokens property</summary>
@@ -103,6 +105,11 @@ namespace Clerk.Net.Client
         public global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder Oauth_applications
         {
             get => new global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The organization_invitations property</summary>
+        public global::Clerk.Net.Client.Organization_invitations.Organization_invitationsRequestBuilder Organization_invitations
+        {
+            get => new global::Clerk.Net.Client.Organization_invitations.Organization_invitationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_memberships property</summary>
         public global::Clerk.Net.Client.Organization_memberships.Organization_membershipsRequestBuilder Organization_memberships
@@ -168,6 +175,11 @@ namespace Clerk.Net.Client
         public global::Clerk.Net.Client.Users.UsersRequestBuilder Users
         {
             get => new global::Clerk.Net.Client.Users.UsersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The waitlist_entries property</summary>
+        public global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesRequestBuilder Waitlist_entries
+        {
+            get => new global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The webhooks property</summary>
         public global::Clerk.Net.Client.Webhooks.WebhooksRequestBuilder Webhooks

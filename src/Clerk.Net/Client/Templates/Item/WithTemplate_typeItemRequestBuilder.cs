@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Templates.Item
     /// <summary>
     /// Builds and executes requests for operations under \templates\{template_type}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithTemplate_typeItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.templates.item.item collection</summary>

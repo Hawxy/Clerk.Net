@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations\{invitation_id}\revoke
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RevokeRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -34,7 +34,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke
         {
         }
         /// <summary>
-        /// Use this request to revoke a previously issued organization invitation.Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.Only organization invitations with &quot;pending&quot; status can be revoked.The request needs the `requesting_user_id` parameter to specify the user which revokes the invitation.Only users with &quot;admin&quot; role can revoke invitations.
+        /// Use this request to revoke a previously issued organization invitation.Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.Only organization invitations with &quot;pending&quot; status can be revoked.The request accepts the `requesting_user_id` parameter to specify the user which revokes the invitation.Only users with &quot;admin&quot; role can revoke invitations.
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationInvitation"/></returns>
         /// <param name="body">The request body</param>
@@ -63,7 +63,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Item.Revoke
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.OrganizationInvitation>(requestInfo, global::Clerk.Net.Client.Models.OrganizationInvitation.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Use this request to revoke a previously issued organization invitation.Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.Only organization invitations with &quot;pending&quot; status can be revoked.The request needs the `requesting_user_id` parameter to specify the user which revokes the invitation.Only users with &quot;admin&quot; role can revoke invitations.
+        /// Use this request to revoke a previously issued organization invitation.Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.Only organization invitations with &quot;pending&quot; status can be revoked.The request accepts the `requesting_user_id` parameter to specify the user which revokes the invitation.Only users with &quot;admin&quot; role can revoke invitations.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

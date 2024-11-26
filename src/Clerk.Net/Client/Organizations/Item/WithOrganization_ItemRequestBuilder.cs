@@ -19,7 +19,7 @@ namespace Clerk.Net.Client.Organizations.Item
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithOrganization_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The domains property</summary>
@@ -212,7 +212,7 @@ namespace Clerk.Net.Client.Organizations.Item
         /// <summary>
         /// Fetches the organization whose ID or slug matches the provided `id_or_slug` URL query parameter.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class WithOrganization_ItemRequestBuilderGetQueryParameters 
         {
             /// <summary>Flag to denote whether or not the organization&apos;s members count should be included in the response.</summary>

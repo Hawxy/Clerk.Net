@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class User : IParsable
     #pragma warning restore CS1591
@@ -86,6 +86,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>Unix timestamp of last sign-in.</summary>
         public long? LastSignInAt { get; set; }
+        /// <summary>Unix timestamp of when the user accepted the legal requirements.</summary>
+        public long? LegalAcceptedAt { get; set; }
         /// <summary>Flag to denote whether user is currently locked, i.e. restricted from signing in or not.</summary>
         public bool? Locked { get; set; }
         /// <summary>The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.</summary>
@@ -237,6 +239,7 @@ namespace Clerk.Net.Client.Models
                 { "last_active_at", n => { LastActiveAt = n.GetLongValue(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
                 { "last_sign_in_at", n => { LastSignInAt = n.GetLongValue(); } },
+                { "legal_accepted_at", n => { LegalAcceptedAt = n.GetLongValue(); } },
                 { "locked", n => { Locked = n.GetBoolValue(); } },
                 { "lockout_expires_in_seconds", n => { LockoutExpiresInSeconds = n.GetLongValue(); } },
                 { "mfa_disabled_at", n => { MfaDisabledAt = n.GetLongValue(); } },
@@ -284,6 +287,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteLongValue("last_active_at", LastActiveAt);
             writer.WriteStringValue("last_name", LastName);
             writer.WriteLongValue("last_sign_in_at", LastSignInAt);
+            writer.WriteLongValue("legal_accepted_at", LegalAcceptedAt);
             writer.WriteBoolValue("locked", Locked);
             writer.WriteLongValue("lockout_expires_in_seconds", LockoutExpiresInSeconds);
             writer.WriteLongValue("mfa_disabled_at", MfaDisabledAt);

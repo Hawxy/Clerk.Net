@@ -12,7 +12,7 @@ namespace Clerk.Net.Client.Actor_tokens.Item
     /// <summary>
     /// Builds and executes requests for operations under \actor_tokens\{actor_token_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithActor_token_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The revoke property</summary>

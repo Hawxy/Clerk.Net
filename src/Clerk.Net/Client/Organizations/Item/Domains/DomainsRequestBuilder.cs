@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Organizations.Item.Domains
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\domains
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class DomainsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.organizations.item.domains.item collection</summary>
@@ -155,7 +155,7 @@ namespace Clerk.Net.Client.Organizations.Item.Domains
         /// <summary>
         /// Get a list of all domains of an organization.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class DomainsRequestBuilderGetQueryParameters 
         {
             /// <summary>Filter domains by their enrollment mode</summary>

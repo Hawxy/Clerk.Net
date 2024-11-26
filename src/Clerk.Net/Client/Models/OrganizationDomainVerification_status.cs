@@ -4,7 +4,7 @@ using System;
 namespace Clerk.Net.Client.Models
 {
     /// <summary>Status of the verification. It can be `unverified` or `verified`</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum OrganizationDomainVerification_status
     {
         [EnumMember(Value = "unverified")]

@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class Session : IParsable
     #pragma warning restore CS1591
@@ -52,6 +52,14 @@ namespace Clerk.Net.Client.Models
 #else
         public string LastActiveOrganizationId { get; set; }
 #endif
+        /// <summary>The latest_activity property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Clerk.Net.Client.Models.Session_latest_activity? LatestActivity { get; set; }
+#nullable restore
+#else
+        public global::Clerk.Net.Client.Models.Session_latest_activity LatestActivity { get; set; }
+#endif
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public global::Clerk.Net.Client.Models.Session_object? Object { get; set; }
         /// <summary>The status property</summary>
@@ -92,6 +100,7 @@ namespace Clerk.Net.Client.Models
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "last_active_at", n => { LastActiveAt = n.GetIntValue(); } },
                 { "last_active_organization_id", n => { LastActiveOrganizationId = n.GetStringValue(); } },
+                { "latest_activity", n => { LatestActivity = n.GetObjectValue<global::Clerk.Net.Client.Models.Session_latest_activity>(global::Clerk.Net.Client.Models.Session_latest_activity.CreateFromDiscriminatorValue); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_object>(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_status>(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
@@ -113,6 +122,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("id", Id);
             writer.WriteIntValue("last_active_at", LastActiveAt);
             writer.WriteStringValue("last_active_organization_id", LastActiveOrganizationId);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.Session_latest_activity>("latest_activity", LatestActivity);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_object>("object", Object);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_status>("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);

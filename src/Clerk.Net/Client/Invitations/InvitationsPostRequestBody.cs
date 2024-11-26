@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Invitations
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class InvitationsPostRequestBody : IParsable
     #pragma warning restore CS1591
@@ -20,7 +20,7 @@ namespace Clerk.Net.Client.Invitations
 #else
         public string EmailAddress { get; set; }
 #endif
-        /// <summary>The number of days the invitation will be valid for. By default, the invitation does not expire.</summary>
+        /// <summary>The number of days the invitation will be valid for. By default, the invitation expires after 30 days.</summary>
         public int? ExpiresInDays { get; set; }
         /// <summary>Whether an invitation should be created if there is already an existing invitation for this email address, or it&apos;s claimed by another user.</summary>
         public bool? IgnoreExisting { get; set; }
@@ -42,6 +42,8 @@ namespace Clerk.Net.Client.Invitations
 #else
         public string RedirectUrl { get; set; }
 #endif
+        /// <summary>The slug of the email template to use for the invitation email.If not provided, the &quot;invitation&quot; template will be used.</summary>
+        public global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_template_slug? TemplateSlug { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -66,6 +68,7 @@ namespace Clerk.Net.Client.Invitations
                 { "notify", n => { Notify = n.GetBoolValue(); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_public_metadata>(global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
                 { "redirect_url", n => { RedirectUrl = n.GetStringValue(); } },
+                { "template_slug", n => { TemplateSlug = n.GetEnumValue<global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_template_slug>(); } },
             };
         }
         /// <summary>
@@ -81,6 +84,7 @@ namespace Clerk.Net.Client.Invitations
             writer.WriteBoolValue("notify", Notify);
             writer.WriteObjectValue<global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("redirect_url", RedirectUrl);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_template_slug>("template_slug", TemplateSlug);
         }
     }
 }

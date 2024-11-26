@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Invitations.Item.Revoke
     /// <summary>
     /// Builds and executes requests for operations under \invitations\{invitation_id}\revoke
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RevokeRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -36,18 +36,18 @@ namespace Clerk.Net.Client.Invitations.Item.Revoke
         /// <summary>
         /// Revokes the given invitation.Revoking an invitation will prevent the user from using the invitation link that was sent to them.However, it doesn&apos;t prevent the user from signing up if they follow the sign up flow.Only active (i.e. non-revoked) invitations can be revoked.
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Invitations.Item.Revoke.Invitation"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Invitations.Item.Revoke.RevokePostResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Clerk.Net.Client.Invitations.Item.Revoke.Invitation?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Invitations.Item.Revoke.RevokePostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Clerk.Net.Client.Invitations.Item.Revoke.Invitation> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Invitations.Item.Revoke.RevokePostResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToPostRequestInformation(requestConfiguration);
@@ -56,7 +56,7 @@ namespace Clerk.Net.Client.Invitations.Item.Revoke
                 { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Invitations.Item.Revoke.Invitation>(requestInfo, global::Clerk.Net.Client.Invitations.Item.Revoke.Invitation.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Invitations.Item.Revoke.RevokePostResponse>(requestInfo, global::Clerk.Net.Client.Invitations.Item.Revoke.RevokePostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Revokes the given invitation.Revoking an invitation will prevent the user from using the invitation link that was sent to them.However, it doesn&apos;t prevent the user from signing up if they follow the sign up flow.Only active (i.e. non-revoked) invitations can be revoked.

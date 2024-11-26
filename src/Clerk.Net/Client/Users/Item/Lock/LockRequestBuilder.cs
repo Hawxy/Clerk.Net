@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Lock
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\lock
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class LockRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

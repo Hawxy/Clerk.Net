@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
     /// <summary>
     /// Builds and executes requests for operations under \saml_connections\{saml_connection_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithSaml_connection_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
