@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Email_addresses
     /// <summary>
     /// Builds and executes requests for operations under \email_addresses
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Email_addressesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.email_addresses.item collection</summary>

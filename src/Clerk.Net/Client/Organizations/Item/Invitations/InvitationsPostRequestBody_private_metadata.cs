@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
     /// <summary>
     /// Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class InvitationsPostRequestBody_private_metadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

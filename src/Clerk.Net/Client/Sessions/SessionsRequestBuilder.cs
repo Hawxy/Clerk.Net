@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Sessions
     /// <summary>
     /// Builds and executes requests for operations under \sessions
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SessionsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.sessions.item collection</summary>
@@ -75,6 +75,37 @@ namespace Clerk.Net.Client.Sessions
             return collectionResult?.AsList();
         }
         /// <summary>
+        /// Create a new active session for the provided user ID.This operation is only available for Clerk Development instances.
+        /// </summary>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.Session"/></returns>
+        /// <param name="body">The request body</param>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 401 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<global::Clerk.Net.Client.Models.Session?> PostAsync(global::Clerk.Net.Client.Sessions.SessionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<global::Clerk.Net.Client.Models.Session> PostAsync(global::Clerk.Net.Client.Sessions.SessionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            _ = body ?? throw new ArgumentNullException(nameof(body));
+            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "401", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.Session>(requestInfo, global::Clerk.Net.Client.Models.Session.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
         /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
@@ -94,6 +125,28 @@ namespace Clerk.Net.Client.Sessions
             return requestInfo;
         }
         /// <summary>
+        /// Create a new active session for the provided user ID.This operation is only available for Clerk Development instances.
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="body">The request body</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Sessions.SessionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Sessions.SessionsPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            _ = body ?? throw new ArgumentNullException(nameof(body));
+            var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
+            return requestInfo;
+        }
+        /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Sessions.SessionsRequestBuilder"/></returns>
@@ -105,7 +158,7 @@ namespace Clerk.Net.Client.Sessions
         /// <summary>
         /// Returns a list of all sessions.The sessions are returned sorted by creation date, with the newest sessions appearing first.**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, howevermoving forward at least one of `client_id` or `user_id` parameters should be provided.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class SessionsRequestBuilderGetQueryParameters 
         {
             /// <summary>List sessions for the given client</summary>

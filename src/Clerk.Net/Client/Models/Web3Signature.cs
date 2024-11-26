@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class Web3Signature : IParsable
     #pragma warning restore CS1591
@@ -16,6 +16,14 @@ namespace Clerk.Net.Client.Models
         public int? Attempts { get; set; }
         /// <summary>The expire_at property</summary>
         public int? ExpireAt { get; set; }
+        /// <summary>The message property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Message { get; set; }
+#nullable restore
+#else
+        public string Message { get; set; }
+#endif
         /// <summary>The nonce property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -48,6 +56,7 @@ namespace Clerk.Net.Client.Models
             {
                 { "attempts", n => { Attempts = n.GetIntValue(); } },
                 { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
+                { "message", n => { Message = n.GetStringValue(); } },
                 { "nonce", n => { Nonce = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Web3Signature_status>(); } },
                 { "strategy", n => { Strategy = n.GetEnumValue<global::Clerk.Net.Client.Models.Web3Signature_strategy>(); } },
@@ -62,6 +71,7 @@ namespace Clerk.Net.Client.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteIntValue("attempts", Attempts);
             writer.WriteIntValue("expire_at", ExpireAt);
+            writer.WriteStringValue("message", Message);
             writer.WriteStringValue("nonce", Nonce);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Web3Signature_status>("status", Status);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Web3Signature_strategy>("strategy", Strategy);

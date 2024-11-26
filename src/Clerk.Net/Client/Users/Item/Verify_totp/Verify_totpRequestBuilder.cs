@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Verify_totp
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\verify_totp
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Verify_totpRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

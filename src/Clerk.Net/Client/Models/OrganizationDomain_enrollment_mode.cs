@@ -4,7 +4,7 @@ using System;
 namespace Clerk.Net.Client.Models
 {
     /// <summary>Mode of enrollment for the domain</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum OrganizationDomain_enrollment_mode
     {
         [EnumMember(Value = "manual_invitation")]

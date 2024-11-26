@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Models
     /// <summary>
     /// Hello world
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OrganizationMembership : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -75,6 +75,14 @@ namespace Clerk.Net.Client.Models
 #else
         public string Role { get; set; }
 #endif
+        /// <summary>The role_name property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? RoleName { get; set; }
+#nullable restore
+#else
+        public string RoleName { get; set; }
+#endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
         /// <summary>
@@ -111,6 +119,7 @@ namespace Clerk.Net.Client.Models
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata>(global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata.CreateFromDiscriminatorValue); } },
                 { "public_user_data", n => { PublicUserData = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data>(global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data.CreateFromDiscriminatorValue); } },
                 { "role", n => { Role = n.GetStringValue(); } },
+                { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
             };
         }
@@ -130,6 +139,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data>("public_user_data", PublicUserData);
             writer.WriteStringValue("role", Role);
+            writer.WriteStringValue("role_name", RoleName);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);
         }

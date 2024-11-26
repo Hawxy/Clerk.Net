@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item
     /// <summary>
     /// Builds and executes requests for operations under \sessions\{session_id}\tokens\{template_name}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithTemplate_nameItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -37,20 +37,22 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item
         /// Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostResponse"/></returns>
+        /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 401 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostResponse?> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostResponse?> PostAsync(global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostResponse> PostAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostResponse> PostAsync(global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
-            var requestInfo = ToPostRequestInformation(requestConfiguration);
+            _ = body ?? throw new ArgumentNullException(nameof(body));
+            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "401", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
@@ -62,19 +64,22 @@ namespace Clerk.Net.Client.Sessions.Item.Tokens.Item
         /// Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Clerk.Net.Client.Sessions.Item.Tokens.Item.WithTemplate_namePostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
+            _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
+            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }
         /// <summary>

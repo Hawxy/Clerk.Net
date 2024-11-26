@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class PhoneNumber : IParsable
     #pragma warning restore CS1591
@@ -117,7 +117,7 @@ namespace Clerk.Net.Client.Models
         /// <summary>
         /// Composed type wrapper for classes <see cref="global::Clerk.Net.Client.Models.Admin"/>, <see cref="global::Clerk.Net.Client.Models.OTP"/>
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class PhoneNumber_verification : IComposedTypeWrapper, IParsable
         {
             /// <summary>Composed type representation for type <see cref="global::Clerk.Net.Client.Models.Admin"/></summary>

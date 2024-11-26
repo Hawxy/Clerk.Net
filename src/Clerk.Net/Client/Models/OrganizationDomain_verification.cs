@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Models
     /// <summary>
     /// Verification details for the domain
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OrganizationDomain_verification : global::Clerk.Net.Client.Models.OrganizationDomainVerification, IParsable
     {
         /// <summary>

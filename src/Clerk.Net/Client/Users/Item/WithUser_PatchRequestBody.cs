@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Users.Item
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class WithUser_PatchRequestBody : IParsable
     #pragma warning restore CS1591
@@ -57,6 +57,14 @@ namespace Clerk.Net.Client.Users.Item
 #nullable restore
 #else
         public string LastName { get; set; }
+#endif
+        /// <summary>A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? LegalAcceptedAt { get; set; }
+#nullable restore
+#else
+        public string LegalAcceptedAt { get; set; }
 #endif
         /// <summary>If set to `true`, the user will be notified that their primary email address has changed.By default, no notification is sent.</summary>
         public bool? NotifyPrimaryEmailAddressChanged { get; set; }
@@ -134,6 +142,8 @@ namespace Clerk.Net.Client.Users.Item
 #endif
         /// <summary>Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.</summary>
         public bool? SignOutOfOtherSessions { get; set; }
+        /// <summary>When set to `true` all legal checks are skipped.It is not recommended to skip legal checks unless you are migrating a user to Clerk.</summary>
+        public bool? SkipLegalChecks { get; set; }
         /// <summary>Set it to `true` if you&apos;re updating the user&apos;s password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.</summary>
         public bool? SkipPasswordChecks { get; set; }
         /// <summary>In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.Please note that currently the supported options are:* Period: 30 seconds* Code length: 6 digits* Algorithm: SHA1</summary>
@@ -186,6 +196,7 @@ namespace Clerk.Net.Client.Users.Item
                 { "external_id", n => { ExternalId = n.GetStringValue(); } },
                 { "first_name", n => { FirstName = n.GetStringValue(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
+                { "legal_accepted_at", n => { LegalAcceptedAt = n.GetStringValue(); } },
                 { "notify_primary_email_address_changed", n => { NotifyPrimaryEmailAddressChanged = n.GetBoolValue(); } },
                 { "password", n => { Password = n.GetStringValue(); } },
                 { "password_digest", n => { PasswordDigest = n.GetStringValue(); } },
@@ -197,6 +208,7 @@ namespace Clerk.Net.Client.Users.Item
                 { "profile_image_id", n => { ProfileImageId = n.GetStringValue(); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_public_metadata>(global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
                 { "sign_out_of_other_sessions", n => { SignOutOfOtherSessions = n.GetBoolValue(); } },
+                { "skip_legal_checks", n => { SkipLegalChecks = n.GetBoolValue(); } },
                 { "skip_password_checks", n => { SkipPasswordChecks = n.GetBoolValue(); } },
                 { "totp_secret", n => { TotpSecret = n.GetStringValue(); } },
                 { "unsafe_metadata", n => { UnsafeMetadata = n.GetObjectValue<global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_unsafe_metadata>(global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_unsafe_metadata.CreateFromDiscriminatorValue); } },
@@ -218,6 +230,7 @@ namespace Clerk.Net.Client.Users.Item
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteStringValue("first_name", FirstName);
             writer.WriteStringValue("last_name", LastName);
+            writer.WriteStringValue("legal_accepted_at", LegalAcceptedAt);
             writer.WriteBoolValue("notify_primary_email_address_changed", NotifyPrimaryEmailAddressChanged);
             writer.WriteStringValue("password", Password);
             writer.WriteStringValue("password_digest", PasswordDigest);
@@ -229,6 +242,7 @@ namespace Clerk.Net.Client.Users.Item
             writer.WriteStringValue("profile_image_id", ProfileImageId);
             writer.WriteObjectValue<global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteBoolValue("sign_out_of_other_sessions", SignOutOfOtherSessions);
+            writer.WriteBoolValue("skip_legal_checks", SkipLegalChecks);
             writer.WriteBoolValue("skip_password_checks", SkipPasswordChecks);
             writer.WriteStringValue("totp_secret", TotpSecret);
             writer.WriteObjectValue<global::Clerk.Net.Client.Users.Item.WithUser_PatchRequestBody_unsafe_metadata>("unsafe_metadata", UnsafeMetadata);

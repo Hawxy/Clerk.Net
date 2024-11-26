@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations\pending
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PendingRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -92,7 +92,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations.Pending
         /// <summary>
         /// This request returns the list of organization invitations with &quot;pending&quot; status.These are the organization invitations that can still be used to join the organization, but have not been accepted by the invited user yet.Results can be paginated using the optional `limit` and `offset` query parameters.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class PendingRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

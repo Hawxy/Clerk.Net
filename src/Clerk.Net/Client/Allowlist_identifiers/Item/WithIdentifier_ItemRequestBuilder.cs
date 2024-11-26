@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Allowlist_identifiers.Item
     /// <summary>
     /// Builds and executes requests for operations under \allowlist_identifiers\{identifier_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithIdentifier_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

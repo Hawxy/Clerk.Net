@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Passkeys.Item
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\passkeys\{passkey_identification_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithPasskey_identification_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

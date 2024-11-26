@@ -17,7 +17,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
     /// <summary>
     /// Builds and executes requests for operations under \organizations\{organization_id}\invitations
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class InvitationsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The bulk property</summary>
@@ -84,7 +84,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.OrganizationInvitations>(requestInfo, global::Clerk.Net.Client.Models.OrganizationInvitations.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+        /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationInvitation"/></returns>
         /// <param name="body">The request body</param>
@@ -134,7 +134,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
             return requestInfo;
         }
         /// <summary>
-        /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+        /// Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.You can specify the `role` for the invited organization member.New organization invitations get a &quot;pending&quot; status until they are revoked by an organization administrator or accepted by the invitee.The request body supports passing an optional `redirect_url` parameter.When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.Use this parameter to implement a custom invitation acceptance flow.You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.That user must be a member with administrator privileges in the organization.Only &quot;admin&quot; members can create organization invitations.You can optionally provide public and private metadata for the organization invitation.The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -167,7 +167,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         /// <summary>
         /// This request returns the list of organization invitations.Results can be paginated using the optional `limit` and `offset` query parameters.You can filter them by providing the &apos;status&apos; query parameter, that accepts multiple values.The organization invitations are ordered by descending creation date.Most recent invitations will be returned first.Any invitations created as a result of an Organization Domain are not included in the results.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class InvitationsRequestBuilderGetQueryParameters 
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>

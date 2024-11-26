@@ -16,7 +16,7 @@ namespace Clerk.Net.Client.Users
     /// <summary>
     /// Builds and executes requests for operations under \users
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class UsersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The count property</summary>
@@ -41,7 +41,7 @@ namespace Clerk.Net.Client.Users
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,external_id*,last_active_at_since*,limit*,offset*,order_by*,organization_id*,phone_number*,query*,user_id*,username*,web3_wallet*}", pathParameters)
+        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace Clerk.Net.Client.Users
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?email_address*,external_id*,last_active_at_since*,limit*,offset*,order_by*,organization_id*,phone_number*,query*,user_id*,username*,web3_wallet*}", rawUrl)
+        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -164,9 +164,15 @@ namespace Clerk.Net.Client.Users
         /// <summary>
         /// Returns a list of all users.The users are returned sorted by creation date, with the newest users appearing first.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class UsersRequestBuilderGetQueryParameters 
         {
+            /// <summary>Returns users who have been created after the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.</summary>
+            [QueryParameter("created_at_after")]
+            public int? CreatedAtAfter { get; set; }
+            /// <summary>Returns users who have been created before the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.</summary>
+            [QueryParameter("created_at_before")]
+            public int? CreatedAtBefore { get; set; }
             /// <summary>Returns users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -176,6 +182,16 @@ namespace Clerk.Net.Client.Users
 #else
             [QueryParameter("email_address")]
             public string[] EmailAddress { get; set; }
+#endif
+            /// <summary>Returns users with emails that match the given query, via case-insensitive partial match.For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("email_address_query")]
+            public string? EmailAddressQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("email_address_query")]
+            public string EmailAddressQuery { get; set; }
 #endif
             /// <summary>Returns users with the specified external ids.For each external id, the `+` and `-` can beprepended to the id, which denote whether therespective external id should be included orexcluded from the result set.Accepts up to 100 external ids.Any external ids not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -187,12 +203,29 @@ namespace Clerk.Net.Client.Users
             [QueryParameter("external_id")]
             public string[] ExternalId { get; set; }
 #endif
-            /// <summary>Returns users that had session activity since the given date, with day precision.Providing a value with higher precision than day will result in an error.Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.</summary>
+            /// <summary>Returns users whose last session activity was after the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.</summary>
+            [QueryParameter("last_active_at_after")]
+            public int? LastActiveAtAfter { get; set; }
+            /// <summary>Returns users whose last session activity was before the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.</summary>
+            [QueryParameter("last_active_at_before")]
+            public int? LastActiveAtBefore { get; set; }
+            /// <summary>Returns users that had session activity since the given date.Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.Deprecated in favor of `last_active_at_after`.</summary>
+            [Obsolete("")]
             [QueryParameter("last_active_at_since")]
             public int? LastActiveAtSince { get; set; }
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public double? Limit { get; set; }
+            /// <summary>Returns users with names that match the given query, via case-insensitive partial match.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("name_query")]
+            public string? NameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("name_query")]
+            public string NameQuery { get; set; }
+#endif
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public double? Offset { get; set; }
@@ -226,6 +259,16 @@ namespace Clerk.Net.Client.Users
             [QueryParameter("phone_number")]
             public string[] PhoneNumber { get; set; }
 #endif
+            /// <summary>Returns users with phone numbers that match the given query, via case-insensitive partial match.For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("phone_number_query")]
+            public string? PhoneNumberQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("phone_number_query")]
+            public string PhoneNumberQuery { get; set; }
+#endif
             /// <summary>Returns users that match the given query.For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.The query value doesn&apos;t need to match the exact value you are looking for, it is capable of partial matches as well.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -255,6 +298,16 @@ namespace Clerk.Net.Client.Users
 #else
             [QueryParameter("username")]
             public string[] Username { get; set; }
+#endif
+            /// <summary>Returns users with usernames that match the given query, via case-insensitive partial match.For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("username_query")]
+            public string? UsernameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("username_query")]
+            public string UsernameQuery { get; set; }
 #endif
             /// <summary>Returns users with the specified web3 wallet addresses.Accepts up to 100 web3 wallet addresses.Any web3 wallet addressed not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

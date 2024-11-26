@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Email_addresses
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class Email_addressesPostRequestBody : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591

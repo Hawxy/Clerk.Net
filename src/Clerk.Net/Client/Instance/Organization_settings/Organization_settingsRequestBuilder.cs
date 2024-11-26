@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Instance.Organization_settings
     /// <summary>
     /// Builds and executes requests for operations under \instance\organization_settings
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Organization_settingsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

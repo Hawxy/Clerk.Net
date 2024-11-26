@@ -7,11 +7,13 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class WithProvider : IParsable
     #pragma warning restore CS1591
     {
+        /// <summary>Unix timestamp of the access token expiration.</summary>
+        public long? ExpiresAt { get; set; }
         /// <summary>External account ID</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -102,6 +104,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "expires_at", n => { ExpiresAt = n.GetLongValue(); } },
                 { "external_account_id", n => { ExternalAccountId = n.GetStringValue(); } },
                 { "label", n => { Label = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetStringValue(); } },
@@ -120,6 +123,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteLongValue("expires_at", ExpiresAt);
             writer.WriteStringValue("external_account_id", ExternalAccountId);
             writer.WriteStringValue("label", Label);
             writer.WriteStringValue("object", Object);

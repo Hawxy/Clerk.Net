@@ -13,7 +13,7 @@ namespace Clerk.Net.Client.Webhooks
     /// <summary>
     /// Builds and executes requests for operations under \webhooks
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WebhooksRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The svix property</summary>

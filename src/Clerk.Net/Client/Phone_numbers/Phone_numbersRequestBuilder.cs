@@ -15,7 +15,7 @@ namespace Clerk.Net.Client.Phone_numbers
     /// <summary>
     /// Builds and executes requests for operations under \phone_numbers
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Phone_numbersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.phone_numbers.item collection</summary>

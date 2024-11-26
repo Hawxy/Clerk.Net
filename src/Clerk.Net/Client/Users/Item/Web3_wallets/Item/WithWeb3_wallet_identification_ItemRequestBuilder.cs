@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Item.Web3_wallets.Item
     /// <summary>
     /// Builds and executes requests for operations under \users\{user_id}\web3_wallets\{web3_wallet_identification_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithWeb3_wallet_identification_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

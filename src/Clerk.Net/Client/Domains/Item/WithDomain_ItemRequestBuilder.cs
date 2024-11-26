@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Domains.Item
     /// <summary>
     /// Builds and executes requests for operations under \domains\{domain_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithDomain_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

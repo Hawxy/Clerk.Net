@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Users
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class UsersPostRequestBody : IParsable
     #pragma warning restore CS1591
@@ -66,6 +66,14 @@ namespace Clerk.Net.Client.Users
 #else
         public string LastName { get; set; }
 #endif
+        /// <summary>A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? LegalAcceptedAt { get; set; }
+#nullable restore
+#else
+        public string LegalAcceptedAt { get; set; }
+#endif
         /// <summary>The plaintext password to give the user.Must be at least 8 characters long, and can not be in any list of hacked passwords.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -114,6 +122,8 @@ namespace Clerk.Net.Client.Users
 #else
         public global::Clerk.Net.Client.Users.UsersPostRequestBody_public_metadata PublicMetadata { get; set; }
 #endif
+        /// <summary>When set to `true` all legal checks are skipped.It is not recommended to skip legal checks unless you are migrating a user to Clerk.</summary>
+        public bool? SkipLegalChecks { get; set; }
         /// <summary>When set to `true` all password checks are skipped.It is recommended to use this method only when migrating plaintext passwords to Clerk.Upon migration the user base should be prompted to pick stronger password.</summary>
         public bool? SkipPasswordChecks { get; set; }
         /// <summary>When set to `true`, `password` is not required anymore when creating the user and can be omitted.This is useful when you are trying to create a user that doesn&apos;t have a password, in an instance that is using passwords.Please note that you cannot use this flag if password is the only way for a user to sign into your instance.</summary>
@@ -177,12 +187,14 @@ namespace Clerk.Net.Client.Users
                 { "external_id", n => { ExternalId = n.GetStringValue(); } },
                 { "first_name", n => { FirstName = n.GetStringValue(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
+                { "legal_accepted_at", n => { LegalAcceptedAt = n.GetStringValue(); } },
                 { "password", n => { Password = n.GetStringValue(); } },
                 { "password_digest", n => { PasswordDigest = n.GetStringValue(); } },
                 { "password_hasher", n => { PasswordHasher = n.GetStringValue(); } },
                 { "phone_number", n => { PhoneNumber = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Users.UsersPostRequestBody_private_metadata>(global::Clerk.Net.Client.Users.UsersPostRequestBody_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Users.UsersPostRequestBody_public_metadata>(global::Clerk.Net.Client.Users.UsersPostRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
+                { "skip_legal_checks", n => { SkipLegalChecks = n.GetBoolValue(); } },
                 { "skip_password_checks", n => { SkipPasswordChecks = n.GetBoolValue(); } },
                 { "skip_password_requirement", n => { SkipPasswordRequirement = n.GetBoolValue(); } },
                 { "totp_secret", n => { TotpSecret = n.GetStringValue(); } },
@@ -207,12 +219,14 @@ namespace Clerk.Net.Client.Users
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteStringValue("first_name", FirstName);
             writer.WriteStringValue("last_name", LastName);
+            writer.WriteStringValue("legal_accepted_at", LegalAcceptedAt);
             writer.WriteStringValue("password", Password);
             writer.WriteStringValue("password_digest", PasswordDigest);
             writer.WriteStringValue("password_hasher", PasswordHasher);
             writer.WriteCollectionOfPrimitiveValues<string>("phone_number", PhoneNumber);
             writer.WriteObjectValue<global::Clerk.Net.Client.Users.UsersPostRequestBody_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Users.UsersPostRequestBody_public_metadata>("public_metadata", PublicMetadata);
+            writer.WriteBoolValue("skip_legal_checks", SkipLegalChecks);
             writer.WriteBoolValue("skip_password_checks", SkipPasswordChecks);
             writer.WriteBoolValue("skip_password_requirement", SkipPasswordRequirement);
             writer.WriteStringValue("totp_secret", TotpSecret);

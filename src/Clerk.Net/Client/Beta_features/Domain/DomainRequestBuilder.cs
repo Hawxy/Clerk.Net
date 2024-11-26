@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Beta_features.Domain
     /// <summary>
     /// Builds and executes requests for operations under \beta_features\domain
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class DomainRequestBuilder : BaseRequestBuilder
     {
         /// <summary>

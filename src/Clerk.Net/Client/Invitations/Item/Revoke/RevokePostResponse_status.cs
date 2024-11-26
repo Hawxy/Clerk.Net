@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 using System;
 namespace Clerk.Net.Client.Invitations.Item.Revoke
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public enum Invitation_status
+    public enum RevokePostResponse_status
     #pragma warning restore CS1591
     {
         [EnumMember(Value = "revoked")]

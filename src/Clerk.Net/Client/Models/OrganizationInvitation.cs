@@ -10,7 +10,7 @@ namespace Clerk.Net.Client.Models
     /// <summary>
     /// An organization invitation
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class OrganizationInvitation : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -67,6 +67,14 @@ namespace Clerk.Net.Client.Models
 #else
         public string Role { get; set; }
 #endif
+        /// <summary>The role_name property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? RoleName { get; set; }
+#nullable restore
+#else
+        public string RoleName { get; set; }
+#endif
         /// <summary>The status property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -110,6 +118,7 @@ namespace Clerk.Net.Client.Models
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitation_private_metadata>(global::Clerk.Net.Client.Models.OrganizationInvitation_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitation_public_metadata>(global::Clerk.Net.Client.Models.OrganizationInvitation_public_metadata.CreateFromDiscriminatorValue); } },
                 { "role", n => { Role = n.GetStringValue(); } },
+                { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
             };
@@ -129,6 +138,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitation_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitation_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("role", Role);
+            writer.WriteStringValue("role_name", RoleName);
             writer.WriteStringValue("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteAdditionalData(AdditionalData);

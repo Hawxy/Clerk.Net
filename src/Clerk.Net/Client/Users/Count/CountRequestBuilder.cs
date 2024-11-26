@@ -14,7 +14,7 @@ namespace Clerk.Net.Client.Users.Count
     /// <summary>
     /// Builds and executes requests for operations under \users\count
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class CountRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,external_id*,phone_number*,query*,user_id*,username*,web3_wallet*}", pathParameters)
+        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,external_id*,phone_number*,query*,user_id*,username*,web3_wallet*}", rawUrl)
+        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -87,7 +87,7 @@ namespace Clerk.Net.Client.Users.Count
         /// <summary>
         /// Returns a total count of all users that match the given filtering criteria.
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class CountRequestBuilderGetQueryParameters 
         {
             /// <summary>Counts users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>
@@ -99,6 +99,16 @@ namespace Clerk.Net.Client.Users.Count
 #else
             [QueryParameter("email_address")]
             public string[] EmailAddress { get; set; }
+#endif
+            /// <summary>Counts users with emails that match the given query, via case-insensitive partial match.For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,and will be included in the resulting count.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("email_address_query")]
+            public string? EmailAddressQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("email_address_query")]
+            public string EmailAddressQuery { get; set; }
 #endif
             /// <summary>Counts users with the specified external ids.Accepts up to 100 external ids.Any external ids not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -119,6 +129,16 @@ namespace Clerk.Net.Client.Users.Count
 #else
             [QueryParameter("phone_number")]
             public string[] PhoneNumber { get; set; }
+#endif
+            /// <summary>Counts users with phone numbers that match the given query, via case-insensitive partial match.For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,and will be included in the resulting count.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("phone_number_query")]
+            public string? PhoneNumberQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("phone_number_query")]
+            public string PhoneNumberQuery { get; set; }
 #endif
             /// <summary>Counts users that match the given query.For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.The query value doesn&apos;t need to match the exact value you are looking for, it is capable of partial matches as well.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -149,6 +169,16 @@ namespace Clerk.Net.Client.Users.Count
 #else
             [QueryParameter("username")]
             public string[] Username { get; set; }
+#endif
+            /// <summary>Counts users with usernames that match the given query, via case-insensitive partial match.For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,and will be included in the resulting count.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("username_query")]
+            public string? UsernameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("username_query")]
+            public string UsernameQuery { get; set; }
 #endif
             /// <summary>Counts users with the specified web3 wallet addresses.Accepts up to 100 web3 wallet addresses.Any web3 wallet addressed not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

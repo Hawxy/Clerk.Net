@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class SignUp : IParsable
     #pragma warning restore CS1591
@@ -80,6 +80,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string LastName { get; set; }
 #endif
+        /// <summary>Unix timestamp at which the user accepted the legal requirements.</summary>
+        public long? LegalAcceptedAt { get; set; }
         /// <summary>The missing_fields property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -194,6 +196,7 @@ namespace Clerk.Net.Client.Models
                 { "first_name", n => { FirstName = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
+                { "legal_accepted_at", n => { LegalAcceptedAt = n.GetLongValue(); } },
                 { "missing_fields", n => { MissingFields = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.SignUp_object>(); } },
                 { "optional_fields", n => { OptionalFields = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
@@ -226,6 +229,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("first_name", FirstName);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("last_name", LastName);
+            writer.WriteLongValue("legal_accepted_at", LegalAcceptedAt);
             writer.WriteCollectionOfPrimitiveValues<string>("missing_fields", MissingFields);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.SignUp_object>("object", Object);
             writer.WriteCollectionOfPrimitiveValues<string>("optional_fields", OptionalFields);

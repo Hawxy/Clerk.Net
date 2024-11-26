@@ -4,7 +4,7 @@ using System;
 namespace Clerk.Net.Client.Models
 {
     /// <summary>String representing the object&apos;s type. Objects of the same type share the same value. Always `organization_domain`</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.18.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public enum OrganizationDomain_object
     {
         [EnumMember(Value = "organization_domain")]
