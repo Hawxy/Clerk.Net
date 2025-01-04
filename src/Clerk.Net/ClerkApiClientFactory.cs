@@ -15,7 +15,7 @@ public static class ClerkApiClientFactory
     /// <param name="secretKey">The Secret Key from your Clerk instance.</param>
     /// <param name="httpClient">An optional <see cref="HttpClient"/> for advanced use.</param>
     /// <returns>The <see cref="ClerkApiClient"/></returns>
-    public static ClerkApiClient Create(string secretKey, HttpClient? httpClient = default)
+    public static ClerkApiClient Create(string secretKey, HttpClient? httpClient = null)
     {
         if (string.IsNullOrEmpty(secretKey))
             throw new ArgumentNullException(nameof(secretKey));

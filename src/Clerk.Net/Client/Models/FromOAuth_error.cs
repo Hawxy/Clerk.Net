@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class SAML_error : IAdditionalDataHolder, IParsable
+    public partial class FromOAuth_error : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -49,27 +49,27 @@ namespace Clerk.Net.Client.Models
         /// <summary>The meta property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.SAML_error_meta? Meta { get; set; }
+        public global::Clerk.Net.Client.Models.FromOAuth_error_meta? Meta { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.SAML_error_meta Meta { get; set; }
+        public global::Clerk.Net.Client.Models.FromOAuth_error_meta Meta { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.SAML_error"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.FromOAuth_error"/> and sets the default values.
         /// </summary>
-        public SAML_error()
+        public FromOAuth_error()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Models.SAML_error"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.FromOAuth_error"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Models.SAML_error CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.FromOAuth_error CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Models.SAML_error();
+            return new global::Clerk.Net.Client.Models.FromOAuth_error();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -83,7 +83,7 @@ namespace Clerk.Net.Client.Models
                 { "code", n => { Code = n.GetStringValue(); } },
                 { "long_message", n => { LongMessage = n.GetStringValue(); } },
                 { "message", n => { Message = n.GetStringValue(); } },
-                { "meta", n => { Meta = n.GetObjectValue<global::Clerk.Net.Client.Models.SAML_error_meta>(global::Clerk.Net.Client.Models.SAML_error_meta.CreateFromDiscriminatorValue); } },
+                { "meta", n => { Meta = n.GetObjectValue<global::Clerk.Net.Client.Models.FromOAuth_error_meta>(global::Clerk.Net.Client.Models.FromOAuth_error_meta.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("code", Code);
             writer.WriteStringValue("long_message", LongMessage);
             writer.WriteStringValue("message", Message);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SAML_error_meta>("meta", Meta);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.FromOAuth_error_meta>("meta", Meta);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

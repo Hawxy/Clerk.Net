@@ -30,7 +30,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
 #else
         public string InviterUserId { get; set; }
 #endif
-        /// <summary>Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.</summary>
+        /// <summary>Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_private_metadata? PrivateMetadata { get; set; }
@@ -38,7 +38,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
 #else
         public global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_private_metadata PrivateMetadata { get; set; }
 #endif
-        /// <summary>Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.</summary>
+        /// <summary>Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_public_metadata? PublicMetadata { get; set; }

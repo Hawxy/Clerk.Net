@@ -40,6 +40,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -54,6 +55,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
             var collectionResult = await RequestAdapter.SendCollectionAsync<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>(requestInfo, global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);

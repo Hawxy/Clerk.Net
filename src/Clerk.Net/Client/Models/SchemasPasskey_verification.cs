@@ -14,6 +14,16 @@ namespace Clerk.Net.Client.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The attempts property</summary>
+        public int? Attempts { get; set; }
+        /// <summary>The expire_at property</summary>
+        public int? ExpireAt { get; set; }
+        /// <summary>The nonce property</summary>
+        public global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce? Nonce { get; set; }
+        /// <summary>The status property</summary>
+        public global::Clerk.Net.Client.Models.SchemasPasskey_verification_status? Status { get; set; }
+        /// <summary>The strategy property</summary>
+        public global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy? Strategy { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.SchemasPasskey_verification"/> and sets the default values.
         /// </summary>
@@ -39,6 +49,11 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "attempts", n => { Attempts = n.GetIntValue(); } },
+                { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
+                { "nonce", n => { Nonce = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_status>(); } },
+                { "strategy", n => { Strategy = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy>(); } },
             };
         }
         /// <summary>
@@ -48,6 +63,11 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteIntValue("attempts", Attempts);
+            writer.WriteIntValue("expire_at", ExpireAt);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce>("nonce", Nonce);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_status>("status", Status);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy>("strategy", Strategy);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

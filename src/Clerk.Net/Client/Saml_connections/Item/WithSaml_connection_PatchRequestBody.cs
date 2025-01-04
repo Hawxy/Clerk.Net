@@ -84,6 +84,14 @@ namespace Clerk.Net.Client.Saml_connections.Item
 #else
         public string Name { get; set; }
 #endif
+        /// <summary>The ID of the organization to which users of this SAML Connection will be added</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? OrganizationId { get; set; }
+#nullable restore
+#else
+        public string OrganizationId { get; set; }
+#endif
         /// <summary>Controls whether to update the user&apos;s attributes in each sign-in</summary>
         public bool? SyncUserAttributes { get; set; }
         /// <summary>
@@ -116,6 +124,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
                 { "idp_metadata_url", n => { IdpMetadataUrl = n.GetStringValue(); } },
                 { "idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
+                { "organization_id", n => { OrganizationId = n.GetStringValue(); } },
                 { "sync_user_attributes", n => { SyncUserAttributes = n.GetBoolValue(); } },
             };
         }
@@ -138,6 +147,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
             writer.WriteStringValue("idp_metadata_url", IdpMetadataUrl);
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);
+            writer.WriteStringValue("organization_id", OrganizationId);
             writer.WriteBoolValue("sync_user_attributes", SyncUserAttributes);
         }
     }

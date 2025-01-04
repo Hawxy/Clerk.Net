@@ -22,6 +22,8 @@ namespace Clerk.Net.Client.Waitlist_entries
 #else
         public string EmailAddress { get; set; }
 #endif
+        /// <summary>Optional flag which denotes whether an email invitation should be sent to the given email address.Defaults to `true`.</summary>
+        public bool? Notify { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesPostRequestBody"/> and sets the default values.
         /// </summary>
@@ -48,6 +50,7 @@ namespace Clerk.Net.Client.Waitlist_entries
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "email_address", n => { EmailAddress = n.GetStringValue(); } },
+                { "notify", n => { Notify = n.GetBoolValue(); } },
             };
         }
         /// <summary>
@@ -58,6 +61,7 @@ namespace Clerk.Net.Client.Waitlist_entries
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("email_address", EmailAddress);
+            writer.WriteBoolValue("notify", Notify);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

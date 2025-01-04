@@ -5,32 +5,31 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk
+namespace Clerk.Net.Client.Models
 {
-    /// <summary>
-    /// Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Bulk_private_metadata : IAdditionalDataHolder, IParsable
+    #pragma warning disable CS1591
+    public partial class FromOAuth_error_meta : IAdditionalDataHolder, IParsable
+    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Clerk.Net.Client.Organizations.Item.Invitations.Bulk.Bulk_private_metadata"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.FromOAuth_error_meta"/> and sets the default values.
         /// </summary>
-        public Bulk_private_metadata()
+        public FromOAuth_error_meta()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Organizations.Item.Invitations.Bulk.Bulk_private_metadata"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.FromOAuth_error_meta"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Organizations.Item.Invitations.Bulk.Bulk_private_metadata CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.FromOAuth_error_meta CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Organizations.Item.Invitations.Bulk.Bulk_private_metadata();
+            return new global::Clerk.Net.Client.Models.FromOAuth_error_meta();
         }
         /// <summary>
         /// The deserialization information for the current model
