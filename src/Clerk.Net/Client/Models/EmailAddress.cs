@@ -38,6 +38,8 @@ namespace Clerk.Net.Client.Models
 #else
         public List<global::Clerk.Net.Client.Models.IdentificationLink> LinkedTo { get; set; }
 #endif
+        /// <summary>Indicates whether this email address domain matches an active enterprise connection.</summary>
+        public bool? MatchesSsoConnection { get; set; }
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public global::Clerk.Net.Client.Models.EmailAddress_object? Object { get; set; }
         /// <summary>The reserved property</summary>
@@ -74,6 +76,7 @@ namespace Clerk.Net.Client.Models
                 { "email_address", n => { EmailAddressProp = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "linked_to", n => { LinkedTo = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.IdentificationLink>(global::Clerk.Net.Client.Models.IdentificationLink.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "matches_sso_connection", n => { MatchesSsoConnection = n.GetBoolValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.EmailAddress_object>(); } },
                 { "reserved", n => { Reserved = n.GetBoolValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
@@ -91,13 +94,14 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("email_address", EmailAddressProp);
             writer.WriteStringValue("id", Id);
             writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.IdentificationLink>("linked_to", LinkedTo);
+            writer.WriteBoolValue("matches_sso_connection", MatchesSsoConnection);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.EmailAddress_object>("object", Object);
             writer.WriteBoolValue("reserved", Reserved);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.EmailAddress.EmailAddress_verification>("verification", Verification);
         }
         /// <summary>
-        /// Composed type wrapper for classes <see cref="global::Clerk.Net.Client.Models.Admin"/>, <see cref="global::Clerk.Net.Client.Models.Oauth"/>, <see cref="global::Clerk.Net.Client.Models.OTP"/>
+        /// Composed type wrapper for classes <see cref="global::Clerk.Net.Client.Models.Admin"/>, <see cref="global::Clerk.Net.Client.Models.FromOAuth"/>, <see cref="global::Clerk.Net.Client.Models.OTP"/>
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class EmailAddress_verification : IComposedTypeWrapper, IParsable
@@ -110,13 +114,13 @@ namespace Clerk.Net.Client.Models
 #else
             public global::Clerk.Net.Client.Models.Admin Admin { get; set; }
 #endif
-            /// <summary>Composed type representation for type <see cref="global::Clerk.Net.Client.Models.Oauth"/></summary>
+            /// <summary>Composed type representation for type <see cref="global::Clerk.Net.Client.Models.FromOAuth"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-            public global::Clerk.Net.Client.Models.Oauth? Oauth { get; set; }
+            public global::Clerk.Net.Client.Models.FromOAuth? FromOAuth { get; set; }
 #nullable restore
 #else
-            public global::Clerk.Net.Client.Models.Oauth Oauth { get; set; }
+            public global::Clerk.Net.Client.Models.FromOAuth FromOAuth { get; set; }
 #endif
             /// <summary>Composed type representation for type <see cref="global::Clerk.Net.Client.Models.OTP"/></summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -140,13 +144,13 @@ namespace Clerk.Net.Client.Models
                 {
                     result.Admin = new global::Clerk.Net.Client.Models.Admin();
                 }
+                else if("FromOAuth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.FromOAuth = new global::Clerk.Net.Client.Models.FromOAuth();
+                }
                 else if("OTP".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.OTP = new global::Clerk.Net.Client.Models.OTP();
-                }
-                else if("Oauth".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
-                {
-                    result.Oauth = new global::Clerk.Net.Client.Models.Oauth();
                 }
                 return result;
             }
@@ -160,9 +164,9 @@ namespace Clerk.Net.Client.Models
                 {
                     return Admin.GetFieldDeserializers();
                 }
-                else if(Oauth != null)
+                else if(FromOAuth != null)
                 {
-                    return Oauth.GetFieldDeserializers();
+                    return FromOAuth.GetFieldDeserializers();
                 }
                 else if(OTP != null)
                 {
@@ -181,9 +185,9 @@ namespace Clerk.Net.Client.Models
                 {
                     writer.WriteObjectValue<global::Clerk.Net.Client.Models.Admin>(null, Admin);
                 }
-                else if(Oauth != null)
+                else if(FromOAuth != null)
                 {
-                    writer.WriteObjectValue<global::Clerk.Net.Client.Models.Oauth>(null, Oauth);
+                    writer.WriteObjectValue<global::Clerk.Net.Client.Models.FromOAuth>(null, FromOAuth);
                 }
                 else if(OTP != null)
                 {

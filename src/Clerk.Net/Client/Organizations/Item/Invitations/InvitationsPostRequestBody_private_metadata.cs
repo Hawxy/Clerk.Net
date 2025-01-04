@@ -8,7 +8,7 @@ using System;
 namespace Clerk.Net.Client.Organizations.Item.Invitations
 {
     /// <summary>
-    /// Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+    /// Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class InvitationsPostRequestBody_private_metadata : IAdditionalDataHolder, IParsable

@@ -2598,6 +2598,9 @@
           "400": {
             "$ref": "#/components/responses/ClerkErrors"
           },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFound"
+          },
           "422": {
             "$ref": "#/components/responses/UnprocessableEntity"
           }
@@ -3184,7 +3187,7 @@
                   },
                   "notify": {
                     "type": "boolean",
-                    "description": "Optional flag which denotes whether an email invitation should be sent to the given email address.\nDefaults to true.",
+                    "description": "Optional flag which denotes whether an email invitation should be sent to the given email address.\nDefaults to `true`.",
                     "nullable": true,
                     "default": true
                   },
@@ -4231,6 +4234,9 @@
           "200": {
             "$ref": "#/components/responses/OrganizationSettings"
           },
+          "400": {
+            "$ref": "#/components/responses/ClerkErrors"
+          },
           "402": {
             "$ref": "#/components/responses/PaymentRequired"
           },
@@ -4585,7 +4591,7 @@
       "post": {
         "operationId": "CreateOrganization",
         "summary": "Create an organization",
-        "description": "Creates a new organization with the given name for an instance.\nIn order to successfully create an organization you need to provide the ID of the User who will become the organization administrator.\nYou can specify an optional slug for the new organization.\nIf provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash \"-\".\nOrganization slugs must be unique for the instance.\nYou can provide additional metadata for the organization and set any custom attribute you want.\nOrganizations support private and public metadata.\nPrivate metadata can only be accessed from the Backend API.\nPublic metadata can be accessed from the Backend API, and are read-only from the Frontend API.\nThe `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)\nthe next time they create a session, presuming they don't explicitly set a different organization as active before then.",
+        "description": "Creates a new organization with the given name for an instance.\nYou can specify an optional slug for the new organization.\nIf provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash \"-\".\nOrganization slugs must be unique for the instance.\nYou can provide additional metadata for the organization and set any custom attribute you want.\nOrganizations support private and public metadata.\nPrivate metadata can only be accessed from the Backend API.\nPublic metadata can be accessed from the Backend API, and are read-only from the Frontend API.\nThe `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)\nthe next time they create a session, presuming they don't explicitly set a different organization as active before then.",
         "tags": [
           "Organizations"
         ],
@@ -4627,8 +4633,7 @@
                   }
                 },
                 "required": [
-                  "name",
-                  "created_by"
+                  "name"
                 ]
               }
             }
@@ -4985,12 +4990,12 @@
                   },
                   "public_metadata": {
                     "type": "object",
-                    "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.",
+                    "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
                     "additionalProperties": true
                   },
                   "private_metadata": {
                     "type": "object",
-                    "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.",
+                    "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
                     "additionalProperties": true
                   },
                   "redirect_url": {
@@ -5118,12 +5123,12 @@
                     },
                     "public_metadata": {
                       "type": "object",
-                      "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.",
+                      "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
                       "additionalProperties": true
                     },
                     "private_metadata": {
                       "type": "object",
-                      "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.",
+                      "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
                       "additionalProperties": true
                     },
                     "redirect_url": {
@@ -6402,6 +6407,11 @@
                     "description": "The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties",
                     "nullable": true
                   },
+                  "organization_id": {
+                    "type": "string",
+                    "description": "The ID of the organization to which users of this SAML Connection will be added",
+                    "nullable": true
+                  },
                   "attribute_mapping": {
                     "type": "object",
                     "description": "Define the attribute name mapping between Identity Provider and Clerk's user properties",
@@ -6441,6 +6451,9 @@
           },
           "403": {
             "$ref": "#/components/responses/AuthorizationInvalid"
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFound"
           },
           "422": {
             "$ref": "#/components/responses/UnprocessableEntity"
@@ -6541,6 +6554,11 @@
                   "idp_metadata": {
                     "type": "string",
                     "description": "The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties",
+                    "nullable": true
+                  },
+                  "organization_id": {
+                    "type": "string",
+                    "description": "The ID of the organization to which users of this SAML Connection will be added",
                     "nullable": true
                   },
                   "attribute_mapping": {
@@ -6705,6 +6723,61 @@
       }
     },
     "/waitlist_entries": {
+      "get": {
+        "operationId": "ListWaitlistEntries",
+        "summary": "List all waitlist entries",
+        "description": "Retrieve a list of waitlist entries for the instance.\nEntries are ordered by creation date in descending order by default.\nSupports filtering by email address or status and pagination with limit and offset parameters.",
+        "tags": [
+          "Waitlist Entries"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "description": "Filter waitlist entries by email address",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter waitlist entries by their status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "invited",
+                "completed",
+                "rejected"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Specify the order of results. Supported values are:\n- `created_at`\n- `email_address`\n- `invited_at`\n\nUse `+` for ascending or `-` for descending order. Defaults to `-created_at`.",
+            "schema": {
+              "type": "string",
+              "default": "-created_at"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/WaitlistEntries"
+          }
+        }
+      },
       "post": {
         "operationId": "CreateWaitlistEntry",
         "summary": "Create a waitlist entry",
@@ -6721,6 +6794,10 @@
                   "email_address": {
                     "type": "string",
                     "description": "The email address to add to the waitlist"
+                  },
+                  "notify": {
+                    "type": "boolean",
+                    "description": "Optional flag which denotes whether an email invitation should be sent to the given email address.\nDefaults to `true`."
                   }
                 },
                 "required": [
@@ -7073,7 +7150,7 @@
           "strategy"
         ]
       },
-      "Oauth": {
+      "FromOAuth": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -7081,18 +7158,12 @@
             "type": "string",
             "enum": [
               "unverified",
-              "verified",
-              "failed",
-              "expired",
-              "transferable"
+              "verified"
             ]
           },
           "strategy": {
             "type": "string",
-            "pattern": "^oauth_(?:(?:token_)|(?:custom_))?[a-z]+$"
-          },
-          "external_verification_redirect_url": {
-            "type": "string"
+            "pattern": "^from_oauth_(?:(?:token_)|(?:custom_))?[a-z]+$"
           },
           "error": {
             "type": "object",
@@ -7104,7 +7175,8 @@
             ]
           },
           "expire_at": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           },
           "attempts": {
             "type": "integer",
@@ -7169,7 +7241,7 @@
                 "$ref": "#/components/schemas/Admin"
               },
               {
-                "$ref": "#/components/schemas/Oauth"
+                "$ref": "#/components/schemas/FromOAuth"
               }
             ]
           },
@@ -7178,6 +7250,10 @@
             "items": {
               "$ref": "#/components/schemas/IdentificationLink"
             }
+          },
+          "matches_sso_connection": {
+            "description": "Indicates whether this email address domain matches an active enterprise connection.\n",
+            "type": "boolean"
           },
           "created_at": {
             "type": "integer",
@@ -7413,7 +7489,8 @@
             "type": "string",
             "enum": [
               "web3_metamask_signature",
-              "web3_coinbase_wallet_signature"
+              "web3_coinbase_wallet_signature",
+              "web3_okx_wallet_signature"
             ]
           },
           "nonce": {
@@ -8016,7 +8093,8 @@
             "additionalProperties": true
           },
           "created_by": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "created_at": {
             "type": "integer",
@@ -9414,6 +9492,10 @@
           "sp_metadata_url": {
             "type": "string"
           },
+          "organization_id": {
+            "type": "string",
+            "nullable": true
+          },
           "attribute_mapping": {
             "type": "object",
             "additionalProperties": false,
@@ -10246,6 +10328,32 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/TestingToken"
+            }
+          }
+        }
+      },
+      "WaitlistEntries": {
+        "description": "List of waitlist entries",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WaitlistEntry"
+                  }
+                },
+                "total_count": {
+                  "type": "integer",
+                  "description": "Total number of waitlist entries"
+                }
+              },
+              "required": [
+                "data",
+                "total_count"
+              ]
             }
           }
         }

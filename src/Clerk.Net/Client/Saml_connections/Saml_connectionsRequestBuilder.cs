@@ -82,6 +82,7 @@ namespace Clerk.Net.Client.Saml_connections
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 402 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 403 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -98,6 +99,7 @@ namespace Clerk.Net.Client.Saml_connections
             {
                 { "402", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.SchemasSAMLConnection>(requestInfo, global::Clerk.Net.Client.Models.SchemasSAMLConnection.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);

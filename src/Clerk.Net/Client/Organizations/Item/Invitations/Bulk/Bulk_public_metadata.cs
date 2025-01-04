@@ -8,7 +8,7 @@ using System;
 namespace Clerk.Net.Client.Organizations.Item.Invitations.Bulk
 {
     /// <summary>
-    /// Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+    /// Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class Bulk_public_metadata : IAdditionalDataHolder, IParsable

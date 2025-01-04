@@ -5,7 +5,7 @@ namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public enum Oauth_status
+    public enum FromOAuth_status
     #pragma warning restore CS1591
     {
         [EnumMember(Value = "unverified")]
@@ -15,18 +15,6 @@ namespace Clerk.Net.Client.Models
         [EnumMember(Value = "verified")]
         #pragma warning disable CS1591
         Verified,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "failed")]
-        #pragma warning disable CS1591
-        Failed,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "expired")]
-        #pragma warning disable CS1591
-        Expired,
-        #pragma warning restore CS1591
-        [EnumMember(Value = "transferable")]
-        #pragma warning disable CS1591
-        Transferable,
         #pragma warning restore CS1591
     }
 }

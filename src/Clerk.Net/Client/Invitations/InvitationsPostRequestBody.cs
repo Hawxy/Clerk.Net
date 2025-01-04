@@ -24,7 +24,7 @@ namespace Clerk.Net.Client.Invitations
         public int? ExpiresInDays { get; set; }
         /// <summary>Whether an invitation should be created if there is already an existing invitation for this email address, or it&apos;s claimed by another user.</summary>
         public bool? IgnoreExisting { get; set; }
-        /// <summary>Optional flag which denotes whether an email invitation should be sent to the given email address.Defaults to true.</summary>
+        /// <summary>Optional flag which denotes whether an email invitation should be sent to the given email address.Defaults to `true`.</summary>
         public bool? Notify { get; set; }
         /// <summary>Metadata that will be attached to the newly created invitation.The value of this property should be a well-formed JSON object.Once the user accepts the invitation and signs up, these metadata will end up in the user&apos;s public metadata.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

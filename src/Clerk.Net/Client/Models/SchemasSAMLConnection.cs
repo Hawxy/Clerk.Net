@@ -106,6 +106,14 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.SchemasSAMLConnection_object? Object { get; set; }
+        /// <summary>The organization_id property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? OrganizationId { get; set; }
+#nullable restore
+#else
+        public string OrganizationId { get; set; }
+#endif
         /// <summary>The provider property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -177,6 +185,7 @@ namespace Clerk.Net.Client.Models
                 { "idp_sso_url", n => { IdpSsoUrl = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasSAMLConnection_object>(); } },
+                { "organization_id", n => { OrganizationId = n.GetStringValue(); } },
                 { "provider", n => { Provider = n.GetStringValue(); } },
                 { "sp_entity_id", n => { SpEntityId = n.GetStringValue(); } },
                 { "sp_metadata_url", n => { SpMetadataUrl = n.GetStringValue(); } },
@@ -208,6 +217,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("idp_sso_url", IdpSsoUrl);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasSAMLConnection_object>("object", Object);
+            writer.WriteStringValue("organization_id", OrganizationId);
             writer.WriteStringValue("provider", Provider);
             writer.WriteStringValue("sp_entity_id", SpEntityId);
             writer.WriteStringValue("sp_metadata_url", SpMetadataUrl);

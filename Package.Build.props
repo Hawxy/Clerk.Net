@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
-    <Version>1.8.0</Version>
+    <Version>1.9.0</Version>
     <Authors>Hawxy</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Hawxy/Clerk.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Hawxy/Clerk.Net</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Hawxy 2023-2024</Copyright>
+    <Copyright>Hawxy 2023-2025</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
