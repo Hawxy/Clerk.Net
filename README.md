@@ -64,6 +64,10 @@ If you need to configure the underlying `HttpClient` used by the client, you can
 - Configure the `IHttpClientBuilder` returned by `AddClerkApiClient`.
 - Pass in a custom `HttpClient` instance to `ClerkApiClientFactory.Create`
 
+### Rate Limiting
+
+This package applies Kiota's default handlers which enables automated retries when hitting Clerk's rate limits. No additional configuration is required.
+
 ### Testing
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
@@ -72,6 +76,8 @@ For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.c
 
 You might have stumbled upon this repo looking for a solution for validating Clerk JWTs, so I'll include the answer here for completion. Configuring JWT auth for Clerk is a tad _unusual_ as they want you to validate the `azp` parameter instead of specifying an `audience`.
 This claim isn't normally validated at the authentication layer, and so you'll need some extra code to get things working:
+
+Note that you'll need to install `Microsoft.AspNetCore.Authentication.JwtBearer` before continuing.
 
 ```cs
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
