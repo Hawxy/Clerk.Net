@@ -1,6 +1,8 @@
 ﻿using Clerk.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace Clerk.Net.DependencyInjection;
 
@@ -28,6 +30,14 @@ public static class DependencyInjectionExtensions
                     PooledConnectionLifetime = TimeSpan.FromMinutes(2)
                 })
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
+        var types = KiotaClientFactory.GetDefaultHandlerTypes();
+
+        foreach (var type in types)
+        {
+            collection.TryAddTransient(type);
+            clientBuilder.AddHttpMessageHandler(sp => (DelegatingHandler)sp.GetRequiredService(type));
+        }
 
         collection.Configure(options);
 
