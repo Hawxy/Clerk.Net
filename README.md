@@ -13,6 +13,8 @@ _Looking for ASP.NET Core w/ Clerk JWTs? [See below](#what-about-jwt-auth)._
 
 These libraries are configured as native AoT compatible for .NET 8+ consumers.
 
+**Caution:** As the Clerk OpenAPI spec is constantly changing, this library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
+
 ## Getting Started
 
 Make sure to add your `SecretKey` to your application configuration, ideally via the [dotnet secrets manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#enable-secret-storage).
