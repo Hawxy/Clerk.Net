@@ -34,7 +34,7 @@ namespace Clerk.Net.Client.Templates.Item.Item
         }
         /// <summary>The toggle_delivery property</summary>
         [Obsolete("")]
-        public global::Clerk.Net.Client.Templates.Item.Item.Toggle_delivery.Toggle_deliveryRequestBuilder Toggle_delivery
+        public global::Clerk.Net.Client.Templates.Item.Item.Toggle_delivery.Toggle_deliveryRequestBuilder ToggleDelivery
         {
             get => new global::Clerk.Net.Client.Templates.Item.Item.Toggle_delivery.Toggle_deliveryRequestBuilder(PathParameters, RequestAdapter);
         }

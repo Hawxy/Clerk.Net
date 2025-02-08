@@ -21,7 +21,13 @@ namespace Clerk.Net.Client.Models
         public string Id { get; set; }
 #endif
         /// <summary>The type property</summary>
-        public global::Clerk.Net.Client.Models.IdentificationLink_type? Type { get; set; }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Type { get; set; }
+#nullable restore
+#else
+        public string Type { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -41,7 +47,7 @@ namespace Clerk.Net.Client.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "id", n => { Id = n.GetStringValue(); } },
-                { "type", n => { Type = n.GetEnumValue<global::Clerk.Net.Client.Models.IdentificationLink_type>(); } },
+                { "type", n => { Type = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -52,7 +58,7 @@ namespace Clerk.Net.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("id", Id);
-            writer.WriteEnumValue<global::Clerk.Net.Client.Models.IdentificationLink_type>("type", Type);
+            writer.WriteStringValue("type", Type);
         }
     }
 }

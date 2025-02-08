@@ -1,8 +1,11 @@
-﻿using Clerk.Net.Client;
+﻿using System.Diagnostics.CodeAnalysis;
+using Clerk.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.Kiota.Http.HttpClientLibrary;
+using Microsoft.Kiota.Http.HttpClientLibrary.Middleware;
+using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options;
 
 namespace Clerk.Net.DependencyInjection;
 
@@ -30,9 +33,10 @@ public static class DependencyInjectionExtensions
                     PooledConnectionLifetime = TimeSpan.FromMinutes(2)
                 })
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
-
-        var types = KiotaClientFactory.GetDefaultHandlerTypes();
-
+       
+        
+        var types = KiotaClientFactory.GetDefaultHandlerActivatableTypes();
+        
         foreach (var type in types)
         {
             collection.TryAddTransient(type);

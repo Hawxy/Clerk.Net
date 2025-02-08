@@ -38,6 +38,8 @@ namespace Clerk.Net.Client.Models
 #else
         public global::Clerk.Net.Client.Models.WaitlistEntry_invitation Invitation { get; set; }
 #endif
+        /// <summary>Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.</summary>
+        public bool? IsLocked { get; set; }
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.WaitlistEntry_object? Object { get; set; }
         /// <summary>The status property</summary>
@@ -66,6 +68,7 @@ namespace Clerk.Net.Client.Models
                 { "email_address", n => { EmailAddress = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "invitation", n => { Invitation = n.GetObjectValue<global::Clerk.Net.Client.Models.WaitlistEntry_invitation>(global::Clerk.Net.Client.Models.WaitlistEntry_invitation.CreateFromDiscriminatorValue); } },
+                { "is_locked", n => { IsLocked = n.GetBoolValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.WaitlistEntry_object>(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.WaitlistEntry_status>(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
@@ -82,6 +85,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("email_address", EmailAddress);
             writer.WriteStringValue("id", Id);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.WaitlistEntry_invitation>("invitation", Invitation);
+            writer.WriteBoolValue("is_locked", IsLocked);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.WaitlistEntry_object>("object", Object);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.WaitlistEntry_status>("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);

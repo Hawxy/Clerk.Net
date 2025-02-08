@@ -28,6 +28,7 @@
         "Compile",
         "NugetPack",
         "NugetPush",
+        "PostProcess",
         "Restore",
         "Test",
         "Update"

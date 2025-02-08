@@ -23,6 +23,7 @@ namespace Clerk.Net.Client.Models
         public string AuthorizeUrl { get; set; }
 #endif
         /// <summary>The callback_url property</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CallbackUrl { get; set; }
@@ -40,6 +41,14 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
+        /// <summary>The discovery_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? DiscoveryUrl { get; set; }
+#nullable restore
+#else
+        public string DiscoveryUrl { get; set; }
+#endif
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -68,6 +77,14 @@ namespace Clerk.Net.Client.Models
         public global::Clerk.Net.Client.Models.OAuthApplication_object? Object { get; set; }
         /// <summary>The public property</summary>
         public bool? Public { get; set; }
+        /// <summary>The redirect_uris property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? RedirectUris { get; set; }
+#nullable restore
+#else
+        public List<string> RedirectUris { get; set; }
+#endif
         /// <summary>The scopes property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -83,6 +100,14 @@ namespace Clerk.Net.Client.Models
 #nullable restore
 #else
         public string TokenFetchUrl { get; set; }
+#endif
+        /// <summary>The token_introspection_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? TokenIntrospectionUrl { get; set; }
+#nullable restore
+#else
+        public string TokenIntrospectionUrl { get; set; }
 #endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
@@ -123,13 +148,16 @@ namespace Clerk.Net.Client.Models
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
+                { "discovery_url", n => { DiscoveryUrl = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "instance_id", n => { InstanceId = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
+                { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
                 { "token_fetch_url", n => { TokenFetchUrl = n.GetStringValue(); } },
+                { "token_introspection_url", n => { TokenIntrospectionUrl = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 { "user_info_url", n => { UserInfoUrl = n.GetStringValue(); } },
             };
@@ -145,13 +173,16 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("callback_url", CallbackUrl);
             writer.WriteStringValue("client_id", ClientId);
             writer.WriteLongValue("created_at", CreatedAt);
+            writer.WriteStringValue("discovery_url", DiscoveryUrl);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("instance_id", InstanceId);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>("object", Object);
             writer.WriteBoolValue("public", Public);
+            writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);
             writer.WriteStringValue("token_fetch_url", TokenFetchUrl);
+            writer.WriteStringValue("token_introspection_url", TokenIntrospectionUrl);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteStringValue("user_info_url", UserInfoUrl);
             writer.WriteAdditionalData(AdditionalData);

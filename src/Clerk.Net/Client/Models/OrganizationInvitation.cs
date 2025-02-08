@@ -25,6 +25,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string EmailAddress { get; set; }
 #endif
+        /// <summary>Unix timestamp of expiration.</summary>
+        public long? ExpiresAt { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -85,6 +87,14 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
+        /// <summary>The url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Url { get; set; }
+#nullable restore
+#else
+        public string Url { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.OrganizationInvitation"/> and sets the default values.
         /// </summary>
@@ -112,6 +122,7 @@ namespace Clerk.Net.Client.Models
             {
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "email_address", n => { EmailAddress = n.GetStringValue(); } },
+                { "expires_at", n => { ExpiresAt = n.GetLongValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OrganizationInvitation_object>(); } },
                 { "organization_id", n => { OrganizationId = n.GetStringValue(); } },
@@ -121,6 +132,7 @@ namespace Clerk.Net.Client.Models
                 { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
+                { "url", n => { Url = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -132,6 +144,7 @@ namespace Clerk.Net.Client.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("email_address", EmailAddress);
+            writer.WriteLongValue("expires_at", ExpiresAt);
             writer.WriteStringValue("id", Id);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.OrganizationInvitation_object>("object", Object);
             writer.WriteStringValue("organization_id", OrganizationId);
@@ -141,6 +154,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("role_name", RoleName);
             writer.WriteStringValue("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);
+            writer.WriteStringValue("url", Url);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

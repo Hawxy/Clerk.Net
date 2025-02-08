@@ -15,6 +15,7 @@ namespace Clerk.Net.Client.Oauth_applications
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The callback URL of the new OAuth application</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CallbackUrl { get; set; }
@@ -30,8 +31,16 @@ namespace Clerk.Net.Client.Oauth_applications
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>If true, this client is public and cannot securely store a client secret.Only the authorization code flow with proof key for code exchange (PKCE) may be used.Public clients cannot be updated to be confidential clients, and vice versa.</summary>
+        /// <summary>If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.</summary>
         public bool? Public { get; set; }
+        /// <summary>An array of redirect URIs of the new OAuth application</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? RedirectUris { get; set; }
+#nullable restore
+#else
+        public List<string> RedirectUris { get; set; }
+#endif
         /// <summary>Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -69,6 +78,7 @@ namespace Clerk.Net.Client.Oauth_applications
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
+                { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
             };
         }
@@ -82,6 +92,7 @@ namespace Clerk.Net.Client.Oauth_applications
             writer.WriteStringValue("callback_url", CallbackUrl);
             writer.WriteStringValue("name", Name);
             writer.WriteBoolValue("public", Public);
+            writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);
             writer.WriteAdditionalData(AdditionalData);
         }

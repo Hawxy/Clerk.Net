@@ -150,7 +150,7 @@ namespace Clerk.Net.Client.Waitlist_entries
             [QueryParameter("order_by")]
             public string OrderBy { get; set; }
 #endif
-            /// <summary>Filter waitlist entries by email address</summary>
+            /// <summary>Filter waitlist entries by `email_address` or `id`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("query")]

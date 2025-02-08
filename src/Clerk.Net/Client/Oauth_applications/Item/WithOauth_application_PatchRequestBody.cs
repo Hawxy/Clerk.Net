@@ -13,6 +13,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
     #pragma warning restore CS1591
     {
         /// <summary>The new callback URL of the OAuth application</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CallbackUrl { get; set; }
@@ -27,6 +28,16 @@ namespace Clerk.Net.Client.Oauth_applications.Item
 #nullable restore
 #else
         public string Name { get; set; }
+#endif
+        /// <summary>If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.</summary>
+        public bool? Public { get; set; }
+        /// <summary>An array of redirect URIs of the new OAuth application</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? RedirectUris { get; set; }
+#nullable restore
+#else
+        public List<string> RedirectUris { get; set; }
 #endif
         /// <summary>Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -63,6 +74,8 @@ namespace Clerk.Net.Client.Oauth_applications.Item
             {
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
+                { "public", n => { Public = n.GetBoolValue(); } },
+                { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
             };
         }
@@ -75,6 +88,8 @@ namespace Clerk.Net.Client.Oauth_applications.Item
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("callback_url", CallbackUrl);
             writer.WriteStringValue("name", Name);
+            writer.WriteBoolValue("public", Public);
+            writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);
         }
     }

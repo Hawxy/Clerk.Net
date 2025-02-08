@@ -22,6 +22,8 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
 #else
         public string EmailAddress { get; set; }
 #endif
+        /// <summary>The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.</summary>
+        public int? ExpiresInDays { get; set; }
         /// <summary>The ID of the user that invites the new member to the organization.Must be an administrator in the organization.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -88,6 +90,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "email_address", n => { EmailAddress = n.GetStringValue(); } },
+                { "expires_in_days", n => { ExpiresInDays = n.GetIntValue(); } },
                 { "inviter_user_id", n => { InviterUserId = n.GetStringValue(); } },
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_private_metadata>(global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_public_metadata>(global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_public_metadata.CreateFromDiscriminatorValue); } },
@@ -103,6 +106,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("email_address", EmailAddress);
+            writer.WriteIntValue("expires_in_days", ExpiresInDays);
             writer.WriteStringValue("inviter_user_id", InviterUserId);
             writer.WriteObjectValue<global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsPostRequestBody_public_metadata>("public_metadata", PublicMetadata);

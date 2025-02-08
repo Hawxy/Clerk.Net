@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "5D3BE49EB3B1FD51EEB3628A3510A9B8B03FA9143518D22BBBDF7ECA01EF8EBCB0808BCA6AF1A5E7BBBB7742DFBD038FCFF10F78D0F806FD5CB1FE919DCD0762",
+  "descriptionHash": "8846149F48D2AF912165B800BF70195DE0BF96C36019C06F686E0E12716BD68F99121942D015B4A3AC1F9A5119AC996273DD6B6F269F1F554B015F48171A7883",
   "descriptionLocation": "../swagger.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.22.0",
+  "kiotaVersion": "1.23.0",
   "clientClassName": "ClerkApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "Clerk.Net.Client",

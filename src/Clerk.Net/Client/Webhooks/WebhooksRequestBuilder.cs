@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Webhooks
             get => new global::Clerk.Net.Client.Webhooks.Svix.SvixRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The svix_url property</summary>
-        public global::Clerk.Net.Client.Webhooks.Svix_url.Svix_urlRequestBuilder Svix_url
+        public global::Clerk.Net.Client.Webhooks.Svix_url.Svix_urlRequestBuilder SvixUrl
         {
             get => new global::Clerk.Net.Client.Webhooks.Svix_url.Svix_urlRequestBuilder(PathParameters, RequestAdapter);
         }
