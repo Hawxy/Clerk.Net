@@ -21,12 +21,12 @@ namespace Clerk.Net.Client.Instance
     public partial class InstanceRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The change_domain property</summary>
-        public global::Clerk.Net.Client.Instance.Change_domain.Change_domainRequestBuilder Change_domain
+        public global::Clerk.Net.Client.Instance.Change_domain.Change_domainRequestBuilder ChangeDomain
         {
             get => new global::Clerk.Net.Client.Instance.Change_domain.Change_domainRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_settings property</summary>
-        public global::Clerk.Net.Client.Instance.Organization_settings.Organization_settingsRequestBuilder Organization_settings
+        public global::Clerk.Net.Client.Instance.Organization_settings.Organization_settingsRequestBuilder OrganizationSettings
         {
             get => new global::Clerk.Net.Client.Instance.Organization_settings.Organization_settingsRequestBuilder(PathParameters, RequestAdapter);
         }

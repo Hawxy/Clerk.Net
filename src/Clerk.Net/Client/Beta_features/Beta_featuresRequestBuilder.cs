@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Beta_features
             get => new global::Clerk.Net.Client.Beta_features.Domain.DomainRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The instance_settings property</summary>
-        public global::Clerk.Net.Client.Beta_features.Instance_settings.Instance_settingsRequestBuilder Instance_settings
+        public global::Clerk.Net.Client.Beta_features.Instance_settings.Instance_settingsRequestBuilder InstanceSettings
         {
             get => new global::Clerk.Net.Client.Beta_features.Instance_settings.Instance_settingsRequestBuilder(PathParameters, RequestAdapter);
         }

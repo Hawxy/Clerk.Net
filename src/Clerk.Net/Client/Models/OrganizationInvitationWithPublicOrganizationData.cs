@@ -93,6 +93,14 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
+        /// <summary>The url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Url { get; set; }
+#nullable restore
+#else
+        public string Url { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData"/> and sets the default values.
         /// </summary>
@@ -130,6 +138,7 @@ namespace Clerk.Net.Client.Models
                 { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
+                { "url", n => { Url = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -151,6 +160,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("role_name", RoleName);
             writer.WriteStringValue("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);
+            writer.WriteStringValue("url", Url);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

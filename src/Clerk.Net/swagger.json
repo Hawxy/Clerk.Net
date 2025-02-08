@@ -809,7 +809,7 @@
           "Sessions"
         ],
         "summary": "Create a new active session",
-        "description": "Create a new active session for the provided user ID.\n\nThis operation is only available for Clerk Development instances.",
+        "description": "Create a new active session for the provided user ID.\n\n**This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,\nwe recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1604,8 +1604,7 @@
             "in": "query",
             "description": "Returns users that match the given query.\nFor possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.\nThe query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1614,8 +1613,7 @@
             "in": "query",
             "description": "Returns users with emails that match the given query, via case-insensitive partial match.\nFor example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1624,8 +1622,7 @@
             "in": "query",
             "description": "Returns users with phone numbers that match the given query, via case-insensitive partial match.\nFor example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1634,8 +1631,7 @@
             "in": "query",
             "description": "Returns users with usernames that match the given query, via case-insensitive partial match.\nFor example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             }
           },
           {
@@ -1643,8 +1639,16 @@
             "in": "query",
             "description": "Returns users with names that match the given query, via case-insensitive partial match.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
+            }
+          },
+          {
+            "name": "banned",
+            "in": "query",
+            "required": false,
+            "description": "Returns users which are either banned (`banned=true`) or not banned (`banned=false`).",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1966,8 +1970,7 @@
             "in": "query",
             "description": "Counts users that match the given query.\nFor possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.\nThe query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1976,8 +1979,7 @@
             "in": "query",
             "description": "Counts users with emails that match the given query, via case-insensitive partial match.\nFor example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,\nand will be included in the resulting count.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1986,8 +1988,7 @@
             "in": "query",
             "description": "Counts users with phone numbers that match the given query, via case-insensitive partial match.\nFor example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,\nand will be included in the resulting count.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
             },
             "required": false
           },
@@ -1996,8 +1997,16 @@
             "in": "query",
             "description": "Counts users with usernames that match the given query, via case-insensitive partial match.\nFor example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,\nand will be included in the resulting count.",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
+            }
+          },
+          {
+            "name": "banned",
+            "in": "query",
+            "required": false,
+            "description": "Counts users which are either banned (`banned=true`) or not banned (`banned=false`).",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -3031,39 +3040,6 @@
       }
     },
     "/users/{user_id}/totp": {
-      "post": {
-        "operationId": "CreateUserTOTP",
-        "summary": "Create a TOTP for a user",
-        "description": "Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.\n",
-        "tags": [
-          "Users"
-        ],
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "description": "The ID of the user for whom the TOTP is being created.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TOTP"
-          },
-          "403": {
-            "$ref": "#/components/responses/ClerkErrors"
-          },
-          "404": {
-            "$ref": "#/components/responses/ResourceNotFound"
-          },
-          "500": {
-            "$ref": "#/components/responses/ClerkErrors"
-          }
-        }
-      },
       "delete": {
         "operationId": "DeleteTOTP",
         "summary": "Delete all the user's TOTPs",
@@ -3308,7 +3284,7 @@
                     },
                     "redirect_url": {
                       "type": "string",
-                      "description": "Optional URL which specifies where to redirect the user once they click the invitation link.\nThis is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components."
+                      "description": "The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations)."
                     },
                     "notify": {
                       "type": "boolean",
@@ -4564,6 +4540,18 @@
           },
           {
             "in": "query",
+            "name": "organization_id",
+            "description": "Returns organizations with the organization ids specified.\nAny organization ids not found are ignored.\nFor each organization id, the `+` and `-` can be\nprepended to the id, which denote whether the\nrespective organization should be included or\nexcluded from the result set.\nAccepts up to 100 organization ids.\nExample: ?organization_id=+org_1&organization_id=-org_2",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "order_by",
             "description": "Allows to return organizations in a particular order.\nAt the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.\nIn order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.\nFor example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.\nIf you don't use `+` or `-`, then `+` is implied.\nDefaults to `-created_at`.",
             "schema": {
@@ -5001,6 +4989,13 @@
                   "redirect_url": {
                     "type": "string",
                     "description": "Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email."
+                  },
+                  "expires_in_days": {
+                    "type": "integer",
+                    "description": "The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.",
+                    "nullable": true,
+                    "minimum": 1,
+                    "maximum": 365
                   }
                 },
                 "required": [
@@ -6126,24 +6121,35 @@
                     "type": "string",
                     "description": "The name of the new OAuth application"
                   },
+                  "redirect_uris": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "An array of redirect URIs of the new OAuth application",
+                    "nullable": true
+                  },
                   "callback_url": {
                     "type": "string",
-                    "description": "The callback URL of the new OAuth application"
+                    "description": "The callback URL of the new OAuth application",
+                    "nullable": true,
+                    "deprecated": true
                   },
                   "scopes": {
                     "type": "string",
                     "description": "Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.",
                     "default": "profile email",
-                    "example": "profile email public_metadata"
+                    "example": "profile email public_metadata",
+                    "nullable": true
                   },
                   "public": {
                     "type": "boolean",
-                    "description": "If true, this client is public and cannot securely store a client secret.\nOnly the authorization code flow with proof key for code exchange (PKCE) may be used.\nPublic clients cannot be updated to be confidential clients, and vice versa."
+                    "description": "If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.",
+                    "nullable": true
                   }
                 },
                 "required": [
-                  "name",
-                  "callback_url"
+                  "name"
                 ]
               }
             }
@@ -6224,17 +6230,33 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "The new name of the OAuth application"
+                    "description": "The new name of the OAuth application",
+                    "nullable": true
+                  },
+                  "redirect_uris": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "An array of redirect URIs of the new OAuth application",
+                    "nullable": true
                   },
                   "callback_url": {
                     "type": "string",
-                    "description": "The new callback URL of the OAuth application"
+                    "description": "The new callback URL of the OAuth application",
+                    "nullable": true,
+                    "deprecated": true
                   },
                   "scopes": {
                     "type": "string",
                     "description": "Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.",
                     "default": "profile email",
-                    "example": "profile email public_metadata private_metadata"
+                    "example": "profile email public_metadata private_metadata",
+                    "nullable": true
+                  },
+                  "public": {
+                    "type": "boolean",
+                    "description": "If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow."
                   }
                 }
               }
@@ -6244,6 +6266,9 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/OAuthApplication"
+          },
+          "400": {
+            "$ref": "#/components/responses/ClerkErrors"
           },
           "403": {
             "$ref": "#/components/responses/AuthorizationInvalid"
@@ -6333,6 +6358,17 @@
           },
           {
             "$ref": "#/components/parameters/OffsetParameter"
+          },
+          {
+            "name": "organization_id",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns SAML connections that have an associated organization ID to the\ngiven organizations.\nFor each organization id, the `+` and `-` can be\nprepended to the id, which denote whether the\nrespective organization should be included or\nexcluded from the result set.\nAccepts up to 100 organization ids."
           }
         ],
         "responses": {
@@ -6740,7 +6776,7 @@
           {
             "in": "query",
             "name": "query",
-            "description": "Filter waitlist entries by email address",
+            "description": "Filter waitlist entries by `email_address` or `id`",
             "required": false,
             "schema": {
               "type": "string"
@@ -6797,7 +6833,7 @@
                   },
                   "notify": {
                     "type": "boolean",
-                    "description": "Optional flag which denotes whether an email invitation should be sent to the given email address.\nDefaults to `true`."
+                    "description": "Optional flag which denotes whether a confirmation email should be sent to the given email address.\nDefaults to `true`."
                   }
                 },
                 "required": [
@@ -7194,12 +7230,7 @@
         "additionalProperties": false,
         "properties": {
           "type": {
-            "type": "string",
-            "enum": [
-              "oauth_google",
-              "oauth_mock",
-              "saml"
-            ]
+            "type": "string"
           },
           "id": {
             "type": "string"
@@ -8267,6 +8298,10 @@
             "type": "object",
             "additionalProperties": true
           },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
           "public_organization_data": {
             "type": "object",
             "additionalProperties": false,
@@ -8319,43 +8354,6 @@
         "required": [
           "data",
           "total_count"
-        ]
-      },
-      "TOTP": {
-        "type": "object",
-        "additionalProperties": true,
-        "properties": {
-          "object": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "secret": {
-            "type": "string",
-            "nullable": true
-          },
-          "uri": {
-            "type": "string",
-            "nullable": true
-          },
-          "verified": {
-            "type": "boolean"
-          },
-          "backup_codes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          }
-        },
-        "required": [
-          "object",
-          "id",
-          "secret",
-          "uri",
-          "verified"
         ]
       },
       "Invitation": {
@@ -8941,6 +8939,16 @@
             "type": "object",
             "additionalProperties": true
           },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "expires_at": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true,
+            "description": "Unix timestamp of expiration.\n"
+          },
           "created_at": {
             "type": "integer",
             "format": "int64",
@@ -9369,8 +9377,15 @@
           "scopes": {
             "type": "string"
           },
+          "redirect_uris": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "callback_url": {
-            "type": "string"
+            "type": "string",
+            "deprecated": true
           },
           "authorize_url": {
             "type": "string"
@@ -9379,6 +9394,12 @@
             "type": "string"
           },
           "user_info_url": {
+            "type": "string"
+          },
+          "discovery_url": {
+            "type": "string"
+          },
+          "token_introspection_url": {
             "type": "string"
           },
           "created_at": {
@@ -9400,10 +9421,13 @@
           "public",
           "client_id",
           "scopes",
+          "redirect_uris",
           "callback_url",
           "authorize_url",
           "token_fetch_url",
           "user_info_url",
+          "discovery_url",
+          "token_introspection_url",
           "created_at",
           "updated_at"
         ]
@@ -9639,6 +9663,10 @@
               "completed"
             ],
             "example": "pending"
+          },
+          "is_locked": {
+            "type": "boolean",
+            "description": "Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.\n"
           },
           "created_at": {
             "type": "integer",
@@ -9899,16 +9927,6 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/OrganizationInvitationsWithPublicOrganizationData"
-            }
-          }
-        }
-      },
-      "TOTP": {
-        "description": "A TOTP (Time-based One-Time Password)",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/TOTP"
             }
           }
         }

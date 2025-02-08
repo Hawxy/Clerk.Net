@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Organizations
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,query*}", pathParameters)
+        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,organization_id*,query*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Organizations
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,query*}", rawUrl)
+        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,organization_id*,query*}", rawUrl)
         {
         }
         /// <summary>
@@ -176,6 +176,16 @@ namespace Clerk.Net.Client.Organizations
 #else
             [QueryParameter("order_by")]
             public string OrderBy { get; set; }
+#endif
+            /// <summary>Returns organizations with the organization ids specified.Any organization ids not found are ignored.For each organization id, the `+` and `-` can beprepended to the id, which denote whether therespective organization should be included orexcluded from the result set.Accepts up to 100 organization ids.Example: ?organization_id=+org_1&amp;organization_id=-org_2</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("organization_id")]
+            public string[]? OrganizationId { get; set; }
+#nullable restore
+#else
+            [QueryParameter("organization_id")]
+            public string[] OrganizationId { get; set; }
 #endif
             /// <summary>Returns organizations with ID, name, or slug that match the given query.Uses exact match for organization ID and partial match for name and slug.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

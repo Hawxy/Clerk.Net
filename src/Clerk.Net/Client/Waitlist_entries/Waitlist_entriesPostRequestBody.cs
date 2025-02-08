@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Waitlist_entries
 #else
         public string EmailAddress { get; set; }
 #endif
-        /// <summary>Optional flag which denotes whether an email invitation should be sent to the given email address.Defaults to `true`.</summary>
+        /// <summary>Optional flag which denotes whether a confirmation email should be sent to the given email address.Defaults to `true`.</summary>
         public bool? Notify { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesPostRequestBody"/> and sets the default values.

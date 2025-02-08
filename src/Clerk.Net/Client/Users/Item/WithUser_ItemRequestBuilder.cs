@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Users.Item
     public partial class WithUser_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The backup_code property</summary>
-        public global::Clerk.Net.Client.Users.Item.Backup_code.Backup_codeRequestBuilder Backup_code
+        public global::Clerk.Net.Client.Users.Item.Backup_code.Backup_codeRequestBuilder BackupCode
         {
             get => new global::Clerk.Net.Client.Users.Item.Backup_code.Backup_codeRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -45,7 +45,7 @@ namespace Clerk.Net.Client.Users.Item
             get => new global::Clerk.Net.Client.Users.Item.Ban.BanRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The external_accounts property</summary>
-        public global::Clerk.Net.Client.Users.Item.External_accounts.External_accountsRequestBuilder External_accounts
+        public global::Clerk.Net.Client.Users.Item.External_accounts.External_accountsRequestBuilder ExternalAccounts
         {
             get => new global::Clerk.Net.Client.Users.Item.External_accounts.External_accountsRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -65,17 +65,17 @@ namespace Clerk.Net.Client.Users.Item
             get => new global::Clerk.Net.Client.Users.Item.Mfa.MfaRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The oauth_access_tokens property</summary>
-        public global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Oauth_access_tokensRequestBuilder Oauth_access_tokens
+        public global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Oauth_access_tokensRequestBuilder OauthAccessTokens
         {
             get => new global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Oauth_access_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_invitations property</summary>
-        public global::Clerk.Net.Client.Users.Item.Organization_invitations.Organization_invitationsRequestBuilder Organization_invitations
+        public global::Clerk.Net.Client.Users.Item.Organization_invitations.Organization_invitationsRequestBuilder OrganizationInvitations
         {
             get => new global::Clerk.Net.Client.Users.Item.Organization_invitations.Organization_invitationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_memberships property</summary>
-        public global::Clerk.Net.Client.Users.Item.Organization_memberships.Organization_membershipsRequestBuilder Organization_memberships
+        public global::Clerk.Net.Client.Users.Item.Organization_memberships.Organization_membershipsRequestBuilder OrganizationMemberships
         {
             get => new global::Clerk.Net.Client.Users.Item.Organization_memberships.Organization_membershipsRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -85,7 +85,7 @@ namespace Clerk.Net.Client.Users.Item
             get => new global::Clerk.Net.Client.Users.Item.Passkeys.PasskeysRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The profile_image property</summary>
-        public global::Clerk.Net.Client.Users.Item.Profile_image.Profile_imageRequestBuilder Profile_image
+        public global::Clerk.Net.Client.Users.Item.Profile_image.Profile_imageRequestBuilder ProfileImage
         {
             get => new global::Clerk.Net.Client.Users.Item.Profile_image.Profile_imageRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -105,12 +105,12 @@ namespace Clerk.Net.Client.Users.Item
             get => new global::Clerk.Net.Client.Users.Item.Unlock.UnlockRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The verify_password property</summary>
-        public global::Clerk.Net.Client.Users.Item.Verify_password.Verify_passwordRequestBuilder Verify_password
+        public global::Clerk.Net.Client.Users.Item.Verify_password.Verify_passwordRequestBuilder VerifyPassword
         {
             get => new global::Clerk.Net.Client.Users.Item.Verify_password.Verify_passwordRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The verify_totp property</summary>
-        public global::Clerk.Net.Client.Users.Item.Verify_totp.Verify_totpRequestBuilder Verify_totp
+        public global::Clerk.Net.Client.Users.Item.Verify_totp.Verify_totpRequestBuilder VerifyTotp
         {
             get => new global::Clerk.Net.Client.Users.Item.Verify_totp.Verify_totpRequestBuilder(PathParameters, RequestAdapter);
         }

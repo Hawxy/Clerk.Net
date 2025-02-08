@@ -34,7 +34,7 @@ namespace Clerk.Net.Client.Invitations.Bulk
 #else
         public global::Clerk.Net.Client.Invitations.Bulk.Bulk_public_metadata PublicMetadata { get; set; }
 #endif
-        /// <summary>Optional URL which specifies where to redirect the user once they click the invitation link.This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you&apos;re not using Clerk Hosted Pages or Clerk Components.</summary>
+        /// <summary>The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RedirectUrl { get; set; }

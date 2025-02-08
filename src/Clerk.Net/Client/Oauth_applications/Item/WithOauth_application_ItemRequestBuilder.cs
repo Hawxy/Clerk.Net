@@ -19,7 +19,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
     public partial class WithOauth_application_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The rotate_secret property</summary>
-        public global::Clerk.Net.Client.Oauth_applications.Item.Rotate_secret.Rotate_secretRequestBuilder Rotate_secret
+        public global::Clerk.Net.Client.Oauth_applications.Item.Rotate_secret.Rotate_secretRequestBuilder RotateSecret
         {
             get => new global::Clerk.Net.Client.Oauth_applications.Item.Rotate_secret.Rotate_secretRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -96,6 +96,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 403 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
@@ -112,6 +113,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
+                { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },

@@ -47,22 +47,22 @@ namespace Clerk.Net.Client
     public partial class ClerkApiClient : BaseRequestBuilder
     {
         /// <summary>The actor_tokens property</summary>
-        public global::Clerk.Net.Client.Actor_tokens.Actor_tokensRequestBuilder Actor_tokens
+        public global::Clerk.Net.Client.Actor_tokens.Actor_tokensRequestBuilder ActorTokens
         {
             get => new global::Clerk.Net.Client.Actor_tokens.Actor_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The allowlist_identifiers property</summary>
-        public global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder Allowlist_identifiers
+        public global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder AllowlistIdentifiers
         {
             get => new global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The beta_features property</summary>
-        public global::Clerk.Net.Client.Beta_features.Beta_featuresRequestBuilder Beta_features
+        public global::Clerk.Net.Client.Beta_features.Beta_featuresRequestBuilder BetaFeatures
         {
             get => new global::Clerk.Net.Client.Beta_features.Beta_featuresRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The blocklist_identifiers property</summary>
-        public global::Clerk.Net.Client.Blocklist_identifiers.Blocklist_identifiersRequestBuilder Blocklist_identifiers
+        public global::Clerk.Net.Client.Blocklist_identifiers.Blocklist_identifiersRequestBuilder BlocklistIdentifiers
         {
             get => new global::Clerk.Net.Client.Blocklist_identifiers.Blocklist_identifiersRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -77,7 +77,7 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Domains.DomainsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The email_addresses property</summary>
-        public global::Clerk.Net.Client.Email_addresses.Email_addressesRequestBuilder Email_addresses
+        public global::Clerk.Net.Client.Email_addresses.Email_addressesRequestBuilder EmailAddresses
         {
             get => new global::Clerk.Net.Client.Email_addresses.Email_addressesRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -97,22 +97,22 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Jwks.JwksRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The jwt_templates property</summary>
-        public global::Clerk.Net.Client.Jwt_templates.Jwt_templatesRequestBuilder Jwt_templates
+        public global::Clerk.Net.Client.Jwt_templates.Jwt_templatesRequestBuilder JwtTemplates
         {
             get => new global::Clerk.Net.Client.Jwt_templates.Jwt_templatesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The oauth_applications property</summary>
-        public global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder Oauth_applications
+        public global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder OauthApplications
         {
             get => new global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_invitations property</summary>
-        public global::Clerk.Net.Client.Organization_invitations.Organization_invitationsRequestBuilder Organization_invitations
+        public global::Clerk.Net.Client.Organization_invitations.Organization_invitationsRequestBuilder OrganizationInvitations
         {
             get => new global::Clerk.Net.Client.Organization_invitations.Organization_invitationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The organization_memberships property</summary>
-        public global::Clerk.Net.Client.Organization_memberships.Organization_membershipsRequestBuilder Organization_memberships
+        public global::Clerk.Net.Client.Organization_memberships.Organization_membershipsRequestBuilder OrganizationMemberships
         {
             get => new global::Clerk.Net.Client.Organization_memberships.Organization_membershipsRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -122,12 +122,12 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Organizations.OrganizationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The phone_numbers property</summary>
-        public global::Clerk.Net.Client.Phone_numbers.Phone_numbersRequestBuilder Phone_numbers
+        public global::Clerk.Net.Client.Phone_numbers.Phone_numbersRequestBuilder PhoneNumbers
         {
             get => new global::Clerk.Net.Client.Phone_numbers.Phone_numbersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The proxy_checks property</summary>
-        public global::Clerk.Net.Client.Proxy_checks.Proxy_checksRequestBuilder Proxy_checks
+        public global::Clerk.Net.Client.Proxy_checks.Proxy_checksRequestBuilder ProxyChecks
         {
             get => new global::Clerk.Net.Client.Proxy_checks.Proxy_checksRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -137,12 +137,12 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Public.PublicRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The redirect_urls property</summary>
-        public global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder Redirect_urls
+        public global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder RedirectUrls
         {
             get => new global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The saml_connections property</summary>
-        public global::Clerk.Net.Client.Saml_connections.Saml_connectionsRequestBuilder Saml_connections
+        public global::Clerk.Net.Client.Saml_connections.Saml_connectionsRequestBuilder SamlConnections
         {
             get => new global::Clerk.Net.Client.Saml_connections.Saml_connectionsRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -152,12 +152,12 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Sessions.SessionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The sign_in_tokens property</summary>
-        public global::Clerk.Net.Client.Sign_in_tokens.Sign_in_tokensRequestBuilder Sign_in_tokens
+        public global::Clerk.Net.Client.Sign_in_tokens.Sign_in_tokensRequestBuilder SignInTokens
         {
             get => new global::Clerk.Net.Client.Sign_in_tokens.Sign_in_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The sign_ups property</summary>
-        public global::Clerk.Net.Client.Sign_ups.Sign_upsRequestBuilder Sign_ups
+        public global::Clerk.Net.Client.Sign_ups.Sign_upsRequestBuilder SignUps
         {
             get => new global::Clerk.Net.Client.Sign_ups.Sign_upsRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -167,7 +167,7 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Templates.TemplatesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The testing_tokens property</summary>
-        public global::Clerk.Net.Client.Testing_tokens.Testing_tokensRequestBuilder Testing_tokens
+        public global::Clerk.Net.Client.Testing_tokens.Testing_tokensRequestBuilder TestingTokens
         {
             get => new global::Clerk.Net.Client.Testing_tokens.Testing_tokensRequestBuilder(PathParameters, RequestAdapter);
         }
@@ -177,7 +177,7 @@ namespace Clerk.Net.Client
             get => new global::Clerk.Net.Client.Users.UsersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The waitlist_entries property</summary>
-        public global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesRequestBuilder Waitlist_entries
+        public global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesRequestBuilder WaitlistEntries
         {
             get => new global::Clerk.Net.Client.Waitlist_entries.Waitlist_entriesRequestBuilder(PathParameters, RequestAdapter);
         }

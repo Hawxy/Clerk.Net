@@ -10,7 +10,8 @@
     <Copyright>Hawxy 2023-2025</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
+    <IsNet8OrHigher>$([MSBuild]::VersionGreaterThanOrEquals('$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)'))','8.0'))</IsNet8OrHigher>
+    <IsAotCompatible Condition="$(IsNet8OrHigher)">true</IsAotCompatible>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\"/>

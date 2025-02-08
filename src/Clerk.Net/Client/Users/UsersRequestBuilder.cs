@@ -41,7 +41,7 @@ namespace Clerk.Net.Client.Users
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
+        public UsersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?banned*,created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace Clerk.Net.Client.Users
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
+        public UsersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users{?banned*,created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,limit*,name_query*,offset*,order_by*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -167,6 +167,9 @@ namespace Clerk.Net.Client.Users
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class UsersRequestBuilderGetQueryParameters 
         {
+            /// <summary>Returns users which are either banned (`banned=true`) or not banned (`banned=false`).</summary>
+            [QueryParameter("banned")]
+            public bool? Banned { get; set; }
             /// <summary>Returns users who have been created after the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.</summary>
             [QueryParameter("created_at_after")]
             public int? CreatedAtAfter { get; set; }

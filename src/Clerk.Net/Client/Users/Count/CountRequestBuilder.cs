@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
+        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
+        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -90,6 +90,9 @@ namespace Clerk.Net.Client.Users.Count
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class CountRequestBuilderGetQueryParameters 
         {
+            /// <summary>Counts users which are either banned (`banned=true`) or not banned (`banned=false`).</summary>
+            [QueryParameter("banned")]
+            public bool? Banned { get; set; }
             /// <summary>Counts users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
