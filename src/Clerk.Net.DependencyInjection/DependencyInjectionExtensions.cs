@@ -39,7 +39,7 @@ public static class DependencyInjectionExtensions
         
         foreach (var type in types)
         {
-            collection.AddTransient(type);
+            collection.TryAddTransient(type);
             clientBuilder.AddHttpMessageHandler(sp => (DelegatingHandler)sp.GetRequiredService(type));
         }
 
