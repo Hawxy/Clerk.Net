@@ -49,6 +49,8 @@ builder.Services.AddAuthorizationBuilder()
         .RequireAuthenticatedUser()
         .Build());
 
+builder.Services.AddHandler<UserEvent, UserHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
