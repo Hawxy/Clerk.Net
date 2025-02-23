@@ -12,8 +12,8 @@ namespace Clerk.Net.Client.Models
     public partial class ProxyCheck : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The created_at property</summary>
-        public int? CreatedAt { get; set; }
+        /// <summary>Unix timestamp of creation.</summary>
+        public long? CreatedAt { get; set; }
         /// <summary>The domain_id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -30,8 +30,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string Id { get; set; }
 #endif
-        /// <summary>The last_run_at property</summary>
-        public int? LastRunAt { get; set; }
+        /// <summary>Unix timestamp of last run.</summary>
+        public long? LastRunAt { get; set; }
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.ProxyCheck_object? Object { get; set; }
         /// <summary>The proxy_url property</summary>
@@ -44,8 +44,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>The successful property</summary>
         public bool? Successful { get; set; }
-        /// <summary>The updated_at property</summary>
-        public int? UpdatedAt { get; set; }
+        /// <summary>Unix timestamp of last update.</summary>
+        public long? UpdatedAt { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -64,14 +64,14 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "created_at", n => { CreatedAt = n.GetIntValue(); } },
+                { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "domain_id", n => { DomainId = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
-                { "last_run_at", n => { LastRunAt = n.GetIntValue(); } },
+                { "last_run_at", n => { LastRunAt = n.GetLongValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.ProxyCheck_object>(); } },
                 { "proxy_url", n => { ProxyUrl = n.GetStringValue(); } },
                 { "successful", n => { Successful = n.GetBoolValue(); } },
-                { "updated_at", n => { UpdatedAt = n.GetIntValue(); } },
+                { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
             };
         }
         /// <summary>
@@ -81,14 +81,14 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteIntValue("created_at", CreatedAt);
+            writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("domain_id", DomainId);
             writer.WriteStringValue("id", Id);
-            writer.WriteIntValue("last_run_at", LastRunAt);
+            writer.WriteLongValue("last_run_at", LastRunAt);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.ProxyCheck_object>("object", Object);
             writer.WriteStringValue("proxy_url", ProxyUrl);
             writer.WriteBoolValue("successful", Successful);
-            writer.WriteIntValue("updated_at", UpdatedAt);
+            writer.WriteLongValue("updated_at", UpdatedAt);
         }
     }
 }

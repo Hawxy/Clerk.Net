@@ -34,6 +34,14 @@ namespace Clerk.Net.Client.Models
 #else
         public string Strategy { get; set; }
 #endif
+        /// <summary>The verified_at_client property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? VerifiedAtClient { get; set; }
+#nullable restore
+#else
+        public string VerifiedAtClient { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -57,6 +65,7 @@ namespace Clerk.Net.Client.Models
                 { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.FromOAuth_status>(); } },
                 { "strategy", n => { Strategy = n.GetStringValue(); } },
+                { "verified_at_client", n => { VerifiedAtClient = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -71,6 +80,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteIntValue("expire_at", ExpireAt);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.FromOAuth_status>("status", Status);
             writer.WriteStringValue("strategy", Strategy);
+            writer.WriteStringValue("verified_at_client", VerifiedAtClient);
         }
     }
 }

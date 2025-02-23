@@ -9,7 +9,7 @@ namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Session_latest_activity : IAdditionalDataHolder, IParsable
+    public partial class SessionActivityResponse : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
@@ -81,21 +81,21 @@ namespace Clerk.Net.Client.Models
         public string Object { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.Session_latest_activity"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.SessionActivityResponse"/> and sets the default values.
         /// </summary>
-        public Session_latest_activity()
+        public SessionActivityResponse()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Models.Session_latest_activity"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.SessionActivityResponse"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Models.Session_latest_activity CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.SessionActivityResponse CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Models.Session_latest_activity();
+            return new global::Clerk.Net.Client.Models.SessionActivityResponse();
         }
         /// <summary>
         /// The deserialization information for the current model

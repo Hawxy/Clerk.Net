@@ -59,13 +59,13 @@ namespace Clerk.Net.Client.Models
 #else
         public global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata PublicMetadata { get; set; }
 #endif
-        /// <summary>The public_user_data property</summary>
+        /// <summary>An organization membership with public user data populated</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data? PublicUserData { get; set; }
+        public global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData? PublicUserData { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data PublicUserData { get; set; }
+        public global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData PublicUserData { get; set; }
 #endif
         /// <summary>The role property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -117,7 +117,7 @@ namespace Clerk.Net.Client.Models
                 { "permissions", n => { Permissions = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_private_metadata>(global::Clerk.Net.Client.Models.OrganizationMembership_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata>(global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata.CreateFromDiscriminatorValue); } },
-                { "public_user_data", n => { PublicUserData = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data>(global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data.CreateFromDiscriminatorValue); } },
+                { "public_user_data", n => { PublicUserData = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData>(global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData.CreateFromDiscriminatorValue); } },
                 { "role", n => { Role = n.GetStringValue(); } },
                 { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
@@ -137,7 +137,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteCollectionOfPrimitiveValues<string>("permissions", Permissions);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_metadata>("public_metadata", PublicMetadata);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembership_public_user_data>("public_user_data", PublicUserData);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData>("public_user_data", PublicUserData);
             writer.WriteStringValue("role", Role);
             writer.WriteStringValue("role_name", RoleName);
             writer.WriteLongValue("updated_at", UpdatedAt);

@@ -163,10 +163,10 @@ namespace Clerk.Net.Client.Organizations
             public bool? IncludeMembersCount { get; set; }
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
-            public double? Limit { get; set; }
+            public int? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
-            public double? Offset { get; set; }
+            public int? Offset { get; set; }
             /// <summary>Allows to return organizations in a particular order.At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.If you don&apos;t use `+` or `-`, then `+` is implied.Defaults to `-created_at`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

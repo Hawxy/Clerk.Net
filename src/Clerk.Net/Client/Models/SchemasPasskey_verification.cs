@@ -18,12 +18,28 @@ namespace Clerk.Net.Client.Models
         public int? Attempts { get; set; }
         /// <summary>The expire_at property</summary>
         public int? ExpireAt { get; set; }
+        /// <summary>The message property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Message { get; set; }
+#nullable restore
+#else
+        public string Message { get; set; }
+#endif
         /// <summary>The nonce property</summary>
         public global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce? Nonce { get; set; }
         /// <summary>The status property</summary>
         public global::Clerk.Net.Client.Models.SchemasPasskey_verification_status? Status { get; set; }
         /// <summary>The strategy property</summary>
         public global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy? Strategy { get; set; }
+        /// <summary>The verified_at_client property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? VerifiedAtClient { get; set; }
+#nullable restore
+#else
+        public string VerifiedAtClient { get; set; }
+#endif
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.SchemasPasskey_verification"/> and sets the default values.
         /// </summary>
@@ -51,9 +67,11 @@ namespace Clerk.Net.Client.Models
             {
                 { "attempts", n => { Attempts = n.GetIntValue(); } },
                 { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
+                { "message", n => { Message = n.GetStringValue(); } },
                 { "nonce", n => { Nonce = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce>(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_status>(); } },
                 { "strategy", n => { Strategy = n.GetEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy>(); } },
+                { "verified_at_client", n => { VerifiedAtClient = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -65,9 +83,11 @@ namespace Clerk.Net.Client.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteIntValue("attempts", Attempts);
             writer.WriteIntValue("expire_at", ExpireAt);
+            writer.WriteStringValue("message", Message);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_nonce>("nonce", Nonce);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_status>("status", Status);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.SchemasPasskey_verification_strategy>("strategy", Strategy);
+            writer.WriteStringValue("verified_at_client", VerifiedAtClient);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

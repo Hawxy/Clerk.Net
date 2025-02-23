@@ -12,8 +12,8 @@ namespace Clerk.Net.Client.Models
     public partial class Session : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The abandon_at property</summary>
-        public int? AbandonAt { get; set; }
+        /// <summary>Unix timestamp of abandonment.</summary>
+        public long? AbandonAt { get; set; }
         /// <summary>The actor property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -32,8 +32,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
-        /// <summary>The expire_at property</summary>
-        public int? ExpireAt { get; set; }
+        /// <summary>Unix timestamp of expiration.</summary>
+        public long? ExpireAt { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -55,10 +55,10 @@ namespace Clerk.Net.Client.Models
         /// <summary>The latest_activity property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.Session_latest_activity? LatestActivity { get; set; }
+        public global::Clerk.Net.Client.Models.SessionActivityResponse? LatestActivity { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.Session_latest_activity LatestActivity { get; set; }
+        public global::Clerk.Net.Client.Models.SessionActivityResponse LatestActivity { get; set; }
 #endif
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public global::Clerk.Net.Client.Models.Session_object? Object { get; set; }
@@ -92,15 +92,15 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "abandon_at", n => { AbandonAt = n.GetIntValue(); } },
+                { "abandon_at", n => { AbandonAt = n.GetLongValue(); } },
                 { "actor", n => { Actor = n.GetObjectValue<global::Clerk.Net.Client.Models.Session_actor>(global::Clerk.Net.Client.Models.Session_actor.CreateFromDiscriminatorValue); } },
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
-                { "expire_at", n => { ExpireAt = n.GetIntValue(); } },
+                { "expire_at", n => { ExpireAt = n.GetLongValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "last_active_at", n => { LastActiveAt = n.GetIntValue(); } },
                 { "last_active_organization_id", n => { LastActiveOrganizationId = n.GetStringValue(); } },
-                { "latest_activity", n => { LatestActivity = n.GetObjectValue<global::Clerk.Net.Client.Models.Session_latest_activity>(global::Clerk.Net.Client.Models.Session_latest_activity.CreateFromDiscriminatorValue); } },
+                { "latest_activity", n => { LatestActivity = n.GetObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>(global::Clerk.Net.Client.Models.SessionActivityResponse.CreateFromDiscriminatorValue); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_object>(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_status>(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
@@ -114,15 +114,15 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteIntValue("abandon_at", AbandonAt);
+            writer.WriteLongValue("abandon_at", AbandonAt);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.Session_actor>("actor", Actor);
             writer.WriteStringValue("client_id", ClientId);
             writer.WriteLongValue("created_at", CreatedAt);
-            writer.WriteIntValue("expire_at", ExpireAt);
+            writer.WriteLongValue("expire_at", ExpireAt);
             writer.WriteStringValue("id", Id);
             writer.WriteIntValue("last_active_at", LastActiveAt);
             writer.WriteStringValue("last_active_organization_id", LastActiveOrganizationId);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.Session_latest_activity>("latest_activity", LatestActivity);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>("latest_activity", LatestActivity);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_object>("object", Object);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_status>("status", Status);
             writer.WriteLongValue("updated_at", UpdatedAt);

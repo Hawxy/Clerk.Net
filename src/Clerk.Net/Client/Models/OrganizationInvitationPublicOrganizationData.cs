@@ -9,50 +9,52 @@ namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class SchemasSAMLConnection_attribute_mapping : IParsable
+    public partial class OrganizationInvitationPublicOrganizationData : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The email_address property</summary>
+        /// <summary>The has_image property</summary>
+        public bool? HasImage { get; set; }
+        /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? EmailAddress { get; set; }
+        public string? Id { get; set; }
 #nullable restore
 #else
-        public string EmailAddress { get; set; }
+        public string Id { get; set; }
 #endif
-        /// <summary>The first_name property</summary>
+        /// <summary>The image_url property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? FirstName { get; set; }
+        public string? ImageUrl { get; set; }
 #nullable restore
 #else
-        public string FirstName { get; set; }
+        public string ImageUrl { get; set; }
 #endif
-        /// <summary>The last_name property</summary>
+        /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LastName { get; set; }
+        public string? Name { get; set; }
 #nullable restore
 #else
-        public string LastName { get; set; }
+        public string Name { get; set; }
 #endif
-        /// <summary>The user_id property</summary>
+        /// <summary>The slug property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? UserId { get; set; }
+        public string? Slug { get; set; }
 #nullable restore
 #else
-        public string UserId { get; set; }
+        public string Slug { get; set; }
 #endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping();
+            return new global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -62,10 +64,11 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "email_address", n => { EmailAddress = n.GetStringValue(); } },
-                { "first_name", n => { FirstName = n.GetStringValue(); } },
-                { "last_name", n => { LastName = n.GetStringValue(); } },
-                { "user_id", n => { UserId = n.GetStringValue(); } },
+                { "has_image", n => { HasImage = n.GetBoolValue(); } },
+                { "id", n => { Id = n.GetStringValue(); } },
+                { "image_url", n => { ImageUrl = n.GetStringValue(); } },
+                { "name", n => { Name = n.GetStringValue(); } },
+                { "slug", n => { Slug = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -75,10 +78,11 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("email_address", EmailAddress);
-            writer.WriteStringValue("first_name", FirstName);
-            writer.WriteStringValue("last_name", LastName);
-            writer.WriteStringValue("user_id", UserId);
+            writer.WriteBoolValue("has_image", HasImage);
+            writer.WriteStringValue("id", Id);
+            writer.WriteStringValue("image_url", ImageUrl);
+            writer.WriteStringValue("name", Name);
+            writer.WriteStringValue("slug", Slug);
         }
     }
 }

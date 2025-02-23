@@ -38,6 +38,8 @@ namespace Clerk.Net.Client.Models
         public int? MaxAllowedMemberships { get; set; }
         /// <summary>The members_count property</summary>
         public int? MembersCount { get; set; }
+        /// <summary>The missing_member_with_elevated_permissions property</summary>
+        public bool? MissingMemberWithElevatedPermissions { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -48,6 +50,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.Organization_object? Object { get; set; }
+        /// <summary>The pending_invitations_count property</summary>
+        public int? PendingInvitationsCount { get; set; }
         /// <summary>The private_metadata property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -105,8 +109,10 @@ namespace Clerk.Net.Client.Models
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "max_allowed_memberships", n => { MaxAllowedMemberships = n.GetIntValue(); } },
                 { "members_count", n => { MembersCount = n.GetIntValue(); } },
+                { "missing_member_with_elevated_permissions", n => { MissingMemberWithElevatedPermissions = n.GetBoolValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.Organization_object>(); } },
+                { "pending_invitations_count", n => { PendingInvitationsCount = n.GetIntValue(); } },
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.Organization_private_metadata>(global::Clerk.Net.Client.Models.Organization_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.Organization_public_metadata>(global::Clerk.Net.Client.Models.Organization_public_metadata.CreateFromDiscriminatorValue); } },
                 { "slug", n => { Slug = n.GetStringValue(); } },
@@ -126,8 +132,10 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("id", Id);
             writer.WriteIntValue("max_allowed_memberships", MaxAllowedMemberships);
             writer.WriteIntValue("members_count", MembersCount);
+            writer.WriteBoolValue("missing_member_with_elevated_permissions", MissingMemberWithElevatedPermissions);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Organization_object>("object", Object);
+            writer.WriteIntValue("pending_invitations_count", PendingInvitationsCount);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.Organization_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.Organization_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("slug", Slug);

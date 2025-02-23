@@ -7,20 +7,29 @@ using System.IO;
 using System;
 namespace Clerk.Net.Client.Models
 {
+    /// <summary>
+    /// An organization membership with public user data populated
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
-    public partial class OrganizationInvitationWithPublicOrganizationData_public_organization_data : IParsable
-    #pragma warning restore CS1591
+    public partial class OrganizationMembershipPublicUserData : IParsable
     {
-        /// <summary>The has_image property</summary>
-        public bool? HasImage { get; set; }
-        /// <summary>The id property</summary>
+        /// <summary>The first_name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Id { get; set; }
+        public string? FirstName { get; set; }
 #nullable restore
 #else
-        public string Id { get; set; }
+        public string FirstName { get; set; }
+#endif
+        /// <summary>The has_image property</summary>
+        public bool? HasImage { get; set; }
+        /// <summary>The identifier property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Identifier { get; set; }
+#nullable restore
+#else
+        public string Identifier { get; set; }
 #endif
         /// <summary>The image_url property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -30,31 +39,40 @@ namespace Clerk.Net.Client.Models
 #else
         public string ImageUrl { get; set; }
 #endif
-        /// <summary>The name property</summary>
+        /// <summary>The last_name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Name { get; set; }
+        public string? LastName { get; set; }
 #nullable restore
 #else
-        public string Name { get; set; }
+        public string LastName { get; set; }
 #endif
-        /// <summary>The slug property</summary>
+        /// <summary>The profile_image_url property</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? Slug { get; set; }
+        public string? ProfileImageUrl { get; set; }
 #nullable restore
 #else
-        public string Slug { get; set; }
+        public string ProfileImageUrl { get; set; }
+#endif
+        /// <summary>The user_id property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? UserId { get; set; }
+#nullable restore
+#else
+        public string UserId { get; set; }
 #endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data();
+            return new global::Clerk.Net.Client.Models.OrganizationMembershipPublicUserData();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -64,11 +82,13 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "first_name", n => { FirstName = n.GetStringValue(); } },
                 { "has_image", n => { HasImage = n.GetBoolValue(); } },
-                { "id", n => { Id = n.GetStringValue(); } },
+                { "identifier", n => { Identifier = n.GetStringValue(); } },
                 { "image_url", n => { ImageUrl = n.GetStringValue(); } },
-                { "name", n => { Name = n.GetStringValue(); } },
-                { "slug", n => { Slug = n.GetStringValue(); } },
+                { "last_name", n => { LastName = n.GetStringValue(); } },
+                { "profile_image_url", n => { ProfileImageUrl = n.GetStringValue(); } },
+                { "user_id", n => { UserId = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -78,11 +98,13 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("first_name", FirstName);
             writer.WriteBoolValue("has_image", HasImage);
-            writer.WriteStringValue("id", Id);
+            writer.WriteStringValue("identifier", Identifier);
             writer.WriteStringValue("image_url", ImageUrl);
-            writer.WriteStringValue("name", Name);
-            writer.WriteStringValue("slug", Slug);
+            writer.WriteStringValue("last_name", LastName);
+            writer.WriteStringValue("profile_image_url", ProfileImageUrl);
+            writer.WriteStringValue("user_id", UserId);
         }
     }
 }

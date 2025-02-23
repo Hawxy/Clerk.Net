@@ -1,11 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Clerk.Net.Client;
+﻿using Clerk.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Microsoft.Kiota.Http.HttpClientLibrary.Middleware;
-using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options;
 
 namespace Clerk.Net.DependencyInjection;
 
@@ -25,12 +23,12 @@ public static class DependencyInjectionExtensions
     public static IHttpClientBuilder AddClerkApiClient(this IServiceCollection collection, Action<ClerkApiClientOptions> options)
     {
         ArgumentNullException.ThrowIfNull(options);
-        
+
         var clientBuilder = collection.AddHttpClient(ClerkHttpClient)
-            .ConfigurePrimaryHttpMessageHandler(() => 
+            .ConfigurePrimaryHttpMessageHandler(() =>
                 new SocketsHttpHandler()
                 {
-                    PooledConnectionLifetime = TimeSpan.FromMinutes(2)
+                    PooledConnectionLifetime = TimeSpan.FromMinutes(2),
                 })
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
        
@@ -39,8 +37,15 @@ public static class DependencyInjectionExtensions
         
         foreach (var type in types)
         {
-            collection.TryAddTransient(type);
-            clientBuilder.AddHttpMessageHandler(sp => (DelegatingHandler)sp.GetRequiredService(type));
+            if (type.Type == typeof(UserAgentHandler))
+            {
+                collection.TryAddTransient(_ => new UserAgentHandler(KiotaHandlerConfiguration.UserAgentHandlerOption));
+            }
+            else
+            {
+                collection.TryAddTransient(type.Type);
+            }
+            clientBuilder.AddHttpMessageHandler(sp => (DelegatingHandler)sp.GetRequiredService(type.Type));
         }
 
         collection.Configure(options);
