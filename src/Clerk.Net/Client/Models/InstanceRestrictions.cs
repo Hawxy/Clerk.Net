@@ -16,6 +16,8 @@ namespace Clerk.Net.Client.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The allowlist property</summary>
         public bool? Allowlist { get; set; }
+        /// <summary>The block_disposable_email_domains property</summary>
+        public bool? BlockDisposableEmailDomains { get; set; }
         /// <summary>The block_email_subaddresses property</summary>
         public bool? BlockEmailSubaddresses { get; set; }
         /// <summary>The blocklist property</summary>
@@ -50,6 +52,7 @@ namespace Clerk.Net.Client.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "allowlist", n => { Allowlist = n.GetBoolValue(); } },
+                { "block_disposable_email_domains", n => { BlockDisposableEmailDomains = n.GetBoolValue(); } },
                 { "block_email_subaddresses", n => { BlockEmailSubaddresses = n.GetBoolValue(); } },
                 { "blocklist", n => { Blocklist = n.GetBoolValue(); } },
                 { "ignore_dots_for_gmail_addresses", n => { IgnoreDotsForGmailAddresses = n.GetBoolValue(); } },
@@ -64,6 +67,7 @@ namespace Clerk.Net.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("allowlist", Allowlist);
+            writer.WriteBoolValue("block_disposable_email_domains", BlockDisposableEmailDomains);
             writer.WriteBoolValue("block_email_subaddresses", BlockEmailSubaddresses);
             writer.WriteBoolValue("blocklist", Blocklist);
             writer.WriteBoolValue("ignore_dots_for_gmail_addresses", IgnoreDotsForGmailAddresses);

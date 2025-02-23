@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Models
 #else
         public string AuthorizeUrl { get; set; }
 #endif
-        /// <summary>The callback_url property</summary>
+        /// <summary>Deprecated: Use redirect_uris instead.</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

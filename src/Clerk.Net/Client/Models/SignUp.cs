@@ -12,8 +12,8 @@ namespace Clerk.Net.Client.Models
     public partial class SignUp : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The abandon_at property</summary>
-        public int? AbandonAt { get; set; }
+        /// <summary>Unix timestamp at which the user abandoned the sign up attempt.</summary>
+        public long? AbandonAt { get; set; }
         /// <summary>The created_session_id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -41,6 +41,7 @@ namespace Clerk.Net.Client.Models
         public string EmailAddress { get; set; }
 #endif
         /// <summary>The external_account property</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Clerk.Net.Client.Models.SignUp_external_account? ExternalAccount { get; set; }
@@ -155,10 +156,10 @@ namespace Clerk.Net.Client.Models
         /// <summary>The verifications property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.SignUp_verifications? Verifications { get; set; }
+        public global::Clerk.Net.Client.Models.SignUpVerifications? Verifications { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.SignUp_verifications Verifications { get; set; }
+        public global::Clerk.Net.Client.Models.SignUpVerifications Verifications { get; set; }
 #endif
         /// <summary>The web3_wallet property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -186,7 +187,7 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "abandon_at", n => { AbandonAt = n.GetIntValue(); } },
+                { "abandon_at", n => { AbandonAt = n.GetLongValue(); } },
                 { "created_session_id", n => { CreatedSessionId = n.GetStringValue(); } },
                 { "created_user_id", n => { CreatedUserId = n.GetStringValue(); } },
                 { "custom_action", n => { CustomAction = n.GetBoolValue(); } },
@@ -208,7 +209,7 @@ namespace Clerk.Net.Client.Models
                 { "unsafe_metadata", n => { UnsafeMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.SignUp_unsafe_metadata>(global::Clerk.Net.Client.Models.SignUp_unsafe_metadata.CreateFromDiscriminatorValue); } },
                 { "unverified_fields", n => { UnverifiedFields = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "username", n => { Username = n.GetStringValue(); } },
-                { "verifications", n => { Verifications = n.GetObjectValue<global::Clerk.Net.Client.Models.SignUp_verifications>(global::Clerk.Net.Client.Models.SignUp_verifications.CreateFromDiscriminatorValue); } },
+                { "verifications", n => { Verifications = n.GetObjectValue<global::Clerk.Net.Client.Models.SignUpVerifications>(global::Clerk.Net.Client.Models.SignUpVerifications.CreateFromDiscriminatorValue); } },
                 { "web3_wallet", n => { Web3Wallet = n.GetStringValue(); } },
             };
         }
@@ -219,7 +220,7 @@ namespace Clerk.Net.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteIntValue("abandon_at", AbandonAt);
+            writer.WriteLongValue("abandon_at", AbandonAt);
             writer.WriteStringValue("created_session_id", CreatedSessionId);
             writer.WriteStringValue("created_user_id", CreatedUserId);
             writer.WriteBoolValue("custom_action", CustomAction);
@@ -241,7 +242,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.SignUp_unsafe_metadata>("unsafe_metadata", UnsafeMetadata);
             writer.WriteCollectionOfPrimitiveValues<string>("unverified_fields", UnverifiedFields);
             writer.WriteStringValue("username", Username);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SignUp_verifications>("verifications", Verifications);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SignUpVerifications>("verifications", Verifications);
             writer.WriteStringValue("web3_wallet", Web3Wallet);
         }
     }

@@ -92,10 +92,10 @@ namespace Clerk.Net.Client.Users.Item.Organization_memberships
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
-            public double? Limit { get; set; }
+            public int? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
-            public double? Offset { get; set; }
+            public int? Offset { get; set; }
         }
     }
 }

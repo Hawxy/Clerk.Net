@@ -36,6 +36,14 @@ namespace Clerk.Net.Client.Models
         public global::Clerk.Net.Client.Models.Web3Signature_status? Status { get; set; }
         /// <summary>The strategy property</summary>
         public global::Clerk.Net.Client.Models.Web3Signature_strategy? Strategy { get; set; }
+        /// <summary>The verified_at_client property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? VerifiedAtClient { get; set; }
+#nullable restore
+#else
+        public string VerifiedAtClient { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -60,6 +68,7 @@ namespace Clerk.Net.Client.Models
                 { "nonce", n => { Nonce = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Web3Signature_status>(); } },
                 { "strategy", n => { Strategy = n.GetEnumValue<global::Clerk.Net.Client.Models.Web3Signature_strategy>(); } },
+                { "verified_at_client", n => { VerifiedAtClient = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -75,6 +84,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("nonce", Nonce);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Web3Signature_status>("status", Status);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Web3Signature_strategy>("strategy", Strategy);
+            writer.WriteStringValue("verified_at_client", VerifiedAtClient);
         }
     }
 }

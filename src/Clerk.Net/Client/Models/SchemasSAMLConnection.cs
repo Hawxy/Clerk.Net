@@ -31,10 +31,10 @@ namespace Clerk.Net.Client.Models
         /// <summary>The attribute_mapping property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping? AttributeMapping { get; set; }
+        public global::Clerk.Net.Client.Models.SAMLConnectionAttributeMapping? AttributeMapping { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping AttributeMapping { get; set; }
+        public global::Clerk.Net.Client.Models.SAMLConnectionAttributeMapping AttributeMapping { get; set; }
 #endif
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
@@ -173,7 +173,7 @@ namespace Clerk.Net.Client.Models
                 { "active", n => { Active = n.GetBoolValue(); } },
                 { "allow_idp_initiated", n => { AllowIdpInitiated = n.GetBoolValue(); } },
                 { "allow_subdomains", n => { AllowSubdomains = n.GetBoolValue(); } },
-                { "attribute_mapping", n => { AttributeMapping = n.GetObjectValue<global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping>(global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping.CreateFromDiscriminatorValue); } },
+                { "attribute_mapping", n => { AttributeMapping = n.GetObjectValue<global::Clerk.Net.Client.Models.SAMLConnectionAttributeMapping>(global::Clerk.Net.Client.Models.SAMLConnectionAttributeMapping.CreateFromDiscriminatorValue); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "disable_additional_identifications", n => { DisableAdditionalIdentifications = n.GetBoolValue(); } },
                 { "domain", n => { Domain = n.GetStringValue(); } },
@@ -205,7 +205,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteBoolValue("active", Active);
             writer.WriteBoolValue("allow_idp_initiated", AllowIdpInitiated);
             writer.WriteBoolValue("allow_subdomains", AllowSubdomains);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SchemasSAMLConnection_attribute_mapping>("attribute_mapping", AttributeMapping);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.SAMLConnectionAttributeMapping>("attribute_mapping", AttributeMapping);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteBoolValue("disable_additional_identifications", DisableAdditionalIdentifications);
             writer.WriteStringValue("domain", Domain);

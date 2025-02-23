@@ -25,6 +25,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string EmailAddress { get; set; }
 #endif
+        /// <summary>Unix timestamp of expiration.</summary>
+        public long? ExpiresAt { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -62,10 +64,10 @@ namespace Clerk.Net.Client.Models
         /// <summary>The public_organization_data property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data? PublicOrganizationData { get; set; }
+        public global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData? PublicOrganizationData { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data PublicOrganizationData { get; set; }
+        public global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData PublicOrganizationData { get; set; }
 #endif
         /// <summary>The role property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -128,12 +130,13 @@ namespace Clerk.Net.Client.Models
             {
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "email_address", n => { EmailAddress = n.GetStringValue(); } },
+                { "expires_at", n => { ExpiresAt = n.GetLongValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_object>(); } },
                 { "organization_id", n => { OrganizationId = n.GetStringValue(); } },
                 { "private_metadata", n => { PrivateMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_private_metadata>(global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_private_metadata.CreateFromDiscriminatorValue); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_metadata>(global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_metadata.CreateFromDiscriminatorValue); } },
-                { "public_organization_data", n => { PublicOrganizationData = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data>(global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data.CreateFromDiscriminatorValue); } },
+                { "public_organization_data", n => { PublicOrganizationData = n.GetObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData>(global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData.CreateFromDiscriminatorValue); } },
                 { "role", n => { Role = n.GetStringValue(); } },
                 { "role_name", n => { RoleName = n.GetStringValue(); } },
                 { "status", n => { Status = n.GetStringValue(); } },
@@ -150,12 +153,13 @@ namespace Clerk.Net.Client.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("email_address", EmailAddress);
+            writer.WriteLongValue("expires_at", ExpiresAt);
             writer.WriteStringValue("id", Id);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_object>("object", Object);
             writer.WriteStringValue("organization_id", OrganizationId);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_private_metadata>("private_metadata", PrivateMetadata);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_metadata>("public_metadata", PublicMetadata);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationWithPublicOrganizationData_public_organization_data>("public_organization_data", PublicOrganizationData);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.OrganizationInvitationPublicOrganizationData>("public_organization_data", PublicOrganizationData);
             writer.WriteStringValue("role", Role);
             writer.WriteStringValue("role_name", RoleName);
             writer.WriteStringValue("status", Status);

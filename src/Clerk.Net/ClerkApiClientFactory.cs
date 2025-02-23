@@ -21,7 +21,7 @@ public static class ClerkApiClientFactory
             throw new ArgumentNullException(nameof(secretKey));
         
         var authProvider = new ApiKeyAuthenticationProvider($"Bearer {secretKey}", "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
-        var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
+        var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient ?? KiotaClientFactory.Create(optionsForHandlers: [KiotaHandlerConfiguration.UserAgentHandlerOption]));
         return new ClerkApiClient(adapter);
     }
 }

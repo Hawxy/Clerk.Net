@@ -136,10 +136,10 @@ namespace Clerk.Net.Client.Waitlist_entries
         {
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
-            public double? Limit { get; set; }
+            public int? Limit { get; set; }
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
-            public double? Offset { get; set; }
+            public int? Offset { get; set; }
             /// <summary>Specify the order of results. Supported values are:- `created_at`- `email_address`- `invited_at`Use `+` for ascending or `-` for descending order. Defaults to `-created_at`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

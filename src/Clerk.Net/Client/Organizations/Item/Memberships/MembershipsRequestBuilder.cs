@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public MembershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?limit*,offset*,order_by*}", pathParameters)
+        public MembershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number_query*,username_query*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public MembershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?limit*,offset*,order_by*}", rawUrl)
+        public MembershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number_query*,username_query*}", rawUrl)
         {
         }
         /// <summary>
@@ -158,12 +158,44 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class MembershipsRequestBuilderGetQueryParameters 
         {
+            /// <summary>Returns users who have been created after the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.</summary>
+            [QueryParameter("created_at_after")]
+            public int? CreatedAtAfter { get; set; }
+            /// <summary>Returns users who have been created before the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.</summary>
+            [QueryParameter("created_at_before")]
+            public int? CreatedAtBefore { get; set; }
+            /// <summary>Returns users with emails that match the given query, via case-insensitive partial match.For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("email_address_query")]
+            public string? EmailAddressQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("email_address_query")]
+            public string EmailAddressQuery { get; set; }
+#endif
+            /// <summary>Returns users whose last session activity was after the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.</summary>
+            [QueryParameter("last_active_at_after")]
+            public int? LastActiveAtAfter { get; set; }
+            /// <summary>Returns users whose last session activity was before the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.</summary>
+            [QueryParameter("last_active_at_before")]
+            public int? LastActiveAtBefore { get; set; }
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
-            public double? Limit { get; set; }
+            public int? Limit { get; set; }
+            /// <summary>Returns users with names that match the given query, via case-insensitive partial match.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("name_query")]
+            public string? NameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("name_query")]
+            public string NameQuery { get; set; }
+#endif
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
-            public double? Offset { get; set; }
+            public int? Offset { get; set; }
             /// <summary>Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.By prepending one of those values with + or -,we can choose to sort in ascending (ASC) or descending (DESC) order.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -173,6 +205,26 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
 #else
             [QueryParameter("order_by")]
             public string OrderBy { get; set; }
+#endif
+            /// <summary>Returns users with phone numbers that match the given query, via case-insensitive partial match.For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("phone_number_query")]
+            public string? PhoneNumberQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("phone_number_query")]
+            public string PhoneNumberQuery { get; set; }
+#endif
+            /// <summary>Returns users with usernames that match the given query, via case-insensitive partial match.For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("username_query")]
+            public string? UsernameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("username_query")]
+            public string UsernameQuery { get; set; }
 #endif
         }
     }
