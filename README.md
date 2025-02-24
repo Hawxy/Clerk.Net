@@ -2,7 +2,7 @@
 
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Clerk.Net)
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
-[![Nuget](https://img.shields.io/nuget/v/Clerk.Net.AspNetCore.Security?label=Clerk.Net.AspNetCore.Security&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.AspNetCore.Security)
+[![Nuget](https://img.shields.io/nuget/vpre/Clerk.Net.AspNetCore.Security?label=Clerk.Net.AspNetCore.Security&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.AspNetCore.Security)
 
 ### Packages
 
