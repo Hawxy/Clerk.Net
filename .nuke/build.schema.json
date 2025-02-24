@@ -105,6 +105,16 @@
   "allOf": [
     {
       "properties": {
+        "ClerkAuthority": {
+          "type": "string",
+          "description": "Clerk Authority",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
+        "ClerkSecretKey": {
+          "type": "string",
+          "description": "Clerk Secret Key",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
         "NugetApiKey": {
           "type": "string",
           "description": "Nuget Api Key",

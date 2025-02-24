@@ -2,20 +2,21 @@
 
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net?label=Clerk.Net&style=flat-square)](https://www.nuget.org/packages/Clerk.Net)
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
-
-_Looking for ASP.NET Core w/ Clerk JWTs? [See below](#what-about-jwt-auth)._
+[![Nuget](https://img.shields.io/nuget/v/Clerk.Net.AspNetCore.Security?label=Clerk.Net.AspNetCore.Security&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.AspNetCore.Security)
 
 ### Packages
 
-**`Clerk.Net`**: Provides the standalone API Client as a Kiota-generated wrapper over Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
+**`Clerk.Net`**: Standalone Clerk API Client genenerated with Kiota from Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
 
 **`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container. Compatible with .NET 6+.
 
+**`Clerk.Net.AspNetCore.Security`**: Clerk Authentication support for ASP.NET Core. Compatible with .NET 8+.
+
 These libraries are configured as native AoT compatible for .NET 8+ consumers.
 
-**Caution:** As the Clerk OpenAPI spec is constantly changing, this library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
+**Caution:** As the Clerk OpenAPI spec is constantly changing, the root `Clerk.Net` library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
 
-## Getting Started
+## Getting Started - Clerk API Client
 
 Make sure to add your `SecretKey` to your application configuration, ideally via the [dotnet secrets manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#enable-secret-storage).
 
@@ -74,53 +75,32 @@ This package applies Kiota's default handlers which enables automated retries wh
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
 
-### What about JWT Auth?
+## Getting Stated - Authentication (Beta)
 
-You might have stumbled upon this repo looking for a solution for validating Clerk JWTs, so I'll include the answer here for completion. Configuring JWT auth for Clerk is a tad _unusual_ as they want you to validate the `azp` parameter instead of specifying an `audience`.
-This claim isn't normally validated at the authentication layer, and so you'll need some extra code to get things working:
+Note: This package is currently in Beta due to potential API changes before 1.0, but is safe to use in production applications.
 
-Note that you'll need to install `Microsoft.AspNetCore.Authentication.JwtBearer` before continuing.
+You should have a new or existing ASP.NET Core application created before continuing.
 
-```cs
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x =>
+1. Install `Clerk.Net.AspNetCore.Security` to your project.
+2. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParty` - the Frontend URL of your application:
+```csharp
+builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme)
+    .AddClerkAuthentication(x =>
     {
-        // Authority is the URL of your clerk instance
-        x.Authority = builder.Configuration["Clerk:Authority"];
-        x.TokenValidationParameters = new TokenValidationParameters()
-        {
-            // Disable audience validation as we aren't using it
-            ValidateAudience = false,
-            NameClaimType = ClaimTypes.NameIdentifier
-        };
-        x.Events = new JwtBearerEvents()
-        {
-            // Additional validation for AZP claim
-            OnTokenValidated = context =>
-            {
-                var azp = context.Principal?.FindFirstValue("azp");
-                // AuthorizedParty is the base URL of your frontend.
-                if (string.IsNullOrEmpty(azp) || !azp.Equals(builder.Configuration["Clerk:AuthorizedParty"]))
-                    context.Fail("AZP Claim is invalid or missing");
-
-                return Task.CompletedTask;
-            }
-        };
+        x.Authority = builder.Configuration["Clerk:Authority"]!;
+        x.AuthorizedParty = builder.Configuration["Clerk:AuthorizedParty"]!;
     });
 ```
 
-If you're sending requests from a SPA, it should call Clerk-JS's `getToken` as part of its HTTP middleware and append the token (prefixed with `Bearer`) to the `Authorization` header, for example:
-
-```ts
-async onRequestInit({ requestInit }) {
-    requestInit.headers = {
-        ...requestInit.headers,
-        Authorization: `Bearer ${await getToken()}`
-    }
-}
+3. Configure an Authorization policy to require authorization by default:
+```csharp
+builder.Services.AddAuthorizationBuilder()
+    .SetFallbackPolicy(new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build());
 ```
 
-If the requests are coming from an SSR environment (ie NextJS), then you can either use the session JWT via the `__session` cookie and forward it on, or use a JWT template to create a unique JWT for your scenario.
+This authentication middleware is compatible with both [cross-origin](https://clerk.com/docs/backend-requests/making/cross-origin) & [same-origin](https://clerk.com/docs/backend-requests/making/same-origin) requests.
 
 ### Inbound Clerk Webhooks
 
