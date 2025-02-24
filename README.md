@@ -6,7 +6,7 @@
 
 ### Packages
 
-**`Clerk.Net`**: Standalone Clerk API Client genenerated with Kiota from Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
+**`Clerk.Net`**: Clerk API Client generated with Kiota from Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
 
 **`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container. Compatible with .NET 6+.
 
@@ -14,7 +14,7 @@
 
 These libraries are configured as native AoT compatible for .NET 8+ consumers.
 
-**Caution:** As the Clerk OpenAPI spec is constantly changing, the root `Clerk.Net` library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
+**Caution:** As the Clerk OpenAPI spec is constantly changing, the core `Clerk.Net` library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
 
 ## Getting Started - Clerk API Client
 
