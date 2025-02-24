@@ -18,7 +18,8 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     GitHubActionsImage.UbuntuLatest,
     OnPushBranches = ["main"],
     OnPullRequestBranches = ["main"],
-    InvokedTargets = [nameof(Test)])]
+    InvokedTargets = [nameof(Test)],
+    ImportSecrets = [nameof(ClerkAuthority), nameof(ClerkSecretKey)])]
 [GitHubActions(
     "Manual Nuget Push",
     GitHubActionsImage.UbuntuLatest,
@@ -64,6 +65,9 @@ partial class Build : NukeBuild
                 .SetConfiguration("Release")
                 .EnableNoRestore());
         });
+    
+    [Parameter("Clerk Authority")][Secret] readonly string ClerkAuthority;
+    [Parameter("Clerk Secret Key")][Secret] readonly string ClerkSecretKey;
 
     Target Test => _ => _
         .DependsOn(Compile)
@@ -71,6 +75,11 @@ partial class Build : NukeBuild
         {
             DotNetTest(s => s
                 .SetProjectFile(Solution.Clerk_Net_Tests));
+
+            DotNetTest(s => s
+                .SetProjectFile(Solution.Clerk_Net_AspNetCore_Security)
+                .AddProcessEnvironmentVariable("CLERK__AUTHORITY", ClerkAuthority)
+                .AddProcessEnvironmentVariable("CLERK__SECRETKEY", ClerkSecretKey));
         });
 
     Target NugetPack => _ => _
@@ -85,6 +94,12 @@ partial class Build : NukeBuild
 
             DotNetPack(_ => _
                 .SetProject(Solution.Clerk_Net_DependencyInjection)
+                .SetConfiguration("Release")
+                .EnableContinuousIntegrationBuild()
+                .SetOutputDirectory(ArtifactsDirectory));
+            
+            DotNetPack(_ => _
+                .SetProject(Solution.Clerk_Net_AspNetCore_Security)
                 .SetConfiguration("Release")
                 .EnableContinuousIntegrationBuild()
                 .SetOutputDirectory(ArtifactsDirectory));

@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Models
         public string Id { get; set; }
 #endif
         /// <summary>The last_active_at property</summary>
-        public int? LastActiveAt { get; set; }
+        public long? LastActiveAt { get; set; }
         /// <summary>The last_active_organization_id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -98,7 +98,7 @@ namespace Clerk.Net.Client.Models
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "expire_at", n => { ExpireAt = n.GetLongValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
-                { "last_active_at", n => { LastActiveAt = n.GetIntValue(); } },
+                { "last_active_at", n => { LastActiveAt = n.GetLongValue(); } },
                 { "last_active_organization_id", n => { LastActiveOrganizationId = n.GetStringValue(); } },
                 { "latest_activity", n => { LatestActivity = n.GetObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>(global::Clerk.Net.Client.Models.SessionActivityResponse.CreateFromDiscriminatorValue); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_object>(); } },
@@ -120,7 +120,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteLongValue("expire_at", ExpireAt);
             writer.WriteStringValue("id", Id);
-            writer.WriteIntValue("last_active_at", LastActiveAt);
+            writer.WriteLongValue("last_active_at", LastActiveAt);
             writer.WriteStringValue("last_active_organization_id", LastActiveOrganizationId);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>("latest_activity", LatestActivity);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_object>("object", Object);

@@ -1,7 +1,6 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Clerk.Net.AspNetCore.Security;
+using Clerk.Net.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,29 +29,20 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x =>
+
+// API Client
+builder.Services.AddClerkApiClient(x =>
+{
+    x.SecretKey = builder.Configuration["Clerk:SecretKey"]!;
+});
+
+// Auth
+builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme)
+    .AddClerkAuthentication(x =>
     {
-        x.Authority = builder.Configuration["Clerk:Authority"];
-        x.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateAudience = false,
-            NameClaimType = ClaimTypes.NameIdentifier 
-        };
-        x.Events = new JwtBearerEvents()
-        {
-            // Additional validation for AZP claim
-            OnTokenValidated = context =>
-            {
-                var azp = context.Principal?.FindFirstValue("azp");
-                if (string.IsNullOrEmpty(azp) || !azp.Equals(builder.Configuration["Clerk:AuthorizedParty"]))
-                    context.Fail("AZP Claim is invalid or missing");
-
-                return Task.CompletedTask;
-            }
-        };
+        x.Authority = builder.Configuration["Clerk:Authority"]!;
+        x.AuthorizedParty = builder.Configuration["Clerk:AuthorizedParty"]!;
     });
-
 
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(new AuthorizationPolicyBuilder()
