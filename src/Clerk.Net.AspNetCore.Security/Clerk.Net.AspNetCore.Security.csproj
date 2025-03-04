@@ -10,7 +10,7 @@
         <PackageId>Clerk.Net.AspNetCore.Security</PackageId>
         <Description>Clerk API Authentication for ASP.NET Core</Description>
         <PackageTags>clerk,auth,aspnetcore</PackageTags>
-        <Version>1.0.0-beta.1</Version>
+        <Version>1.0.0</Version>
         <Authors>Hawxy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

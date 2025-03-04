@@ -6,7 +6,8 @@
 public sealed class ClerkAuthenticationOptions
 {
     /// <summary>
-    /// Sets the authorized party we should check against. We highly recommend configuring this for security reasons.
+    /// Sets the authorized party. This should be the front-end URL if your application.
+    /// We highly recommend configuring this for improved security.
     /// </summary>
     public string? AuthorizedParty { get; set; } = null!;
     
