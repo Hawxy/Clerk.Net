@@ -42,6 +42,15 @@ namespace Clerk.Net.Client.Invitations.Bulk
 #else
         public string RedirectUrl { get; set; }
 #endif
+        /// <summary>The slug of the email template to use for the invitation email.</summary>
+        public global::Clerk.Net.Client.Invitations.Bulk.Bulk_template_slug? TemplateSlug { get; set; }
+        /// <summary>
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Invitations.Bulk.Bulk"/> and sets the default values.
+        /// </summary>
+        public Bulk()
+        {
+            TemplateSlug = global::Clerk.Net.Client.Invitations.Bulk.Bulk_template_slug.Invitation;
+        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -66,6 +75,7 @@ namespace Clerk.Net.Client.Invitations.Bulk
                 { "notify", n => { Notify = n.GetBoolValue(); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Invitations.Bulk.Bulk_public_metadata>(global::Clerk.Net.Client.Invitations.Bulk.Bulk_public_metadata.CreateFromDiscriminatorValue); } },
                 { "redirect_url", n => { RedirectUrl = n.GetStringValue(); } },
+                { "template_slug", n => { TemplateSlug = n.GetEnumValue<global::Clerk.Net.Client.Invitations.Bulk.Bulk_template_slug>(); } },
             };
         }
         /// <summary>
@@ -81,6 +91,7 @@ namespace Clerk.Net.Client.Invitations.Bulk
             writer.WriteBoolValue("notify", Notify);
             writer.WriteObjectValue<global::Clerk.Net.Client.Invitations.Bulk.Bulk_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteStringValue("redirect_url", RedirectUrl);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Invitations.Bulk.Bulk_template_slug>("template_slug", TemplateSlug);
         }
     }
 }

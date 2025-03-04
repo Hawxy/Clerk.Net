@@ -26,14 +26,6 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings
         public bool? ProgressiveSignUp { get; set; }
         /// <summary>Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.</summary>
         public bool? RestrictedToAllowlist { get; set; }
-        /// <summary>The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? SessionTokenTemplate { get; set; }
-#nullable restore
-#else
-        public string SessionTokenTemplate { get; set; }
-#endif
         /// <summary>Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.Defaults to true for development instances.</summary>
         public bool? TestMode { get; set; }
         /// <summary>
@@ -58,7 +50,6 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings
                 { "from_email_address", n => { FromEmailAddress = n.GetStringValue(); } },
                 { "progressive_sign_up", n => { ProgressiveSignUp = n.GetBoolValue(); } },
                 { "restricted_to_allowlist", n => { RestrictedToAllowlist = n.GetBoolValue(); } },
-                { "session_token_template", n => { SessionTokenTemplate = n.GetStringValue(); } },
                 { "test_mode", n => { TestMode = n.GetBoolValue(); } },
             };
         }
@@ -73,7 +64,6 @@ namespace Clerk.Net.Client.Beta_features.Instance_settings
             writer.WriteStringValue("from_email_address", FromEmailAddress);
             writer.WriteBoolValue("progressive_sign_up", ProgressiveSignUp);
             writer.WriteBoolValue("restricted_to_allowlist", RestrictedToAllowlist);
-            writer.WriteStringValue("session_token_template", SessionTokenTemplate);
             writer.WriteBoolValue("test_mode", TestMode);
         }
     }

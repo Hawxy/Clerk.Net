@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Saml_connections
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Saml_connectionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*,organization_id*}", pathParameters)
+        public Saml_connectionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*,order_by*,organization_id*,query*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Saml_connections
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Saml_connectionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*,organization_id*}", rawUrl)
+        public Saml_connectionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/saml_connections{?limit*,offset*,order_by*,organization_id*,query*}", rawUrl)
         {
         }
         /// <summary>
@@ -166,6 +166,16 @@ namespace Clerk.Net.Client.Saml_connections
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public int? Offset { get; set; }
+            /// <summary>Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.By prepending one of those values with + or -,we can choose to sort in ascending (ASC) or descending (DESC) order.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("order_by")]
+            public string? OrderBy { get; set; }
+#nullable restore
+#else
+            [QueryParameter("order_by")]
+            public string OrderBy { get; set; }
+#endif
             /// <summary>Returns SAML connections that have an associated organization ID to thegiven organizations.For each organization id, the `+` and `-` can beprepended to the id, which denote whether therespective organization should be included orexcluded from the result set.Accepts up to 100 organization ids.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -175,6 +185,16 @@ namespace Clerk.Net.Client.Saml_connections
 #else
             [QueryParameter("organization_id")]
             public string[] OrganizationId { get; set; }
+#endif
+            /// <summary>Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("query")]
+            public string? Query { get; set; }
+#nullable restore
+#else
+            [QueryParameter("query")]
+            public string Query { get; set; }
 #endif
         }
     }

@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithProviderItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/oauth_access_tokens/{provider}", pathParameters)
+        public WithProviderItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/oauth_access_tokens/{provider}{?limit*,offset*,paginated*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithProviderItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/oauth_access_tokens/{provider}", rawUrl)
+        public WithProviderItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/{user_id}/oauth_access_tokens/{provider}{?limit*,offset*,paginated*}", rawUrl)
         {
         }
         /// <summary>
@@ -44,11 +44,11 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -68,11 +68,11 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
@@ -88,6 +88,22 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         public global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class WithProviderItemRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
+            [QueryParameter("limit")]
+            public int? Limit { get; set; }
+            /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
+            [QueryParameter("offset")]
+            public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
         }
     }
 }

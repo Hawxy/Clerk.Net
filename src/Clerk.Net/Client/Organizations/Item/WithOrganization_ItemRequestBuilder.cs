@@ -52,7 +52,7 @@ namespace Clerk.Net.Client.Organizations.Item
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithOrganization_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}{?include_members_count*}", pathParameters)
+        public WithOrganization_ItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}{?include_members_count*,include_missing_member_with_elevated_permissions*}", pathParameters)
         {
         }
         /// <summary>
@@ -60,7 +60,7 @@ namespace Clerk.Net.Client.Organizations.Item
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithOrganization_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}{?include_members_count*}", rawUrl)
+        public WithOrganization_ItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}{?include_members_count*,include_missing_member_with_elevated_permissions*}", rawUrl)
         {
         }
         /// <summary>
@@ -218,6 +218,9 @@ namespace Clerk.Net.Client.Organizations.Item
             /// <summary>Flag to denote whether or not the organization&apos;s members count should be included in the response.</summary>
             [QueryParameter("include_members_count")]
             public bool? IncludeMembersCount { get; set; }
+            /// <summary>Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.</summary>
+            [QueryParameter("include_missing_member_with_elevated_permissions")]
+            public bool? IncludeMissingMemberWithElevatedPermissions { get; set; }
         }
     }
 }

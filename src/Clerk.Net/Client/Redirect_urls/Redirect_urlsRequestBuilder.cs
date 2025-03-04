@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Redirect_urls
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Redirect_urlsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls", pathParameters)
+        public Redirect_urlsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls{?limit*,offset*,paginated*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Redirect_urls
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Redirect_urlsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls", rawUrl)
+        public Redirect_urlsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/redirect_urls{?limit*,offset*,paginated*}", rawUrl)
         {
         }
         /// <summary>
@@ -54,11 +54,11 @@ namespace Clerk.Net.Client.Redirect_urls
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Clerk.Net.Client.Models.RedirectURL>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.RedirectURL>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder.Redirect_urlsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Clerk.Net.Client.Models.RedirectURL>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.RedirectURL>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder.Redirect_urlsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -99,11 +99,11 @@ namespace Clerk.Net.Client.Redirect_urls
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder.Redirect_urlsRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder.Redirect_urlsRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
@@ -141,6 +141,22 @@ namespace Clerk.Net.Client.Redirect_urls
         public global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Clerk.Net.Client.Redirect_urls.Redirect_urlsRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Lists all whitelisted redirect_urls for the instance
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class Redirect_urlsRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
+            [QueryParameter("limit")]
+            public int? Limit { get; set; }
+            /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
+            [QueryParameter("offset")]
+            public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
         }
     }
 }

@@ -17,6 +17,7 @@ public static class ClerkAuthenticationExtensions
     /// <param name="builder">An instance of <see cref="AuthenticationBuilder"/></param>
     /// <param name="options">The configuration options.</param>
     /// <returns>An instance of <see cref="AuthenticationBuilder"/></returns>
+    /// <exception cref="InvalidOperationException">Thrown if validation of the configuration object does not pass.</exception>
     public static AuthenticationBuilder AddClerkAuthentication(this AuthenticationBuilder builder, Action<ClerkAuthenticationOptions> options)
     {
         return builder.AddClerkAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme, options);
@@ -47,7 +48,7 @@ public static class ClerkAuthenticationExtensions
             x.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateAudience = false,
-                NameClaimType = ClaimTypes.NameIdentifier 
+                NameClaimType = ClaimTypes.NameIdentifier
             };
             x.Events = new JwtBearerEvents()
             {

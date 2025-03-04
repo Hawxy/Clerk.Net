@@ -42,7 +42,7 @@ namespace Clerk.Net.Client.Invitations
 #else
         public string RedirectUrl { get; set; }
 #endif
-        /// <summary>The slug of the email template to use for the invitation email.If not provided, the &quot;invitation&quot; template will be used.</summary>
+        /// <summary>The slug of the email template to use for the invitation email.</summary>
         public global::Clerk.Net.Client.Invitations.InvitationsPostRequestBody_template_slug? TemplateSlug { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value

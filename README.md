@@ -10,7 +10,7 @@
 
 **`Clerk.Net.DependencyInjection`**: Extensions to register the `ClerkApiClient` into your DI container. Compatible with .NET 6+.
 
-**`Clerk.Net.AspNetCore.Security`**: Clerk Authentication support for ASP.NET Core. Compatible with .NET 8+.
+**`Clerk.Net.AspNetCore.Security`**: Clerk Authentication support for ASP.NET Core API. Compatible with .NET 8+.
 
 These libraries are configured as native AoT compatible for .NET 8+ consumers.
 
@@ -75,9 +75,7 @@ This package applies Kiota's default handlers which enables automated retries wh
 
 For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.com/en-us/openapi/kiota/testing).
 
-## Getting Stated - Authentication (Beta)
-
-Note: This package is currently in Beta due to potential API changes before 1.0, but is safe to use in production applications.
+## Getting Stated - Authentication (ASP.NET Core)
 
 You should have a new or existing ASP.NET Core application created before continuing.
 
@@ -101,6 +99,10 @@ builder.Services.AddAuthorizationBuilder()
 ```
 
 This authentication middleware is compatible with both [cross-origin](https://clerk.com/docs/backend-requests/making/cross-origin) & [same-origin](https://clerk.com/docs/backend-requests/making/same-origin) requests.
+
+This package is light on options at the moment - Please open an issue if there's something you'd like to be able to configure.
+
+Note: This supports authentication for a remote client - such as an SPA - communicating with your backend. MVC is not supported (yet)
 
 ### Inbound Clerk Webhooks
 

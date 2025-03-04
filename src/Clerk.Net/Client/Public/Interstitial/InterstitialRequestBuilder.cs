@@ -21,7 +21,7 @@ namespace Clerk.Net.Client.Public.Interstitial
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InterstitialRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", pathParameters)
+        public InterstitialRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?domain*,frontendApi*,frontend_api*,proxy_url*,publishable_key*,sign_in_url*,use_domain_for_script*}", pathParameters)
         {
         }
         /// <summary>
@@ -29,7 +29,7 @@ namespace Clerk.Net.Client.Public.Interstitial
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InterstitialRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?frontendApi*,publishable_key*}", rawUrl)
+        public InterstitialRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/public/interstitial{?domain*,frontendApi*,frontend_api*,proxy_url*,publishable_key*,sign_in_url*,use_domain_for_script*}", rawUrl)
         {
         }
         /// <summary>
@@ -83,7 +83,26 @@ namespace Clerk.Net.Client.Public.Interstitial
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class InterstitialRequestBuilderGetQueryParameters 
         {
+            /// <summary>The domain of your instance</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("domain")]
+            public string? Domain { get; set; }
+#nullable restore
+#else
+            [QueryParameter("domain")]
+            public string Domain { get; set; }
+#endif
             /// <summary>The Frontend API key of your instance</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public string? Frontend_api { get; set; }
+#nullable restore
+#else
+            public string Frontend_api { get; set; }
+#endif
+            /// <summary>Please use `frontend_api` instead</summary>
+            [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("frontendApi")]
@@ -92,6 +111,16 @@ namespace Clerk.Net.Client.Public.Interstitial
 #else
             [QueryParameter("frontendApi")]
             public string FrontendApi { get; set; }
+#endif
+            /// <summary>The proxy URL of your instance</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("proxy_url")]
+            public string? ProxyUrl { get; set; }
+#nullable restore
+#else
+            [QueryParameter("proxy_url")]
+            public string ProxyUrl { get; set; }
 #endif
             /// <summary>The publishable key of your instance</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -103,6 +132,19 @@ namespace Clerk.Net.Client.Public.Interstitial
             [QueryParameter("publishable_key")]
             public string PublishableKey { get; set; }
 #endif
+            /// <summary>The sign in URL of your instance</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("sign_in_url")]
+            public string? SignInUrl { get; set; }
+#nullable restore
+#else
+            [QueryParameter("sign_in_url")]
+            public string SignInUrl { get; set; }
+#endif
+            /// <summary>Whether to use the domain for the script URL</summary>
+            [QueryParameter("use_domain_for_script")]
+            public bool? UseDomainForScript { get; set; }
         }
     }
 }

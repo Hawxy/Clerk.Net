@@ -42,7 +42,7 @@ namespace Clerk.Net.Client.Clients
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ClientsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", pathParameters)
+        public ClientsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*,paginated*}", pathParameters)
         {
         }
         /// <summary>
@@ -50,7 +50,7 @@ namespace Clerk.Net.Client.Clients
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ClientsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*}", rawUrl)
+        public ClientsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/clients{?limit*,offset*,paginated*}", rawUrl)
         {
         }
         /// <summary>
@@ -126,6 +126,9 @@ namespace Clerk.Net.Client.Clients
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
         }
     }
 }

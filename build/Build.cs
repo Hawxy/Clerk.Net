@@ -1,8 +1,8 @@
 using System.IO;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CaseConverter;
-using Microsoft.Playwright;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.IO;
@@ -121,24 +121,19 @@ partial class Build : NukeBuild
         });
     
     Target Update => _ => _
-        .Requires(() => Kiota)
+        .Requires(() => Kiota) 
         .Triggers(PostProcess)
         .Executes(async () =>
         {
-            // swagger URL is a client-side blob...
-            using var playwright = await Playwright.CreateAsync();
-            await using var browser =
-                await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() { Channel = "msedge" });
+            using var client = new HttpClient();
 
-            var page = await browser.NewPageAsync();
-            await page.GotoAsync("https://clerk.com/docs/reference/backend-api");
-
-            var downloadTask = page.WaitForDownloadAsync();
-            await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions() { Name = "Download" }).ClickAsync();
-            var download = await downloadTask;
-
+            var swagger =
+                await client.GetStringAsync(
+                    "https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2024-10-01.yml");
+            
             var projectDir = Solution.Clerk_Net.Directory;
-            await download.SaveAsAsync($"{projectDir}/swagger.json");
+
+            await File.WriteAllTextAsync(projectDir / "swagger.yml", swagger);
 
             Kiota(workingDirectory: projectDir, arguments: $"update -o {projectDir / "Client"} --clean-output");
 

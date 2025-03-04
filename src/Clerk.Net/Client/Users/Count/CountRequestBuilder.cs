@@ -22,7 +22,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
+        public CountRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,name_query*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Clerk.Net.Client.Users.Count
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,email_address*,email_address_query*,external_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
+        public CountRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/users/count{?banned*,created_at_after*,created_at_before*,email_address*,email_address_query*,external_id*,last_active_at_after*,last_active_at_before*,last_active_at_since*,name_query*,organization_id*,phone_number*,phone_number_query*,query*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -93,6 +93,12 @@ namespace Clerk.Net.Client.Users.Count
             /// <summary>Counts users which are either banned (`banned=true`) or not banned (`banned=false`).</summary>
             [QueryParameter("banned")]
             public bool? Banned { get; set; }
+            /// <summary>Returns users who have been created after the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.</summary>
+            [QueryParameter("created_at_after")]
+            public int? CreatedAtAfter { get; set; }
+            /// <summary>Returns users who have been created before the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.</summary>
+            [QueryParameter("created_at_before")]
+            public int? CreatedAtBefore { get; set; }
             /// <summary>Counts users with the specified email addresses.Accepts up to 100 email addresses.Any email addresses not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -122,6 +128,36 @@ namespace Clerk.Net.Client.Users.Count
 #else
             [QueryParameter("external_id")]
             public string[] ExternalId { get; set; }
+#endif
+            /// <summary>Returns users whose last session activity was after the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.</summary>
+            [QueryParameter("last_active_at_after")]
+            public int? LastActiveAtAfter { get; set; }
+            /// <summary>Returns users whose last session activity was before the given date (with millisecond precision).Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.</summary>
+            [QueryParameter("last_active_at_before")]
+            public int? LastActiveAtBefore { get; set; }
+            /// <summary>Returns users that had session activity since the given date.Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.Deprecated in favor of `last_active_at_after`.</summary>
+            [Obsolete("")]
+            [QueryParameter("last_active_at_since")]
+            public int? LastActiveAtSince { get; set; }
+            /// <summary>Returns users with names that match the given query, via case-insensitive partial match.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("name_query")]
+            public string? NameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("name_query")]
+            public string NameQuery { get; set; }
+#endif
+            /// <summary>Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`can be prepended to the id, which denote whether the respective organization should be included orexcluded from the result set. Accepts up to 100 organization ids.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("organization_id")]
+            public string[]? OrganizationId { get; set; }
+#nullable restore
+#else
+            [QueryParameter("organization_id")]
+            public string[] OrganizationId { get; set; }
 #endif
             /// <summary>Counts users with the specified phone numbers.Accepts up to 100 phone numbers.Any phone numbers not found are ignored.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

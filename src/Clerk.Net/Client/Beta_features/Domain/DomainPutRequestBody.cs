@@ -20,6 +20,8 @@ namespace Clerk.Net.Client.Beta_features.Domain
 #else
         public string HomeUrl { get; set; }
 #endif
+        /// <summary>Whether the domain is a secondary app.</summary>
+        public bool? IsSecondary { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -39,6 +41,7 @@ namespace Clerk.Net.Client.Beta_features.Domain
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "home_url", n => { HomeUrl = n.GetStringValue(); } },
+                { "is_secondary", n => { IsSecondary = n.GetBoolValue(); } },
             };
         }
         /// <summary>
@@ -49,6 +52,7 @@ namespace Clerk.Net.Client.Beta_features.Domain
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("home_url", HomeUrl);
+            writer.WriteBoolValue("is_secondary", IsSecondary);
         }
     }
 }

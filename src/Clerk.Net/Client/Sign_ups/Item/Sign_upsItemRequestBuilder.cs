@@ -34,6 +34,29 @@ namespace Clerk.Net.Client.Sign_ups.Item
         {
         }
         /// <summary>
+        /// Retrieve the details of the sign-up with the given ID
+        /// </summary>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.SignUp"/></returns>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 403 status code</exception>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<global::Clerk.Net.Client.Models.SignUp?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<global::Clerk.Net.Client.Models.SignUp> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            var requestInfo = ToGetRequestInformation(requestConfiguration);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.SignUp>(requestInfo, global::Clerk.Net.Client.Models.SignUp.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
         /// Update the sign-up with the given ID
         /// </summary>
         /// <returns>A <see cref="global::Clerk.Net.Client.Models.SignUp"/></returns>
@@ -57,6 +80,25 @@ namespace Clerk.Net.Client.Sign_ups.Item
                 { "403", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.SignUp>(requestInfo, global::Clerk.Net.Client.Models.SignUp.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// Retrieve the details of the sign-up with the given ID
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            return requestInfo;
         }
         /// <summary>
         /// Update the sign-up with the given ID
