@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Sessions
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SessionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,status*,user_id*}", pathParameters)
+        public SessionsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,paginated*,status*,user_id*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Sessions
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SessionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,status*,user_id*}", rawUrl)
+        public SessionsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/sessions{?client_id*,limit*,offset*,paginated*,status*,user_id*}", rawUrl)
         {
         }
         /// <summary>
@@ -177,6 +177,9 @@ namespace Clerk.Net.Client.Sessions
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
             /// <summary>Filter sessions by the provided status</summary>
             [QueryParameter("status")]
             public global::Clerk.Net.Client.Sessions.GetStatusQueryParameterType? Status { get; set; }

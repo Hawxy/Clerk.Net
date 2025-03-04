@@ -12,12 +12,12 @@
       "name": "Clerk Platform Team",
       "url": "https://clerk.com/support"
     },
-    "description": "The Clerk REST Backend API, meant to be accessed by backend\nservers.\n\n### Versions\n\nWhen the API changes in a way that isn't compatible with older versions, a new version is released.\nEach version is identified by its release date, e.g. `2021-02-05`. For more information, please see [Clerk API Versions](https://clerk.com/docs/backend-requests/versioning/overview).\n\n\nPlease see https://clerk.com/docs for more information.",
-    "version": "v1",
+    "description": "The Clerk REST Backend API, meant to be accessed by backend servers.\n\n### Versions\n\nWhen the API changes in a way that isn't compatible with older versions, a new version is released.\nEach version is identified by its release date, e.g. `2021-02-05`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).\n\nPlease see https://clerk.com/docs for more information.",
+    "version": "2021-02-05",
     "termsOfService": "https://clerk.com/terms",
     "license": {
       "name": "MIT",
-      "url": "https://github.com/clerkinc/clerk-sdk-go/blob/main/LICENSE"
+      "url": "https://github.com/clerk/openapi-specs/blob/main/LICENSE"
     }
   },
   "servers": [
@@ -144,6 +144,13 @@
       "description": "Sign-in tokens are JWTs that can be used to sign in to an application without specifying any credentials.\nA sign-in token can be used at most once and they can be consumed from the Frontend API using the `ticket` strategy."
     },
     {
+      "name": "Sign Ups",
+      "description": "Sign-up objects track the progress of a sign-up attempt and store any field collected from user input.",
+      "externalDocs": {
+        "url": "https://clerk.com/docs/reference/clerkjs/signup"
+      }
+    },
+    {
       "name": "Testing Tokens",
       "description": "Tokens meant for use by end-to-end test suites in requests to the Frontend API, so as to bypass bot detection measures.",
       "externalDocs": {
@@ -171,6 +178,18 @@
     {
       "name": "Beta Features",
       "description": "Modify instance settings that are currently in beta."
+    },
+    {
+      "name": "Waitlist Entries",
+      "description": "Manage waitlist entries."
+    },
+    {
+      "name": "Proxy Checks",
+      "description": "Check if a user is using a proxy."
+    },
+    {
+      "name": "Organization Domains",
+      "description": "Manage organization domains."
     }
   ],
   "externalDocs": {
@@ -191,6 +210,16 @@
         "parameters": [
           {
             "name": "frontendApi",
+            "deprecated": true,
+            "in": "query",
+            "required": false,
+            "description": "Please use `frontend_api` instead",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "frontend_api",
             "in": "query",
             "required": false,
             "description": "The Frontend API key of your instance",
@@ -205,6 +234,42 @@
             "description": "The publishable key of your instance",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "proxy_url",
+            "in": "query",
+            "required": false,
+            "description": "The proxy URL of your instance",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "domain",
+            "in": "query",
+            "required": false,
+            "description": "The domain of your instance",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sign_in_url",
+            "in": "query",
+            "required": false,
+            "description": "The sign in URL of your instance",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "use_domain_for_script",
+            "in": "query",
+            "required": false,
+            "description": "Whether to use the domain for the script URL",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -250,6 +315,9 @@
         "summary": "List all clients",
         "description": "Returns a list of all clients. The clients are returned sorted by creation date,\nwith the newest clients appearing first.\nWarning: the endpoint is being deprecated and will be removed in future versions.",
         "parameters": [
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
           {
             "$ref": "#/components/parameters/LimitParameter"
           },
@@ -298,7 +366,10 @@
                     "type": "string",
                     "description": "A JWT that represents the active client."
                   }
-                }
+                },
+                "required": [
+                  "token"
+                ]
               }
             }
           }
@@ -390,7 +461,11 @@
                     "description": "Create this email address as the primary email address for the user.\nDefault: false, unless it is the first email address.",
                     "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "user_id",
+                  "email_address"
+                ]
               }
             }
           }
@@ -586,15 +661,19 @@
                   },
                   "primary": {
                     "type": "boolean",
-                    "description": "Create this phone number as the primary phone number for the user.\nDefault: false, unless it is the first phone number.",
+                    "description": "Create this phone number as the primary phone number for the user. Default: false, unless it is the first phone number.",
                     "nullable": true
                   },
                   "reserved_for_second_factor": {
                     "type": "boolean",
-                    "description": "Create this phone number as reserved for multi-factor authentication.\nThe phone number must also be verified.\nIf there are no other reserved second factors, the phone number will be set as the default second factor.",
+                    "description": "Create this phone number as reserved for multi-factor authentication. The phone number must also be verified.\nIf there are no other reserved second factors, the phone number will be set as the default second factor.",
                     "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "user_id",
+                  "phone_number"
+                ]
               }
             }
           }
@@ -811,6 +890,9 @@
             }
           },
           {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
             "$ref": "#/components/parameters/LimitParameter"
           },
           {
@@ -851,7 +933,10 @@
                     "type": "string",
                     "description": "The ID representing the user"
                   }
-                }
+                },
+                "required": [
+                  "user_id"
+                ]
               }
             }
           }
@@ -1180,6 +1265,15 @@
                 "sms"
               ]
             }
+          },
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -1535,8 +1629,7 @@
                 "properties": {
                   "delivered_by_clerk": {
                     "type": "boolean",
-                    "description": "Whether Clerk should deliver emails or SMS messages based on the current template",
-                    "nullable": true
+                    "description": "Whether Clerk should deliver emails or SMS messages based on the current template"
                   }
                 }
               }
@@ -1849,22 +1942,26 @@
                   },
                   "password_digest": {
                     "type": "string",
-                    "description": "In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.\nThe digests should be generated with one of the supported algorithms.\nThe hashing algorithm can be specified using the `password_hasher` property."
+                    "description": "In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.\nThe digests should be generated with one of the supported algorithms.\nThe hashing algorithm can be specified using the `password_hasher` property.",
+                    "nullable": true
                   },
                   "password_hasher": {
                     "$ref": "#/components/schemas/PasswordHasher"
                   },
                   "skip_password_checks": {
                     "type": "boolean",
-                    "description": "When set to `true` all password checks are skipped.\nIt is recommended to use this method only when migrating plaintext passwords to Clerk.\nUpon migration the user base should be prompted to pick stronger password."
+                    "description": "When set to `true` all password checks are skipped.\nIt is recommended to use this method only when migrating plaintext passwords to Clerk.\nUpon migration the user base should be prompted to pick stronger password.",
+                    "nullable": true
                   },
                   "skip_password_requirement": {
                     "type": "boolean",
-                    "description": "When set to `true`, `password` is not required anymore when creating the user and can be omitted.\nThis is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.\nPlease note that you cannot use this flag if password is the only way for a user to sign into your instance."
+                    "description": "When set to `true`, `password` is not required anymore when creating the user and can be omitted.\nThis is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.\nPlease note that you cannot use this flag if password is the only way for a user to sign into your instance.",
+                    "nullable": true
                   },
                   "totp_secret": {
                     "type": "string",
-                    "description": "In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.\nPlease note that currently the supported options are:\n* Period: 30 seconds\n* Code length: 6 digits\n* Algorithm: SHA1"
+                    "description": "In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.\nPlease note that currently the supported options are:\n* Period: 30 seconds\n* Code length: 6 digits\n* Algorithm: SHA1",
+                    "nullable": true
                   },
                   "backup_codes": {
                     "type": "array",
@@ -1915,7 +2012,8 @@
                   },
                   "created_at": {
                     "type": "string",
-                    "description": "A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`)."
+                    "description": "A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).",
+                    "nullable": true
                   }
                 }
               }
@@ -2025,6 +2123,18 @@
             "required": false
           },
           {
+            "name": "organization_id",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`\ncan be prepended to the id, which denote whether the respective organization should be included or\nexcluded from the result set. Accepts up to 100 organization ids.",
+            "required": false
+          },
+          {
             "name": "query",
             "in": "query",
             "description": "Counts users that match the given query.\nFor possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.\nThe query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.",
@@ -2060,12 +2170,66 @@
             }
           },
           {
+            "name": "name_query",
+            "in": "query",
+            "description": "Returns users with names that match the given query, via case-insensitive partial match.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "banned",
             "in": "query",
             "required": false,
             "description": "Counts users which are either banned (`banned=true`) or not banned (`banned=false`).",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "name": "last_active_at_before",
+            "in": "query",
+            "description": "Returns users whose last session activity was before the given date (with millisecond precision).\nExample: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.",
+            "example": 1700690400000,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "last_active_at_after",
+            "in": "query",
+            "description": "Returns users whose last session activity was after the given date (with millisecond precision).\nExample: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.",
+            "example": 1700690400000,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "last_active_at_since",
+            "in": "query",
+            "deprecated": true,
+            "description": "Returns users that had session activity since the given date.\nExample: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.\nDeprecated in favor of `last_active_at_after`.",
+            "example": 1700690400000,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "created_at_before",
+            "in": "query",
+            "description": "Returns users who have been created before the given date (with millisecond precision).\nExample: use 1730160000000 to retrieve users who have been created before 2024-10-29.",
+            "example": 1730160000000,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "created_at_after",
+            "in": "query",
+            "description": "Returns users who have been created after the given date (with millisecond precision).\nExample: use 1730160000000 to retrieve users who have been created after 2024-10-29.",
+            "example": 1730160000000,
+            "schema": {
+              "type": "integer"
             }
           }
         ],
@@ -2160,20 +2324,24 @@
                   },
                   "primary_email_address_id": {
                     "type": "string",
-                    "description": "The ID of the email address to set as primary.\nIt must be verified, and present on the current user."
+                    "description": "The ID of the email address to set as primary.\nIt must be verified, and present on the current user.",
+                    "nullable": true
                   },
                   "notify_primary_email_address_changed": {
                     "type": "boolean",
                     "description": "If set to `true`, the user will be notified that their primary email address has changed.\nBy default, no notification is sent.",
+                    "nullable": true,
                     "default": false
                   },
                   "primary_phone_number_id": {
                     "type": "string",
-                    "description": "The ID of the phone number to set as primary.\nIt must be verified, and present on the current user."
+                    "description": "The ID of the phone number to set as primary.\nIt must be verified, and present on the current user.",
+                    "nullable": true
                   },
                   "primary_web3_wallet_id": {
                     "type": "string",
-                    "description": "The ID of the web3 wallets to set as primary.\nIt must be verified, and present on the current user."
+                    "description": "The ID of the web3 wallets to set as primary.\nIt must be verified, and present on the current user.",
+                    "nullable": true
                   },
                   "username": {
                     "type": "string",
@@ -2209,7 +2377,8 @@
                   },
                   "totp_secret": {
                     "type": "string",
-                    "description": "In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.\nPlease note that currently the supported options are:\n* Period: 30 seconds\n* Code length: 6 digits\n* Algorithm: SHA1"
+                    "description": "In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.\nPlease note that currently the supported options are:\n* Period: 30 seconds\n* Code length: 6 digits\n* Algorithm: SHA1",
+                    "nullable": true
                   },
                   "backup_codes": {
                     "type": "array",
@@ -2221,17 +2390,20 @@
                   "public_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the user, that is visible to both your Frontend and Backend APIs",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "private_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the user, that is only visible to your Backend API",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "unsafe_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.\nNote: Since this data can be modified from the frontend, it is not guaranteed to be safe.",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "delete_self_enabled": {
                     "type": "boolean",
@@ -2260,7 +2432,8 @@
                   },
                   "created_at": {
                     "type": "string",
-                    "description": "A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`)."
+                    "description": "A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).",
+                    "nullable": true
                   }
                 }
               }
@@ -2622,6 +2795,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -3289,8 +3471,7 @@
                       "invitation",
                       "waitlist_invitation"
                     ],
-                    "description": "The slug of the email template to use for the invitation email.\nIf not provided, the \"invitation\" template will be used.",
-                    "nullable": true
+                    "description": "The slug of the email template to use for the invitation email."
                   }
                 },
                 "required": [
@@ -3320,16 +3501,10 @@
         "operationId": "ListInvitations",
         "parameters": [
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "name": "status",
-            "description": "Filter invitations based on their status",
             "required": false,
+            "description": "Filter invitations based on their status",
             "schema": {
               "type": "string",
               "enum": [
@@ -3348,6 +3523,24 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "description": "Allows to return organizations in a particular order.\nAt the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.\nIn order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.\nFor example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.\nIf you don't use `+` or `-`, then `+` is implied.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "tags": [
@@ -3386,11 +3579,13 @@
                     },
                     "public_metadata": {
                       "type": "object",
+                      "nullable": true,
                       "description": "Metadata that will be attached to the newly created invitation.\nThe value of this property should be a well-formed JSON object.\nOnce the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.",
                       "additionalProperties": true
                     },
                     "redirect_url": {
                       "type": "string",
+                      "nullable": true,
                       "description": "The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations)."
                     },
                     "notify": {
@@ -3411,6 +3606,15 @@
                       "nullable": true,
                       "minimum": 1,
                       "maximum": 365
+                    },
+                    "template_slug": {
+                      "type": "string",
+                      "enum": [
+                        "invitation",
+                        "waitlist_invitation"
+                      ],
+                      "description": "The slug of the email template to use for the invitation email.",
+                      "default": "invitation"
                     }
                   },
                   "required": [
@@ -3480,12 +3684,6 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "name": "order_by",
             "required": false,
@@ -3517,6 +3715,12 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -3545,6 +3749,17 @@
         "x-speakeasy-name-override": "list",
         "summary": "List all identifiers on the allow-list",
         "description": "Get a list of all identifiers allowed to sign up to an instance",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
+          }
+        ],
         "tags": [
           "Allow-list / Block-list"
         ],
@@ -3776,11 +3991,6 @@
                     "description": "Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.",
                     "nullable": true
                   },
-                  "session_token_template": {
-                    "type": "string",
-                    "description": "The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.",
-                    "nullable": true
-                  },
                   "enhanced_email_deliverability": {
                     "type": "boolean",
                     "description": "The \"enhanced_email_deliverability\" feature will send emails from \"verifications@clerk.dev\" instead of your domain.\nThis can be helpful if you do not have a high domain reputation.",
@@ -3830,6 +4040,10 @@
                   "home_url": {
                     "type": "string",
                     "description": "The new home URL of the production instance e.g. https://www.example.com"
+                  },
+                  "is_secondary": {
+                    "type": "boolean",
+                    "description": "Whether the domain is a secondary app."
                   }
                 }
               }
@@ -3872,7 +4086,17 @@
                   },
                   "actor": {
                     "type": "object",
+                    "additionalProperties": true,
                     "description": "The actor payload. It needs to include a sub property which should contain the ID of the actor.\nThis whole payload will be also included in the JWT session token.",
+                    "properties": {
+                      "sub": {
+                        "type": "string",
+                        "description": "The ID of the actor."
+                      }
+                    },
+                    "required": [
+                      "sub"
+                    ],
                     "example": {
                       "sub": "user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb"
                     }
@@ -3990,7 +4214,8 @@
                   },
                   "proxy_url": {
                     "type": "string",
-                    "description": "The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances."
+                    "description": "The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.",
+                    "nullable": true
                   }
                 },
                 "required": [
@@ -4183,11 +4408,13 @@
                   "cookieless_dev": {
                     "type": "boolean",
                     "description": "Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).\nDeprecated: Please use `url_based_session_syncing` instead.",
-                    "deprecated": true
+                    "deprecated": true,
+                    "nullable": true
                   },
                   "url_based_session_syncing": {
                     "type": "boolean",
-                    "description": "Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies)."
+                    "description": "Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).",
+                    "nullable": true
                   }
                 }
               }
@@ -4344,11 +4571,13 @@
                   },
                   "creator_role_id": {
                     "type": "string",
-                    "description": "Specify what the default organization role is for an organization creator."
+                    "description": "Specify what the default organization role is for an organization creator.",
+                    "nullable": true
                   },
                   "domains_default_role_id": {
                     "type": "string",
-                    "description": "Specify what the default organization role is for the organization domains."
+                    "description": "Specify what the default organization role is for the organization domains.",
+                    "nullable": true
                   }
                 }
               }
@@ -4438,6 +4667,17 @@
         "x-speakeasy-group": "jwtTemplates",
         "x-speakeasy-name-override": "list",
         "summary": "List all templates",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
+          }
+        ],
         "tags": [
           "JWT Templates"
         ],
@@ -4488,20 +4728,23 @@
                   },
                   "custom_signing_key": {
                     "type": "boolean",
-                    "description": "Whether a custom signing key/algorithm is also provided for this template",
-                    "nullable": false
+                    "description": "Whether a custom signing key/algorithm is also provided for this template"
                   },
                   "signing_algorithm": {
                     "type": "string",
-                    "description": "The custom signing algorithm to use when minting JWTs",
+                    "description": "The custom signing algorithm to use when minting JWTs. Required if `custom_signing_key` is `true`.",
                     "nullable": true
                   },
                   "signing_key": {
                     "type": "string",
-                    "description": "The custom signing private key to use when minting JWTs",
+                    "description": "The custom signing private key to use when minting JWTs. Required if `custom_signing_key` is `true`.",
                     "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "claims"
+                ]
               }
             }
           }
@@ -4604,20 +4847,23 @@
                   },
                   "custom_signing_key": {
                     "type": "boolean",
-                    "description": "Whether a custom signing key/algorithm is also provided for this template",
-                    "nullable": false
+                    "description": "Whether a custom signing key/algorithm is also provided for this template"
                   },
                   "signing_algorithm": {
                     "type": "string",
-                    "description": "The custom signing algorithm to use when minting JWTs",
+                    "description": "The custom signing algorithm to use when minting JWTs. Required if `custom_signing_key` is `true`.",
                     "nullable": true
                   },
                   "signing_key": {
                     "type": "string",
-                    "description": "The custom signing private key to use when minting JWTs",
+                    "description": "The custom signing private key to use when minting JWTs. Required if `custom_signing_key` is `true`.",
                     "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "claims"
+                ]
               }
             }
           }
@@ -4682,16 +4928,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "required": false,
             "name": "include_members_count",
             "description": "Flag to denote whether the member counts of each organization should be included in the response or not.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "required": false,
+            "name": "include_missing_member_with_elevated_permissions",
+            "description": "Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.",
             "schema": {
               "type": "boolean"
             }
@@ -4707,8 +4956,20 @@
           },
           {
             "in": "query",
+            "name": "user_id",
+            "description": "Returns organizations with the user ids specified. Any user ids not found are ignored.\nFor each user id, the `+` and `-` can be prepended to the id, which denote whether the\nrespective organization should be included or excluded from the result set.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "organization_id",
-            "description": "Returns organizations with the organization ids specified.\nAny organization ids not found are ignored.\nFor each organization id, the `+` and `-` can be\nprepended to the id, which denote whether the\nrespective organization should be included or\nexcluded from the result set.\nAccepts up to 100 organization ids.\nExample: ?organization_id=+org_1&organization_id=-org_2",
+            "description": "Returns organizations with the organization ids specified. Any organization ids not found are ignored.\nFor each organization id, the `+` and `-` can be prepended to the id, which denote whether the\nrespective organization should be included or excluded from the result set. Accepts up to 100 organization ids.\nExample: ?organization_id=+org_1&organization_id=-org_2",
             "schema": {
               "type": "array",
               "items": {
@@ -4726,6 +4987,12 @@
               "default": "-created_at"
             },
             "required": false
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -4760,33 +5027,40 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "The name of the new organization.\nMay not contain URLs or HTML."
+                    "description": "The name of the new organization.\nMay not contain URLs or HTML.\nMax length: 256"
                   },
                   "created_by": {
                     "type": "string",
-                    "description": "The ID of the User who will become the administrator for the new organization"
+                    "description": "The ID of the User who will become the administrator for the new organization",
+                    "nullable": true
                   },
                   "private_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization, accessible only from the Backend API",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "public_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "slug": {
                     "type": "string",
-                    "description": "A slug for the new organization.\nCan contain only lowercase alphanumeric characters and the dash \"-\".\nMust be unique for the instance."
+                    "description": "A slug for the new organization.\nCan contain only lowercase alphanumeric characters and the dash \"-\".\nMust be unique for the instance.",
+                    "nullable": true
                   },
                   "max_allowed_memberships": {
                     "type": "integer",
-                    "description": "The maximum number of memberships allowed for this organization"
+                    "minimum": 0,
+                    "description": "The maximum number of memberships allowed for this organization",
+                    "nullable": true
                   },
                   "created_at": {
                     "type": "string",
-                    "description": "A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`)."
+                    "description": "A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).",
+                    "nullable": true
                   }
                 },
                 "required": [
@@ -4840,6 +5114,15 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "in": "query",
+            "required": false,
+            "name": "include_missing_member_with_elevated_permissions",
+            "description": "Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -4885,16 +5168,18 @@
                   "public_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization, that is visible to both your frontend and backend.",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "private_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization that is only visible to your backend.",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "name": {
                     "type": "string",
-                    "description": "The new name of the organization.\nMay not contain URLs or HTML.",
+                    "description": "The new name of the organization.\nMay not contain URLs or HTML.\nMax length: 256",
                     "nullable": true
                   },
                   "slug": {
@@ -4904,6 +5189,7 @@
                   },
                   "max_allowed_memberships": {
                     "type": "integer",
+                    "minimum": 0,
                     "description": "The maximum number of memberships allowed for this organization",
                     "nullable": true
                   },
@@ -4914,7 +5200,8 @@
                   },
                   "created_at": {
                     "type": "string",
-                    "description": "A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`)."
+                    "description": "A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).",
+                    "nullable": true
                   }
                 }
               }
@@ -5163,16 +5450,19 @@
                   "public_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "private_metadata": {
                     "type": "object",
                     "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
-                    "additionalProperties": true
+                    "additionalProperties": true,
+                    "nullable": true
                   },
                   "redirect_url": {
                     "type": "string",
-                    "description": "Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email."
+                    "description": "Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.",
+                    "nullable": true
                   },
                   "expires_in_days": {
                     "type": "integer",
@@ -5228,12 +5518,6 @@
             "description": "The organization ID."
           },
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "name": "status",
             "description": "Filter organization invitations based on their status",
@@ -5246,6 +5530,12 @@
                 "revoked"
               ]
             }
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -5302,21 +5592,31 @@
                     },
                     "role": {
                       "type": "string",
-                      "description": "The role of the new member in the organization."
+                      "description": "The role of the new member in the organization"
                     },
                     "public_metadata": {
                       "type": "object",
                       "description": "Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "nullable": true
                     },
                     "private_metadata": {
                       "type": "object",
                       "description": "Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.\nWhen the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.",
-                      "additionalProperties": true
+                      "additionalProperties": true,
+                      "nullable": true
                     },
                     "redirect_url": {
                       "type": "string",
-                      "description": "Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email."
+                      "description": "Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.",
+                      "nullable": true
+                    },
+                    "expires_in_days": {
+                      "type": "integer",
+                      "description": "The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.",
+                      "nullable": true,
+                      "minimum": 1,
+                      "maximum": 365
                     }
                   },
                   "required": [
@@ -5580,19 +5880,94 @@
             "description": "The organization ID."
           },
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "required": false,
             "name": "order_by",
-            "description": "Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.\nBy prepending one of those values with + or -,\nwe can choose to sort in ascending (ASC) or descending (DESC) order.\"",
+            "description": "Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.\nBy prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order.\"",
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the user ids specified. For each user id, the `+` and `-` can be\nprepended to the id, which denote whether the respective user id should be included or\nexcluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "email_address",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "phone_number",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the specified usernames.\nAccepts up to 100 usernames.\nAny usernames not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "web3_wallet",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the specified web3 wallet addresses.\nAccepts up to 100 web3 wallet addresses.\nAny web3 wallet addressed not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Returns users with the specified roles. Accepts up to 100 roles. Any roles not found are ignored.",
+            "required": false
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Returns users that match the given query.\nFor possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.\nThe query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
           },
           {
             "name": "email_address_query",
@@ -5663,6 +6038,12 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -5942,12 +6323,6 @@
             "description": "The organization ID."
           },
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
             "in": "query",
             "required": false,
             "name": "verified",
@@ -5964,6 +6339,12 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -6099,7 +6480,7 @@
         "description": "This endpoint can be used to validate that a proxy-enabled domain is operational.\nIt tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can reach the Clerk Frontend API.\n\nYou can use this endpoint before you set a proxy URL for a domain. This way you can ensure that switching to proxy-based\nconfiguration will not lead to downtime for your instance.\n\nThe `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on\na different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.",
         "operationId": "VerifyDomainProxy",
         "tags": [
-          "Proxy checks"
+          "Proxy Checks"
         ],
         "requestBody": {
           "content": {
@@ -6143,6 +6524,17 @@
         "tags": [
           "Redirect URLs"
         ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Paginated"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
+          }
+        ],
         "responses": {
           "200": {
             "$ref": "#/components/responses/RedirectURL.List"
@@ -6166,10 +6558,12 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "description": "The full url value prefixed with `https://` or a custom scheme e.g. `\"https://my-app.com/oauth-callback\"` or `\"my-app://oauth-callback\"`",
-                    "nullable": false
+                    "description": "The full url value prefixed with `https://` or a custom scheme e.g. `\"https://my-app.com/oauth-callback\"` or `\"my-app://oauth-callback\"`"
                   }
-                }
+                },
+                "required": [
+                  "url"
+                ]
               }
             }
           }
@@ -6270,9 +6664,14 @@
                   "expires_in_seconds": {
                     "type": "integer",
                     "description": "Optional parameter to specify the life duration of the sign in token in seconds.\nBy default, the duration is 30 days.",
-                    "default": 2592000
+                    "minimum": 1,
+                    "default": 2592000,
+                    "nullable": true
                   }
-                }
+                },
+                "required": [
+                  "user_id"
+                ]
               }
             }
           }
@@ -6325,6 +6724,35 @@
       }
     },
     "/sign_ups/{id}": {
+      "get": {
+        "operationId": "GetSignUp",
+        "x-speakeasy-group": "signUps",
+        "x-speakeasy-name-override": "get",
+        "summary": "Retrieve a sign-up by ID",
+        "description": "Retrieve the details of the sign-up with the given ID",
+        "tags": [
+          "Sign Ups"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the sign-up to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SignUp"
+          },
+          "403": {
+            "$ref": "#/components/responses/AuthorizationInvalid"
+          }
+        }
+      },
       "patch": {
         "operationId": "UpdateSignUp",
         "x-speakeasy-group": "signUps",
@@ -6332,7 +6760,7 @@
         "summary": "Update a sign-up",
         "description": "Update the sign-up with the given ID",
         "tags": [
-          "Sign-ups"
+          "Sign Ups"
         ],
         "parameters": [
           {
@@ -6354,6 +6782,11 @@
                   "external_id": {
                     "type": "string",
                     "description": "The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.\nThis will be copied to the resulting user when the sign-up is completed.",
+                    "nullable": true
+                  },
+                  "custom_action": {
+                    "type": "boolean",
+                    "description": "If true, the sign-up will be marked as a custom action.",
                     "nullable": true
                   }
                 }
@@ -6421,7 +6854,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "The name of the new OAuth application"
+                    "description": "The name of the new OAuth application.\nMax length: 256"
                   },
                   "redirect_uris": {
                     "type": "array",
@@ -6433,12 +6866,14 @@
                   },
                   "callback_url": {
                     "type": "string",
+                    "maxLength": 1024,
                     "description": "The callback URL of the new OAuth application",
                     "nullable": true,
                     "deprecated": true
                   },
                   "scopes": {
                     "type": "string",
+                    "maxLength": 1024,
                     "description": "Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.",
                     "default": "profile email",
                     "example": "profile email public_metadata",
@@ -6536,7 +6971,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "The new name of the OAuth application",
+                    "description": "The new name of the OAuth application.\nMax length: 256",
                     "nullable": true
                   },
                   "redirect_uris": {
@@ -6549,12 +6984,14 @@
                   },
                   "callback_url": {
                     "type": "string",
+                    "maxLength": 1024,
                     "description": "The new callback URL of the OAuth application",
                     "nullable": true,
                     "deprecated": true
                   },
                   "scopes": {
                     "type": "string",
+                    "maxLength": 1024,
                     "description": "Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.",
                     "default": "profile email",
                     "example": "profile email public_metadata private_metadata",
@@ -6562,7 +6999,8 @@
                   },
                   "public": {
                     "type": "boolean",
-                    "description": "If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow."
+                    "description": "If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.",
+                    "nullable": true
                   }
                 }
               }
@@ -6670,6 +7108,24 @@
           },
           {
             "$ref": "#/components/parameters/OffsetParameter"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "description": "Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "description": "Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.\nBy prepending one of those values with + or -,\nwe can choose to sort in ascending (ASC) or descending (DESC) order.",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "organization_id",
@@ -7040,7 +7496,7 @@
       "get": {
         "operationId": "InstanceGetOrganizationMemberships",
         "x-speakeasy-group": "users",
-        "x-speakeasy-name-override": "getOrganizationMemberships",
+        "x-speakeasy-name-override": "getInstanceOrganizationMemberships",
         "summary": "Get a list of all organization memberships within an instance.",
         "description": "Retrieves all organization user memberships for the given instance.",
         "tags": [
@@ -7048,19 +7504,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/LimitParameter"
-          },
-          {
-            "$ref": "#/components/parameters/OffsetParameter"
-          },
-          {
+            "name": "order_by",
             "in": "query",
             "required": false,
-            "name": "order_by",
             "description": "Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.\nBy prepending one of those values with + or -,\nwe can choose to sort in ascending (ASC) or descending (DESC) order.",
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "$ref": "#/components/parameters/LimitParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParameter"
           }
         ],
         "responses": {
@@ -7161,7 +7617,9 @@
                   },
                   "notify": {
                     "type": "boolean",
-                    "description": "Optional flag which denotes whether a confirmation email should be sent to the given email address.\nDefaults to `true`."
+                    "description": "Optional flag which denotes whether a confirmation email should be sent to the given email address.\nDefaults to `true`.",
+                    "default": true,
+                    "nullable": true
                   }
                 },
                 "required": [
@@ -7580,13 +8038,52 @@
           "expire_at"
         ]
       },
+      "Ticket": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "unverified",
+              "verified",
+              "expired"
+            ]
+          },
+          "strategy": {
+            "x-speakeasy-unknown-values": "allow",
+            "type": "string",
+            "enum": [
+              "ticket"
+            ]
+          },
+          "attempts": {
+            "type": "integer",
+            "nullable": true
+          },
+          "expire_at": {
+            "type": "integer",
+            "nullable": true
+          },
+          "verified_at_client": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status",
+          "strategy",
+          "attempts",
+          "expire_at"
+        ]
+      },
       "IdentificationLink": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "type": {
-            "x-speakeasy-unknown-values": "allow",
-            "type": "string"
+            "type": "string",
+            "pattern": "^oauth_[a-z]+$"
           },
           "id": {
             "type": "string"
@@ -7630,6 +8127,9 @@
               },
               {
                 "$ref": "#/components/schemas/FromOAuth"
+              },
+              {
+                "$ref": "#/components/schemas/Ticket"
               }
             ]
           },
@@ -8091,44 +8591,6 @@
           "status",
           "strategy",
           "external_verification_redirect_url",
-          "attempts",
-          "expire_at"
-        ]
-      },
-      "Ticket": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "unverified",
-              "verified",
-              "expired"
-            ]
-          },
-          "strategy": {
-            "type": "string",
-            "enum": [
-              "ticket"
-            ]
-          },
-          "attempts": {
-            "type": "integer",
-            "nullable": true
-          },
-          "expire_at": {
-            "type": "integer",
-            "nullable": true
-          },
-          "verified_at_client": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "required": [
-          "status",
-          "strategy",
           "attempts",
           "expire_at"
         ]
@@ -8646,7 +9108,6 @@
           "role",
           "permissions",
           "public_metadata",
-          "permissions",
           "created_at",
           "updated_at",
           "organization"
@@ -10969,6 +11430,15 @@
       }
     },
     "parameters": {
+      "Paginated": {
+        "name": "paginated",
+        "in": "query",
+        "description": "Whether to paginate the results.\nIf true, the results will be paginated.\nIf false, the results will not be paginated.",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
       "LimitParameter": {
         "name": "limit",
         "in": "query",
@@ -10993,5 +11463,18 @@
         }
       }
     }
+  },
+  "x-speakeasy-retries": {
+    "strategy": "backoff",
+    "backoff": {
+      "initialInterval": 500,
+      "maxInterval": 60000,
+      "maxElapsedTime": 3600000,
+      "exponent": 1.5
+    },
+    "statusCodes": [
+      "5XX"
+    ],
+    "retryConnectionErrors": true
   }
 }

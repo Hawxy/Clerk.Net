@@ -21,7 +21,7 @@ namespace Clerk.Net.Client.Oauth_applications.Item
 #else
         public string CallbackUrl { get; set; }
 #endif
-        /// <summary>The new name of the OAuth application</summary>
+        /// <summary>The new name of the OAuth application.Max length: 256</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Name { get; set; }

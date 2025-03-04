@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Organizations
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,organization_id*,query*}", pathParameters)
+        public OrganizationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,include_missing_member_with_elevated_permissions*,limit*,offset*,order_by*,organization_id*,query*,user_id*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Organizations
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,limit*,offset*,order_by*,organization_id*,query*}", rawUrl)
+        public OrganizationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations{?include_members_count*,include_missing_member_with_elevated_permissions*,limit*,offset*,order_by*,organization_id*,query*,user_id*}", rawUrl)
         {
         }
         /// <summary>
@@ -161,6 +161,9 @@ namespace Clerk.Net.Client.Organizations
             /// <summary>Flag to denote whether the member counts of each organization should be included in the response or not.</summary>
             [QueryParameter("include_members_count")]
             public bool? IncludeMembersCount { get; set; }
+            /// <summary>Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.</summary>
+            [QueryParameter("include_missing_member_with_elevated_permissions")]
+            public bool? IncludeMissingMemberWithElevatedPermissions { get; set; }
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public int? Limit { get; set; }
@@ -177,7 +180,7 @@ namespace Clerk.Net.Client.Organizations
             [QueryParameter("order_by")]
             public string OrderBy { get; set; }
 #endif
-            /// <summary>Returns organizations with the organization ids specified.Any organization ids not found are ignored.For each organization id, the `+` and `-` can beprepended to the id, which denote whether therespective organization should be included orexcluded from the result set.Accepts up to 100 organization ids.Example: ?organization_id=+org_1&amp;organization_id=-org_2</summary>
+            /// <summary>Returns organizations with the organization ids specified. Any organization ids not found are ignored.For each organization id, the `+` and `-` can be prepended to the id, which denote whether therespective organization should be included or excluded from the result set. Accepts up to 100 organization ids.Example: ?organization_id=+org_1&amp;organization_id=-org_2</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("organization_id")]
@@ -196,6 +199,16 @@ namespace Clerk.Net.Client.Organizations
 #else
             [QueryParameter("query")]
             public string Query { get; set; }
+#endif
+            /// <summary>Returns organizations with the user ids specified. Any user ids not found are ignored.For each user id, the `+` and `-` can be prepended to the id, which denote whether therespective organization should be included or excluded from the result set.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("user_id")]
+            public string[]? UserId { get; set; }
+#nullable restore
+#else
+            [QueryParameter("user_id")]
+            public string[] UserId { get; set; }
 #endif
         }
     }

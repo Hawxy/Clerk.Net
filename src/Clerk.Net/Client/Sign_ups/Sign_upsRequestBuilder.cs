@@ -16,7 +16,7 @@ namespace Clerk.Net.Client.Sign_ups
     public partial class Sign_upsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Clerk.Net.Client.sign_ups.item collection</summary>
-        /// <param name="position">The ID of the sign-up to update</param>
+        /// <param name="position">The ID of the sign-up to retrieve</param>
         /// <returns>A <see cref="global::Clerk.Net.Client.Sign_ups.Item.Sign_upsItemRequestBuilder"/></returns>
         public global::Clerk.Net.Client.Sign_ups.Item.Sign_upsItemRequestBuilder this[string position]
         {

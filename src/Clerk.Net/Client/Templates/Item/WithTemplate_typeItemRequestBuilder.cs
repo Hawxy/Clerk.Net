@@ -36,7 +36,7 @@ namespace Clerk.Net.Client.Templates.Item
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_typeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", pathParameters)
+        public WithTemplate_typeItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}{?limit*,offset*,paginated*}", pathParameters)
         {
         }
         /// <summary>
@@ -44,7 +44,7 @@ namespace Clerk.Net.Client.Templates.Item
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithTemplate_typeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}", rawUrl)
+        public WithTemplate_typeItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/templates/{template_type}{?limit*,offset*,paginated*}", rawUrl)
         {
         }
         /// <summary>
@@ -59,11 +59,11 @@ namespace Clerk.Net.Client.Templates.Item
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Clerk.Net.Client.Models.Template>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.Template>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder.WithTemplate_typeItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Clerk.Net.Client.Models.Template>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.Template>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder.WithTemplate_typeItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -84,11 +84,11 @@ namespace Clerk.Net.Client.Templates.Item
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder.WithTemplate_typeItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder.WithTemplate_typeItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
@@ -105,6 +105,22 @@ namespace Clerk.Net.Client.Templates.Item
         public global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Clerk.Net.Client.Templates.Item.WithTemplate_typeItemRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Returns a list of all templates.The templates are returned sorted by position.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class WithTemplate_typeItemRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
+            [QueryParameter("limit")]
+            public int? Limit { get; set; }
+            /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
+            [QueryParameter("offset")]
+            public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
         }
     }
 }

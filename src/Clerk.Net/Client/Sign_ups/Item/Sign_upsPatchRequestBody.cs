@@ -14,6 +14,8 @@ namespace Clerk.Net.Client.Sign_ups.Item
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>If true, the sign-up will be marked as a custom action.</summary>
+        public bool? CustomAction { get; set; }
         /// <summary>The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.This will be copied to the resulting user when the sign-up is completed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,6 +49,7 @@ namespace Clerk.Net.Client.Sign_ups.Item
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "custom_action", n => { CustomAction = n.GetBoolValue(); } },
                 { "external_id", n => { ExternalId = n.GetStringValue(); } },
             };
         }
@@ -57,6 +60,7 @@ namespace Clerk.Net.Client.Sign_ups.Item
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteBoolValue("custom_action", CustomAction);
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteAdditionalData(AdditionalData);
         }

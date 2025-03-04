@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Allowlist_identifiers
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Allowlist_identifiersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/allowlist_identifiers", pathParameters)
+        public Allowlist_identifiersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/allowlist_identifiers{?limit*,offset*,paginated*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Allowlist_identifiers
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Allowlist_identifiersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/allowlist_identifiers", rawUrl)
+        public Allowlist_identifiersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/allowlist_identifiers{?limit*,offset*,paginated*}", rawUrl)
         {
         }
         /// <summary>
@@ -56,11 +56,11 @@ namespace Clerk.Net.Client.Allowlist_identifiers
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 402 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Clerk.Net.Client.Models.AllowlistIdentifier>?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.AllowlistIdentifier>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder.Allowlist_identifiersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Clerk.Net.Client.Models.AllowlistIdentifier>> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.AllowlistIdentifier>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder.Allowlist_identifiersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -108,11 +108,11 @@ namespace Clerk.Net.Client.Allowlist_identifiers
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder.Allowlist_identifiersRequestBuilderGetQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder.Allowlist_identifiersRequestBuilderGetQueryParameters>> requestConfiguration = default)
         {
 #endif
             var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
@@ -150,6 +150,22 @@ namespace Clerk.Net.Client.Allowlist_identifiers
         public global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder(rawUrl, RequestAdapter);
+        }
+        /// <summary>
+        /// Get a list of all identifiers allowed to sign up to an instance
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class Allowlist_identifiersRequestBuilderGetQueryParameters 
+        {
+            /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
+            [QueryParameter("limit")]
+            public int? Limit { get; set; }
+            /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
+            [QueryParameter("offset")]
+            public int? Offset { get; set; }
+            /// <summary>Whether to paginate the results.If true, the results will be paginated.If false, the results will not be paginated.</summary>
+            [QueryParameter("paginated")]
+            public bool? Paginated { get; set; }
         }
     }
 }

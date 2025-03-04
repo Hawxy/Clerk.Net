@@ -36,7 +36,7 @@ namespace Clerk.Net.Client.Jwt_templates.Item
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>The custom signing algorithm to use when minting JWTs</summary>
+        /// <summary>The custom signing algorithm to use when minting JWTs. Required if `custom_signing_key` is `true`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SigningAlgorithm { get; set; }
@@ -44,7 +44,7 @@ namespace Clerk.Net.Client.Jwt_templates.Item
 #else
         public string SigningAlgorithm { get; set; }
 #endif
-        /// <summary>The custom signing private key to use when minting JWTs</summary>
+        /// <summary>The custom signing private key to use when minting JWTs. Required if `custom_signing_key` is `true`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SigningKey { get; set; }

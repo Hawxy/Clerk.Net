@@ -101,7 +101,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.EmailAddress.EmailAddress_verification>("verification", Verification);
         }
         /// <summary>
-        /// Composed type wrapper for classes <see cref="global::Clerk.Net.Client.Models.Admin"/>, <see cref="global::Clerk.Net.Client.Models.FromOAuth"/>, <see cref="global::Clerk.Net.Client.Models.OTP"/>
+        /// Composed type wrapper for classes <see cref="global::Clerk.Net.Client.Models.Admin"/>, <see cref="global::Clerk.Net.Client.Models.FromOAuth"/>, <see cref="global::Clerk.Net.Client.Models.OTP"/>, <see cref="global::Clerk.Net.Client.Models.Ticket"/>
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class EmailAddress_verification : IComposedTypeWrapper, IParsable
@@ -130,6 +130,14 @@ namespace Clerk.Net.Client.Models
 #else
             public global::Clerk.Net.Client.Models.OTP OTP { get; set; }
 #endif
+            /// <summary>Composed type representation for type <see cref="global::Clerk.Net.Client.Models.Ticket"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Clerk.Net.Client.Models.Ticket? Ticket { get; set; }
+#nullable restore
+#else
+            public global::Clerk.Net.Client.Models.Ticket Ticket { get; set; }
+#endif
             /// <summary>
             /// Creates a new instance of the appropriate class based on discriminator value
             /// </summary>
@@ -152,6 +160,10 @@ namespace Clerk.Net.Client.Models
                 {
                     result.OTP = new global::Clerk.Net.Client.Models.OTP();
                 }
+                else if("Ticket".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Ticket = new global::Clerk.Net.Client.Models.Ticket();
+                }
                 return result;
             }
             /// <summary>
@@ -171,6 +183,10 @@ namespace Clerk.Net.Client.Models
                 else if(OTP != null)
                 {
                     return OTP.GetFieldDeserializers();
+                }
+                else if(Ticket != null)
+                {
+                    return Ticket.GetFieldDeserializers();
                 }
                 return new Dictionary<string, Action<IParseNode>>();
             }
@@ -192,6 +208,10 @@ namespace Clerk.Net.Client.Models
                 else if(OTP != null)
                 {
                     writer.WriteObjectValue<global::Clerk.Net.Client.Models.OTP>(null, OTP);
+                }
+                else if(Ticket != null)
+                {
+                    writer.WriteObjectValue<global::Clerk.Net.Client.Models.Ticket>(null, Ticket);
                 }
             }
         }

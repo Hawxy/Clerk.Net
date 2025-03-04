@@ -24,7 +24,7 @@ namespace Clerk.Net.Client.Organizations.Item
 #endif
         /// <summary>The maximum number of memberships allowed for this organization</summary>
         public int? MaxAllowedMemberships { get; set; }
-        /// <summary>The new name of the organization.May not contain URLs or HTML.</summary>
+        /// <summary>The new name of the organization.May not contain URLs or HTML.Max length: 256</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Name { get; set; }

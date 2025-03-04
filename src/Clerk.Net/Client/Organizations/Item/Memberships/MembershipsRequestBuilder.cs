@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public MembershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number_query*,username_query*}", pathParameters)
+        public MembershipsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number*,phone_number_query*,query*,role*,user_id*,username*,username_query*,web3_wallet*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public MembershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number_query*,username_query*}", rawUrl)
+        public MembershipsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/memberships{?created_at_after*,created_at_before*,email_address*,email_address_query*,last_active_at_after*,last_active_at_before*,limit*,name_query*,offset*,order_by*,phone_number*,phone_number_query*,query*,role*,user_id*,username*,username_query*,web3_wallet*}", rawUrl)
         {
         }
         /// <summary>
@@ -164,6 +164,16 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
             /// <summary>Returns users who have been created before the given date (with millisecond precision).Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.</summary>
             [QueryParameter("created_at_before")]
             public int? CreatedAtBefore { get; set; }
+            /// <summary>Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("email_address")]
+            public string[]? EmailAddress { get; set; }
+#nullable restore
+#else
+            [QueryParameter("email_address")]
+            public string[] EmailAddress { get; set; }
+#endif
             /// <summary>Returns users with emails that match the given query, via case-insensitive partial match.For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -196,7 +206,7 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public int? Offset { get; set; }
-            /// <summary>Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.By prepending one of those values with + or -,we can choose to sort in ascending (ASC) or descending (DESC) order.&quot;</summary>
+            /// <summary>Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order.&quot;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
             [QueryParameter("order_by")]
@@ -205,6 +215,16 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
 #else
             [QueryParameter("order_by")]
             public string OrderBy { get; set; }
+#endif
+            /// <summary>Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("phone_number")]
+            public string[]? PhoneNumber { get; set; }
+#nullable restore
+#else
+            [QueryParameter("phone_number")]
+            public string[] PhoneNumber { get; set; }
 #endif
             /// <summary>Returns users with phone numbers that match the given query, via case-insensitive partial match.For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -216,6 +236,46 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
             [QueryParameter("phone_number_query")]
             public string PhoneNumberQuery { get; set; }
 #endif
+            /// <summary>Returns users that match the given query.For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.The query value doesn&apos;t need to match the exact value you are looking for, it is capable of partial matches as well.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("query")]
+            public string? Query { get; set; }
+#nullable restore
+#else
+            [QueryParameter("query")]
+            public string Query { get; set; }
+#endif
+            /// <summary>Returns users with the specified roles. Accepts up to 100 roles. Any roles not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("role")]
+            public string[]? Role { get; set; }
+#nullable restore
+#else
+            [QueryParameter("role")]
+            public string[] Role { get; set; }
+#endif
+            /// <summary>Returns users with the user ids specified. For each user id, the `+` and `-` can beprepended to the id, which denote whether the respective user id should be included orexcluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("user_id")]
+            public string[]? UserId { get; set; }
+#nullable restore
+#else
+            [QueryParameter("user_id")]
+            public string[] UserId { get; set; }
+#endif
+            /// <summary>Returns users with the specified usernames.Accepts up to 100 usernames.Any usernames not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("username")]
+            public string[]? Username { get; set; }
+#nullable restore
+#else
+            [QueryParameter("username")]
+            public string[] Username { get; set; }
+#endif
             /// <summary>Returns users with usernames that match the given query, via case-insensitive partial match.For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -225,6 +285,16 @@ namespace Clerk.Net.Client.Organizations.Item.Memberships
 #else
             [QueryParameter("username_query")]
             public string UsernameQuery { get; set; }
+#endif
+            /// <summary>Returns users with the specified web3 wallet addresses.Accepts up to 100 web3 wallet addresses.Any web3 wallet addressed not found are ignored.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("web3_wallet")]
+            public string[]? Web3Wallet { get; set; }
+#nullable restore
+#else
+            [QueryParameter("web3_wallet")]
+            public string[] Web3Wallet { get; set; }
 #endif
         }
     }
