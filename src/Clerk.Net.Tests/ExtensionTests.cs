@@ -1,12 +1,13 @@
 ﻿using Clerk.Net.Client;
 using Clerk.Net.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Shouldly;
 
 namespace Clerk.Net.Tests;
 
 public class ExtensionTests
 {
-    [Fact]
+    [Test]
     public void ClientExtension_WorksAsExpected()
     {
         var collection = new ServiceCollection();
@@ -19,8 +20,6 @@ public class ExtensionTests
         var provider = collection.BuildServiceProvider();
 
         var client = provider.GetService<ClerkApiClient>();
-        Assert.NotNull(client);
-        
-
+        client.ShouldNotBeNull();
     }
 }
