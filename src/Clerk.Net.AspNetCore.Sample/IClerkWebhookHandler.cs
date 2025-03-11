@@ -80,7 +80,9 @@ public class Middleware() : IMiddleware
             var method = typeof(IClerkWebhookHandler<>).MakeGenericType(t).GetMethod("HandleAsync")!;
             return MethodInvoker.Create(method);
         }, type);
-        
+
+
+        invoker.Invoke(handler);
         
         document.Dispose();
     }
@@ -91,12 +93,13 @@ public class Middleware() : IMiddleware
 
         if (typeLookup == "user.event.created")
         {
-            
+            await ExecuteHandlerAsync<UserEvent>(document, "handler-user.event.created", provider);
         }
     }
 
-    public async Task ExecuteHandlerAsync<THandler>(JsonDocument document)
+    public async Task ExecuteHandlerAsync<TEvent>(JsonDocument document, string key, IKeyedServiceProvider provider) where TEvent: class
     {
-        
+        var handler = provider.GetKeyedService<IClerkWebhookHandler<TEvent>>(key);
+        await handler.HandleAsync(document.Deserialize<TEvent>());
     }
 }
