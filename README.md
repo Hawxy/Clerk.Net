@@ -12,7 +12,7 @@
 
 **`Clerk.Net.AspNetCore.Security`**: Clerk Authentication support for ASP.NET Core API. Compatible with .NET 8+.
 
-These libraries are configured as native AoT compatible for .NET 8+ consumers.
+These libraries are configured as **Native AOT** compatible for .NET 8+ consumers.
 
 **Caution:** As the Clerk OpenAPI spec is constantly changing, the core `Clerk.Net` library does not follow usual SemVer rules, with minor releases usually containing breaking changes. Major releases are only used for breaking changes at the framework level, not for codegen output.
 
@@ -22,7 +22,7 @@ Make sure to add your `SecretKey` to your application configuration, ideally via
 
 ### DI Container Configuration (ASP.NET Core & Worker Services)
 
-1. Install `Clerk.Net.DependencyInjection` from Nuget.
+1. Install `Clerk.Net.DependencyInjection` from Nuget or via the .NET CLI: `dotnet add package Clerk.Net.DependencyInjection`
 2. Add the following code to your service configuration:
 
 ```cs
@@ -79,7 +79,7 @@ For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.c
 
 You should have a new or existing ASP.NET Core application created before continuing.
 
-1. Install `Clerk.Net.AspNetCore.Security` to your project.
+1. Install `Clerk.Net.AspNetCore.Security` from Nuget or via the .NET CLI: `dotnet add package Clerk.Net.AspNetCore.Security`
 2. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParty` - the Frontend URL of your application:
 ```csharp
 builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme)
