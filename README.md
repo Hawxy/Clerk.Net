@@ -22,8 +22,13 @@ Make sure to add your `SecretKey` to your application configuration, ideally via
 
 ### DI Container Configuration (ASP.NET Core & Worker Services)
 
-1. Install `Clerk.Net.DependencyInjection` from Nuget or via the .NET CLI: `dotnet add package Clerk.Net.DependencyInjection`
-2. Add the following code to your service configuration:
+Install `Clerk.Net.DependencyInjection` from Nuget or via the .NET CLI:
+
+```
+dotnet add package Clerk.Net.DependencyInjection
+```
+
+1. Add the following code to your service configuration:
 
 ```cs
 builder.Services.AddClerkApiClient(config =>
@@ -32,7 +37,7 @@ builder.Services.AddClerkApiClient(config =>
 });
 ```
 
-3. Request the `ClerkApiClient` in your services
+2. Request the `ClerkApiClient` in your services
 
 ```cs
 public class MyBackgroundWorker : BackgroundService
@@ -79,8 +84,12 @@ For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.c
 
 You should have a new or existing ASP.NET Core application created before continuing.
 
-1. Install `Clerk.Net.AspNetCore.Security` from Nuget or via the .NET CLI: `dotnet add package Clerk.Net.AspNetCore.Security`
-2. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParty` - the Frontend URL of your application:
+Install `Clerk.Net.AspNetCore.Security` from Nuget or via the .NET CLI:
+```
+dotnet add package Clerk.Net.AspNetCore.Security
+```
+ 
+1. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParty` - the Frontend URL of your application:
 ```csharp
 builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme)
     .AddClerkAuthentication(x =>
@@ -90,7 +99,7 @@ builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationSch
     });
 ```
 
-3. Configure an Authorization policy to require authorization by default:
+2. Configure an Authorization policy to require authorization by default:
 ```csharp
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(new AuthorizationPolicyBuilder()
