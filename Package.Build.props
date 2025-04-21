@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Version>1.13.0</Version>
+    <Version>1.14.0</Version>
     <Authors>Hawxy</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

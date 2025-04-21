@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="CaseConverter" Version="2.0.1" />
     <PackageReference Include="Nuke.Common" Version="9.0.4" />
-    <PackageDownload Include="Microsoft.OpenApi.Kiota" Version="[1.23.0]" />
+    <PackageDownload Include="Microsoft.OpenApi.Kiota" Version="[1.25.1]" />
   </ItemGroup>
 
 </Project>

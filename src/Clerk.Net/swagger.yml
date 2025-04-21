@@ -131,6 +131,8 @@ tags:
     description: Check if a user is using a proxy.
   - name: Organization Domains
     description: Manage organization domains.
+  - name: Accountless Applications
+    description: Create and complete accountless applications. Note that this is an experimental feature and subject to change or be removed without notice.
 externalDocs:
   url: https://clerk.com/docs
 paths:
@@ -341,8 +343,8 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
   /email_addresses/{email_address_id}:
-    x-speakeasy-usage-example: true
     get:
+      x-speakeasy-usage-example: true
       operationId: GetEmailAddress
       x-speakeasy-group: emailAddresses
       x-speakeasy-name-override: get
@@ -696,6 +698,71 @@ paths:
           $ref: '#/components/responses/AuthenticationInvalid'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+  /sessions/{session_id}/refresh:
+    post:
+      operationId: RefreshSession
+      x-speakeasy-group: sessions
+      x-speakeasy-name-override: refresh
+      tags:
+        - Sessions
+      summary: Refresh a session
+      description: |-
+        Refreshes a session by creating a new session token. A 401 is returned when there
+        are validation errors, which signals the SDKs to fallback to the handshake flow.
+      parameters:
+        - name: session_id
+          in: path
+          description: The ID of the session
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Refresh session parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                expired_token:
+                  type: string
+                  description: |-
+                    The JWT that is sent via the `__session` cookie from your frontend.
+                    Note: this JWT must be associated with the supplied session ID.
+                refresh_token:
+                  type: string
+                  description: The JWT that is sent via the `__session` cookie from your frontend.
+                request_origin:
+                  type: string
+                  description: The origin of the request.
+                request_headers:
+                  type: object
+                  additionalProperties: true
+                  description: The headers of the request.
+                  nullable: true
+                format:
+                  type: string
+                  description: The format of the response.
+                  nullable: true
+                  default: token
+                  enum:
+                    - token
+                    - cookie
+                request_originating_ip:
+                  type: string
+                  description: The IP address of the request.
+                  nullable: true
+              required:
+                - expired_token
+                - refresh_token
+                - request_origin
+      responses:
+        '200':
+          $ref: '#/components/responses/Session.Refresh'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
   /sessions/{session_id}/revoke:
     post:
       operationId: RevokeSession
@@ -2179,50 +2246,7 @@ paths:
         - $ref: '#/components/parameters/OffsetParameter'
       responses:
         '200':
-          description: The OAuth access token of the user, if any.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    object:
-                      type: string
-                    external_account_id:
-                      description: External account ID
-                      type: string
-                    provider_user_id:
-                      description: The unique ID of the user in the external provider's system
-                      type: string
-                    token:
-                      type: string
-                      description: The access token
-                    provider:
-                      type: string
-                      description: The ID of the provider
-                    public_metadata:
-                      type: object
-                      additionalProperties: true
-                    label:
-                      type: string
-                      nullable: true
-                    scopes:
-                      type: array
-                      items:
-                        type: string
-                      description: |-
-                        The list of scopes that the token is valid for.
-                        Only present for OAuth 2.0 tokens.
-                    token_secret:
-                      type: string
-                      description: The token secret. Only present for OAuth 1.0 tokens.
-                    expires_at:
-                      type: integer
-                      format: int64
-                      nullable: true
-                      description: Unix timestamp of the access token expiration.
+          $ref: '#/components/responses/OAuthAccessToken'
         '400':
           $ref: '#/components/responses/ClerkErrors'
         '404':
@@ -5818,6 +5842,34 @@ paths:
           $ref: '#/components/responses/ClerkErrors'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+  /accountless_applications:
+    post:
+      operationId: CreateAccountlessApplication
+      x-speakeasy-group: experimentalAccountlessApplications
+      x-speakeasy-name-override: create
+      summary: Create an accountless application [EXPERIMENTAL]
+      description: Creates a new accountless application. [EXPERIMENTAL]
+      tags:
+        - Accountless Applications
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountlessApplication'
+        '500':
+          $ref: '#/components/responses/ClerkErrors'
+  /accountless_applications/complete:
+    post:
+      operationId: CompleteAccountlessApplication
+      x-speakeasy-group: experimentalAccountlessApplications
+      x-speakeasy-name-override: complete
+      summary: Complete an accountless application [EXPERIMENTAL]
+      description: Completes an accountless application. [EXPERIMENTAL]
+      tags:
+        - Accountless Applications
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountlessApplication'
+        '500':
+          $ref: '#/components/responses/ClerkErrors'
 components:
   securitySchemes:
     bearerAuth:
@@ -5826,6 +5878,273 @@ components:
       description: Secret key, obtained under "API Keys" in the Clerk Dashboard.
       bearerFormat: sk_<environment>_<secret value>
   schemas:
+    JWKS.ed25519.PublicKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - OKP
+        crv:
+          type: string
+          enum:
+            - Ed25519
+        x:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - crv
+        - x
+    JWKS.ecdsa.PublicKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - EC
+        crv:
+          type: string
+        x:
+          type: string
+        'y':
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - crv
+        - x
+        - 'y'
+    JWKS.rsa.PublicKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - RSA
+        'n':
+          type: string
+        e:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - 'n'
+        - e
+    JWKS.ed25519.PrivateKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - OKP
+        crv:
+          type: string
+          enum:
+            - Ed25519
+        x:
+          type: string
+        d:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - crv
+        - x
+        - d
+    JWKS.ecdsa.PrivateKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - EC
+        crv:
+          type: string
+        x:
+          type: string
+        'y':
+          type: string
+        d:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - crv
+        - x
+        - 'y'
+        - d
+    JWKS.rsa.PrivateKey:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - RSA
+        'n':
+          type: string
+        e:
+          type: string
+        d:
+          type: string
+        p:
+          type: string
+        q:
+          type: string
+        dp:
+          type: string
+        dq:
+          type: string
+        qi:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - crv
+        - 'n'
+        - e
+        - d
+        - p
+        - q
+    JWKS.symmetric.Key:
+      type: object
+      properties:
+        kid:
+          type: string
+        alg:
+          type: string
+        use:
+          type: string
+        kty:
+          type: string
+          enum:
+            - oct
+        k:
+          type: string
+        x5c:
+          type: array
+          items:
+            type: string
+        x5t:
+          type: string
+        x5t#S256:
+          type: string
+        x5u:
+          type: string
+      required:
+        - kid
+        - alg
+        - use
+        - kty
+        - k
     JWKS:
       type: object
       additionalProperties: false
@@ -5833,25 +6152,14 @@ components:
         keys:
           type: array
           items:
-            type: object
-            additionalProperties: false
-            properties:
-              use:
-                type: string
-              kty:
-                type: string
-              kid:
-                type: string
-              alg:
-                type: string
-              'n':
-                type: string
-              e:
-                type: string
-              x:
-                type: string
-              crv:
-                type: string
+            oneOf:
+              - $ref: '#/components/schemas/JWKS.ed25519.PublicKey'
+              - $ref: '#/components/schemas/JWKS.ecdsa.PublicKey'
+              - $ref: '#/components/schemas/JWKS.rsa.PublicKey'
+              - $ref: '#/components/schemas/JWKS.ed25519.PrivateKey'
+              - $ref: '#/components/schemas/JWKS.ecdsa.PrivateKey'
+              - $ref: '#/components/schemas/JWKS.rsa.PrivateKey'
+              - $ref: '#/components/schemas/JWKS.symmetric.Key'
     SessionActivityResponse:
       type: object
       nullable: true
@@ -6024,6 +6332,8 @@ components:
             $ref: '#/components/schemas/ClerkError'
         meta:
           type: object
+        clerk_trace_id:
+          type: string
       required:
         - errors
     OTP:
@@ -6276,6 +6586,44 @@ components:
         - reserved
         - created_at
         - updated_at
+    Token:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          description: |
+            String representing the object's type. Objects of the same type share the same value.
+          enum:
+            - token
+        jwt:
+          type: string
+          description: |
+            String representing the encoded jwt value.
+      required:
+        - object
+        - jwt
+    Cookies:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same value.
+          enum:
+            - cookies
+        cookies:
+          type: array
+          description: Array of cookie directives.
+          items:
+            type: string
+      required:
+        - object
+        - cookies
+    SessionRefresh:
+      oneOf:
+        - $ref: '#/components/schemas/Token'
+        - $ref: '#/components/schemas/Cookies'
     Template:
       type: object
       additionalProperties: false
@@ -6488,6 +6836,149 @@ components:
         - object
         - name
         - last_used_at
+        - verification
+    Oauth:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          x-speakeasy-unknown-values: allow
+          enum:
+            - unverified
+            - verified
+            - failed
+            - expired
+            - transferable
+        strategy:
+          type: string
+          x-speakeasy-unknown-values: allow
+          pattern: ^oauth_(?:(?:token_)|(?:custom_))?[a-z]+$
+        external_verification_redirect_url:
+          type: string
+        error:
+          type: object
+          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/ClerkError'
+        expire_at:
+          type: integer
+        attempts:
+          type: integer
+          nullable: true
+        verified_at_client:
+          type: string
+          nullable: true
+      required:
+        - status
+        - strategy
+        - attempts
+        - expire_at
+    GoogleOneTap:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+            - unverified
+            - verified
+        strategy:
+          type: string
+          enum:
+            - google_one_tap
+        expire_at:
+          type: integer
+          nullable: true
+        attempts:
+          type: integer
+          nullable: true
+        verified_at_client:
+          type: string
+          nullable: true
+        error:
+          type: object
+          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/ClerkError'
+      required:
+        - status
+        - strategy
+        - attempts
+        - expire_at
+    ExternalAccountWithVerification:
+      type: object
+      additionalProperties: true
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same value.
+          enum:
+            - external_account
+            - facebook_account
+            - google_account
+        id:
+          type: string
+        provider:
+          type: string
+        identification_id:
+          type: string
+        provider_user_id:
+          description: The unique ID of the user in the external provider's system
+          type: string
+        approved_scopes:
+          type: string
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        avatar_url:
+          type: string
+          deprecated: true
+          description: Please use `image_url` instead
+        image_url:
+          type: string
+          nullable: true
+        username:
+          type: string
+          nullable: true
+        public_metadata:
+          type: object
+          additionalProperties: true
+        label:
+          type: string
+          nullable: true
+        created_at:
+          type: integer
+          format: int64
+          description: |
+            Unix timestamp of creation
+        updated_at:
+          type: integer
+          format: int64
+          description: |
+            Unix timestamp of creation
+        verification:
+          type: object
+          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/Oauth'
+            - $ref: '#/components/schemas/GoogleOneTap'
+      required:
+        - object
+        - id
+        - provider
+        - identification_id
+        - provider_user_id
+        - approved_scopes
+        - email_address
+        - first_name
+        - last_name
+        - public_metadata
+        - created_at
+        - updated_at
         - verification
     SAML:
       type: object
@@ -6705,7 +7196,7 @@ components:
         external_accounts:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/ExternalAccountWithVerification'
         saml_accounts:
           type: array
           items:
@@ -6800,6 +7291,56 @@ components:
       required:
         - object
         - total_count
+    OAuthAccessToken:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        properties:
+          object:
+            type: string
+            enum:
+              - oauth_access_token
+          external_account_id:
+            type: string
+            description: External account ID
+          provider_user_id:
+            type: string
+            description: The unique ID of the user in the external provider's system
+          token:
+            type: string
+            description: The access token
+          expires_at:
+            type: integer
+            format: int64
+            nullable: true
+            description: Unix timestamp of the access token expiration.
+          provider:
+            type: string
+            description: The ID of the provider
+          public_metadata:
+            type: object
+            additionalProperties: true
+          label:
+            type: string
+            nullable: true
+          scopes:
+            type: array
+            items:
+              type: string
+            description: The list of scopes that the token is valid for. Only present for OAuth 2.0 tokens.
+          token_secret:
+            type: string
+            description: The token secret. Only present for OAuth 1.0 tokens.
+        required:
+          - object
+          - external_account_id
+          - provider_user_id
+          - token
+          - expires_at
+          - provider
+          - public_metadata
+          - label
     Organization:
       type: object
       properties:
@@ -8177,6 +8718,25 @@ components:
         - status
         - created_at
         - updated_at
+    AccountlessApplication:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          enum:
+            - accountless_application
+        publishable_key:
+          type: string
+        secret_key:
+          type: string
+        claim_url:
+          type: string
+        api_keys_url:
+          type: string
+      required:
+        - object
+        - publishable_key
   responses:
     WellKnown.JWKS:
       description: Get the JSON Web Key Set
@@ -8266,6 +8826,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Session'
+    Session.Refresh:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SessionRefresh'
     Template.List:
       description: Success
       content:
@@ -8306,6 +8872,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/TotalCount'
+    OAuthAccessToken:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OAuthAccessToken'
     OrganizationMemberships:
       description: A list of organization memberships
       content:
@@ -8594,6 +9166,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/WaitlistEntry'
+    AccountlessApplication:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountlessApplication'
   parameters:
     Paginated:
       name: paginated
