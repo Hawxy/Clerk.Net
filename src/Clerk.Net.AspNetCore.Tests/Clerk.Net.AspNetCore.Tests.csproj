@@ -9,7 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Alba" Version="8.1.1" />
-        <PackageReference Include="TUnit" Version="0.16.36" />
+        <PackageReference Include="TUnit" Version="0.19.86" />
     </ItemGroup>
 
     <ItemGroup>

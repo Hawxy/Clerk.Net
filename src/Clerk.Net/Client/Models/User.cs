@@ -35,10 +35,10 @@ namespace Clerk.Net.Client.Models
         /// <summary>The external_accounts property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Clerk.Net.Client.Models.User_external_accounts>? ExternalAccounts { get; set; }
+        public List<global::Clerk.Net.Client.Models.ExternalAccountWithVerification>? ExternalAccounts { get; set; }
 #nullable restore
 #else
-        public List<global::Clerk.Net.Client.Models.User_external_accounts> ExternalAccounts { get; set; }
+        public List<global::Clerk.Net.Client.Models.ExternalAccountWithVerification> ExternalAccounts { get; set; }
 #endif
         /// <summary>The external_id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -230,7 +230,7 @@ namespace Clerk.Net.Client.Models
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "delete_self_enabled", n => { DeleteSelfEnabled = n.GetBoolValue(); } },
                 { "email_addresses", n => { EmailAddresses = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.EmailAddress>(global::Clerk.Net.Client.Models.EmailAddress.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "external_accounts", n => { ExternalAccounts = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.User_external_accounts>(global::Clerk.Net.Client.Models.User_external_accounts.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "external_accounts", n => { ExternalAccounts = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.ExternalAccountWithVerification>(global::Clerk.Net.Client.Models.ExternalAccountWithVerification.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "external_id", n => { ExternalId = n.GetStringValue(); } },
                 { "first_name", n => { FirstName = n.GetStringValue(); } },
                 { "has_image", n => { HasImage = n.GetBoolValue(); } },
@@ -278,7 +278,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteIntValue("create_organizations_limit", CreateOrganizationsLimit);
             writer.WriteBoolValue("delete_self_enabled", DeleteSelfEnabled);
             writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.EmailAddress>("email_addresses", EmailAddresses);
-            writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.User_external_accounts>("external_accounts", ExternalAccounts);
+            writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.ExternalAccountWithVerification>("external_accounts", ExternalAccounts);
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteStringValue("first_name", FirstName);
             writer.WriteBoolValue("has_image", HasImage);

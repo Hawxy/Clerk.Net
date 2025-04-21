@@ -5,11 +5,11 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
+namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class WithProvider : IParsable
+    public partial class OAuthAccessToken : IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Unix timestamp of the access token expiration.</summary>
@@ -31,13 +31,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         public string Label { get; set; }
 #endif
         /// <summary>The object property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Object { get; set; }
-#nullable restore
-#else
-        public string Object { get; set; }
-#endif
+        public global::Clerk.Net.Client.Models.OAuthAccessToken_object? Object { get; set; }
         /// <summary>The ID of the provider</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -57,12 +51,12 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <summary>The public_metadata property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata? PublicMetadata { get; set; }
+        public global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata? PublicMetadata { get; set; }
 #nullable restore
 #else
-        public global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata PublicMetadata { get; set; }
+        public global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata PublicMetadata { get; set; }
 #endif
-        /// <summary>The list of scopes that the token is valid for.Only present for OAuth 2.0 tokens.</summary>
+        /// <summary>The list of scopes that the token is valid for. Only present for OAuth 2.0 tokens.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? Scopes { get; set; }
@@ -89,12 +83,12 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OAuthAccessToken"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.OAuthAccessToken CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider();
+            return new global::Clerk.Net.Client.Models.OAuthAccessToken();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -107,10 +101,10 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
                 { "expires_at", n => { ExpiresAt = n.GetLongValue(); } },
                 { "external_account_id", n => { ExternalAccountId = n.GetStringValue(); } },
                 { "label", n => { Label = n.GetStringValue(); } },
-                { "object", n => { Object = n.GetStringValue(); } },
+                { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OAuthAccessToken_object>(); } },
                 { "provider", n => { Provider = n.GetStringValue(); } },
                 { "provider_user_id", n => { ProviderUserId = n.GetStringValue(); } },
-                { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata>(global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata.CreateFromDiscriminatorValue); } },
+                { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata>(global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata.CreateFromDiscriminatorValue); } },
                 { "scopes", n => { Scopes = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "token", n => { Token = n.GetStringValue(); } },
                 { "token_secret", n => { TokenSecret = n.GetStringValue(); } },
@@ -126,10 +120,10 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
             writer.WriteLongValue("expires_at", ExpiresAt);
             writer.WriteStringValue("external_account_id", ExternalAccountId);
             writer.WriteStringValue("label", Label);
-            writer.WriteStringValue("object", Object);
+            writer.WriteEnumValue<global::Clerk.Net.Client.Models.OAuthAccessToken_object>("object", Object);
             writer.WriteStringValue("provider", Provider);
             writer.WriteStringValue("provider_user_id", ProviderUserId);
-            writer.WriteObjectValue<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata>("public_metadata", PublicMetadata);
+            writer.WriteObjectValue<global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata>("public_metadata", PublicMetadata);
             writer.WriteCollectionOfPrimitiveValues<string>("scopes", Scopes);
             writer.WriteStringValue("token", Token);
             writer.WriteStringValue("token_secret", TokenSecret);

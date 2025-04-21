@@ -5,31 +5,31 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
+namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class WithProvider_public_metadata : IAdditionalDataHolder, IParsable
+    public partial class OAuthAccessToken_public_metadata : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata"/> and sets the default values.
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata"/> and sets the default values.
         /// </summary>
-        public WithProvider_public_metadata()
+        public OAuthAccessToken_public_metadata()
         {
             AdditionalData = new Dictionary<string, object>();
         }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider_public_metadata();
+            return new global::Clerk.Net.Client.Models.OAuthAccessToken_public_metadata();
         }
         /// <summary>
         /// The deserialization information for the current model

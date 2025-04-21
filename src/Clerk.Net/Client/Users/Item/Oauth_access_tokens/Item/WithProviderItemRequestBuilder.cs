@@ -36,7 +36,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <summary>
         /// Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
         /// </summary>
-        /// <returns>A List&lt;global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider&gt;</returns>
+        /// <returns>A List&lt;global::Clerk.Net.Client.Models.OAuthAccessToken&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
@@ -44,11 +44,11 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.OAuthAccessToken>?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<List<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<List<global::Clerk.Net.Client.Models.OAuthAccessToken>> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProviderItemRequestBuilder.WithProviderItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -58,7 +58,7 @@ namespace Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item
                 { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
-            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider>(requestInfo, global::Clerk.Net.Client.Users.Item.Oauth_access_tokens.Item.WithProvider.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            var collectionResult = await RequestAdapter.SendCollectionAsync<global::Clerk.Net.Client.Models.OAuthAccessToken>(requestInfo, global::Clerk.Net.Client.Models.OAuthAccessToken.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
             return collectionResult?.AsList();
         }
         /// <summary>

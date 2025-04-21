@@ -158,8 +158,11 @@ partial class Build : NukeBuild
                 Log.Information("Formatting {File}", file);
                 await ProcessFile(file);
             }
-
+            
             await ProcessFile(dir / "ClerkApiClient.cs");
+            
+            
+            
 
         });
 
