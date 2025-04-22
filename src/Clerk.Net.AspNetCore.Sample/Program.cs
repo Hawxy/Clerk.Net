@@ -1,11 +1,13 @@
+using Clerk.Net.AspNetCore.Sample;
 using Clerk.Net.AspNetCore.Security;
+using Clerk.Net.AspNetCore.Webhooks;
+using Clerk.Net.AspNetCore.Webhooks.Models.User;
 using Clerk.Net.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 builder.Services.AddCors(options =>
 {
@@ -49,7 +51,10 @@ builder.Services.AddAuthorizationBuilder()
         .RequireAuthenticatedUser()
         .Build());
 
-builder.Services.AddHandler<UserEvent, UserHandler>();
+builder.Services.AddClerkWebhooks(x =>
+{
+    x.WebhookSecret = builder.Configuration["Clerk:WebhookSecret"]!;
+}).RegisterHandler<UserCreatedEvent, UserCreatedHandler>();
 
 var app = builder.Build();
 
@@ -83,8 +88,7 @@ app.MapGet("/weatherforecast", () =>
             .ToArray();
         return forecast;
     })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+    .WithName("GetWeatherForecast");
 
 app.Run();
 

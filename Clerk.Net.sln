@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clerk.Net.AspNetCore.Securi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clerk.Net.AspNetCore.Tests", "src\Clerk.Net.AspNetCore.Tests\Clerk.Net.AspNetCore.Tests.csproj", "{6F2F26C3-5A83-4B06-A9C2-B5A966AA5E83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clerk.Net.AspNetCore.Webhooks", "src\Clerk.Net.AspNetCore.Webhooks\Clerk.Net.AspNetCore.Webhooks.csproj", "{D8D73B70-A163-4EDF-8E95-D1A3C88891D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,9 @@ Global
 		{6F2F26C3-5A83-4B06-A9C2-B5A966AA5E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F2F26C3-5A83-4B06-A9C2-B5A966AA5E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F2F26C3-5A83-4B06-A9C2-B5A966AA5E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D73B70-A163-4EDF-8E95-D1A3C88891D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D73B70-A163-4EDF-8E95-D1A3C88891D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D73B70-A163-4EDF-8E95-D1A3C88891D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D73B70-A163-4EDF-8E95-D1A3C88891D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

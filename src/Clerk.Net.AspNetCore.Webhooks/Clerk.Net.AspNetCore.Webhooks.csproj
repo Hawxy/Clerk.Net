@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>     
+    <PropertyGroup>
         <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsAotCompatible>true</IsAotCompatible>
+        <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>Clerk.Net.AspNetCore.Security</PackageId>
-        <Description>Clerk API Authentication for ASP.NET Core</Description>
-        <PackageTags>clerk,auth,aspnetcore</PackageTags>
+        <PackageId>Clerk.Net.AspNetCore.Webhooks</PackageId>
+        <Description>Clerk Webhooks for ASP.NET Core</Description>
+        <PackageTags>clerk,auth,aspnetcore,webhooks</PackageTags>
         <Version>1.0.0</Version>
         <Authors>Hawxy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -21,23 +22,18 @@
         <Copyright>Hawxy 2023-2025</Copyright>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <IsAotCompatible>true</IsAotCompatible>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
     
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
-    </ItemGroup>
-
     <ItemGroup>
         <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" PrivateAssets="All" />
     </ItemGroup>
-    
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>864e1ce0-d677-4a26-8908-235a4d39df18</UserSecretsId>
+        <PublishAot>true</PublishAot>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Clerk.Net.AspNetCore.Security\Clerk.Net.AspNetCore.Security.csproj" />
+      <ProjectReference Include="..\Clerk.Net.AspNetCore.Webhooks\Clerk.Net.AspNetCore.Webhooks.csproj" />
       <ProjectReference Include="..\Clerk.Net.DependencyInjection\Clerk.Net.DependencyInjection.csproj" />
     </ItemGroup>
 
