@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(options =>
 {
@@ -51,6 +52,7 @@ builder.Services.AddAuthorizationBuilder()
         .RequireAuthenticatedUser()
         .Build());
 
+// Webhooks
 builder.Services.AddClerkWebhooks(x =>
 {
     x.WebhookSecret = builder.Configuration["Clerk:WebhookSecret"]!;
@@ -75,6 +77,9 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+// The webhook middleware does its own auth, so be sure to allow access if you're using a fallback policy.
+app.MapClerkWebhooks("/webhooks").AllowAnonymous();
 
 app.MapGet("/weatherforecast", () =>
     {

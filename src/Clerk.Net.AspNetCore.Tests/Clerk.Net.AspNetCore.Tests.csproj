@@ -8,7 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alba" Version="8.1.1" />
+        <PackageReference Include="Alba" Version="8.2.0" />
+        <PackageReference Include="Bogus" Version="35.6.3" />
+        <PackageReference Include="Soenneker.Utils.AutoBogus" Version="3.0.751" />
         <PackageReference Include="TUnit" Version="0.19.86" />
     </ItemGroup>
 

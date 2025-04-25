@@ -1,4 +1,6 @@
 ﻿using Alba;
+using Clerk.Net.AspNetCore.Tests.Webhooks;
+using Clerk.Net.AspNetCore.Webhooks;
 using Clerk.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
 using TUnit.Core.Interfaces;
@@ -12,7 +14,16 @@ public sealed class AlbaBootstrap : IAsyncInitializer, IAsyncDisposable
 
     public async Task InitializeAsync() 
     {
-        Host = await AlbaHost.For<Program>();
+        Host = await AlbaHost.For<Program>(x =>
+        {
+            x.ConfigureServices(services =>
+            {
+                services.PostConfigure<ClerkWebhookOptions>(x =>
+                {
+                    x.WebhookSecret = SvixDefaults.SvixSecret;
+                });
+            });
+        });
 
         ClerkApiClient = Host.Services.GetRequiredService<ClerkApiClient>();
     }

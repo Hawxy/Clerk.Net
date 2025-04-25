@@ -7,6 +7,6 @@ public class UserCreatedHandler : IClerkWebhookHandler<UserCreatedEvent>
 {
     public Task HandleAsync(UserCreatedEvent request)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }

@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <IsAotCompatible>true</IsAotCompatible>
         <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
+        <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.Http.Generated</InterceptorsNamespaces>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -26,6 +27,12 @@
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Clerk.Net.AspNetCore.Tests</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
     
     <ItemGroup>

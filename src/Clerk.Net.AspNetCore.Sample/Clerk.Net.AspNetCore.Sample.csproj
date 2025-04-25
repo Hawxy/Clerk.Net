@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>864e1ce0-d677-4a26-8908-235a4d39df18</UserSecretsId>
         <PublishAot>true</PublishAot>
+        <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
     </PropertyGroup>
 
     <ItemGroup>
