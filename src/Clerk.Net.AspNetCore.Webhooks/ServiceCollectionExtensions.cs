@@ -8,21 +8,29 @@ namespace Clerk.Net.AspNetCore.Webhooks;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
-    public static ClerkWebhookBuilder AddClerkWebhooks(this IServiceCollection collection, Action<ClerkWebhookOptions> options)
+    public static WebhookBuilder AddWebhooks(this IServiceCollection collection, Action<WebhookOptions> options)
     {
-        collection.AddOptions<ClerkWebhookOptions>().Configure(options);
+        collection.AddOptions<WebhookOptions>().Configure(options);
 
-        return new ClerkWebhookBuilder(collection);
+        return new WebhookBuilder(collection);
     }
 }
 
-public sealed class ClerkWebhookBuilder
+public sealed class WebhookBuilder
 {
     private readonly IServiceCollection _collection;
 
-    public ClerkWebhookBuilder(IServiceCollection collection)
+    public WebhookBuilder(IServiceCollection collection)
     {
         _collection = collection;
+    }
+
+    public WebhookBuilder ConfigureEventMap(Action<EventMapBuilder> builder)
+    {
+        var internalBuilder = new EventMapBuilder();
+        builder.Invoke(internalBuilder);
+        _collection.AddSingleton(internalBuilder.Build());
+        return this;
     }
     
     /// <summary>
@@ -31,9 +39,9 @@ public sealed class ClerkWebhookBuilder
     /// <typeparam name="TEvent">The event type being registered</typeparam>
     /// <typeparam name="THandler">The type of handler being registered</typeparam>
     /// <returns></returns>
-    public ClerkWebhookBuilder RegisterHandler<TEvent, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]THandler>() where THandler : class, IClerkWebhookHandler<TEvent> where TEvent : class
+    public WebhookBuilder RegisterHandler<TEvent, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]THandler>() where THandler : class, IWebhookHandler<TEvent> where TEvent : class
     {
-        _collection.AddKeyedSingleton<IClerkWebhookHandler<TEvent>, THandler>($"handler-{nameof(TEvent)}");
+        _collection.AddKeyedSingleton<IWebhookHandler<TEvent>, THandler>($"handler-{nameof(TEvent)}");
         return this;
     }
 }

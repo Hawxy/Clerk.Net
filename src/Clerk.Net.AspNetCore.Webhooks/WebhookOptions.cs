@@ -1,9 +1,9 @@
 ﻿namespace Clerk.Net.AspNetCore.Webhooks;
 
-public sealed class ClerkWebhookOptions
+public sealed class WebhookOptions
 {
     /// <summary>
-    /// The Clerk Webhook Secret
+    /// The Webhook Secret
     /// </summary>
     public string WebhookSecret { get; set; }
     

@@ -6,8 +6,8 @@ namespace Clerk.Net.AspNetCore.Webhooks;
 
 public static class EndpointRoutingExtensions
 {
-    public static IEndpointConventionBuilder MapClerkWebhooks(this IEndpointRouteBuilder builder, [StringSyntax("Route")]string pattern)
+    public static IEndpointConventionBuilder MapWebhooks(this IEndpointRouteBuilder builder, [StringSyntax("Route")]string pattern)
     {
-        return builder.MapPost(pattern, ClerkWebhookInvoker.InvokeAsync);
+        return builder.MapPost(pattern, WebhookInvoker.InvokeAsync);
     }
 }

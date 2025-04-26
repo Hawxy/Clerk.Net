@@ -3,7 +3,7 @@ using Clerk.Net.AspNetCore.Webhooks.Models.User;
 
 namespace Clerk.Net.AspNetCore.Sample;
 
-public class UserCreatedHandler : IClerkWebhookHandler<UserCreatedEvent>
+public class UserCreatedHandler : IWebhookHandler<UserCreatedEvent>
 {
     public Task HandleAsync(UserCreatedEvent request)
     {

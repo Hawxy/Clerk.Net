@@ -18,7 +18,7 @@ public sealed class AlbaBootstrap : IAsyncInitializer, IAsyncDisposable
         {
             x.ConfigureServices(services =>
             {
-                services.PostConfigure<ClerkWebhookOptions>(x =>
+                services.PostConfigure<WebhookOptions>(x =>
                 {
                     x.WebhookSecret = SvixDefaults.SvixSecret;
                 });

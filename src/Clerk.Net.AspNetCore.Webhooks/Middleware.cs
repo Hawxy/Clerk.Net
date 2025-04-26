@@ -10,11 +10,11 @@ using Svix;
 
 namespace Clerk.Net.AspNetCore.Webhooks;
 
-internal sealed class ClerkWebhookInvoker
+internal sealed class WebhookInvoker
 {
     private static readonly ConcurrentDictionary<string, MethodInvoker> MethodLookup = new();
 
-    public static async Task InvokeAsync(HttpContext context, ILogger<ClerkWebhookInvoker> logger, IOptions<ClerkWebhookOptions> options)
+    public static async Task InvokeAsync(HttpContext context, ILogger<WebhookInvoker> logger, IOptions<WebhookOptions> options, EventMap eventMap)
     {
         var wh = new Webhook(options.Value.WebhookSecret);
         // auth
@@ -26,13 +26,13 @@ internal sealed class ClerkWebhookInvoker
         }
         catch (Svix.Exceptions.WebhookVerificationException ex)
         {
-            logger.LogDebug(ex, "Clerk Webhook signature verification failed");
+            logger.LogDebug(ex, "Webhook signature verification failed");
             context.Response.StatusCode = 401;
             return;
         }
         catch (Exception ex)
         {
-            logger.LogDebug(ex, "Clerk Webhook signature verification threw unexpected exception");
+            logger.LogDebug(ex, "Webhook signature verification threw unexpected exception");
             context.Response.StatusCode = 401;
             return;
         }
@@ -42,9 +42,9 @@ internal sealed class ClerkWebhookInvoker
 
         var typeLookup = document.RootElement.GetProperty("type").GetString();
 
-        if (string.IsNullOrEmpty(typeLookup) || !EventMap.TryGetEvent(typeLookup, out var type))
+        if (string.IsNullOrEmpty(typeLookup) || !eventMap.TryGetEvent(typeLookup, out var type))
         {
-            logger.LogDebug("Clerk Webhook payload did not contain valid or known event type '{Type}'",
+            logger.LogDebug("Webhook payload did not contain valid or known event type '{Type}'",
                 typeLookup ?? "N/A");
             context.Response.StatusCode = 400;
             return;
@@ -55,7 +55,7 @@ internal sealed class ClerkWebhookInvoker
 
         var provider = (IKeyedServiceProvider)context.RequestServices;
 
-        var handler = provider.GetKeyedService(typeof(IClerkWebhookHandler<>), key);
+        var handler = provider.GetKeyedService(typeof(IWebhookHandler<>), key);
 
         if (handler is null)
         {
@@ -73,14 +73,14 @@ internal sealed class ClerkWebhookInvoker
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Clerk Webhook payload was unable to be deserialized");
+            logger.LogError(ex, "Webhook payload was unable to be deserialized");
             context.Response.StatusCode = 500;
             return;
         }
         
         var invoker = MethodLookup.GetOrAdd(key, static (_, t) =>
         {
-            var method = typeof(IClerkWebhookHandler<>).MakeGenericType(t).GetMethod("HandleAsync")!;
+            var method = typeof(IWebhookHandler<>).MakeGenericType(t).GetMethod("HandleAsync")!;
             return MethodInvoker.Create(method);
         }, type);
 
@@ -92,7 +92,7 @@ internal sealed class ClerkWebhookInvoker
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Clerk Webhook Handler {Type} threw unhandled exception", handler.GetType().Name);
+            logger.LogError(ex, "Webhook Handler {Type} threw unhandled exception", handler.GetType().Name);
             context.Response.StatusCode = 500;
         }
        
