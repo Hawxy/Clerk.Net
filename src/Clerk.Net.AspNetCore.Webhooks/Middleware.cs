@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text.Json;
-using Clerk.Net.AspNetCore.Webhooks.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,9 +13,17 @@ internal sealed class WebhookInvoker
 {
     private static readonly ConcurrentDictionary<string, MethodInvoker> MethodLookup = new();
 
-    public static async Task InvokeAsync(HttpContext context, ILogger<WebhookInvoker> logger, IOptions<WebhookOptions> options, EventMap eventMap)
+    private readonly string _optionsName;
+    public WebhookInvoker(string optionsName)
     {
-        var wh = new Webhook(options.Value.WebhookSecret);
+        _optionsName = optionsName;
+    }
+
+    public async Task InvokeAsync(HttpContext context, ILogger<WebhookInvoker> logger, IOptionsSnapshot<WebhookProfileOptions> namedOptionsAccessor, IOptions<WebhookGlobalOptions> globalOptions, EventMap eventMap)
+    {
+        var profileOptions = namedOptionsAccessor.Get(_optionsName);
+        
+        var wh = new Webhook(profileOptions.WebhookSecret);
         // auth
         using var reader = new StreamReader(context.Request.Body, leaveOpen: true);
         var payload = await reader.ReadToEndAsync();
@@ -59,7 +66,7 @@ internal sealed class WebhookInvoker
 
         if (handler is null)
         {
-            if(options.Value.WarnOnMissingHandler)
+            if(globalOptions.Value.WarnOnMissingHandler)
                 logger.LogWarning("No webhook handler is registered for incoming webhook event type {Type}", typeLookup);
             context.Response.StatusCode = 200;
             return;
@@ -69,7 +76,11 @@ internal sealed class WebhookInvoker
         object? deserializedPayload;
         try
         {
-            deserializedPayload = document.Deserialize(type, WebhookSerializationContext.Default);
+#pragma warning disable IL2026 It's up to the caller to configure the STJ options correctly for NativeAOT
+#pragma warning disable IL3050
+            deserializedPayload = document.Deserialize(type, profileOptions.SerializerOptions);
+#pragma warning restore IL3050
+#pragma warning restore IL2026
         }
         catch (Exception ex)
         {

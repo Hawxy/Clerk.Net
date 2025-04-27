@@ -1,20 +1,27 @@
 ﻿using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices.ComTypes;
+using Clerk.Net.AspNetCore.Webhooks.Models;
 using Clerk.Net.AspNetCore.Webhooks.Models.User;
 
 namespace Clerk.Net.AspNetCore.Webhooks;
 
 public static class EventMapExtensions
 {
-    public static EventMapBuilder RegisterClerkEvents(this EventMapBuilder builder)
+    public static void ApplyClerkDefaults(this WebhookProfileBuilder options)
     {
-        builder.Add<UserCreatedEvent>("user.created");
-        return builder;
+        options.WithEventMap(y =>
+        {
+            y.Add<UserCreatedEvent>("user.created");
+        });
+        options.WithSerializerOptions(o =>
+        {
+            o.TypeInfoResolver = WebhookSerializationContext.Default;
+        });
     }
-    
 }
 
-internal sealed class EventMap
+public sealed class EventMap
 {
     private readonly FrozenDictionary<string, Type> _map;
 
@@ -32,10 +39,7 @@ internal sealed class EventMap
 
 public sealed class EventMapBuilder
 {
-    private readonly Dictionary<string, Type> _map = new Dictionary<string, Type>();
-
-    public EventMapBuilder Create() => new EventMapBuilder();
-
+    private readonly Dictionary<string, Type> _map = new();
     public EventMapBuilder Add(Type type, string eventName)
     {
         _map.Add(eventName, type);

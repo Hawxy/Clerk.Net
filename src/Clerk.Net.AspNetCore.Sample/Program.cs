@@ -53,13 +53,14 @@ builder.Services.AddAuthorizationBuilder()
         .Build());
 
 // Webhooks
-builder.Services.AddWebhooks(x =>
-{
-    x.WebhookSecret = builder.Configuration["Clerk:WebhookSecret"]!;
-}).ConfigureEventMap(x =>
-{
-    x.RegisterClerkEvents();
-}).RegisterHandler<UserCreatedEvent, UserCreatedHandler>();
+builder.Services.AddWebhooks()
+    .AddProfile(ClerkWebhookDefaults.ProfileName, options =>
+    {
+        options.WithWebhookSecret(builder.Configuration["Clerk:WebhookSecret"]!);
+        options.ApplyClerkDefaults();
+    });
+
+builder.Services.AddWebhookHandler<UserCreatedEvent, UserCreatedHandler>();
 
 var app = builder.Build();
 
@@ -82,7 +83,7 @@ var summaries = new[]
 };
 
 // The webhook middleware does its own auth, so be sure to allow access if you're using a fallback policy.
-app.MapWebhooks("/webhooks").AllowAnonymous();
+app.MapWebhook("/clerk-webhooks", ClerkWebhookDefaults.ProfileName).AllowAnonymous();
 
 app.MapGet("/weatherforecast", () =>
     {
