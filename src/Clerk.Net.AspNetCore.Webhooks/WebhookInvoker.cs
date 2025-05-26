@@ -24,7 +24,7 @@ internal sealed class WebhookInvoker
         var profileOptions = namedOptionsAccessor.Get(_optionsName);
         
         var wh = new Webhook(profileOptions.WebhookSecret);
-        // auth
+        // Authentication
         using var reader = new StreamReader(context.Request.Body, leaveOpen: true);
         var payload = await reader.ReadToEndAsync();
         try
@@ -44,7 +44,7 @@ internal sealed class WebhookInvoker
             return;
         }
         
-        // type validation
+        // Type Validation
         using var document = JsonDocument.Parse(payload);
 
         var typeLookup = document.RootElement.GetProperty("type").GetString();
@@ -57,7 +57,7 @@ internal sealed class WebhookInvoker
             return;
         }
 
-        // handler validation
+        // Handler Validation
         var key = $"handler-{type.Name}";
 
         var provider = (IKeyedServiceProvider)context.RequestServices;
@@ -72,7 +72,7 @@ internal sealed class WebhookInvoker
             return;
         }
         
-        // deserialization
+        // Deserialization
         object? deserializedPayload;
         try
         {
@@ -97,6 +97,7 @@ internal sealed class WebhookInvoker
 
         try
         {
+            using var activity = Tracing.Source.StartActivity($"{handler.GetType().Name} HandleAsync");
             // handler invoke
             var result = (Task)invoker.Invoke(handler, deserializedPayload)!;
             await result;

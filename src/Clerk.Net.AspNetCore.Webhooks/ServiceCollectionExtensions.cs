@@ -54,6 +54,4 @@ public sealed class WebhookBuilder
         _collection.AddOptions<WebhookProfileOptions>(name).Configure(x=> builder.Apply(x));
         return this;
     }
-    
-
 }

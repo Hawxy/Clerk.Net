@@ -1,6 +1,5 @@
 ﻿using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices.ComTypes;
 using Clerk.Net.AspNetCore.Webhooks.Models;
 using Clerk.Net.AspNetCore.Webhooks.Models.User;
 
@@ -16,7 +15,7 @@ public static class EventMapExtensions
         });
         options.WithSerializerOptions(o =>
         {
-            o.TypeInfoResolver = WebhookSerializationContext.Default;
+            o.TypeInfoResolver = ClerkWebhookSerializationContext.Default;
         });
     }
 }
