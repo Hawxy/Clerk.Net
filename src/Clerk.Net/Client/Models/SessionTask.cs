@@ -9,48 +9,56 @@ namespace Clerk.Net.Client.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class OrganizationWithLogo : global::Clerk.Net.Client.Models.Organization, IParsable
+    public partial class SessionTask : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The logo_url property</summary>
-        [Obsolete("")]
+        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
+        public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The key property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public string? LogoUrl { get; set; }
+        public string? Key { get; set; }
 #nullable restore
 #else
-        public string LogoUrl { get; set; }
+        public string Key { get; set; }
 #endif
+        /// <summary>
+        /// Instantiates a new <see cref="global::Clerk.Net.Client.Models.SessionTask"/> and sets the default values.
+        /// </summary>
+        public SessionTask()
+        {
+            AdditionalData = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::Clerk.Net.Client.Models.OrganizationWithLogo"/></returns>
+        /// <returns>A <see cref="global::Clerk.Net.Client.Models.SessionTask"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static new global::Clerk.Net.Client.Models.OrganizationWithLogo CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::Clerk.Net.Client.Models.SessionTask CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::Clerk.Net.Client.Models.OrganizationWithLogo();
+            return new global::Clerk.Net.Client.Models.SessionTask();
         }
         /// <summary>
         /// The deserialization information for the current model
         /// </summary>
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
-        public override IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+        public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
-            return new Dictionary<string, Action<IParseNode>>(base.GetFieldDeserializers())
+            return new Dictionary<string, Action<IParseNode>>
             {
-                { "logo_url", n => { LogoUrl = n.GetStringValue(); } },
+                { "key", n => { Key = n.GetStringValue(); } },
             };
         }
         /// <summary>
         /// Serializes information the current object
         /// </summary>
         /// <param name="writer">Serialization writer to use to serialize this model</param>
-        public override void Serialize(ISerializationWriter writer)
+        public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            base.Serialize(writer);
-            writer.WriteStringValue("logo_url", LogoUrl);
+            writer.WriteStringValue("key", Key);
+            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

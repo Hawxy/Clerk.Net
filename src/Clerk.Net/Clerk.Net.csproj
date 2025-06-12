@@ -8,10 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <IsNet8OrHigher>$([MSBuild]::VersionGreaterThanOrEquals('$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)'))','8.0'))</IsNet8OrHigher>
+    <IsAotCompatible Condition="$(IsNet8OrHigher)">true</IsAotCompatible>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Kiota.Bundle" Version="1.17.2" />
+    <PackageReference Include="Microsoft.Kiota.Bundle" Version="1.17.4" />
   </ItemGroup>
 
   <ItemGroup>

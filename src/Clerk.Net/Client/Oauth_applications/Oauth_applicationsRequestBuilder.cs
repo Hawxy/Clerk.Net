@@ -35,7 +35,7 @@ namespace Clerk.Net.Client.Oauth_applications
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Oauth_applicationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications{?limit*,offset*}", pathParameters)
+        public Oauth_applicationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications{?limit*,name_query*,offset*,order_by*}", pathParameters)
         {
         }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Clerk.Net.Client.Oauth_applications
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public Oauth_applicationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications{?limit*,offset*}", rawUrl)
+        public Oauth_applicationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/oauth_applications{?limit*,name_query*,offset*,order_by*}", rawUrl)
         {
         }
         /// <summary>
@@ -161,9 +161,29 @@ namespace Clerk.Net.Client.Oauth_applications
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public int? Limit { get; set; }
+            /// <summary>Returns OAuth applications with names that match the given query, via case-insensitive partial match.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("name_query")]
+            public string? NameQuery { get; set; }
+#nullable restore
+#else
+            [QueryParameter("name_query")]
+            public string NameQuery { get; set; }
+#endif
             /// <summary>Skip the first `offset` results when paginating.Needs to be an integer greater or equal to zero.To be used in conjunction with `limit`.</summary>
             [QueryParameter("offset")]
             public int? Offset { get; set; }
+            /// <summary>Allows to return OAuth applications in a particular order.At the moment, you can order the returned OAuth applications by their `created_at` and `name`.In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.If you don&apos;t use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("order_by")]
+            public string? OrderBy { get; set; }
+#nullable restore
+#else
+            [QueryParameter("order_by")]
+            public string OrderBy { get; set; }
+#endif
         }
     }
 }

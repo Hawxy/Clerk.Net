@@ -30,6 +30,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>whether this template can be deleted</summary>
         public bool? CanDelete { get; set; }
+        /// <summary>whether the body of this template can be edited</summary>
+        public bool? CanEditBody { get; set; }
         /// <summary>whether this template can be reverted to the corresponding system default</summary>
         public bool? CanRevert { get; set; }
         /// <summary>whether this template can be enabled or disabled, true only for notification SMS templates</summary>
@@ -155,6 +157,7 @@ namespace Clerk.Net.Client.Models
                 { "available_variables", n => { AvailableVariables = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "body", n => { Body = n.GetStringValue(); } },
                 { "can_delete", n => { CanDelete = n.GetBoolValue(); } },
+                { "can_edit_body", n => { CanEditBody = n.GetBoolValue(); } },
                 { "can_revert", n => { CanRevert = n.GetBoolValue(); } },
                 { "can_toggle", n => { CanToggle = n.GetBoolValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
@@ -186,6 +189,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteCollectionOfPrimitiveValues<string>("available_variables", AvailableVariables);
             writer.WriteStringValue("body", Body);
             writer.WriteBoolValue("can_delete", CanDelete);
+            writer.WriteBoolValue("can_edit_body", CanEditBody);
             writer.WriteBoolValue("can_revert", CanRevert);
             writer.WriteBoolValue("can_toggle", CanToggle);
             writer.WriteLongValue("created_at", CreatedAt);

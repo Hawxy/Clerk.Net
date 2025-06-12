@@ -64,6 +64,14 @@ namespace Clerk.Net.Client.Models
         public global::Clerk.Net.Client.Models.Session_object? Object { get; set; }
         /// <summary>The status property</summary>
         public global::Clerk.Net.Client.Models.Session_status? Status { get; set; }
+        /// <summary>The tasks property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Clerk.Net.Client.Models.SessionTask>? Tasks { get; set; }
+#nullable restore
+#else
+        public List<global::Clerk.Net.Client.Models.SessionTask> Tasks { get; set; }
+#endif
         /// <summary>Unix timestamp of last update.</summary>
         public long? UpdatedAt { get; set; }
         /// <summary>The user_id property</summary>
@@ -103,6 +111,7 @@ namespace Clerk.Net.Client.Models
                 { "latest_activity", n => { LatestActivity = n.GetObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>(global::Clerk.Net.Client.Models.SessionActivityResponse.CreateFromDiscriminatorValue); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_object>(); } },
                 { "status", n => { Status = n.GetEnumValue<global::Clerk.Net.Client.Models.Session_status>(); } },
+                { "tasks", n => { Tasks = n.GetCollectionOfObjectValues<global::Clerk.Net.Client.Models.SessionTask>(global::Clerk.Net.Client.Models.SessionTask.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "updated_at", n => { UpdatedAt = n.GetLongValue(); } },
                 { "user_id", n => { UserId = n.GetStringValue(); } },
             };
@@ -125,6 +134,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.SessionActivityResponse>("latest_activity", LatestActivity);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_object>("object", Object);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.Session_status>("status", Status);
+            writer.WriteCollectionOfObjectValues<global::Clerk.Net.Client.Models.SessionTask>("tasks", Tasks);
             writer.WriteLongValue("updated_at", UpdatedAt);
             writer.WriteStringValue("user_id", UserId);
         }

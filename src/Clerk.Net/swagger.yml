@@ -15,10 +15,10 @@ info:
     ### Versions
 
     When the API changes in a way that isn't compatible with older versions, a new version is released.
-    Each version is identified by its release date, e.g. `2024-10-01`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
+    Each version is identified by its release date, e.g. `2025-04-10`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
 
     Please see https://clerk.com/docs for more information.
-  version: '2024-10-01'
+  version: '2025-04-10'
   termsOfService: https://clerk.com/terms
   license:
     name: MIT
@@ -344,10 +344,10 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /email_addresses/{email_address_id}:
     get:
-      x-speakeasy-usage-example: true
       operationId: GetEmailAddress
       x-speakeasy-group: emailAddresses
       x-speakeasy-name-override: get
+      x-speakeasy-usage-example: true
       tags:
         - Email Addresses
       summary: Retrieve an email address
@@ -3400,9 +3400,7 @@ paths:
                   type: array
                   items:
                     type: string
-                  description: |-
-                    For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
-                    For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+                  description: For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
                 cookieless_dev:
                   type: boolean
                   description: |-
@@ -4279,6 +4277,12 @@ paths:
               - pending
               - accepted
               - revoked
+        - in: query
+          required: false
+          name: email_address
+          description: Returns organization invitations inviting the specified email address.
+          schema:
+            type: string
         - $ref: '#/components/parameters/LimitParameter'
         - $ref: '#/components/parameters/OffsetParameter'
       responses:
@@ -4288,6 +4292,8 @@ paths:
           $ref: '#/components/responses/ClerkErrors'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /organizations/{organization_id}/invitations/bulk:
     post:
       operationId: CreateOrganizationInvitationBulk
@@ -5231,6 +5237,25 @@ paths:
       parameters:
         - $ref: '#/components/parameters/LimitParameter'
         - $ref: '#/components/parameters/OffsetParameter'
+        - name: order_by
+          in: query
+          description: |-
+            Allows to return OAuth applications in a particular order.
+            At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
+            In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+            For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+            If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
+            if you pass `order_by=name&order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+          required: false
+          schema:
+            type: string
+            default: +created_at
+        - name: name_query
+          in: query
+          description: Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           $ref: '#/components/responses/OAuthApplications'
@@ -5280,6 +5305,11 @@ paths:
                   description: Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
                   default: profile email
                   example: profile email public_metadata
+                  nullable: true
+                consent_screen_enabled:
+                  type: boolean
+                  default: false
+                  description: True to enable a consent screen to display in the authentication flow.
                   nullable: true
                 public:
                   type: boolean
@@ -5366,6 +5396,10 @@ paths:
                   description: Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
                   default: profile email
                   example: profile email public_metadata private_metadata
+                  nullable: true
+                consent_screen_enabled:
+                  type: boolean
+                  description: True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
                   nullable: true
                 public:
                   type: boolean
@@ -5877,6 +5911,10 @@ components:
       scheme: bearer
       description: Secret key, obtained under "API Keys" in the Clerk Dashboard.
       bearerFormat: sk_<environment>_<secret value>
+    managementToken:
+      type: http
+      scheme: bearer
+      description: Internal management token.
   schemas:
     JWKS.ed25519.PublicKey:
       type: object
@@ -6186,6 +6224,13 @@ components:
         - id
         - object
         - is_mobile
+    SessionTask:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+        - key
     Session:
       type: object
       additionalProperties: false
@@ -6215,6 +6260,7 @@ components:
             - removed
             - abandoned
             - replaced
+            - pending
         last_active_organization_id:
           type: string
           nullable: true
@@ -6242,6 +6288,11 @@ components:
           format: int64
           description: |
             Unix timestamp of creation.
+        tasks:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/SessionTask'
       required:
         - object
         - id
@@ -6661,6 +6712,9 @@ components:
         can_delete:
           type: boolean
           description: whether this template can be deleted
+        can_edit_body:
+          type: boolean
+          description: whether the body of this template can be edited
         can_toggle:
           type: boolean
           description: whether this template can be enabled or disabled, true only for notification SMS templates
@@ -6942,6 +6996,9 @@ components:
           type: string
           nullable: true
         username:
+          type: string
+          nullable: true
+        phone_number:
           type: string
           nullable: true
         public_metadata:
@@ -7270,9 +7327,9 @@ components:
         The hashing algorithm that was used to generate the password digest.
 
         The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-        [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+        [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
         [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-        and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+        [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
 
         Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
     TotalCount:
@@ -7354,6 +7411,10 @@ components:
           type: string
         slug:
           type: string
+        image_url:
+          type: string
+        has_image:
+          type: boolean
         members_count:
           type: integer
         missing_member_with_elevated_permissions:
@@ -7387,10 +7448,10 @@ components:
         - id
         - name
         - slug
+        - has_image
         - max_allowed_memberships
         - admin_delete_enabled
         - public_metadata
-        - private_metadata
         - created_at
         - updated_at
     OrganizationMembershipPublicUserData:
@@ -8462,6 +8523,16 @@ components:
           type: string
         client_id:
           type: string
+        client_uri:
+          type: string
+          nullable: true
+        client_image_url:
+          type: string
+          nullable: true
+        dynamically_registered:
+          type: boolean
+        consent_screen_enabled:
+          type: boolean
         public:
           type: boolean
         scopes:
@@ -8500,8 +8571,12 @@ components:
         - id
         - instance_id
         - name
+        - dynamically_registered
+        - consent_screen_enabled
         - public
         - client_id
+        - client_uri
+        - client_image_url
         - scopes
         - redirect_uris
         - callback_url

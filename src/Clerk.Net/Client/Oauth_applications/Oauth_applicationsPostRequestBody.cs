@@ -23,6 +23,8 @@ namespace Clerk.Net.Client.Oauth_applications
 #else
         public string CallbackUrl { get; set; }
 #endif
+        /// <summary>True to enable a consent screen to display in the authentication flow.</summary>
+        public bool? ConsentScreenEnabled { get; set; }
         /// <summary>The name of the new OAuth application.Max length: 256</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -76,6 +78,7 @@ namespace Clerk.Net.Client.Oauth_applications
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
+                { "consent_screen_enabled", n => { ConsentScreenEnabled = n.GetBoolValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
                 { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
@@ -90,6 +93,7 @@ namespace Clerk.Net.Client.Oauth_applications
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("callback_url", CallbackUrl);
+            writer.WriteBoolValue("consent_screen_enabled", ConsentScreenEnabled);
             writer.WriteStringValue("name", Name);
             writer.WriteBoolValue("public", Public);
             writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
