@@ -41,12 +41,21 @@ namespace Clerk.Net.Client.Models
         /// <summary>The disable_additional_identifications property</summary>
         public bool? DisableAdditionalIdentifications { get; set; }
         /// <summary>The domain property</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Domain { get; set; }
 #nullable restore
 #else
         public string Domain { get; set; }
+#endif
+        /// <summary>The domains property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? Domains { get; set; }
+#nullable restore
+#else
+        public List<string> Domains { get; set; }
 #endif
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -177,6 +186,7 @@ namespace Clerk.Net.Client.Models
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "disable_additional_identifications", n => { DisableAdditionalIdentifications = n.GetBoolValue(); } },
                 { "domain", n => { Domain = n.GetStringValue(); } },
+                { "domains", n => { Domains = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 { "idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
@@ -209,6 +219,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteBoolValue("disable_additional_identifications", DisableAdditionalIdentifications);
             writer.WriteStringValue("domain", Domain);
+            writer.WriteCollectionOfPrimitiveValues<string>("domains", Domains);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);

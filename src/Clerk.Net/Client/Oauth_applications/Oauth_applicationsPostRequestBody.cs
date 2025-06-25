@@ -33,6 +33,8 @@ namespace Clerk.Net.Client.Oauth_applications
 #else
         public string Name { get; set; }
 #endif
+        /// <summary>True to require the Proof Key of Code Exchange (PKCE) flow.</summary>
+        public bool? PkceRequired { get; set; }
         /// <summary>If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.</summary>
         public bool? Public { get; set; }
         /// <summary>An array of redirect URIs of the new OAuth application</summary>
@@ -80,6 +82,7 @@ namespace Clerk.Net.Client.Oauth_applications
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
                 { "consent_screen_enabled", n => { ConsentScreenEnabled = n.GetBoolValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
+                { "pkce_required", n => { PkceRequired = n.GetBoolValue(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
                 { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
@@ -95,6 +98,7 @@ namespace Clerk.Net.Client.Oauth_applications
             writer.WriteStringValue("callback_url", CallbackUrl);
             writer.WriteBoolValue("consent_screen_enabled", ConsentScreenEnabled);
             writer.WriteStringValue("name", Name);
+            writer.WriteBoolValue("pkce_required", PkceRequired);
             writer.WriteBoolValue("public", Public);
             writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);

@@ -4,7 +4,6 @@ using Clerk.Net.Client.Models;
 using Clerk.Net.Client.Sessions.Item.Refresh;
 using Clerk.Net.Client.Sessions.Item.Revoke;
 using Clerk.Net.Client.Sessions.Item.Tokens;
-using Clerk.Net.Client.Sessions.Item.Verify;
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
@@ -35,11 +34,6 @@ namespace Clerk.Net.Client.Sessions.Item
         public global::Clerk.Net.Client.Sessions.Item.Tokens.TokensRequestBuilder Tokens
         {
             get => new global::Clerk.Net.Client.Sessions.Item.Tokens.TokensRequestBuilder(PathParameters, RequestAdapter);
-        }
-        /// <summary>The verify property</summary>
-        public global::Clerk.Net.Client.Sessions.Item.Verify.VerifyRequestBuilder Verify
-        {
-            get => new global::Clerk.Net.Client.Sessions.Item.Verify.VerifyRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Clerk.Net.Client.Sessions.Item.WithSession_ItemRequestBuilder"/> and sets the default values.

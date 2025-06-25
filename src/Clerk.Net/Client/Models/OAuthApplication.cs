@@ -95,6 +95,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.OAuthApplication_object? Object { get; set; }
+        /// <summary>The pkce_required property</summary>
+        public bool? PkceRequired { get; set; }
         /// <summary>The public property</summary>
         public bool? Public { get; set; }
         /// <summary>The redirect_uris property</summary>
@@ -177,6 +179,7 @@ namespace Clerk.Net.Client.Models
                 { "instance_id", n => { InstanceId = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>(); } },
+                { "pkce_required", n => { PkceRequired = n.GetBoolValue(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
                 { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
@@ -206,6 +209,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("instance_id", InstanceId);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>("object", Object);
+            writer.WriteBoolValue("pkce_required", PkceRequired);
             writer.WriteBoolValue("public", Public);
             writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);
