@@ -39,6 +39,24 @@ namespace Clerk.Net.Client.Models
 #else
         public string ClientId { get; set; }
 #endif
+        /// <summary>The client_image_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ClientImageUrl { get; set; }
+#nullable restore
+#else
+        public string ClientImageUrl { get; set; }
+#endif
+        /// <summary>The client_uri property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ClientUri { get; set; }
+#nullable restore
+#else
+        public string ClientUri { get; set; }
+#endif
+        /// <summary>The consent_screen_enabled property</summary>
+        public bool? ConsentScreenEnabled { get; set; }
         /// <summary>Unix timestamp of creation.</summary>
         public long? CreatedAt { get; set; }
         /// <summary>The discovery_url property</summary>
@@ -49,6 +67,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string DiscoveryUrl { get; set; }
 #endif
+        /// <summary>The dynamically_registered property</summary>
+        public bool? DynamicallyRegistered { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -75,6 +95,8 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>The object property</summary>
         public global::Clerk.Net.Client.Models.OAuthApplication_object? Object { get; set; }
+        /// <summary>The pkce_required property</summary>
+        public bool? PkceRequired { get; set; }
         /// <summary>The public property</summary>
         public bool? Public { get; set; }
         /// <summary>The redirect_uris property</summary>
@@ -147,12 +169,17 @@ namespace Clerk.Net.Client.Models
                 { "authorize_url", n => { AuthorizeUrl = n.GetStringValue(); } },
                 { "callback_url", n => { CallbackUrl = n.GetStringValue(); } },
                 { "client_id", n => { ClientId = n.GetStringValue(); } },
+                { "client_image_url", n => { ClientImageUrl = n.GetStringValue(); } },
+                { "client_uri", n => { ClientUri = n.GetStringValue(); } },
+                { "consent_screen_enabled", n => { ConsentScreenEnabled = n.GetBoolValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "discovery_url", n => { DiscoveryUrl = n.GetStringValue(); } },
+                { "dynamically_registered", n => { DynamicallyRegistered = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "instance_id", n => { InstanceId = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>(); } },
+                { "pkce_required", n => { PkceRequired = n.GetBoolValue(); } },
                 { "public", n => { Public = n.GetBoolValue(); } },
                 { "redirect_uris", n => { RedirectUris = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "scopes", n => { Scopes = n.GetStringValue(); } },
@@ -172,12 +199,17 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("authorize_url", AuthorizeUrl);
             writer.WriteStringValue("callback_url", CallbackUrl);
             writer.WriteStringValue("client_id", ClientId);
+            writer.WriteStringValue("client_image_url", ClientImageUrl);
+            writer.WriteStringValue("client_uri", ClientUri);
+            writer.WriteBoolValue("consent_screen_enabled", ConsentScreenEnabled);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("discovery_url", DiscoveryUrl);
+            writer.WriteBoolValue("dynamically_registered", DynamicallyRegistered);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("instance_id", InstanceId);
             writer.WriteStringValue("name", Name);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.OAuthApplication_object>("object", Object);
+            writer.WriteBoolValue("pkce_required", PkceRequired);
             writer.WriteBoolValue("public", Public);
             writer.WriteCollectionOfPrimitiveValues<string>("redirect_uris", RedirectUris);
             writer.WriteStringValue("scopes", Scopes);

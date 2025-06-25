@@ -128,8 +128,7 @@ partial class Build : NukeBuild
             using var client = new HttpClient();
 
             var swagger =
-                await client.GetStringAsync(
-                    "https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2024-10-01.yml");
+                await client.GetStringAsync("https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/update-openapi-specs-20250625-065429/bapi/2025-04-10.yml");
             
             var projectDir = Solution.Clerk_Net.Directory;
 

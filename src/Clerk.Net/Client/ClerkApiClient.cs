@@ -3,6 +3,7 @@
 using Clerk.Net.Client.Accountless_applications;
 using Clerk.Net.Client.Actor_tokens;
 using Clerk.Net.Client.Allowlist_identifiers;
+using Clerk.Net.Client.Aws_credentials;
 using Clerk.Net.Client.Beta_features;
 using Clerk.Net.Client.Blocklist_identifiers;
 using Clerk.Net.Client.Clients;
@@ -12,6 +13,8 @@ using Clerk.Net.Client.Instance;
 using Clerk.Net.Client.Invitations;
 using Clerk.Net.Client.Jwks;
 using Clerk.Net.Client.Jwt_templates;
+using Clerk.Net.Client.Machine_tokens;
+using Clerk.Net.Client.Management;
 using Clerk.Net.Client.Oauth_applications;
 using Clerk.Net.Client.Organization_invitations;
 using Clerk.Net.Client.Organization_memberships;
@@ -62,6 +65,11 @@ namespace Clerk.Net.Client
         {
             get => new global::Clerk.Net.Client.Allowlist_identifiers.Allowlist_identifiersRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The aws_credentials property</summary>
+        public global::Clerk.Net.Client.Aws_credentials.Aws_credentialsRequestBuilder AwsCredentials
+        {
+            get => new global::Clerk.Net.Client.Aws_credentials.Aws_credentialsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The beta_features property</summary>
         public global::Clerk.Net.Client.Beta_features.Beta_featuresRequestBuilder BetaFeatures
         {
@@ -106,6 +114,16 @@ namespace Clerk.Net.Client
         public global::Clerk.Net.Client.Jwt_templates.Jwt_templatesRequestBuilder JwtTemplates
         {
             get => new global::Clerk.Net.Client.Jwt_templates.Jwt_templatesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The machine_tokens property</summary>
+        public global::Clerk.Net.Client.Machine_tokens.Machine_tokensRequestBuilder MachineTokens
+        {
+            get => new global::Clerk.Net.Client.Machine_tokens.Machine_tokensRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The management property</summary>
+        public global::Clerk.Net.Client.Management.ManagementRequestBuilder Management
+        {
+            get => new global::Clerk.Net.Client.Management.ManagementRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The oauth_applications property</summary>
         public global::Clerk.Net.Client.Oauth_applications.Oauth_applicationsRequestBuilder OauthApplications

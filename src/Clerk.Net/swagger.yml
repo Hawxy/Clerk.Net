@@ -15,10 +15,10 @@ info:
     ### Versions
 
     When the API changes in a way that isn't compatible with older versions, a new version is released.
-    Each version is identified by its release date, e.g. `2024-10-01`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
+    Each version is identified by its release date, e.g. `2025-04-10`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
 
     Please see https://clerk.com/docs for more information.
-  version: '2024-10-01'
+  version: '2025-04-10'
   termsOfService: https://clerk.com/terms
   license:
     name: MIT
@@ -70,6 +70,8 @@ tags:
       url: https://clerk.com/docs/request-authentication/jwt-templates
   - name: OAuth Applications
     description: OAuth applications contain data for clients using Clerk as an OAuth2 identity provider.
+  - name: OAuth Access Tokens
+    description: Endpoints for managing OAuth Access Tokens, which are credentials to access protected resources on behalf of a user.
   - name: Organizations
     description: Organizations are used to group members under a common entity and provide shared access to resources.
     externalDocs:
@@ -211,6 +213,157 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/WellKnown.JWKS'
+  /aws_credentials:
+    x-internal: true
+    get:
+      operationId: GetAWSCredentialList
+      x-speakeasy-group: awsCredentials
+      x-speakeasy-name-override: list
+      tags:
+        - AWS Credentials
+      summary: List all AWS Credentials
+      description: Returns a list of all AWS Credentials.
+      responses:
+        '200':
+          $ref: '#/components/responses/AWSCredential.List'
+    post:
+      operationId: CreateAWSCredential
+      x-speakeasy-group: awsCredentials
+      x-speakeasy-name-override: create
+      tags:
+        - AWS Credentials
+      summary: Create an AWS Credential
+      description: Create a new AWS Credential
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_key_id:
+                  type: string
+                  description: The Access Key ID from AWS
+                secret_access_key:
+                  type: string
+                  description: The Secret Access Key from AWS.
+                user_pool_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: The User Pool IDs from AWS.
+              required:
+                - access_key_id
+                - secret_access_key
+                - user_pool_ids
+      responses:
+        '200':
+          $ref: '#/components/responses/AWSCredential'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /aws_credentials/{id}:
+    x-internal: true
+    get:
+      operationId: GetAWSCredential
+      x-speakeasy-group: awsCredentials
+      x-speakeasy-name-override: get
+      tags:
+        - AWS Credentials
+      summary: Retrieve an AWS Credential
+      description: Returns the details of an AWS Credential.
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the AWS Credential to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/AWSCredential'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+    delete:
+      operationId: DeleteAWSCredential
+      x-speakeasy-group: awsCredentials
+      x-speakeasy-name-override: delete
+      tags:
+        - AWS Credentials
+      summary: Delete an AWS Credential
+      description: Delete the AWS Credential with the given ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the AWS Credential to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/DeletedObject'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+    patch:
+      operationId: UpdateAWSCredential
+      x-speakeasy-group: awsCredentials
+      x-speakeasy-name-override: update
+      tags:
+        - AWS Credentials
+      summary: Update an AWS Credential
+      description: Updates an AWS credential.
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the AWS Credential to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_key_id:
+                  type: string
+                  nullable: true
+                user_pool_ids:
+                  type: array
+                  items:
+                    type: string
+                secret_access_key:
+                  type: string
+                  nullable: true
+      responses:
+        '200':
+          $ref: '#/components/responses/AWSCredential'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
   /clients:
     get:
       deprecated: true
@@ -295,6 +448,7 @@ paths:
           $ref: '#/components/responses/AuthenticationInvalid'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+  /clients/handshake_payload: {}
   /email_addresses:
     post:
       operationId: CreateEmailAddress
@@ -344,10 +498,10 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /email_addresses/{email_address_id}:
     get:
-      x-speakeasy-usage-example: true
       operationId: GetEmailAddress
       x-speakeasy-group: emailAddresses
       x-speakeasy-name-override: get
+      x-speakeasy-usage-example: true
       tags:
         - Email Addresses
       summary: Retrieve an email address
@@ -790,51 +944,6 @@ paths:
           $ref: '#/components/responses/AuthenticationInvalid'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
-  /sessions/{session_id}/verify:
-    post:
-      deprecated: true
-      operationId: VerifySession
-      x-speakeasy-group: sessions
-      x-speakeasy-name-override: verify
-      tags:
-        - Sessions
-      summary: Verify a session
-      description: |-
-        Returns the session if it is authenticated, otherwise returns an error.
-        WARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,
-                 which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).
-                 For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).
-      parameters:
-        - name: session_id
-          in: path
-          description: The ID of the session
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Parameters.
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                token:
-                  type: string
-                  description: |-
-                    The JWT that is sent via the `__session` cookie from your frontend.
-                    Note: this JWT must be associated with the supplied session ID.
-      responses:
-        '200':
-          $ref: '#/components/responses/Session'
-        '400':
-          $ref: '#/components/responses/ClerkErrors'
-        '401':
-          $ref: '#/components/responses/AuthenticationInvalid'
-        '404':
-          $ref: '#/components/responses/ResourceNotFound'
-        '410':
-          $ref: '#/components/responses/DeprecatedEndpoint'
   /sessions/{session_id}/tokens:
     post:
       operationId: CreateSessionToken
@@ -3400,9 +3509,7 @@ paths:
                   type: array
                   items:
                     type: string
-                  description: |-
-                    For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
-                    For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+                  description: For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
                 cookieless_dev:
                   type: boolean
                   description: |-
@@ -3768,6 +3875,54 @@ paths:
           $ref: '#/components/responses/AuthorizationInvalid'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+  /machine_tokens:
+    x-internal: true
+    post:
+      operationId: CreateMachineToken
+      x-speakeasy-group: machineTokens
+      x-speakeasy-name-override: create
+      summary: Create a machine token
+      description: Create a new machine token
+      tags:
+        - Machine Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                machine_id:
+                  type: string
+                  maxLength: 96
+                  description: ID of the machine creating the token. Must be be prefixed with `mch_`. Must only contain lowercase letters, numbers, and underscores.
+                claims:
+                  type: object
+                  description: Claims to include in the JWT
+                  nullable: true
+                expires_in_seconds:
+                  type: integer
+                  minimum: 30
+                  maximum: 315360000
+                  description: Token lifetime in seconds. Defaults to 30 seconds if not specified.
+                  nullable: true
+                allowed_clock_skew:
+                  type: integer
+                  minimum: 0
+                  maximum: 300
+                  default: 5
+                  description: Allowed clock skew in seconds. Defaults to 5 seconds if not specified.
+                  nullable: true
+              required:
+                - machine_id
+      responses:
+        '200':
+          $ref: '#/components/responses/MachineToken'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /organizations:
     get:
       operationId: ListOrganizations
@@ -4279,6 +4434,12 @@ paths:
               - pending
               - accepted
               - revoked
+        - in: query
+          required: false
+          name: email_address
+          description: Returns organization invitations inviting the specified email address.
+          schema:
+            type: string
         - $ref: '#/components/parameters/LimitParameter'
         - $ref: '#/components/parameters/OffsetParameter'
       responses:
@@ -4288,6 +4449,8 @@ paths:
           $ref: '#/components/responses/ClerkErrors'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /organizations/{organization_id}/invitations/bulk:
     post:
       operationId: CreateOrganizationInvitationBulk
@@ -4766,6 +4929,8 @@ paths:
           $ref: '#/components/responses/AuthenticationInvalid'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /organizations/{organization_id}/memberships/{user_id}/metadata:
     patch:
       operationId: UpdateOrganizationMembershipMetadata
@@ -5231,6 +5396,25 @@ paths:
       parameters:
         - $ref: '#/components/parameters/LimitParameter'
         - $ref: '#/components/parameters/OffsetParameter'
+        - name: order_by
+          in: query
+          description: |-
+            Allows to return OAuth applications in a particular order.
+            At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
+            In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+            For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+            If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
+            if you pass `order_by=name&order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+          required: false
+          schema:
+            type: string
+            default: +created_at
+        - name: name_query
+          in: query
+          description: Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           $ref: '#/components/responses/OAuthApplications'
@@ -5280,6 +5464,16 @@ paths:
                   description: Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
                   default: profile email
                   example: profile email public_metadata
+                  nullable: true
+                consent_screen_enabled:
+                  type: boolean
+                  default: true
+                  description: True to enable a consent screen to display in the authentication flow.
+                  nullable: true
+                pkce_required:
+                  type: boolean
+                  default: false
+                  description: True to require the Proof Key of Code Exchange (PKCE) flow.
                   nullable: true
                 public:
                   type: boolean
@@ -5366,6 +5560,14 @@ paths:
                   description: Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
                   default: profile email
                   example: profile email public_metadata private_metadata
+                  nullable: true
+                consent_screen_enabled:
+                  type: boolean
+                  description: True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+                  nullable: true
+                pkce_required:
+                  type: boolean
+                  description: True to require the Proof Key of Code Exchange (PKCE) flow.
                   nullable: true
                 public:
                   type: boolean
@@ -5504,7 +5706,13 @@ paths:
                   description: The name to use as a label for this SAML Connection
                 domain:
                   type: string
+                  deprecated: true
                   description: The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+                domains:
+                  type: array
+                  items:
+                    type: string
+                  description: The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
                 provider:
                   type: string
                   description: The IdP provider of the connection.
@@ -5553,8 +5761,12 @@ paths:
                       type: string
               required:
                 - name
-                - domain
                 - provider
+              anyOf:
+                - required:
+                    - domain
+                - required:
+                    - domains
       responses:
         '200':
           $ref: '#/components/responses/SAMLConnection'
@@ -5621,7 +5833,14 @@ paths:
                 domain:
                   type: string
                   description: The domain to use for the new SAML Connection
+                  deprecated: true
                   nullable: true
+                domains:
+                  type: array
+                  items:
+                    type: string
+                  nullable: true
+                  description: A list of the domains ot use for the SAML connection
                 idp_entity_id:
                   type: string
                   description: The entity id as provided by the IdP
@@ -5870,6 +6089,248 @@ paths:
           $ref: '#/components/responses/AccountlessApplication'
         '500':
           $ref: '#/components/responses/ClerkErrors'
+  /management/users:
+    x-internal: true
+    post:
+      operationId: ManagementUpsertUser
+      x-speakeasy-group: management
+      x-speakeasy-name-override: upsertUser
+      tags:
+        - Management
+      summary: Upsert a user
+      description: |
+        Upsert a user using the provided information. If a user with the same email_address exists, it will be updated. Otherwise, a new user will be created.
+        This endpoint is internal and requires a specific management token for authorization.
+      security:
+        - managementToken: []
+      requestBody:
+        description: User data to upsert.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagementUpsertUserRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/User'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /management/organizations:
+    x-internal: true
+    post:
+      operationId: ManagementCreateOrganization
+      x-speakeasy-group: management
+      x-speakeasy-name-override: createOrganization
+      tags:
+        - Management
+      summary: Create an organization
+      description: |
+        Create a new organization.
+        This endpoint is internal and requires a specific management token for authorization.
+      security:
+        - managementToken: []
+      requestBody:
+        description: Organization data to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagementCreateOrganizationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Organization'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /management/applications:
+    x-internal: true
+    post:
+      operationId: ManagementCreateApplication
+      x-speakeasy-group: management
+      x-speakeasy-name-override: createApplication
+      tags:
+        - Management
+      summary: Create an application (instance)
+      description: |
+        Create a new application (instance).
+        This endpoint is internal and requires a specific management token for authorization.
+      security:
+        - managementToken: []
+      requestBody:
+        description: Application data to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagementCreateApplicationRequest'
+      responses:
+        '200':
+          description: Application created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagementApplicationResponse'
+        '400':
+          $ref: '#/components/responses/ClerkErrors'
+        '401':
+          $ref: '#/components/responses/AuthenticationInvalid'
+        '403':
+          $ref: '#/components/responses/AuthorizationInvalid'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /oauth_applications/access_tokens/verify:
+    post:
+      x-speakeasy-group: oauthAccessTokens
+      x-speakeasy-name-override: verify
+      operationId: verifyOAuthAccessToken
+      summary: Verify an OAuth Access Token
+      tags:
+        - OAuth Access Tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_token:
+                  type: string
+                  description: The access token to verify.
+                  example: XXXXXXXXXXXXXX
+                secret:
+                  type: string
+                  description: The access token to verify. This is deprecated, use `access_token` instead.
+                  deprecated: true
+                  example: XXXXXXXXXXXXXX
+      responses:
+        '200':
+          description: 200 OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                      - clerk_idp_oauth_access_token
+                    example: clerk_idp_oauth_access_token
+                  id:
+                    type: string
+                    pattern: ^oat_[0-9A-Fa-f]{32}$
+                    example: oat_0ef5a7a33d87ed87ee7954c845d80450
+                  client_id:
+                    type: string
+                    example: client_2xhFjEI5X2qWRvtV13BzSj8H6Dk
+                  subject:
+                    type: string
+                    pattern: ^user_\w{27}$
+                    example: user_2xhFjEI5X2qWRvtV13BzSj8H6Dk
+                  scopes:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - read
+                      - write
+                  revoked:
+                    type: boolean
+                    example: false
+                  revocation_reason:
+                    type: string
+                    nullable: true
+                    example: Revoked by user
+                  expired:
+                    type: boolean
+                    example: false
+                  expiration:
+                    type: number
+                    nullable: true
+                    example: 1716883200
+                  created_at:
+                    type: number
+                    example: 1716883200
+                  updated_at:
+                    type: number
+                    example: 1716883200
+                required:
+                  - object
+                  - id
+                  - client_id
+                  - subject
+                  - scopes
+                  - revoked
+                  - revocation_reason
+                  - expired
+                  - expiration
+                  - created_at
+                  - updated_at
+                additionalProperties: false
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: Bad Request
+                        long_message:
+                          type: string
+                          example: 'Invalid ''url_parameter.example'': Failed regex check'
+                        code:
+                          type: string
+                          example: bad_request
+                      required:
+                        - message
+                        - long_message
+                        - code
+                required:
+                  - errors
+        '404':
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: some details about the error
+                        long_message:
+                          type: string
+                          example: some details about the error
+                        code:
+                          type: string
+                          example: some_error_code
+                      required:
+                        - message
+                        - long_message
+                        - code
+                required:
+                  - errors
 components:
   securitySchemes:
     bearerAuth:
@@ -5877,6 +6338,10 @@ components:
       scheme: bearer
       description: Secret key, obtained under "API Keys" in the Clerk Dashboard.
       bearerFormat: sk_<environment>_<secret value>
+    managementToken:
+      type: http
+      scheme: bearer
+      description: Internal management token.
   schemas:
     JWKS.ed25519.PublicKey:
       type: object
@@ -6160,6 +6625,86 @@ components:
               - $ref: '#/components/schemas/JWKS.ecdsa.PrivateKey'
               - $ref: '#/components/schemas/JWKS.rsa.PrivateKey'
               - $ref: '#/components/schemas/JWKS.symmetric.Key'
+    AWSCredential:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          description: |
+            String representing the object's type. Objects of the same type share the same value.
+          enum:
+            - aws_credential
+        access_key_id:
+          type: string
+        user_pool_ids:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: integer
+          format: int64
+          description: |
+            Unix timestamp of creation
+        updated_at:
+          type: integer
+          format: int64
+          description: |
+            Unix timestamp of creation
+      required:
+        - id
+        - object
+        - access_key_id
+        - user_pool_ids
+        - created_at
+        - updated_at
+    ClerkError:
+      type: object
+      properties:
+        message:
+          type: string
+        long_message:
+          type: string
+        code:
+          type: string
+        meta:
+          type: object
+        clerk_trace_id:
+          type: string
+      required:
+        - message
+        - long_message
+        - code
+    ClerkErrors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClerkError'
+        meta:
+          type: object
+        clerk_trace_id:
+          type: string
+      required:
+        - errors
+    DeletedObject:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+        id:
+          type: string
+        slug:
+          type: string
+        deleted:
+          type: boolean
+      required:
+        - object
+        - deleted
     SessionActivityResponse:
       type: object
       nullable: true
@@ -6186,6 +6731,13 @@ components:
         - id
         - object
         - is_mobile
+    SessionTask:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+        - key
     Session:
       type: object
       additionalProperties: false
@@ -6215,6 +6767,7 @@ components:
             - removed
             - abandoned
             - replaced
+            - pending
         last_active_organization_id:
           type: string
           nullable: true
@@ -6242,6 +6795,11 @@ components:
           format: int64
           description: |
             Unix timestamp of creation.
+        tasks:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/SessionTask'
       required:
         - object
         - id
@@ -6306,36 +6864,6 @@ components:
         - last_active_session_id
         - updated_at
         - created_at
-    ClerkError:
-      type: object
-      properties:
-        message:
-          type: string
-        long_message:
-          type: string
-        code:
-          type: string
-        meta:
-          type: object
-        clerk_trace_id:
-          type: string
-      required:
-        - message
-        - long_message
-        - code
-    ClerkErrors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClerkError'
-        meta:
-          type: object
-        clerk_trace_id:
-          type: string
-      required:
-        - errors
     OTP:
       type: object
       additionalProperties: false
@@ -6518,21 +7046,6 @@ components:
         - reserved
         - created_at
         - updated_at
-    DeletedObject:
-      type: object
-      additionalProperties: false
-      properties:
-        object:
-          type: string
-        id:
-          type: string
-        slug:
-          type: string
-        deleted:
-          type: boolean
-      required:
-        - object
-        - deleted
     PhoneNumber:
       type: object
       additionalProperties: false
@@ -6661,6 +7174,9 @@ components:
         can_delete:
           type: boolean
           description: whether this template can be deleted
+        can_edit_body:
+          type: boolean
+          description: whether the body of this template can be edited
         can_toggle:
           type: boolean
           description: whether this template can be enabled or disabled, true only for notification SMS templates
@@ -6944,6 +7460,9 @@ components:
         username:
           type: string
           nullable: true
+        phone_number:
+          type: string
+          nullable: true
         public_metadata:
           type: object
           additionalProperties: true
@@ -7028,6 +7547,11 @@ components:
           type: string
         domain:
           type: string
+          deprecated: true
+        domains:
+          type: array
+          items:
+            type: string
         active:
           type: boolean
         provider:
@@ -7053,12 +7577,16 @@ components:
       required:
         - id
         - name
-        - domain
         - active
         - provider
         - sync_user_attributes
         - created_at
         - updated_at
+      anyOf:
+        - required:
+            - domain
+        - required:
+            - domains
     SAMLAccount:
       type: object
       additionalProperties: false
@@ -7270,9 +7798,9 @@ components:
         The hashing algorithm that was used to generate the password digest.
 
         The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-        [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+        [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
         [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-        and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+        [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
 
         Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
     TotalCount:
@@ -7354,6 +7882,10 @@ components:
           type: string
         slug:
           type: string
+        image_url:
+          type: string
+        has_image:
+          type: boolean
         members_count:
           type: integer
         missing_member_with_elevated_permissions:
@@ -7387,10 +7919,10 @@ components:
         - id
         - name
         - slug
+        - has_image
         - max_allowed_memberships
         - admin_delete_enabled
         - public_metadata
-        - private_metadata
         - created_at
         - updated_at
     OrganizationMembershipPublicUserData:
@@ -7986,6 +8518,19 @@ components:
         - signing_algorithm
         - created_at
         - updated_at
+    MachineToken:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          enum:
+            - token
+        jwt:
+          type: string
+      required:
+        - object
+        - jwt
     Organizations:
       type: object
       additionalProperties: false
@@ -8462,6 +9007,18 @@ components:
           type: string
         client_id:
           type: string
+        client_uri:
+          type: string
+          nullable: true
+        client_image_url:
+          type: string
+          nullable: true
+        dynamically_registered:
+          type: boolean
+        consent_screen_enabled:
+          type: boolean
+        pkce_required:
+          type: boolean
         public:
           type: boolean
         scopes:
@@ -8500,8 +9057,13 @@ components:
         - id
         - instance_id
         - name
+        - dynamically_registered
+        - consent_screen_enabled
+        - pkce_required
         - public
         - client_id
+        - client_uri
+        - client_image_url
         - scopes
         - redirect_uris
         - callback_url
@@ -8567,6 +9129,11 @@ components:
           type: string
         domain:
           type: string
+          deprecated: true
+        domains:
+          type: array
+          items:
+            type: string
         idp_entity_id:
           type: string
           nullable: true
@@ -8621,7 +9188,6 @@ components:
         - object
         - id
         - name
-        - domain
         - idp_entity_id
         - idp_sso_url
         - idp_certificate
@@ -8634,6 +9200,11 @@ components:
         - sync_user_attributes
         - created_at
         - updated_at
+      anyOf:
+        - required:
+            - domain
+        - required:
+            - domains
     SAMLConnections:
       type: object
       additionalProperties: false
@@ -8737,6 +9308,149 @@ components:
       required:
         - object
         - publishable_key
+    ManagementUpsertUserRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        email_address:
+          type: string
+          description: The email address of the user.
+        first_name:
+          type: string
+          description: The first name of the user.
+        last_name:
+          type: string
+          description: The last name of the user.
+      required:
+        - email_address
+        - first_name
+        - last_name
+    ManagementCreateOrganizationRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the organization.
+        slug:
+          type: string
+          description: The slug of the organization.
+        created_by:
+          type: string
+          description: The ID of the user who created the organization.
+        max_allowed_memberships:
+          type: integer
+          description: The maximum allowed memberships for the organization.
+        public_metadata:
+          type: object
+          description: Public metadata for the organization.
+        private_metadata:
+          type: object
+          description: Private metadata for the organization.
+        created_at:
+          type: string
+          format: date-time
+          description: The creation timestamp in RFC3339 format.
+      required:
+        - name
+        - slug
+    ManagementCreateApplicationRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the application.
+        owner_id:
+          type: string
+          description: The owner ID (organization ID) of the application.
+        plan_id:
+          type: string
+          description: The plan ID for the application (e.g., "free_2022_06", "pro_2023_11").
+        addon_ids:
+          type: array
+          items:
+            type: string
+          description: List of add-on IDs (e.g., ["enhanced_auth_2023_11", "enhanced_orgs_2023_11"]).
+        paid_externally:
+          type: boolean
+          description: Whether the application is paid externally.
+        test_mode:
+          type: boolean
+          description: Whether the application is in test mode.
+        max_allowed_users:
+          type: integer
+          description: Maximum allowed users for the application.
+        max_allowed_organizations:
+          type: integer
+          description: Maximum allowed organizations for the application.
+        subscription_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Subscription metadata for the application.
+        environment_types:
+          type: array
+          items:
+            type: string
+            enum:
+              - development
+              - staging
+              - production
+          description: List of environment types to create instances for.
+      required:
+        - name
+        - owner_id
+        - plan_id
+    ManagementApplicationSubscription:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        stripe_subscription_id:
+          type: string
+          nullable: true
+      required:
+        - id
+    ManagementApplicationInstance:
+      type: object
+      additionalProperties: false
+      properties:
+        instance_id:
+          type: string
+          description: The ID of the instance.
+        environment_type:
+          type: string
+          description: The environment type of the instance.
+        secret_key:
+          type: string
+          description: The secret key of the instance.
+        publishable_key:
+          type: string
+          description: The publishable key of the instance.
+      required:
+        - instance_id
+        - environment_type
+        - secret_key
+        - publishable_key
+    ManagementApplicationResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        application_id:
+          type: string
+          description: The ID of the application.
+        subscription:
+          $ref: '#/components/schemas/ManagementApplicationSubscription'
+        instances:
+          type: array
+          description: List of instances associated with this application.
+          items:
+            $ref: '#/components/schemas/ManagementApplicationInstance'
+      required:
+        - application_id
+        - instances
   responses:
     WellKnown.JWKS:
       description: Get the JSON Web Key Set
@@ -8744,14 +9458,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/JWKS'
-    Client.List:
+    AWSCredential.List:
       description: Success
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Client'
+              $ref: '#/components/schemas/AWSCredential'
+    AWSCredential:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AWSCredential'
     ClerkErrors:
       description: Request was not successful
       content:
@@ -8764,8 +9484,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ClerkErrors'
-    DeprecatedEndpoint:
-      description: The endpoint is considered deprecated and is pending removal.
+    AuthorizationInvalid:
+      description: Authorization invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClerkErrors'
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -8776,36 +9502,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ClerkErrors'
-    Client:
-      description: Success
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Client'
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClerkErrors'
-    EmailAddress:
-      description: Success
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/EmailAddress'
-    AuthorizationInvalid:
-      description: Authorization invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClerkErrors'
     DeletedObject:
       description: Deleted Object
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/DeletedObject'
+    Client.List:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Client'
+    DeprecatedEndpoint:
+      description: The endpoint is considered deprecated and is pending removal.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClerkErrors'
+    Client:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Client'
+    EmailAddress:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EmailAddress'
     PhoneNumber:
       description: Success
       content:
@@ -9027,6 +9755,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/JWTTemplate'
+    MachineToken:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MachineToken'
     Organizations:
       description: A list of organizations
       content:

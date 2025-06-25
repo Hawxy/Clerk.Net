@@ -12,16 +12,6 @@ namespace Clerk.Net.Client.Models
     public partial class OrganizationWithLogo : global::Clerk.Net.Client.Models.Organization, IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The has_image property</summary>
-        public bool? HasImage { get; set; }
-        /// <summary>The image_url property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ImageUrl { get; set; }
-#nullable restore
-#else
-        public string ImageUrl { get; set; }
-#endif
         /// <summary>The logo_url property</summary>
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -49,8 +39,6 @@ namespace Clerk.Net.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>(base.GetFieldDeserializers())
             {
-                { "has_image", n => { HasImage = n.GetBoolValue(); } },
-                { "image_url", n => { ImageUrl = n.GetStringValue(); } },
                 { "logo_url", n => { LogoUrl = n.GetStringValue(); } },
             };
         }
@@ -62,8 +50,6 @@ namespace Clerk.Net.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             base.Serialize(writer);
-            writer.WriteBoolValue("has_image", HasImage);
-            writer.WriteStringValue("image_url", ImageUrl);
             writer.WriteStringValue("logo_url", LogoUrl);
         }
     }

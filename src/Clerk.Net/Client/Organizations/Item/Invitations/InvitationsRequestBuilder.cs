@@ -47,7 +47,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InvitationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations{?limit*,offset*,status*}", pathParameters)
+        public InvitationsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations{?email_address*,limit*,offset*,status*}", pathParameters)
         {
         }
         /// <summary>
@@ -55,7 +55,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public InvitationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations{?limit*,offset*,status*}", rawUrl)
+        public InvitationsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/organizations/{organization_id}/invitations{?email_address*,limit*,offset*,status*}", rawUrl)
         {
         }
         /// <summary>
@@ -66,6 +66,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 400 status code</exception>
         /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 404 status code</exception>
+        /// <exception cref="global::Clerk.Net.Client.Models.ClerkErrors">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Clerk.Net.Client.Models.OrganizationInvitations?> GetAsync(Action<RequestConfiguration<global::Clerk.Net.Client.Organizations.Item.Invitations.InvitationsRequestBuilder.InvitationsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -80,6 +81,7 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
             {
                 { "400", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
                 { "404", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
+                { "422", global::Clerk.Net.Client.Models.ClerkErrors.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Clerk.Net.Client.Models.OrganizationInvitations>(requestInfo, global::Clerk.Net.Client.Models.OrganizationInvitations.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -170,6 +172,16 @@ namespace Clerk.Net.Client.Organizations.Item.Invitations
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
         public partial class InvitationsRequestBuilderGetQueryParameters 
         {
+            /// <summary>Returns organization invitations inviting the specified email address.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            [QueryParameter("email_address")]
+            public string? EmailAddress { get; set; }
+#nullable restore
+#else
+            [QueryParameter("email_address")]
+            public string EmailAddress { get; set; }
+#endif
             /// <summary>Applies a limit to the number of results returned.Can be used for paginating the results together with `offset`.</summary>
             [QueryParameter("limit")]
             public int? Limit { get; set; }

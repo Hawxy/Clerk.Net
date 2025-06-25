@@ -29,12 +29,21 @@ namespace Clerk.Net.Client.Saml_connections.Item
         /// <summary>Enable or deactivate additional identifications</summary>
         public bool? DisableAdditionalIdentifications { get; set; }
         /// <summary>The domain to use for the new SAML Connection</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Domain { get; set; }
 #nullable restore
 #else
         public string Domain { get; set; }
+#endif
+        /// <summary>A list of the domains ot use for the SAML connection</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? Domains { get; set; }
+#nullable restore
+#else
+        public List<string> Domains { get; set; }
 #endif
         /// <summary>The x509 certificated as provided by the IdP</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -118,6 +127,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
                 { "attribute_mapping", n => { AttributeMapping = n.GetObjectValue<global::Clerk.Net.Client.Saml_connections.Item.WithSaml_connection_PatchRequestBody_attribute_mapping>(global::Clerk.Net.Client.Saml_connections.Item.WithSaml_connection_PatchRequestBody_attribute_mapping.CreateFromDiscriminatorValue); } },
                 { "disable_additional_identifications", n => { DisableAdditionalIdentifications = n.GetBoolValue(); } },
                 { "domain", n => { Domain = n.GetStringValue(); } },
+                { "domains", n => { Domains = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 { "idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
                 { "idp_metadata", n => { IdpMetadata = n.GetStringValue(); } },
@@ -141,6 +151,7 @@ namespace Clerk.Net.Client.Saml_connections.Item
             writer.WriteObjectValue<global::Clerk.Net.Client.Saml_connections.Item.WithSaml_connection_PatchRequestBody_attribute_mapping>("attribute_mapping", AttributeMapping);
             writer.WriteBoolValue("disable_additional_identifications", DisableAdditionalIdentifications);
             writer.WriteStringValue("domain", Domain);
+            writer.WriteCollectionOfPrimitiveValues<string>("domains", Domains);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
             writer.WriteStringValue("idp_metadata", IdpMetadata);

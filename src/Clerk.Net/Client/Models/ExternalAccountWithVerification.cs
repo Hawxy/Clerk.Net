@@ -91,6 +91,14 @@ namespace Clerk.Net.Client.Models
 #endif
         /// <summary>String representing the object&apos;s type. Objects of the same type share the same value.</summary>
         public global::Clerk.Net.Client.Models.ExternalAccountWithVerification_object? Object { get; set; }
+        /// <summary>The phone_number property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? PhoneNumber { get; set; }
+#nullable restore
+#else
+        public string PhoneNumber { get; set; }
+#endif
         /// <summary>The provider property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -169,6 +177,7 @@ namespace Clerk.Net.Client.Models
                 { "label", n => { Label = n.GetStringValue(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
                 { "object", n => { Object = n.GetEnumValue<global::Clerk.Net.Client.Models.ExternalAccountWithVerification_object>(); } },
+                { "phone_number", n => { PhoneNumber = n.GetStringValue(); } },
                 { "provider", n => { Provider = n.GetStringValue(); } },
                 { "provider_user_id", n => { ProviderUserId = n.GetStringValue(); } },
                 { "public_metadata", n => { PublicMetadata = n.GetObjectValue<global::Clerk.Net.Client.Models.ExternalAccountWithVerification_public_metadata>(global::Clerk.Net.Client.Models.ExternalAccountWithVerification_public_metadata.CreateFromDiscriminatorValue); } },
@@ -195,6 +204,7 @@ namespace Clerk.Net.Client.Models
             writer.WriteStringValue("label", Label);
             writer.WriteStringValue("last_name", LastName);
             writer.WriteEnumValue<global::Clerk.Net.Client.Models.ExternalAccountWithVerification_object>("object", Object);
+            writer.WriteStringValue("phone_number", PhoneNumber);
             writer.WriteStringValue("provider", Provider);
             writer.WriteStringValue("provider_user_id", ProviderUserId);
             writer.WriteObjectValue<global::Clerk.Net.Client.Models.ExternalAccountWithVerification_public_metadata>("public_metadata", PublicMetadata);

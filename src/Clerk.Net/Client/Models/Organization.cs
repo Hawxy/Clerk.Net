@@ -26,6 +26,8 @@ namespace Clerk.Net.Client.Models
 #else
         public string CreatedBy { get; set; }
 #endif
+        /// <summary>The has_image property</summary>
+        public bool? HasImage { get; set; }
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -33,6 +35,14 @@ namespace Clerk.Net.Client.Models
 #nullable restore
 #else
         public string Id { get; set; }
+#endif
+        /// <summary>The image_url property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? ImageUrl { get; set; }
+#nullable restore
+#else
+        public string ImageUrl { get; set; }
 #endif
         /// <summary>The max_allowed_memberships property</summary>
         public int? MaxAllowedMemberships { get; set; }
@@ -106,7 +116,9 @@ namespace Clerk.Net.Client.Models
                 { "admin_delete_enabled", n => { AdminDeleteEnabled = n.GetBoolValue(); } },
                 { "created_at", n => { CreatedAt = n.GetLongValue(); } },
                 { "created_by", n => { CreatedBy = n.GetStringValue(); } },
+                { "has_image", n => { HasImage = n.GetBoolValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
+                { "image_url", n => { ImageUrl = n.GetStringValue(); } },
                 { "max_allowed_memberships", n => { MaxAllowedMemberships = n.GetIntValue(); } },
                 { "members_count", n => { MembersCount = n.GetIntValue(); } },
                 { "missing_member_with_elevated_permissions", n => { MissingMemberWithElevatedPermissions = n.GetBoolValue(); } },
@@ -129,7 +141,9 @@ namespace Clerk.Net.Client.Models
             writer.WriteBoolValue("admin_delete_enabled", AdminDeleteEnabled);
             writer.WriteLongValue("created_at", CreatedAt);
             writer.WriteStringValue("created_by", CreatedBy);
+            writer.WriteBoolValue("has_image", HasImage);
             writer.WriteStringValue("id", Id);
+            writer.WriteStringValue("image_url", ImageUrl);
             writer.WriteIntValue("max_allowed_memberships", MaxAllowedMemberships);
             writer.WriteIntValue("members_count", MembersCount);
             writer.WriteBoolValue("missing_member_with_elevated_permissions", MissingMemberWithElevatedPermissions);

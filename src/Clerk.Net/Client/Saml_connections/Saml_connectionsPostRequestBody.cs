@@ -21,12 +21,21 @@ namespace Clerk.Net.Client.Saml_connections
         public global::Clerk.Net.Client.Saml_connections.Saml_connectionsPostRequestBody_attribute_mapping AttributeMapping { get; set; }
 #endif
         /// <summary>The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.</summary>
+        [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Domain { get; set; }
 #nullable restore
 #else
         public string Domain { get; set; }
+#endif
+        /// <summary>The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<string>? Domains { get; set; }
+#nullable restore
+#else
+        public List<string> Domains { get; set; }
 #endif
         /// <summary>The X.509 certificate as provided by the IdP</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -106,6 +115,7 @@ namespace Clerk.Net.Client.Saml_connections
             {
                 { "attribute_mapping", n => { AttributeMapping = n.GetObjectValue<global::Clerk.Net.Client.Saml_connections.Saml_connectionsPostRequestBody_attribute_mapping>(global::Clerk.Net.Client.Saml_connections.Saml_connectionsPostRequestBody_attribute_mapping.CreateFromDiscriminatorValue); } },
                 { "domain", n => { Domain = n.GetStringValue(); } },
+                { "domains", n => { Domains = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
                 { "idp_certificate", n => { IdpCertificate = n.GetStringValue(); } },
                 { "idp_entity_id", n => { IdpEntityId = n.GetStringValue(); } },
                 { "idp_metadata", n => { IdpMetadata = n.GetStringValue(); } },
@@ -125,6 +135,7 @@ namespace Clerk.Net.Client.Saml_connections
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Clerk.Net.Client.Saml_connections.Saml_connectionsPostRequestBody_attribute_mapping>("attribute_mapping", AttributeMapping);
             writer.WriteStringValue("domain", Domain);
+            writer.WriteCollectionOfPrimitiveValues<string>("domains", Domains);
             writer.WriteStringValue("idp_certificate", IdpCertificate);
             writer.WriteStringValue("idp_entity_id", IdpEntityId);
             writer.WriteStringValue("idp_metadata", IdpMetadata);
