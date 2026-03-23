@@ -4,6 +4,8 @@
 [![Nuget](https://img.shields.io/nuget/v/Clerk.Net.DependencyInjection?label=Clerk.Net.DependencyInjection&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.DependencyInjection)
 [![Nuget](https://img.shields.io/nuget/vpre/Clerk.Net.AspNetCore.Security?label=Clerk.Net.AspNetCore.Security&style=flat-square)](https://www.nuget.org/packages/Clerk.Net.AspNetCore.Security)
 
+#### NOTICE: This project is not currently maintained. Some discussions took place with the intention of making this project officially supported but Clerk elected to go in a different direction. I'm also not using Clerk for any personal projects at the moment, thus my time is better spent elsewhere. For users of `Clerk.Net.AspNetCore.Security` I suggest copying the code into your own project. I may pick this up again down the road, we'll see.
+
 ### Packages
 
 **`Clerk.Net`**: Clerk API Client generated with Kiota from Clerk's OpenAPI spec. Compatible with .NET 6+ and .NET Framework 4.7.2+.
