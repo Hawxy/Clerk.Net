@@ -87,21 +87,34 @@ For unit testing, see [Unit testing Kiota API clients](https://learn.microsoft.c
 You should have a new or existing ASP.NET Core application created before continuing.
 
 Install `Clerk.Net.AspNetCore.Security` from Nuget or via the .NET CLI:
+
 ```
 dotnet add package Clerk.Net.AspNetCore.Security
 ```
- 
-1. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParty` - the Frontend URL of your application:
+
+1. Call `AddClerkAuthentication` within your authentication builder, passing in an `Authority` - the Frontend URI of your Clerk instance - and an `AuthorizedParties` - the Frontend URLs of your applications:
+
 ```csharp
 builder.Services.AddAuthentication(ClerkAuthenticationDefaults.AuthenticationScheme)
     .AddClerkAuthentication(x =>
     {
         x.Authority = builder.Configuration["Clerk:Authority"]!;
-        x.AuthorizedParty = builder.Configuration["Clerk:AuthorizedParty"]!;
+        x.AuthorizedParties = builder.Configuration["Clerk:AuthorizedParties"]!;
     });
 ```
 
+with appsettings.json
+```json
+{
+  "ClerkAuth": {
+    "AuthorizedParties": ["http://localhost:5173", "http://api.dev.sample.com"],
+    "Authority": "<your-clerk-issuer>"
+  }
+}
+```
+
 2. Configure an Authorization policy to require authorization by default:
+
 ```csharp
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(new AuthorizationPolicyBuilder()

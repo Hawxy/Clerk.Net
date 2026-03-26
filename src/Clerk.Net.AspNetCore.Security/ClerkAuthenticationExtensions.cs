@@ -41,7 +41,7 @@ public static class ClerkAuthenticationExtensions
 
         if (string.IsNullOrEmpty(optionsObj.Authority))
             throw new InvalidOperationException("Clerk Authority cannot be empty or null");
-        
+
         return builder.AddJwtBearer(authenticationScheme, x =>
         {
             x.Authority = optionsObj.Authority;
@@ -53,18 +53,41 @@ public static class ClerkAuthenticationExtensions
             x.Events = new JwtBearerEvents()
             {
                 // Additional validation for AZP claim
+                // NOTE: Validation will succeed if neither AuthorizedParty nor AuthorizedParties is set
                 OnTokenValidated = context =>
                 {
                     var azp = context.Principal?.FindFirstValue("azp");
-                    if (!string.IsNullOrEmpty(azp) && !azp.Equals(optionsObj.AuthorizedParty))
-                        context.Fail("AZP Claim is invalid or missing");
+
+                    if (string.IsNullOrEmpty(azp))
+                    {
+                        context.Fail("AZP Claim is missing");
+                    }
+
+                    // OBSOLETE: Check single AuthorizedParty
+                    if (!string.IsNullOrEmpty(optionsObj.AuthorizedParty))
+                    {
+                        if (azp != optionsObj.AuthorizedParty)
+                        {
+                            context.Fail("AZP Claim does not match the authorized party");
+                        }
+                    }
+
+                    // Check multiple AuthorizedParties
+                    if (optionsObj.AuthorizedParties != null &&
+                        optionsObj.AuthorizedParties.Count > 0)
+                    {
+                        if (!optionsObj.AuthorizedParties.Contains(azp))
+                        {
+                            context.Fail("AZP Claim is not in the list of authorized parties");
+                        }
+                    }
 
                     return Task.CompletedTask;
                 },
                 OnMessageReceived = context =>
                 {
                     context.Token = context.Request.Cookies["__session"];
-                    
+
                     return Task.CompletedTask;
                 }
             };
